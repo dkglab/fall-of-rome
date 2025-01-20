@@ -2,6 +2,7 @@
 name: Bug report
 about: Create a report to help us improve
 title: ''
+type: 'Bug'
 labels: bug
 assignees: ''
 
@@ -11,7 +12,7 @@ assignees: ''
 
 A clear and concise description of what the bug is.
 
-**To Reproduce**
+**To reproduce**
 
 Detailed steps to reproduce the behavior.
 
