@@ -2,6 +2,7 @@
 name: Developer task
 about: A specific piece of work
 title: ''
+type: 'Task'
 labels: ''
 assignees: ''
 
