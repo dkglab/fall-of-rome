@@ -2,7 +2,6 @@
 name: User story
 about: A unit of user-visible functionality
 title: ''
-type: 'Story'
 labels: ''
 assignees: ''
 
