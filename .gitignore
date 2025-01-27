@@ -1,0 +1,3 @@
+/data/located-sites/located-sites.ttl
+tools/sparql-anything/*
+!tools/sparql-anything/Makefile
