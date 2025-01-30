@@ -1,0 +1,17 @@
+{
+    "name": "Customized Java",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "postCreateCommand": "make setup",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "GitHub.copilot",
+                "GitHub.copilot-chat",
+                "rdfox.rdfox-rdf",
+                "mechatroner.rainbow-csv"
+            ]
+        }
+    }
+}

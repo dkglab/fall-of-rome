@@ -1,0 +1,5 @@
+{
+      "git.autofetch": true,
+      "git.rebaseWhenSync": true,
+      "git.useEditorAsCommitInput": false
+}
