@@ -8,8 +8,10 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 CONSTRUCT {
   ?site a geo:Feature ;
     skos:prefLabel ?site_name ;
-    geo:hasGeometry [ geo:asWKT ?wkt ] ;
+    geo:hasGeometry ?geo ;
     .
+
+    ?geo geo:asWKT ?wkt .
 }
 WHERE {
   SERVICE <x-sparql-anything:> {
@@ -21,6 +23,7 @@ WHERE {
     ?row xyz:Latitude ?latitude .
 
     BIND(IRI(CONCAT(STR(for:), "site/", ?hllg_number)) as ?site)
+    BIND(fx:entity(for:, "site/", ?hllg_number, "/geo") as ?geo)
     BIND(CONCAT("POINT(", ?longitude, " ", ?latitude, ")") as ?wkt)
   }
 }
