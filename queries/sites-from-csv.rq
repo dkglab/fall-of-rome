@@ -9,6 +9,7 @@ CONSTRUCT {
   ?site a geo:Feature ;
     skos:prefLabel ?site_name ;
     geo:hasGeometry ?geo ;
+    for:hasArtifactType ?mct ;
     .
 
     ?geo geo:asWKT ?wkt .
@@ -21,6 +22,7 @@ WHERE {
     ?row xyz:Site%20Name ?site_name .
     ?row xyz:Longitude ?longitude .
     ?row xyz:Latitude ?latitude .
+    ?row ?mct "1" .
 
     BIND(fx:entity(for:, "site/", ?hllg_number) as ?site)
     BIND(fx:entity(for:, "site/", ?hllg_number, "/geo") as ?geo)
