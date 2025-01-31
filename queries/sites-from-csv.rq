@@ -22,7 +22,7 @@ WHERE {
     ?row xyz:Longitude ?longitude .
     ?row xyz:Latitude ?latitude .
 
-    BIND(IRI(CONCAT(STR(for:), "site/", ?hllg_number)) as ?site)
+    BIND(fx:entity(for:, "site/", ?hllg_number) as ?site)
     BIND(fx:entity(for:, "site/", ?hllg_number, "/geo") as ?geo)
     BIND(CONCAT("POINT(", ?longitude, " ", ?latitude, ")") as ?wkt)
   }
