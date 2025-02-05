@@ -4,8 +4,9 @@ Publishing historical data and argumentation as a knowledge graph.
 
 See the [wiki](https://github.com/dkglab/fall-of-rome/wiki).
 
-## Geolocated archaeological site data
+## Constructing the graph
 
-To construct RDF data from the [archaeological site
-data](data/located-sites/), run `make all` to create
-`data/located-sites/located-sites.ttl`.
+Run `make all` to create Turtle files in the `graph` subdirectory from
+the CSV files in the `data` directory.
+
+To rebuild from scratch, run `make clean all`.
