@@ -1,3 +1,4 @@
-/data/located-sites/located-sites.ttl
-tools/sparql-anything/*
-!tools/sparql-anything/Makefile
+/tools/sparql-anything/*
+!/tools/sparql-anything/Makefile
+/data/*/input.csv
+/graph/*.ttl
