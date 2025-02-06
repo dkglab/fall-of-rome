@@ -16,11 +16,11 @@ endif
 
 .PHONY: all clean
 
-all: $(SM_BIN)
+all: snowman
 
 clean:
 	rm -rf !(Makefile)
 
-$(SM_BIN):
-	curl -L $(SM_HOST)/$(SM_VERSION)/$(SM_BIN) > $@
-	chmod +x $@
+snowman:
+	curl -L $(SM_HOST)/$(SM_VERSION)/$(SM_BIN) > snowman
+	chmod +x snowman
