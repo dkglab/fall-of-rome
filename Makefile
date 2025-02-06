@@ -1,19 +1,32 @@
 SA := tools/sparql-anything/sparql-anything.jar
+RSPARQL := ./tools/jena/bin/rsparql
+QUERY ?= queries/geosparql.rq
 
-.PHONY: all setup clean superclean
+.PHONY: all setup run-query clean superclean
 
 all: graph/located-sites.ttl graph/site-types.ttl
 
-setup: $(SA)
+setup: $(SA) $(RSPARQL)
+
+run-query: graph/located-sites.ttl | $(RSPARQL)
+	$(MAKE) -s -C tools/geosparql start
+	$(RSPARQL) \
+	--query $(QUERY) \
+	--service http://localhost:3030/sites
 
 clean:
 	rm -rf graph data/*/input.csv
 
 superclean: clean
 	$(MAKE) -s -C tools/sparql-anything clean
+	$(MAKE) -s -C tools/jena clean
+	$(MAKE) -s -C tools/geosparql clean
 
 $(SA):
 	$(MAKE) -s -C tools/sparql-anything
+
+$(RSPARQL):
+	$(MAKE) -s -C tools/jena
 
 data/located-sites/input.csv: data/located-sites/located-sites.csv
 	cp $< $@

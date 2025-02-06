@@ -26,6 +26,8 @@ WHERE {
 
     BIND(fx:entity(for:, "site/", ?hllg_number) as ?site)
     BIND(fx:entity(for:, "site/", ?hllg_number, "/geo") as ?geo)
-    BIND(CONCAT("POINT(", ?longitude, " ", ?latitude, ")") as ?wkt)
+    BIND(STRDT(
+      CONCAT("POINT(", ?longitude, " ", ?latitude, ")"),
+      geo:wktLiteral) as ?wkt)
   }
 }
