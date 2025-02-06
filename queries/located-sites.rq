@@ -7,9 +7,11 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
 CONSTRUCT {
   ?site a geo:Feature ;
-    skos:prefLabel ?site_name ;
+    skos:prefLabel ?processed ;
+    skos:altLabel ?site_name ;
     geo:hasGeometry ?geo ;
     for:hasArtifactType ?mct ;
+    for:towns ?towns ;
     .
 
     ?geo geo:asWKT ?wkt .
@@ -20,6 +22,8 @@ WHERE {
 
     ?row xyz:HLLG%20%23 ?hllg_number .
     ?row xyz:Site%20Name ?site_name .
+    ?row xyz:processed ?processed .
+    ?row xyz:towns ?towns .
     ?row xyz:Longitude ?longitude .
     ?row xyz:Latitude ?latitude .
     ?row ?mct "1" .
