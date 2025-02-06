@@ -1,4 +1,8 @@
 /tools/sparql-anything/*
 !/tools/sparql-anything/Makefile
+/tools/jena/*
+!/tools/jena/Makefile
+/tools/geosparql/*
+!/tools/geosparql/Makefile
 /data/*/input.csv
 /graph/*.ttl
