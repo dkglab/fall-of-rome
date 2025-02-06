@@ -59,3 +59,8 @@ graph/%.ttl: data/%/input.csv queries/%.rq | $(SA)
 	-c location=$< \
 	-q queries/$*.rq \
 	> $@
+
+build-snowman: $(SM)
+	$(MAKE) -s -C tools/geosparql start
+	cd snowman; \
+	../$(SM) build
