@@ -3,6 +3,7 @@ PREFIX fx: <http://sparql.xyz/facade-x/ns/>
 PREFIX for: <https://dkglab.github.io/ns/for/>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX apf:  <http://jena.apache.org/ARQ/property#>
 
 
 CONSTRUCT {
@@ -23,10 +24,15 @@ WHERE {
     ?row xyz:HLLG%20%23 ?hllg_number .
     ?row xyz:Site%20Name ?site_name .
     ?row xyz:processed ?processed .
-    ?row xyz:towns ?towns .
+    ?row xyz:towns ?joined_towns.
     ?row xyz:Longitude ?longitude .
     ?row xyz:Latitude ?latitude .
     ?row ?mct "1" .
+
+    OPTIONAL {
+      ?towns apf:strSplit (?joined_towns ',')
+      FILTER(STR(?towns) != '')
+    }
 
     BIND(fx:entity(for:, "site/", ?hllg_number) as ?site)
     BIND(fx:entity(for:, "site/", ?hllg_number, "/geo") as ?geo)
