@@ -30,6 +30,7 @@ $(RSPARQL):
 
 data/located-sites/input.csv: data/located-sites/located-sites.csv
 	cp $< $@
+	py scripts/process-site-names.py
 
 data/site-types/input.csv: data/site-types/site-types.csv
 	cp $< $@
