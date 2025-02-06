@@ -8,3 +8,5 @@
 !/tools/geosparql/Makefile
 /data/*/input.csv
 /graph/*.ttl
+snowman/site
+snowman/.snowman
