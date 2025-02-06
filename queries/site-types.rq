@@ -6,12 +6,13 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
 
 CONSTRUCT {
-  ?s ?p ?o .
+  [ skos:prefLabel  ?prefLabel ]
 }
 WHERE {
   SERVICE <x-sparql-anything:> {
     fx:properties fx:csv.headers "true" .
 
-    ?s ?p ?o .
+    ?row xyz:prefLabel ?prefLabel .
+    BIND(fx:entity(for:, "site-type/", ?hllg_number) as ?site)
   }
 }
