@@ -5,6 +5,6 @@ PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
 select ?site ?site_name where {
-    ?site skos:prefLabel ?site_name
+    ?site skos:prefLabel ?site_name .
 }
 order by LCASE(?site_name)
