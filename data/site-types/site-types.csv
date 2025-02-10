@@ -1,39 +1,39 @@
-ID,Site_Type,prefLabel,Analysis_Site_Type,wiki_id
-cave,Cave,Cave,Cave,Q35509
-city,City,City,City,
-city-hillfort,City / Hillfort ,City / Hillfort ,City,
-city-?,City? ,City? ,City,
-small-city,Small City ,Small City ,City,
-coin-find,Coin find ,Coin find ,Coin find,
-coin-hoard,Coin hoard ,Coin hoard ,Coin find,Q15484785
-hillfort ,Hillfort ,Hillfort ,Hillfort,
-hillfort-mansio ,Hillfort / Mansio ,Hillfort / Mansio ,Hillfort,
-hillfort-villa,Hillfort / Villa ,Hillfort / Villa ,Hillfort,
-hillfort-?,Hillfort?,Hillfort?,Hillfort,
-island,Island,Island,Island,Q23442
-military-camp,Military Camp,Military Camp,Military Camp,Q1198413
-military-installation,Military Installation,Military Installation,Military Installation,
-mine,Mine ,Mine ,Mine,Q820477
-monument,Monument,Monument,Monument,Q4989906
-necropolis,Necropolis,Necropolis,Necropolis,Q200141
-no-context,No context ,No context ,No context,
-ceramic-scatter,Ceramic scatter,Ceramic scatter,Other rural,
-rural-settlement,Rural settlement ,Rural settlement ,Other rural,
-rural-settlement-?,Rural settlement? ,Rural settlement? ,Other rural,
-domus,Domus,Domus,Other urban,Q782970
-industrial,Industrial,Industrial,Other urban,
-mansio-villa,Mansio / Villa ,Mansio / Villa ,Other urban,Q1891165
-mansio-?,Mansio?,Mansio?,Other urban,
-olive-production-center ,Olive production center ,Olive production center ,Other urban,
-salting-site ,Salting site ,Salting site ,Other urban,
-urban-area-1 ,Urban area ,Urban area ,Other urban,
-urban-area-2 ,Urban Area ,Urban Area ,Other urban,
-urban-area-domus ,Urban Area / Domus ,Urban Area / Domus ,Other urban,
-urban-area-hillfort ,Urban area / Hillfort ,Urban area / Hillfort ,Other urban,
-urban-bath,Urban bath,Urban bath,Other urban,Q105723968
-palace,Palace ,Palace ,Palace,Q16560
-roman-road ,Roman road ,Roman road ,Roman road,Q28670463
-sanctuary-shrine,Sanctuary / Shrine,Sanctuary / Shrine,Sancturary / Shrine,Q29553
-underwater-site ,Underwater Site ,Underwater Site ,Underwater Site,
-villa,Villa,Villa,Villa,Q918230
-villa-? ,Villa? ,Villa? ,Villa,
+ID,Site_Type,prefLabel,Analysis_Site_Type,wiki_id,pleiades_place
+cave,Cave,Cave,Cave,Q35509,cave
+city,City,City,City,,
+city-hillfort,City / Hillfort ,City / Hillfort ,City,,
+city-?,City? ,City? ,City,,
+small-city,Small City ,Small City ,City,,
+coin-find,Coin find ,Coin find ,Coin find,,
+coin-hoard,Coin hoard ,Coin hoard ,Coin find,Q15484785,coin hoard
+hillfort ,Hillfort ,Hillfort ,Hillfort,Q744099,hillfort
+hillfort-mansio ,Hillfort / Mansio ,Hillfort / Mansio ,Hillfort,,
+hillfort-villa,Hillfort / Villa ,Hillfort / Villa ,Hillfort,,
+hillfort-?,Hillfort?,Hillfort?,Hillfort,,
+island,Island,Island,Island,Q23442,island
+military-camp,Military Camp,Military Camp,Military Camp,Q1198413,
+military-installation,Military Installation,Military Installation,Military Installation,,
+mine,Mine ,Mine ,Mine,Q820477,mine
+monument,Monument,Monument,Monument,Q4989906,monument
+necropolis,Necropolis,Necropolis,Necropolis,Q200141,necropolis
+no-context,No context ,No context ,No context,,
+ceramic-scatter,Ceramic scatter,Ceramic scatter,Other rural,,
+rural-settlement,Rural settlement ,Rural settlement ,Other rural,,settlement
+rural-settlement-?,Rural settlement? ,Rural settlement? ,Other rural,,
+domus,Domus,Domus,Other urban,Q782970 ,
+industrial,Industrial,Industrial,Other urban,,production center
+mansio-villa,Mansio / Villa ,Mansio / Villa ,Other urban,Q1891165,
+mansio-?,Mansio?,Mansio?,Other urban,,
+olive-production-center ,Olive production center ,Olive production center ,Other urban,,production center
+salting-site ,Salting site ,Salting site ,Other urban,,production center
+urban-area-1 ,Urban area ,Urban area ,Other urban,,
+urban-area-2 ,Urban Area ,Urban Area ,Other urban,,
+urban-area-domus ,Urban Area / Domus ,Urban Area / Domus ,Other urban,,
+urban-area-hillfort ,Urban area / Hillfort ,Urban area / Hillfort ,Other urban,,
+urban-bath,Urban bath,Urban bath,Other urban,Q105723968,bath
+palace,Palace ,Palace ,Palace,Q16560,palace
+roman-road ,Roman road ,Roman road ,Roman road,Q28670463,road
+sanctuary-shrine,Sanctuary / Shrine,Sanctuary / Shrine,Sancturary / Shrine,Q29553,sanctuary
+underwater-site ,Underwater Site ,Underwater Site ,Underwater Site,,
+villa,Villa,Villa,Villa,Q918230,villa
+villa-? ,Villa? ,Villa? ,Villa,,
