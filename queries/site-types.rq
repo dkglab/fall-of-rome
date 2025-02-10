@@ -13,7 +13,8 @@ CONSTRUCT {
         dcterms:identifier ?id ;
         #skos:notation ?SiteType;
         skos:broader ?analysisSiteType ;   #can we link to analysis site type field here?
-        skos:exactMatch ?wikiEntity .
+        skos:exactMatch ?wikiEntity ;
+        skos:closeMatch ?pleiadesEntity.
 }
 WHERE {
   SERVICE <x-sparql-anything:> {
@@ -22,7 +23,8 @@ WHERE {
     ?row xyz:ID ?id ; 
          xyz:prefLabel ?prefLabel;
          xyz:Analysis_Site_Type ?analysisSiteType;
-         xyz:wiki_id ?wikiId.
+         xyz:wiki_id ?wikiId;
+         xyz:pleiades_place ?pleiades_place.
 
     #BIND(fx:entity(for:, "site-type/", ?id) as ?site) - if we use SiteType, would it be like below?
     BIND(fx:entity(for:, "site-type/", ?id) as ?SiteType)
@@ -30,7 +32,11 @@ WHERE {
 
 
     BIND(IF(BOUND(?wikiId) && STRLEN(STR(?wikiId))>0,
-          fx:entity(<http://www.wikidata.org/entity/>, ?wikiId),
+          fx:entity(<https://www.wikidata.org/entity/>, ?wikiId),
           BNODE()) AS ?wikiEntity)
+    
+    BIND(IF(BOUND(?pleiades_place) && STRLEN(STR(?pleiades_place))>0,
+          fx:entity(<https://pleiades.stoa.org/vocabularies/place-types/>, ?pleiades_place),
+          BNODE()) AS ?pleiadesEntity)
   }
 }
