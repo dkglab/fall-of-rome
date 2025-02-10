@@ -3,16 +3,32 @@ PREFIX fx: <http://sparql.xyz/facade-x/ns/>
 PREFIX for: <https://dkglab.github.io/ns/for/>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
 CONSTRUCT {
-  [ skos:prefLabel  ?prefLabel ]
+  ?site a skos:Concept ;
+        skos:prefLabel ?prefLabel ;
+        dcterms:identifier ?id ;
+        skos:notation ?siteType;
+        skos:broader ?broaderCategory ;
+        skos:exactMatch ?wikiEntity .
 }
 WHERE {
   SERVICE <x-sparql-anything:> {
     fx:properties fx:csv.headers "true" .
 
-    ?row xyz:prefLabel ?prefLabel .
-    BIND(fx:entity(for:, "site-type/", ?hllg_number) as ?site)
+    ?row xyz:ID ?id ; 
+         xyz:prefLabel ?prefLabel;
+         xyz:Analysis_Site_Type ?analysisSiteType;
+         xyz:wiki_id ?wikiId.
+
+    BIND(fx:entity(for:, "site-type/", ?id) as ?site)
+    BIND(fx:entity(for:, "concept/", ?analysisSiteType) AS ?broaderCategory)
+
+
+    BIND(IF(BOUND(?wikiId) && STRLEN(STR(?wikiId))>0,
+          fx:entity(<http://www.wikidata.org/entity/>, ?wikiId),
+          BNODE()) AS ?wikiEntity)
   }
 }
