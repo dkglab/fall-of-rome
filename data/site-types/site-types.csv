@@ -2,7 +2,7 @@ ID,Site_Type,prefLabel,Analysis_Site_Type,wiki_id
 cave,Cave,Cave,Cave,Q35509
 city,City,City,City,
 city-hillfort,City / Hillfort ,City / Hillfort ,City,
-city,City? ,City? ,City,
+city-?,City? ,City? ,City,
 small-city,Small City ,Small City ,City,
 coin-find,Coin find ,Coin find ,Coin find,
 coin-hoard,Coin hoard ,Coin hoard ,Coin find,Q15484785

@@ -7,11 +7,12 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
 CONSTRUCT {
-  ?site a skos:Concept ;
+  ?SiteType a skos:Concept ; 
+    #can we identify SiteType with this variable instead of ?site, and skos:notation?
         skos:prefLabel ?prefLabel ;
         dcterms:identifier ?id ;
-        skos:notation ?siteType;
-        skos:broader ?broaderCategory ;
+        #skos:notation ?SiteType;
+        skos:broader ?analysisSiteType ;   #can we link to analysis site type field here?
         skos:exactMatch ?wikiEntity .
 }
 WHERE {
@@ -23,8 +24,9 @@ WHERE {
          xyz:Analysis_Site_Type ?analysisSiteType;
          xyz:wiki_id ?wikiId.
 
-    BIND(fx:entity(for:, "site-type/", ?id) as ?site)
-    BIND(fx:entity(for:, "concept/", ?analysisSiteType) AS ?broaderCategory)
+    #BIND(fx:entity(for:, "site-type/", ?id) as ?site) - if we use SiteType, would it be like below?
+    BIND(fx:entity(for:, "site-type/", ?id) as ?SiteType)
+    #BIND(fx:entity(for:, "concept/", ?analysisSiteType) AS ?broaderCategory) - do we need this if we use the same variable above?
 
 
     BIND(IF(BOUND(?wikiId) && STRLEN(STR(?wikiId))>0,
