@@ -14,4 +14,10 @@ WHERE {
 
     ?s ?p ?o
   }
+
+  SERVICE <x-sparql-anything:location=data/roman-provinces/Spain-Late-Antique-Provinces.geojson> {
+    fx:properties fx:media-type "application/json" .
+
+    ?sj ?pj ?oj
+  }
 }
