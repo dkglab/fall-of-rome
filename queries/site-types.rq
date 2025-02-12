@@ -46,9 +46,11 @@ WHERE {
     #fx:entity(ple:, ?pleiades_place), 
     #"" ) AS ?pleiadesEntity)
 
-#To Do List:
-#how incorporate analysis site type descriptions - would we use skos:inScheme 
-#to create a site types scheme and analysis site types scheme, linked by skos:broader? 
+#To Do:
+#1 how incorporate analysis site type descriptions - would we use skos:inScheme 
+  #to create a site types scheme and analysis site types scheme, linked by skos:broader? 
+
+#2 use REPLACE to remove spaces by replacing spaces with empty strings for uris 
 
 #revisit function for blank nodes: 
 
