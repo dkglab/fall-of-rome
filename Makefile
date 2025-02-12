@@ -4,7 +4,12 @@ QUERY ?= queries/geosparql.rq
 
 .PHONY: all setup run-query clean superclean
 
-all: graph/located-sites.ttl graph/site-types.ttl graph/roman-provinces.ttl graph/municipalities.ttl
+all: \
+	graph/located-sites.ttl \
+	graph/site-types.ttl \
+	graph/ceramic-types.ttl \
+	graph/roman-provinces.ttl \
+	graph/municipalities.ttl
 
 setup: $(SA) $(RSPARQL)
 
@@ -32,6 +37,9 @@ data/located-sites/input.csv: data/located-sites/located-sites.csv
 	cp $< $@
 
 data/site-types/input.csv: data/site-types/site-types.csv
+	cp $< $@
+
+data/ceramic-types/input.csv: data/ceramic-types/hayes-ars-types.csv
 	cp $< $@
 
 data/roman-provinces/input.csv: data/roman-provinces/roman-provinces.csv
