@@ -36,7 +36,7 @@ WHERE {
     fx:entity(<https://pleiades.stoa.org/vocabularies/place-types/>, ?pleiades_place), 
     "" ) AS ?pleiadesEntity)
 
-#using wiki and ple prefixes didn't work for some reason--maybe need a value in the middle like "site-type/"?
+#tried to use wiki and ple prefixes but it didn't work --maybe need a value in the middle like "site-type/"?
 
     #BIND(IF(STRLEN(STR(?wikiId)) > 0, 
     #fx:entity(wiki:, ?wikiId), 
@@ -46,9 +46,10 @@ WHERE {
     #fx:entity(ple:, ?pleiades_place), 
     #"" ) AS ?pleiadesEntity)
 
-#To Do:
-#add replace function for spaces or just fix CSV
-#check pleiades values with spaces to make sure URI is correct
+#To Do List:
+#how incorporate analysis site type descriptions - would we use skos:inScheme 
+#to create a site types scheme and analysis site types scheme, linked by skos:broader? 
+
 #revisit function for blank nodes: 
 
     #BIND(IF(BOUND(?wikiId) && STRLEN(STR(?wikiId))>0,
