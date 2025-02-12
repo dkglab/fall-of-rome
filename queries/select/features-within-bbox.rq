@@ -6,9 +6,15 @@ PREFIX site: <https://dkglab.github.io/ns/for/site/>
 
 SELECT ?feature ?label ?wkt
 WHERE {
-  ?feature
-    skos:prefLabel ?label ;
-    geo:hasGeometry ?geometry .
+  ?feature skos:prefLabel ?label ;
+           geo:hasGeometry ?geometry .
   ?geometry geo:asWKT ?wkt .
+
+
+  BIND(
+    "POLYGON((-1 42, 4 42, 4 40, -1 40, -1 42))"^^geo:wktLiteral 
+    AS ?boundingBox
+  )
+
+  FILTER(geof:sfWithin(?wkt, ?boundingBox))
 }
-LIMIT 5

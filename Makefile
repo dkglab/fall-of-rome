@@ -1,6 +1,6 @@
 SA := tools/sparql-anything/sparql-anything.jar
 RSPARQL := ./tools/jena/bin/rsparql
-QUERY ?= queries/geosparql.rq
+QUERY ?= queries/select/features-within-bbox.rq
 
 .PHONY: all setup run-query clean superclean
 

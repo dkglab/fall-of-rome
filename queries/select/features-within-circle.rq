@@ -6,10 +6,9 @@ PREFIX site: <https://dkglab.github.io/ns/for/site/>
 
 SELECT ?feature ?label ?wkt
 WHERE {
-  ?feature
-    skos:prefLabel ?label ;
-    geo:hasGeometry ?geometry ;
-  .
-
+  ?feature skos:prefLabel ?label ;
+           geo:hasGeometry ?geometry .
   ?geometry geo:asWKT ?wkt .
+
+  # e.g. query for features within 100km of 40.41921° N, 3.69252° W
 }
