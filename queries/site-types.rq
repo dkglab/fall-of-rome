@@ -5,14 +5,14 @@ PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+#PREFIX wiki: <https://www.wikidata.org/entity/>
+#PREFIX ple: <https://pleiades.stoa.org/vocabularies/place-types/>
 
 CONSTRUCT {
   ?SiteType a skos:Concept ; 
-    #can we identify SiteType with this variable instead of ?site, and skos:notation?
         skos:prefLabel ?prefLabel ;
         dcterms:identifier ?id ;
-        #skos:notation ?SiteType;
-        skos:broader ?analysisSiteType ;   #can we link to analysis site type field here?
+        skos:broader ?analysisSiteType ;
         skos:exactMatch ?wikiEntity ;
         skos:closeMatch ?pleiadesEntity.
 }
@@ -26,17 +26,37 @@ WHERE {
          xyz:wiki_id ?wikiId;
          xyz:pleiades_place ?pleiades_place.
 
-    #BIND(fx:entity(for:, "site-type/", ?id) as ?site) - if we use SiteType, would it be like below?
     BIND(fx:entity(for:, "site-type/", ?id) as ?SiteType)
-    #BIND(fx:entity(for:, "concept/", ?analysisSiteType) AS ?broaderCategory) - do we need this if we use the same variable above?
 
-
-    BIND(IF(BOUND(?wikiId) && STRLEN(STR(?wikiId))>0,
-          fx:entity(<https://www.wikidata.org/entity/>, ?wikiId),
-          BNODE()) AS ?wikiEntity)
+    BIND(IF(STRLEN(STR(?wikiId)) > 0, 
+    fx:entity(<https://www.wikidata.org/entity/>, ?wikiId), 
+    "" ) AS ?wikiEntity)
     
-    BIND(IF(BOUND(?pleiades_place) && STRLEN(STR(?pleiades_place))>0,
-          fx:entity(<https://pleiades.stoa.org/vocabularies/place-types/>, ?pleiades_place),
-          BNODE()) AS ?pleiadesEntity)
+    BIND(IF(STRLEN(STR(?pleiades_place)) > 0, 
+    fx:entity(<https://pleiades.stoa.org/vocabularies/place-types/>, ?pleiades_place), 
+    "" ) AS ?pleiadesEntity)
+
+#using wiki and ple prefixes didn't work for some reason--maybe need a value in the middle like "site-type/"?
+
+    #BIND(IF(STRLEN(STR(?wikiId)) > 0, 
+    #fx:entity(wiki:, ?wikiId), 
+    #"" ) AS ?wikiEntity)
+    
+    #BIND(IF(STRLEN(STR(?pleiades_place)) > 0, 
+    #fx:entity(ple:, ?pleiades_place), 
+    #"" ) AS ?pleiadesEntity)
+
+#To Do:
+#add replace function for spaces or just fix CSV
+#check pleiades values with spaces to make sure URI is correct
+#revisit function for blank nodes: 
+
+    #BIND(IF(BOUND(?wikiId) && STRLEN(STR(?wikiId))>0,
+          #fx:entity(<https://www.wikidata.org/entity/>, ?wikiId),
+          #BNODE()) AS ?wikiEntity)
+    
+    #BIND(IF(BOUND(?pleiades_place) && STRLEN(STR(?pleiades_place))>0,
+          #fx:entity(<https://pleiades.stoa.org/vocabularies/place-types/>, ?pleiades_place),
+          #BNODE()) AS ?pleiadesEntity)
   }
 }
