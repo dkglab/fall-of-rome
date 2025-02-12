@@ -3,19 +3,18 @@ PREFIX fx: <http://sparql.xyz/facade-x/ns/>
 PREFIX for: <https://dkglab.github.io/ns/for/>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-PREFIX pno: <http://linked.data.gov.au/def/placenames#>
-PREFIX dcterms: <http://purl.org/dc/terms/>
 
 
 CONSTRUCT {
-  [ pno:PlaceName ?name; dcterms:identifier ?municipalityID ]
+  ?s ?p ?o
 }
+
 WHERE {
   SERVICE <x-sparql-anything:> {
     fx:properties fx:csv.headers "true" .
-    ?row xyz:Municipality ?name .
-    ?row xyz:municipality_wiki_uri ?municipalityWiki .
-  #for each row in the municipality_wiki_uri column, split the string by '/' and get the last element to use as the ID
-    BIND(STRAFTER(?municipalityWiki, "https://www.wikidata.org/entity/") AS ?municipalityID) .
+
+    ?s ?p ?o
   }
 }
+
+
