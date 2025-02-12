@@ -1,39 +1,39 @@
-ID,Site_Type,prefLabel,Analysis_Site_Type,wiki_id,pleiades_place
-cave,Cave,Cave,Cave,Q35509,cave
-city,City,City,City,,
-city-hillfort,City / Hillfort ,City / Hillfort ,City,,
-city-?,City? ,City? ,City,,
-small-city,Small City ,Small City ,City,,
-coin-find,Coin find ,Coin find ,Coin find,,
-coin-hoard,Coin hoard ,Coin hoard ,Coin find,Q15484785,coin hoard
-hillfort ,Hillfort ,Hillfort ,Hillfort,Q744099,hillfort
-hillfort-mansio ,Hillfort / Mansio ,Hillfort / Mansio ,Hillfort,,
-hillfort-villa,Hillfort / Villa ,Hillfort / Villa ,Hillfort,,
-hillfort-?,Hillfort?,Hillfort?,Hillfort,,
-island,Island,Island,Island,Q23442,island
-military-camp,Military Camp,Military Camp,Military Camp,Q1198413,
-military-installation,Military Installation,Military Installation,Military Installation,,
-mine,Mine ,Mine ,Mine,Q820477,mine
-monument,Monument,Monument,Monument,Q4989906,monument
-necropolis,Necropolis,Necropolis,Necropolis,Q200141,necropolis
-no-context,No context ,No context ,No context,,
-ceramic-scatter,Ceramic scatter,Ceramic scatter,Other rural,,
-rural-settlement,Rural settlement ,Rural settlement ,Other rural,,settlement
-rural-settlement-?,Rural settlement? ,Rural settlement? ,Other rural,,
-domus,Domus,Domus,Other urban,Q782970 ,
-industrial,Industrial,Industrial,Other urban,,production center
-mansio-villa,Mansio / Villa ,Mansio / Villa ,Other urban,Q1891165,
-mansio-?,Mansio?,Mansio?,Other urban,,
-olive-production-center ,Olive production center ,Olive production center ,Other urban,,production center
-salting-site ,Salting site ,Salting site ,Other urban,,production center
-urban-area-1 ,Urban area ,Urban area ,Other urban,,
-urban-area-2 ,Urban Area ,Urban Area ,Other urban,,
-urban-area-domus ,Urban Area / Domus ,Urban Area / Domus ,Other urban,,
-urban-area-hillfort ,Urban area / Hillfort ,Urban area / Hillfort ,Other urban,,
-urban-bath,Urban bath,Urban bath,Other urban,Q105723968,bath
-palace,Palace ,Palace ,Palace,Q16560,palace
-roman-road ,Roman road ,Roman road ,Roman road,Q28670463,road
-sanctuary-shrine,Sanctuary / Shrine,Sanctuary / Shrine,Sancturary / Shrine,Q29553,sanctuary
-underwater-site ,Underwater Site ,Underwater Site ,Underwater Site,,
-villa,Villa,Villa,Villa,Q918230,villa
-villa-? ,Villa? ,Villa? ,Villa,,
+ID,Site_Type,prefLabel,Analysis_Site_Type,Analysis_Site_Type_Desc,wiki_id,pleiades_place
+cave,Cave,Cave,Cave,"Caves are caves where material has been reported, usually but not always burials.",Q35509,cave
+city,City,City,City,"City represents an entire (usually ancient) city. This is used when no greater specificity is provided in publications, or for things that encompass a whole city (walls, bishoprics, etc).",,
+city-hillfort,City / Hillfort ,City / Hillfort ,City,"City represents an entire (usually ancient) city. This is used when no greater specificity is provided in publications, or for things that encompass a whole city (walls, bishoprics, etc).",,
+city-?,City? ,City? ,City,"City represents an entire (usually ancient) city. This is used when no greater specificity is provided in publications, or for things that encompass a whole city (walls, bishoprics, etc).",,
+small-city,Small City ,Small City ,City,"City represents an entire (usually ancient) city. This is used when no greater specificity is provided in publications, or for things that encompass a whole city (walls, bishoprics, etc).",,
+coin-find,Coin find ,Coin find ,Coin find,"A coin find is the site of a coin or coin hoard find location, but no evidence for other archaeological material.",,
+coin-hoard,Coin hoard ,Coin hoard ,Coin find,"A coin find is the site of a coin or coin hoard find location, but no evidence for other archaeological material.",Q15484785,
+hillfort ,Hillfort ,Hillfort ,Hillfort,"A hillfort is a fortified hilltop settlement of multiple houses, usually pre-Roman, occasionally occupied in the late Roman period. One of the major transformations of the post-Roman world was the abandonment of unfortified, dispersed villas, in favor of the reoccupation of Iron Age hillforts.",Q744099,hillfort
+hillfort-mansio ,Hillfort / Mansio ,Hillfort / Mansio ,Hillfort,"A hillfort is a fortified hilltop settlement of multiple houses, usually pre-Roman, occasionally occupied in the late Roman period. One of the major transformations of the post-Roman world was the abandonment of unfortified, dispersed villas, in favor of the reoccupation of Iron Age hillforts.",,
+hillfort-villa,Hillfort / Villa ,Hillfort / Villa ,Hillfort,"A hillfort is a fortified hilltop settlement of multiple houses, usually pre-Roman, occasionally occupied in the late Roman period. One of the major transformations of the post-Roman world was the abandonment of unfortified, dispersed villas, in favor of the reoccupation of Iron Age hillforts.",,
+hillfort-?,Hillfort?,Hillfort?,Hillfort,"A hillfort is a fortified hilltop settlement of multiple houses, usually pre-Roman, occasionally occupied in the late Roman period. One of the major transformations of the post-Roman world was the abandonment of unfortified, dispersed villas, in favor of the reoccupation of Iron Age hillforts.",,
+island,Island,Island,Island,,Q23442,island
+military-camp,Military Camp,Military Camp,Military Camp,,Q1198413,
+military-installation,Military Installation,Military Installation,Military Installation,,,
+mine,Mine ,Mine ,Mine,,Q820477,mine
+monument,Monument,Monument,Monument,,Q4989906,monument
+necropolis,Necropolis,Necropolis,Necropolis,,Q200141,cemetery
+no-context,No context ,No context ,No context,,,
+ceramic-scatter,Ceramic scatter,Ceramic scatter,Other rural,"""Other rural"" is a generic label for all the different types of small rural settlements that are not villas. These can be individual farmsteads, villages, or mere ceramic scatters whose nature is unknown. It basically means rural, not villa.",,
+rural-settlement,Rural settlement ,Rural settlement ,Other rural,"""Other rural"" is a generic label for all the different types of small rural settlements that are not villas. These can be individual farmsteads, villages, or mere ceramic scatters whose nature is unknown. It basically means rural, not villa.",,
+rural-settlement-?,Rural settlement? ,Rural settlement? ,Other rural,"""Other rural"" is a generic label for all the different types of small rural settlements that are not villas. These can be individual farmsteads, villages, or mere ceramic scatters whose nature is unknown. It basically means rural, not villa.",,
+domus,Domus,Domus,Other urban,"""Other urban,"" like ""Other rural,"" is a catch-all for areas of Roman (and sometimes modern) cities. Usually used for areas excavated in rescue operations before construction, in which the area excavated is very small and the function of the excavated area unclear.",Q782970,
+industrial,Industrial,Industrial,Other urban,"""Other urban,"" like ""Other rural,"" is a catch-all for areas of Roman (and sometimes modern) cities. Usually used for areas excavated in rescue operations before construction, in which the area excavated is very small and the function of the excavated area unclear.",,production
+mansio-villa,Mansio / Villa ,Mansio / Villa ,Other urban,"""Other urban,"" like ""Other rural,"" is a catch-all for areas of Roman (and sometimes modern) cities. Usually used for areas excavated in rescue operations before construction, in which the area excavated is very small and the function of the excavated area unclear.",Q1891165,
+mansio-?,Mansio?,Mansio?,Other urban,"""Other urban,"" like ""Other rural,"" is a catch-all for areas of Roman (and sometimes modern) cities. Usually used for areas excavated in rescue operations before construction, in which the area excavated is very small and the function of the excavated area unclear.",,
+olive-production-center ,Olive production center ,Olive production center ,Other urban,"""Other urban,"" like ""Other rural,"" is a catch-all for areas of Roman (and sometimes modern) cities. Usually used for areas excavated in rescue operations before construction, in which the area excavated is very small and the function of the excavated area unclear.",,production
+salting-site ,Salting site ,Salting site ,Other urban,"""Other urban,"" like ""Other rural,"" is a catch-all for areas of Roman (and sometimes modern) cities. Usually used for areas excavated in rescue operations before construction, in which the area excavated is very small and the function of the excavated area unclear.",,production
+urban-area-1 ,Urban area ,Urban area ,Other urban,"""Other urban,"" like ""Other rural,"" is a catch-all for areas of Roman (and sometimes modern) cities. Usually used for areas excavated in rescue operations before construction, in which the area excavated is very small and the function of the excavated area unclear.",,
+urban-area-2 ,Urban Area ,Urban Area ,Other urban,"""Other urban,"" like ""Other rural,"" is a catch-all for areas of Roman (and sometimes modern) cities. Usually used for areas excavated in rescue operations before construction, in which the area excavated is very small and the function of the excavated area unclear.",,
+urban-area-domus ,Urban Area / Domus ,Urban Area / Domus ,Other urban,"""Other urban,"" like ""Other rural,"" is a catch-all for areas of Roman (and sometimes modern) cities. Usually used for areas excavated in rescue operations before construction, in which the area excavated is very small and the function of the excavated area unclear.",,
+urban-area-hillfort ,Urban area / Hillfort ,Urban area / Hillfort ,Other urban,"""Other urban,"" like ""Other rural,"" is a catch-all for areas of Roman (and sometimes modern) cities. Usually used for areas excavated in rescue operations before construction, in which the area excavated is very small and the function of the excavated area unclear.",,
+urban-bath,Urban bath,Urban bath,Other urban,"""Other urban,"" like ""Other rural,"" is a catch-all for areas of Roman (and sometimes modern) cities. Usually used for areas excavated in rescue operations before construction, in which the area excavated is very small and the function of the excavated area unclear.",Q105723968,bath
+palace,Palace ,Palace ,Palace,,Q16560,palace
+roman-road ,Roman road ,Roman road ,Roman road,,Q28670463,road
+sanctuary-shrine,Sanctuary / Shrine,Sanctuary / Shrine,Sancturary / Shrine,,Q29553,sanctuary
+underwater-site ,Underwater Site ,Underwater Site ,Underwater Site,"Underwater sites are underwater. Often but not always shipwrecks, or material found in dredging.",,
+villa,Villa,Villa,Villa,"A villa is the most typical Roman rural settlement, with an elite residence as well as productive facilities. Dispersed through the countryside as opposed to ""nucleated"" settlement like a village. Identified in the archaeological record by some combination of columns, mosaics, processing facilities on a large scale, prestige goods like sigillata ceramics. A vague and disputed, though fundamental, category.",Q918230,villa
+villa-? ,Villa? ,Villa? ,Villa,,,
