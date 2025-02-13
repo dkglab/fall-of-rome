@@ -15,6 +15,13 @@ CONSTRUCT {
         skos:broader ?analysisSiteType ;
         skos:exactMatch ?wikiEntity ;
         skos:closeMatch ?pleiadesEntity.
+
+  ?analysisSiteType a skos:Concept ; 
+        skos:prefLabel ?analysisSiteTypeLabel ;
+        #dcterms:identifier ?id ;
+        skos:narrower ?SiteType ;
+        skos:definition ?analysisSiteTypeDef.
+
 }
 WHERE {
   SERVICE <x-sparql-anything:> {
@@ -23,10 +30,13 @@ WHERE {
     ?row xyz:ID ?id ; 
          xyz:prefLabel ?prefLabel;
          xyz:Analysis_Site_Type ?analysisSiteType;
+         xyz:Analysis_Site_Type ?analysisSiteTypeLabel;
          xyz:wiki_id ?wikiId;
-         xyz:pleiades_place ?pleiades_place.
+         xyz:pleiades_place ?pleiades_place;
+         xyz:Analysis_Site_Type_Desc ?analysisSiteTypeDef.
 
-    BIND(fx:entity(for:, "site-type/", ?id) as ?SiteType)
+    BIND(REPLACE(?id, " ", "") AS ?id2)
+    BIND(fx:entity(for:, "site-type/", ?id2) as ?SiteType)
 
     BIND(IF(STRLEN(STR(?wikiId)) > 0, 
     fx:entity(<https://www.wikidata.org/entity/>, ?wikiId), 
