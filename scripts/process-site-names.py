@@ -1,4 +1,4 @@
-import csv, os, re, shutil
+import csv, os, re, shutil, sys
 from tempfile import NamedTemporaryFile
 from typing import Any, Generator
 
@@ -19,15 +19,14 @@ def process_row(row: dict[str, Any]):
 def main():
     # Set working directory to located-sites data dir
     os.chdir("data/located-sites")
-    with open("input.csv", "r") as csvfile, NamedTemporaryFile(mode="wt") as temp:
-        reader = csv.DictReader(csvfile)
-        writer = csv.DictWriter(temp, list(reader.fieldnames) + ["towns", "processed"])
-        writer.writeheader()
-        for row in reader:
-            new_row = process_row(row)
-            writer.writerow(new_row)
-        shutil.copy(temp.name, "input.csv")
-    
+    reader = csv.DictReader(sys.stdin)
+    assert reader.fieldnames is not None
+    writer = csv.DictWriter(
+        sys.stdout, list(reader.fieldnames) + ["towns", "processed"]
+    )
+    writer.writeheader()
+    for row in reader:
+        writer.writerow(process_row(row))
 
     
 

@@ -28,9 +28,8 @@ $(SA):
 $(RSPARQL):
 	$(MAKE) -s -C tools/jena
 
-data/located-sites/input.csv: data/located-sites/located-sites.csv
-	cp $< $@
-	py scripts/process-site-names.py
+data/located-sites/input.csv: data/located-sites/located-sites.csv scripts/process-site-names.py
+	cat $< | python scripts/process-site-names.py > $@
 
 data/site-types/input.csv: data/site-types/site-types.csv
 	cp $< $@
