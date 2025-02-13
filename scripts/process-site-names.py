@@ -2,7 +2,7 @@ import csv, os, re, shutil, sys
 from tempfile import NamedTemporaryFile
 from typing import Any
 
-town_pattern: re.Pattern = r"(.+?) -- "
+town_pattern: re.Pattern = re.compile(r"(.+?) -- ")
 
 def process_row(row: dict[str, Any]):
     site_name = row["Site Name"]
