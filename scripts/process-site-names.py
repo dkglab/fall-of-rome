@@ -4,6 +4,7 @@ from typing import Any
 
 town_pattern: re.Pattern = re.compile(r"(.+?) -- ")
 
+
 def process_row(row: dict[str, Any]):
     site_name = row["Site Name"]
     site_name = site_name.replace("c/", "Calle")
@@ -13,7 +14,6 @@ def process_row(row: dict[str, Any]):
     row["processed"] = site_name
     row["towns"] = towns
     return row
-    
 
 
 def main():
@@ -28,7 +28,6 @@ def main():
     for row in reader:
         writer.writerow(process_row(row))
 
-    
 
 if __name__ == "__main__":
     main()
