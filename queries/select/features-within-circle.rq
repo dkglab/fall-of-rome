@@ -3,9 +3,7 @@ PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
 PREFIX uom: <http://www.opengis.net/def/uom/OGC/1.0/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX site: <https://dkglab.github.io/ns/for/site/>
-FROM <graph/located-sites.ttl>
 
-SELECT (geof:distance(?x,?y,?z) as ?distance)
 SELECT ?feature ?label ?wkt
 WHERE {
   ?feature skos:prefLabel ?label ;
