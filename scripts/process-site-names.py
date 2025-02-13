@@ -1,6 +1,6 @@
 import csv, os, re, shutil, sys
 from tempfile import NamedTemporaryFile
-from typing import Any, Generator
+from typing import Any
 
 town_pattern: re.Pattern = r"(.+?) -- "
 
