@@ -2,6 +2,8 @@
 !/tools/sparql-anything/Makefile
 /tools/jena/*
 !/tools/jena/Makefile
+/tools/sis/*
+!tools/sis/Makefile
 /tools/geosparql/*
 !/tools/geosparql/Makefile
 /data/*/input.csv
