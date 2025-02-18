@@ -4,7 +4,7 @@ QUERY ?= queries/select/features-within-bbox.rq
 
 .PHONY: all setup run-query clean superclean
 
-all: graph/located-sites.ttl graph/site-types.ttl graph/roman-provinces.ttl graph/municipalities.ttl
+all: graph/located-sites.ttl graph/located-sites-geojson.ttl graph/site-types.ttl graph/roman-provinces.ttl graph/municipalities.ttl
 
 setup: $(SA) $(RSPARQL)
 
@@ -29,6 +29,9 @@ $(RSPARQL):
 	$(MAKE) -s -C tools/jena
 
 data/located-sites/input.csv: data/located-sites/located-sites.csv
+	cp $< $@
+
+data/located-sites-geojson/input.csv: data/located-sites/located-sites.csv
 	cp $< $@
 
 data/site-types/input.csv: data/site-types/site-types.csv
