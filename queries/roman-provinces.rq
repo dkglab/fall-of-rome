@@ -6,29 +6,54 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX pno: <http://linked.data.gov.au/def/placenames/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 
-
 CONSTRUCT {
-  ?ProvinciaURI a pno:Place ;
+  ?Provincia a pno:Place ;
       pno:hasPlaceName ?Provincia_wiki ;
+      pno:hasPlaceName ?provincia_alter_name ;
       dcterms:identifier ?provincia_wiki_uri ;
-      dcterms:identifier ?pleiades_uri 
+      dcterms:identifier ?pleiades_uri ;  
+      a geo:Feature ;
+      geo:hasGeometry ?geometry .
+  ?geometry geo:asGeoJSON ?geoJSON .
 }
 WHERE {
   SERVICE <x-sparql-anything:> {
     fx:properties fx:csv.headers "true" .
-    
+
     ?row xyz:Provincia_wiki ?Provincia_wiki ;
          xyz:provincia_wiki_uri ?provincia_wiki_uri ;
-         xyz:pleiades_uri ?pleiades_uri .    
+         xyz:pleiades_uri ?pleiades_uri ;
+         xyz:provincia_alter_name ?provincia_alter_name .
 
     BIND(STR(?Provincia_wiki) AS ?id)
-    # Mint new URIs using the fx:entity function
-    BIND(fx:entity("https://dkglab.github.io/ns/for/", "Provincia_wiki/", ?id) AS ?ProvinciaURI)
+    BIND(fx:entity(for:, "Provincia_wiki/", ?id) AS ?Provincia)
   }
 
   SERVICE <x-sparql-anything:location=data/roman-provinces/Spain-Late-Antique-Provinces.geojson> {
     fx:properties fx:media-type "application/json" .
+    ?feature xyz:properties/xyz:Name ?provinceName ;
+             xyz:geometry ?geometryObj .
+    ?geometryObj xyz:type ?type ;
+             xyz:coordinates ?coordinates .
 
-    ?sj ?pj ?oj
+  BIND(STR(?type) AS ?typeStr) 
+  BIND(STR(?coordinates) AS ?coordinatesStr)
+  BIND(CONCAT('{"type":"', ?typeStr, '","coordinates":', ?coordinatesStr, '}') AS ?geoJSONString)  
+  
+  # ?coordinatesStr as the input string; the pattern to replace and the replacement string. The pattern to replace matches the first three opening brackets.
+  # BIND(REPLACE(?coordinatesStr, "^\
+  # \[\
+  # \[\
+  # \[","[") AS ?coordinatesCleaned)
+  # # \\]\\]\\]\\}\\}$ matches the last three closing brackets followed by }} at the end of the string, and the result is bound to a new variable ?coordinatesCleanedFinal
+  # BIND(REPLACE(?coordinatesCleaned, "\\]\\]\\]\\}\\}$", "]") AS ?coordinatesCleanedFinal)
+
+  # # Construct the GeoJSON string for MultiPolygon
+  # BIND(CONCAT('{"type":"MultiPolygon","coordinates":', ?coordinatesString, '}') AS ?geoJSONString)
+  # Convert the plain JSON string ?geoJSONString into a GeoJSON typed literal and stores it in the variable ?geoJSON
+  BIND(STRDT(?geoJSONString, geo:geoJSONLiteral) AS ?geoJSON)           
+      
+  BIND(?geometryObj AS ?geometry)
+  BIND(?provinceName AS ?provincia_alter_name)
   }
-}
+}     
