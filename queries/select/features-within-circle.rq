@@ -2,7 +2,7 @@ PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
 PREFIX uom: <http://www.opengis.net/def/uom/OGC/1.0/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-PREFIX site: <https://dkglab.github.io/ns/for/site/>
+PREFIX spatialF: <http://jena.apache.org/function/spatial#>
 
 SELECT ?feature ?label ?wkt
 WHERE {
@@ -11,14 +11,23 @@ WHERE {
   ?geometry geo:asWKT ?wkt .
 
   BIND(
+    IF(STRSTARTS(STR(?wkt), "<"),
+       spatialF:transformSRS(?wkt, <http://www.opengis.net/def/crs/OGC/1.3/CRS84>),
+       ?wkt) 
+    AS ?standardWkt
+  )
+
+  BIND("POINT(-5.016805 36.888297)"^^geo:wktLiteral AS ?originalPoint)
+  
+  BIND(
     geof:buffer(
-      "POINT(-5.016805 36.888297)"^^geo:wktLiteral,
-      500,
-      uom:kilometer
+      ?originalPoint,
+      5,
+      uom:degree
     ) AS ?bufferGeom
   )
 
   FILTER(
-    geof:sfIntersects(?wkt, ?bufferGeom)
+    geof:sfIntersects(?standardWkt, ?bufferGeom)
   )
 }
