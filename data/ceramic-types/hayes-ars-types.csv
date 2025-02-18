@@ -1,4 +1,4 @@
-Form,WikiData URI,Start Date (Wikipedia),End Date (Wikipedia),Type,Suggested dating,(has)Broader,(has)Narrower,Lamboglia form,Salomonson form,Antioch form,Carandini form,Pallarés 
+Form,WikiData_URI,Start_Date,End_Date,Type,Suggested_dating,has_Broader,has_Narrower,Lamboglia_form,Salomonson_form,Antioch_form,Carandini_form,Pallares 
 Hayes form 1,wd:Q109547600,50,80,Dish,60-80,,,,,,,
 Hayes form 2,,50,100,Small bowl,70-80,,,4;35,,,,
 Hayes form 3,,60,200,Dish,,,3a; 3b; 3c,4;36,A 1,847,,
@@ -257,14 +257,16 @@ Hayes form 161,,,,Two-handled flagon,,,,,,,,30b
 Hayes form 162,,,,Two-handled flagon,late first or early second century,,,26a,,,,
 Hayes form 163,,,,Two-handled flagon,early-mid third century,,,,a7,,,
 Hayes form 164,,,,Two-handled flagon,first half of third century,,,,,,,
-Hayes form 165,,,,Two-handled flagon,"presumably third century",,,,XIV,,,
+Hayes form 165,,,,Two-handled flagon,"presumably third century
+",,,,XIV,,,
 Hayes form 166,,,,,,,,,,,,
 Hayes form 167,,,,,,,,,,,,
 Hayes form 168,,,,,,,,,,,,
 Hayes form 169,,,,,,,,,,,,
 Hayes form 170,,,,Stemmed goblet,,,,,,,,
 Hayes form 171,,,,Small piriform jug,,,,, I,,,
-Hayes form 172,wd:Q109547592,,,,,,,,"VIII",,,
+Hayes form 172,wd:Q109547592,,,,,,,,"VIII
+",,,
 Hayes form 173,,,,Small two-handled flagon,,,,,IX; X,,,
 Hayes form 174,wd:Q109547596,,,Jug,,,,,III,,,
 Hayes form 175,,,,Two-handled vase ,,,,,XV,,,
@@ -288,9 +290,9 @@ Hayes form 192,,,,Lid,,,,,,,,
 Hayes form 193,,,,Deep casserole,,,,,,,,
 Hayes form 194,,,,Casserole,second half of first century A.D. ,,,,,,,
 Hayes form 195,,70,250,Lid ,,,,,,,,
-Hayes form 196,,70,250,Large lid,probably mid second—mid third century,,196a; 196b,,,,,
-Hayes form 196a,,,,Large lid,probably mid second—mid third century,196,,,,,,
-Hayes form 196b,,,,Large lid,probably mid second—mid third century,196,,,,,,
+Hayes form 196,,70,250,Large lid,probably mid secondï¿½mid third century,,196a; 196b,,,,,
+Hayes form 196a,,,,Large lid,probably mid secondï¿½mid third century,196,,,,,,
+Hayes form 196b,,,,Large lid,probably mid secondï¿½mid third century,196,,,,,,
 Hayes form 197,,175,,Casserole ,"late second to mid third century
 ",,,,,,,
 Hayes form 198,,,,Jar,,,,,,,,

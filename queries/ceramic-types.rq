@@ -1,15 +1,65 @@
 PREFIX xyz: <http://sparql.xyz/facade-x/data/>
 PREFIX fx: <http://sparql.xyz/facade-x/ns/>
-PREFIX for: <https://dkglab.github.io/ns/for/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX wd: <https://www.wikidata.org/entity/>
+PREFIX for: <https://dkglab.github.io/ns/for/>
 
 CONSTRUCT {
-  ?s ?p ?o
+  ?Form a skos:Concept ;
+        skos:prefLabel ?formLabel ;
+        dcterms:identifier ?wikiId ;
+        skos:exactMatch ?wiki_Entity ;
+        dcterms:temporal ?startYear, ?endYear ;
+        skos:broader ?broader_Form ;
+        skos:narrower ?narrower_Form ;
+        skos:related ?type_ARS ;
+        skos:altLabel ?suggested_Dating ;
+        skos:related ?lamboglia_Form ;
+        skos:related ?salomonson_Form ;
+        skos:related ?antioch_Form ;
+        skos:related ?carandini_Form ;
+        skos:related ?pallares_Form .
 }
 WHERE {
   SERVICE <x-sparql-anything:> {
     fx:properties fx:csv.headers "true" .
 
-    ?s ?p ?o
+    ?row xyz:Form ?formLabel ;
+         xyz:WikiData_URI ?wikiId ;
+         xyz:Start_Date ?startDate ;
+         xyz:End_Date ?endDate ;
+         xyz:Type ?type ;
+         xyz:Suggested_dating ?suggestedDating ;
+         xyz:has_Broader ?broaderForm ;
+         xyz:has_Narrower ?narrowerForm ;
+         xyz:Lamboglia_form ?lambogliaForm ;
+         xyz:Salomonson_form ?salomonsonForm ;
+         xyz:Antioch_form ?antiochForm ;
+         xyz:Carandini_form ?carandiniForm ;
+         xyz:Pallares ?pallaresForm .
+
+    BIND(fx:entity(for:, ?formLabel) AS ?Form)
+    BIND(IF(BOUND(?wikiId) && ?wikiId != "", fx:entity(wd:, ?wikiId), "") AS ?wiki_Entity)
+    BIND(IF(BOUND(?startDate) && ?startDate != "", ?startDate, "") AS ?startYear)
+    BIND(IF(BOUND(?endDate) && ?endDate != "", ?endDate, "") AS ?endYear)
+    BIND(IF(BOUND(?broaderForm) && ?broaderForm != "", fx:entity(for:, ?broaderForm), "") AS ?broader_Form)
+    BIND(IF(BOUND(?narrowerForm) && ?narrowerForm != "", fx:entity(for:, ?narrowerForm), "") AS ?narrower_Form)
+    BIND(IF(BOUND(?type) && ?type != "", ?type, "") AS ?type_ARS)
+    BIND(IF(BOUND(?suggestedDating) && ?suggestedDating != "", ?suggestedDating, "") AS ?suggested_Dating)
+    BIND(IF(BOUND(?lambogliaForm) && ?lambogliaForm != "", CONCAT("Lamboglia "+ ?lambogliaForm), "") AS ?lamboglia_Form)
+    BIND(IF(BOUND(?salomonsonForm) && ?salomonsonForm != "", CONCAT("Salomonson "+ ?salomonsonForm), "") AS ?salomonson_Form)
+    BIND(IF(BOUND(?antiochForm) && ?antiochForm != "", CONCAT("Antioch "+ ?antiochForm), "") AS ?antioch_Form)
+    BIND(IF(BOUND(?carandiniForm) && ?carandiniForm != "", CONCAT("Carandini "+ ?carandiniForm), "") AS ?carandini_Form)
+    BIND(IF(BOUND(?pallaresForm) && ?pallaresForm != "", CONCAT("Pallares "+ ?pallaresForm), "") AS ?pallares_Form)
   }
 }
+# SELECT ?row ?p ?o WHERE {
+#   SERVICE <x-sparql-anything:> {
+#     fx:properties fx:csv.headers "true" .
+#     ?row ?p ?o .
+#   }
+# }
+# LIMIT 10
+
