@@ -5,6 +5,7 @@ PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX pno: <http://linked.data.gov.au/def/placenames/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
 CONSTRUCT {
   ?Provincia a pno:Place ;
@@ -33,27 +34,29 @@ WHERE {
     fx:properties fx:media-type "application/json" .
     ?feature xyz:properties/xyz:Name ?provinceName ;
              xyz:geometry ?geometryObj .
-    ?geometryObj xyz:type ?type ;
-             xyz:coordinates ?coordinates .
-
-  BIND(STR(?type) AS ?typeStr) 
-  BIND(STR(?coordinates) AS ?coordinatesStr)
-  BIND(CONCAT('{"type":"', ?typeStr, '","coordinates":', ?coordinatesStr, '}') AS ?geoJSONString)  
+    ?geometryObj xyz:type ?type ;            
+             xyz:coordinates ?polygonArray .
+  # Key points about the MultiPolygon structure:a MultiPolygon holds multiple individual polygon geometries. 
+  # Rings within a Polygon:Each polygon is made up of one or more rings, 
+  # where the first ring is considered the exterior ring and subsequent rings are interior holes. 
+  # Points in a Ring:
+  # Each ring is a sequence of points, which are ordered and connect to form a closed loop. 
+  # Coordinate Pairs:
+  # Each point is represented by a pair of coordinates (X, Y) specifying its position on a coordinate plane. 
+         
+    ?polygonArray fx:anySlot ?ringarray .
+    ?ringArray fx:anySlot ?pointArray .
+    ?pointArray fx:anySlot ?coords .
+    ?coords rdf:_1 ?lat ;
+            rdf:_2 ?lon .
   
-  # ?coordinatesStr as the input string; the pattern to replace and the replacement string. The pattern to replace matches the first three opening brackets.
-  # BIND(REPLACE(?coordinatesStr, "^\
-  # \[\
-  # \[\
-  # \[","[") AS ?coordinatesCleaned)
-  # # \\]\\]\\]\\}\\}$ matches the last three closing brackets followed by }} at the end of the string, and the result is bound to a new variable ?coordinatesCleanedFinal
-  # BIND(REPLACE(?coordinatesCleaned, "\\]\\]\\]\\}\\}$", "]") AS ?coordinatesCleanedFinal)
-
-  # # Construct the GeoJSON string for MultiPolygon
-  # BIND(CONCAT('{"type":"MultiPolygon","coordinates":', ?coordinatesString, '}') AS ?geoJSONString)
-  # Convert the plain JSON string ?geoJSONString into a GeoJSON typed literal and stores it in the variable ?geoJSON
-  BIND(STRDT(?geoJSONString, geo:geoJSONLiteral) AS ?geoJSON)           
-      
+  BIND(STR(?type) AS ?typeStr) 
+  BIND(CONCAT("[", STR(?lat), ", ", STR(?lon), "]") AS ?coordinatesStr)
+  # BIND((CONCAT("[", STR(?lat), ", ", STR(?lon), "]"); SEPARATOR=", ") AS ?coordinatesStr)
+  BIND(CONCAT('{"type":"', ?typeStr, '","coordinates":', ?coordinatesStr,'}') AS ?geoJSONString)  
+  BIND(STRDT(?geoJSONString, geo:geoJSONLiteral) AS ?geoJSON)
+# Bind the geometry object and province name to corresponding variables
   BIND(?geometryObj AS ?geometry)
-  BIND(?provinceName AS ?provincia_alter_name)
+  BIND(?provinceName AS ?provincia_alter_name)     
   }
-}     
+}
