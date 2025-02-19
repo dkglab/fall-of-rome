@@ -52,7 +52,6 @@ WHERE {
   
   BIND(STR(?type) AS ?typeStr) 
   BIND(CONCAT("[", STR(?lat), ", ", STR(?lon), "]") AS ?coordinatesStr)
-  # BIND((CONCAT("[", STR(?lat), ", ", STR(?lon), "]"); SEPARATOR=", ") AS ?coordinatesStr)
   BIND(CONCAT('{"type":"', ?typeStr, '","coordinates":', ?coordinatesStr,'}') AS ?geoJSONString)  
   BIND(STRDT(?geoJSONString, geo:geoJSONLiteral) AS ?geoJSON)
 # Bind the geometry object and province name to corresponding variables
