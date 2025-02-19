@@ -5,7 +5,7 @@ GS_VERSION := 5.3.0
 DS_NAME ?= sites
 DS_FILE ?= ../../graph/located-sites.ttl
 
-.PHONY: all clean start stop
+.PHONY: all clean start stop restart
 
 all: jena-fuseki-geosparql.jar
 
@@ -30,6 +30,8 @@ stop:
 	kill $$(cat run/geosparql.pid) || true; \
 	rm -f run/geosparql.pid; \
 	fi
+
+restart: stop start
 
 jena-fuseki-geosparql.jar:
 	curl -L $(GS_HOST)/$(GS_VERSION)/jena-fuseki-geosparql-$(GS_VERSION).jar > $@

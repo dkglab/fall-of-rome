@@ -2,7 +2,7 @@ SA := tools/sparql-anything/sparql-anything.jar
 RSPARQL := ./tools/jena/bin/rsparql
 QUERY ?= queries/select/features-within-bbox.rq
 
-.PHONY: all setup run-query clean superclean
+.PHONY: all setup run-query restart-geosparql-server clean superclean
 
 all: graph/located-sites.ttl graph/site-types.ttl
 
@@ -13,6 +13,9 @@ run-query: graph/located-sites.ttl | $(RSPARQL)
 	$(RSPARQL) \
 	--query $(QUERY) \
 	--service http://localhost:3030/sites
+
+restart-geosparql-server:
+	$(MAKE) -s -C tools/geosparql restart
 
 clean:
 	rm -rf graph data/*/input.csv

@@ -24,3 +24,6 @@ QUERY=queries/my-query.rq make run-query
 
 Running a query starts a GeoSPARQL server running on port 3030. To
 stop the server, run `make -C tools/geosparql stop`.
+
+If the GeoSPARQL server seems to be down, you can restart it with
+`make restart-geosparql-server`.
