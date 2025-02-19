@@ -1,22 +1,24 @@
 SHELL := /usr/bin/env bash
 .SHELLFLAGS := -O extglob -c
-SIS_VERSION := 1.4
 SIS_HOST := https://dlcdn.apache.org/sis
-SIS_BIN := ./apache-sis-$(SIS_VERSION)/bin/sis
+SIS_VERSION := 1.4
 
 .PHONY: all clean
 
-all: crs
+all: data/installed
 
 clean:
 	rm -rf !(Makefile)
 
-sis:
-	curl $(SIS_HOST)/$(SIS_VERSION)/apache-sis-$(SIS_VERSION)-bin.zip -o apache-sis-$(SIS_VERSION)-bin.zip
-	unzip -o apache-sis-$(SIS_VERSION)-bin.zip
-	rm apache-sis-$(SIS_VERSION)-bin.zip
+apache-sis-$(SIS_VERSION)-bin.zip:
+	curl -L $(SIS_HOST)/$(SIS_VERSION)/$@ > $@
 
-crs: sis
-	yes yes \
-	| $(SIS_BIN) crs EPSG:3305
-	export SIS_DATA=apache-sis-$(SIS_VERSION)/data
+bin/sis: apache-sis-$(SIS_VERSION)-bin.zip
+	unzip $<
+	mv apache-sis-$(SIS_VERSION)/* .
+	rmdir apache-sis-$(SIS_VERSION)
+	touch $@
+
+data/installed: | bin/sis
+	yes | ./bin/sis crs EPSG:4326
+	touch $@

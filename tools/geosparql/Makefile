@@ -15,6 +15,7 @@ clean: stop
 start: jena-fuseki-geosparql.jar
 	if [ ! -e run/geosparql.pid ]; then \
 	mkdir -p run; \
+	SIS_DATA=../sis/data \
 	java -jar jena-fuseki-geosparql.jar \
 	--port 3030 \
 	--dataset $(DS_NAME) \
