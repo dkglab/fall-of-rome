@@ -9,20 +9,20 @@ PREFIX wiki: <https://www.wikidata.org/entity/>
 PREFIX ple: <https://pleiades.stoa.org/vocabularies/place-types/>
 
 CONSTRUCT {
-  ?SiteType a skos:Concept ; 
+  ?SiteType a skos:Concept ;
         skos:prefLabel ?prefLabel ;
         dcterms:identifier ?id ;
         skos:broader ?broaderURI ;
         skos:exactMatch ?wikiEntity ;
         skos:closeMatch ?pleiadesEntity;
         skos:definition ?siteTypeDefinition.
- 
+
 }
 WHERE {
   SERVICE <x-sparql-anything:> {
     fx:properties fx:csv.headers "true" .
 
-    ?row xyz:ID ?id ; 
+    ?row xyz:ID ?id ;
          xyz:prefLabel ?prefLabel;
          xyz:broader ?analysisSiteType;
          xyz:wiki_id ?wikiId;
@@ -39,36 +39,36 @@ WHERE {
       BIND(fx:entity(for:, "site-type/", ?broaderId2) AS ?broaderURI)
     }
 
-    BIND(IF(STRLEN(STR(?wikiId)) > 0, 
-    fx:entity(<https://www.wikidata.org/entity/>, ?wikiId), 
+    BIND(IF(STRLEN(STR(?wikiId)) > 0,
+    fx:entity(<https://www.wikidata.org/entity/>, ?wikiId),
     "" ) AS ?wikiEntity)
-    
-    BIND(IF(STRLEN(STR(?pleiades_place)) > 0, 
-    fx:entity(<https://pleiades.stoa.org/vocabularies/place-types/>, ?pleiades_place), 
+
+    BIND(IF(STRLEN(STR(?pleiades_place)) > 0,
+    fx:entity(<https://pleiades.stoa.org/vocabularies/place-types/>, ?pleiades_place),
     "" ) AS ?pleiadesEntity)
 
 #tried to use wiki and ple prefixes but it didn't work --maybe need a value in the middle like "site-type/"?
 
-    #BIND(IF(STRLEN(STR(?wikiId)) > 0, 
-    #fx:entity(wiki:, ?wikiId), 
+    #BIND(IF(STRLEN(STR(?wikiId)) > 0,
+    #fx:entity(wiki:, ?wikiId),
     #"" ) AS ?wikiEntity)
-    
-    #BIND(IF(STRLEN(STR(?pleiades_place)) > 0, 
-    #fx:entity(ple:, ?pleiades_place), 
+
+    #BIND(IF(STRLEN(STR(?pleiades_place)) > 0,
+    #fx:entity(ple:, ?pleiades_place),
     #"" ) AS ?pleiadesEntity)
 
 #To Do:
-#1 how incorporate analysis site type descriptions - would we use skos:inScheme 
-  #to create a site types scheme and analysis site types scheme, linked by skos:broader? 
+#1 how incorporate analysis site type descriptions - would we use skos:inScheme
+  #to create a site types scheme and analysis site types scheme, linked by skos:broader?
 
-#2 use REPLACE to remove spaces by replacing spaces with empty strings for uris 
+#2 use REPLACE to remove spaces by replacing spaces with empty strings for uris
 
-#revisit function for blank nodes: 
+#revisit function for blank nodes:
 
     #BIND(IF(BOUND(?wikiId) && STRLEN(STR(?wikiId))>0,
           #fx:entity(<https://www.wikidata.org/entity/>, ?wikiId),
           #BNODE()) AS ?wikiEntity)
-    
+
     #BIND(IF(BOUND(?pleiades_place) && STRLEN(STR(?pleiades_place))>0,
           #fx:entity(<https://pleiades.stoa.org/vocabularies/place-types/>, ?pleiades_place),
           #BNODE()) AS ?pleiadesEntity)
