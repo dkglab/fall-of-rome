@@ -9,68 +9,47 @@ PREFIX wiki: <https://www.wikidata.org/entity/>
 PREFIX ple: <https://pleiades.stoa.org/vocabularies/place-types/>
 
 CONSTRUCT {
-  ?SiteType a skos:Concept ; 
-        skos:prefLabel ?prefLabel ;
-        dcterms:identifier ?id ;
-        skos:broader ?broaderURI ;
-        skos:exactMatch ?wikiEntity ;
-        skos:closeMatch ?pleiadesEntity;
-        skos:definition ?siteTypeDefinition.
- 
+  ?siteType a skos:Concept ;
+    skos:prefLabel ?prefLabel ;
+    dcterms:identifier ?id ;
+    skos:broader ?broaderSiteType ;
+    skos:closeMatch ?wikiEntity ;
+    skos:closeMatch ?pleiadesPlaceType ;
+    skos:definition ?siteTypeDefinition ;
+    .
 }
 WHERE {
   SERVICE <x-sparql-anything:> {
-    fx:properties fx:csv.headers "true" .
+    fx:properties
+      fx:trim-strings true ;
+      fx:csv.headers true ;
+      fx:csv.null-string  "" ;
+      .
 
-    ?row xyz:ID ?id ; 
-         xyz:prefLabel ?prefLabel;
-         xyz:broader ?analysisSiteType;
-         xyz:wiki_id ?wikiId;
-         xyz:pleiades_place ?pleiades_place;
-         xyz:definition ?siteTypeDefinition.
+    ?row
+      xyz:ID ?id ;
+      xyz:prefLabel ?prefLabel ;
+      .
 
-    BIND(REPLACE(?id, " ", "") AS ?id2)
-    BIND(fx:entity(for:, "site-type/", ?id2) as ?SiteType)
+    BIND(fx:entity(for:, "site-type/", ?id) as ?siteType)
 
-    # link ?analysisSiteType directly to the corresponding SiteType URI
     OPTIONAL {
-      ?broaderRow xyz:ID ?analysisSiteType .
-      BIND(REPLACE(?analysisSiteType, " ", "") AS ?broaderId2)
-      BIND(fx:entity(for:, "site-type/", ?broaderId2) AS ?broaderURI)
+      ?row xyz:broader ?broaderId
+      BIND(fx:entity(for:, "site-type/", ?broaderId) AS ?broaderSiteType)
     }
 
-    BIND(IF(STRLEN(STR(?wikiId)) > 0, 
-    fx:entity(<https://www.wikidata.org/entity/>, ?wikiId), 
-    "" ) AS ?wikiEntity)
-    
-    BIND(IF(STRLEN(STR(?pleiades_place)) > 0, 
-    fx:entity(<https://pleiades.stoa.org/vocabularies/place-types/>, ?pleiades_place), 
-    "" ) AS ?pleiadesEntity)
+    OPTIONAL {
+      ?row xyz:wiki_id ?wikiId
+      BIND(fx:entity(wiki:, ?wikiId) AS ?wikiEntity)
+    }
 
-#tried to use wiki and ple prefixes but it didn't work --maybe need a value in the middle like "site-type/"?
+    OPTIONAL {
+      ?row xyz:pleiades_place ?pleiadesPlaceTypeId
+      BIND(fx:entity(ple:, ?pleiadesPlaceTypeId) AS ?pleiadesPlaceType)
+    }
 
-    #BIND(IF(STRLEN(STR(?wikiId)) > 0, 
-    #fx:entity(wiki:, ?wikiId), 
-    #"" ) AS ?wikiEntity)
-    
-    #BIND(IF(STRLEN(STR(?pleiades_place)) > 0, 
-    #fx:entity(ple:, ?pleiades_place), 
-    #"" ) AS ?pleiadesEntity)
-
-#To Do:
-#1 how incorporate analysis site type descriptions - would we use skos:inScheme 
-  #to create a site types scheme and analysis site types scheme, linked by skos:broader? 
-
-#2 use REPLACE to remove spaces by replacing spaces with empty strings for uris 
-
-#revisit function for blank nodes: 
-
-    #BIND(IF(BOUND(?wikiId) && STRLEN(STR(?wikiId))>0,
-          #fx:entity(<https://www.wikidata.org/entity/>, ?wikiId),
-          #BNODE()) AS ?wikiEntity)
-    
-    #BIND(IF(BOUND(?pleiades_place) && STRLEN(STR(?pleiades_place))>0,
-          #fx:entity(<https://pleiades.stoa.org/vocabularies/place-types/>, ?pleiades_place),
-          #BNODE()) AS ?pleiadesEntity)
+    OPTIONAL {
+      ?row xyz:definition ?siteTypeDefinition
+    }
   }
 }
