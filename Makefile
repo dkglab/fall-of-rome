@@ -22,12 +22,14 @@ run-query: graph/located-sites.ttl | $(RSPARQL)
 
 clean:
 	rm -rf graph data/*/input.csv
+	$(MAKE) -s -C snowman clean
 
 superclean: clean
 	$(MAKE) -s -C tools/sparql-anything clean
 	$(MAKE) -s -C tools/jena clean
 	$(MAKE) -s -C tools/geosparql clean
 	$(MAKE) -s -C tools/snowman clean
+	$(MAKE) -s -C snowman superclean
 
 $(SA):
 	$(MAKE) -s -C tools/sparql-anything
@@ -60,7 +62,7 @@ graph/%.ttl: data/%/input.csv queries/%.rq | $(SA)
 	-q queries/$*.rq \
 	> $@
 
-build-snowman: $(SM)
+build-snowman: all | $(SM)
 	$(MAKE) -s -C tools/geosparql start
-	cd snowman; \
-	../$(SM) build
+	$(MAKE) -C snowman
+	$(MAKE) -s -C tools/geosparql stop

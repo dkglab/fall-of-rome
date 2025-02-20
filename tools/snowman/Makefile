@@ -22,5 +22,5 @@ clean:
 	rm -rf !(Makefile)
 
 snowman:
-	curl -L $(SM_HOST)/$(SM_VERSION)/$(SM_BIN) > snowman
-	chmod +x snowman
+	curl -L $(SM_HOST)/$(SM_VERSION)/$(SM_BIN) > $@
+	chmod +x $@
