@@ -5,8 +5,8 @@ QUERY ?= queries/geosparql.rq
 .PHONY: all setup run-query clean superclean
 
 all: \
-	graph/located-sites.ttl \
 	graph/site-types.ttl \
+	graph/located-sites.ttl \
 	graph/ceramic-types.ttl \
 	graph/roman-provinces.ttl \
 	graph/municipalities.ttl
