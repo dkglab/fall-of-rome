@@ -1,4 +1,4 @@
 views:
   - output: "index.html"
-    query: "sites.rq"
+    query: "site-types.rq"
     template: "index.html"
