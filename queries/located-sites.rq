@@ -13,6 +13,7 @@ CONSTRUCT {
     geo:hasGeometry ?geo ;
     for:hasArtifactType ?mct ;
     for:towns ?towns ;
+    for:siteType ?siteType ;
     .
 
     ?geo geo:asWKT ?wkt .
@@ -28,6 +29,7 @@ WHERE {
     ?row xyz:Longitude ?longitude .
     ?row xyz:Latitude ?latitude .
     ?row ?mct "1" .
+    ?row xyz:Site%20type ?rawSiteType .
 
     OPTIONAL {
       ?towns apf:strSplit (?joined_towns ',')
@@ -39,5 +41,10 @@ WHERE {
     BIND(STRDT(
       CONCAT("POINT(", ?longitude, " ", ?latitude, ")"),
       geo:wktLiteral) as ?wkt)
+  }
+
+  # TODO: Replace with simply querying dataset when rdf is deployed to github pages
+  SERVICE <x-sparql-anything:location=graph/site-types.ttl> {
+    ?siteType skos:prefLabel ?rawSiteType
   }
 }
