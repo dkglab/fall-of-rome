@@ -13,7 +13,6 @@ CONSTRUCT {
         skos:exactMatch ?wiki_Entity ;
         dcterms:temporal ?startDate, ?endDate ;
         skos:broader ?broaderForm ;
-        #skos:narrower ?narrowerForm ;
         skos:definition ?type_ARS ;
         skos:note ?suggestedDating
         .
@@ -50,10 +49,6 @@ WHERE {
       ?row xyz:has_Broader ?broaderId
       BIND(fx:entity(for:, "ceramic-type/", ?broaderId) AS ?broaderForm)
     }
-
-    # OPTIONAL {
-    #   ?row xyz:has_Narrower ?narrowerForm 
-    # }
     
     OPTIONAL {
       ?row xyz:Start_Date ?startDate

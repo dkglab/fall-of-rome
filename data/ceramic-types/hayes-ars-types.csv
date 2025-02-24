@@ -1,298 +1,298 @@
-ID,prefLabel,WikiData_URI,Start_Date,End_Date,Type,Suggested_dating,has_Broader,has_Narrower
-hayes-form-1,Hayes form 1,Q109547600,50,80,Dish,60-80,,
-hayes-form-2,Hayes form 2,,50,100,Small bowl,70-80,,
-hayes-form-3,Hayes form 3,,60,200,Dish,,,hayes-form-3a;hayes-form-3b;hayes-form-3c
-hayes-form-3a,Hayes form 3a,,60,90,Dish,60-90,hayes-form-3,
-hayes-form-3b,Hayes form 3b,,75,150,Dish,75-150,hayes-form-3,
-hayes-form-3c,Hayes form 3c,,100,200,Dish,early-mid second century,hayes-form-3,
-hayes-form-4,Hayes form 4,,75,175,Dish,,,hayes-form-4a;hayes-form-4b
-hayes-form-4a,Hayes form 4a,,75,125,Dish,late first to early second century,hayes-form-4,
-hayes-form-4b,Hayes form 4b,,125,175,Dish,perhaps mid second century,hayes-form-4,
-hayes-form-5,Hayes form 5,,60,150,Dish,,,hayes-form-5a;hayes-form-5b;hayes-form-5c
-hayes-form-5a,Hayes form 5a,,60,100,Dish,Flavian or a little earlier,hayes-form-5,
-hayes-form-5b,Hayes form 5b,,60,100,Dish,late first to early second century,hayes-form-5,
-hayes-form-5c,Hayes form 5c,,60,150,Dish,perhaps mid second century,hayes-form-5,
-hayes-form-6,Hayes form 6,,100,200,Dish,,,hayes-form-6a;hayes-form-6b;hayes-form-6c
-hayes-form-6a,Hayes form 6a,,100,200,Dish,end of first to early second century,hayes-form-6,
-hayes-form-6b,Hayes form 6b,,100,200,Dish,about mid to end second century,hayes-form-6,
-hayes-form-6c,Hayes form 6c,,100,200,Dish,,hayes-form-6,
-hayes-form-7,Hayes form 7,,70,150,Bowl,,,hayes-form-7a;hayes-form-7b
-hayes-form-7a,Hayes form 7a,,60,125,Bowl,Flavian-early second century,hayes-form-7,
-hayes-form-7b,Hayes form 7b,,100,200,Bowl,early-mid second century,hayes-form-7,
-hayes-form-8,Hayes form 8,,75,200,Carinated bowl,,,hayes-form-8a;hayes-form-8b
-hayes-form-8a,Hayes form 8a,,75,160,Carinated bowl,80/90-160+; fine thin-walled pieces Flavian,hayes-form-8,
-hayes-form-8b,Hayes form 8b,,150,200,Carinated bowl,second half of second century,hayes-form-8,
-hayes-form-9,Hayes form 9,,100,200,Bowl,,,hayes-form-9a;hayes-form-9b
-hayes-form-9a,Hayes form 9a,,100,160,Bowl,c.100-160+,hayes-form-9,
-hayes-form-9b,Hayes form 9b,,150,200,Bowl,second half of second century,hayes-form-9,
-hayes-form-10,Hayes form 10,,100,200,Large carinated bowl,second century,,hayes-form-10a;hayes-form-10b
-hayes-form-10a,Hayes form 10a,,100,150,Large carinated bowl,early second century,hayes-form-10,
-hayes-form-10b,Hayes form 10b,,150,200,Large carinated bowl,late second century,hayes-form-10,
-hayes-form-11,Hayes form 11,,100,200,Large carinated bowl,presumably second century,,
-hayes-form-12-102,Hayes form 12/102,,475,500,Small bowl,presumably second century,,
-hayes-form-13,Hayes form 13,,100,150,Small dish,probably early second century,,
-hayes-form-14,Hayes form 14,,125,200,Bowl,,,hayes-form-14a;hayes-form-14b;hayes-form-14c
-hayes-form-14a,Hayes form 14a,,125,175,Bowl,mid second century,hayes-form-14,
-hayes-form-14b,Hayes form 14b,,150,200,Bowl,second half of second century (c. 160-200+),hayes-form-14,
-hayes-form-14c,Hayes form 14c,,,,Bowl,late second-early third century (?),hayes-form-14,
-hayes-form-15,Hayes form 15,,150,200,Carinated bowl,early-mid third century,,
-hayes-form-16,Hayes form 16,,150,200,Small dish,c. 150-200+,,
-hayes-form-17,Hayes form 17,,150,200,Small bowl,,,hayes-form-17a;hayes-form-17b
-hayes-form-17a,Hayes form 17a,,,,Small bowl,,,
-hayes-form-17b,Hayes form 17b,,,,Small bowl,,,
-hayes-form-18,Hayes form 18,,200,225,Shallow dish,early third century,,
-hayes-form-19,Hayes form 19,,75,125,Casserole,late first-early second century,,
-hayes-form-20,Hayes form 20,,75,125,Flanged lid,late first-early second century,,
-hayes-form-21,Hayes form 21,,100,150,Casserole,"uncertain, probably early-mid second century (on account of the rouletting)",,
-hayes-form-22,Hayes form 22,,100,150,Lid,"uncertain, probably early-mid second century",,
-hayes-form-23,Hayes form 23,,70,220,Casserole,,,hayes-form-23a;hayes-form-23b
-hayes-form-23a,Hayes form 23a,,70,150,Casserole,early-mid second century,hayes-form-23,
-hayes-form-23b,Hayes form 23b,,150,220,Casserole,mid second-early third century,hayes-form-23,
-hayes-form-24,Hayes form 24,,175,225,Plate,probably late second or early third century,,
-hayes-form-25,Hayes form 25,,100,200,Rectangular dish,"uncertain, but presumably second century on grounds of style and fabric",,
-hayes-form-26,Hayes form 26,,150,225,Flat-based dish,second half of second century+,,
-hayes-form-27,Hayes form 27,,160,220,Dish,c. 160-220,,
-hayes-form-28,Hayes form 28,,200,225,Bowl,early third century,,
-hayes-form-29-,Hayes form 29 ,,200,220,Dish,probably early third century,,
-hayes-form-30,Hayes form 30,,200,250,Large dish,first half of third century,,
-hayes-form-31,Hayes form 31,,200,250,Large dish,early-mid third century,,
-hayes-form-32,Hayes form 32,,210,300,Dish,early-mid third century,,
-hayes-form-32-58,Hayes form 32/58,,280,420,,,,
-hayes-form-33,Hayes form 33,,200,250,Plate,c. 200-250+,,
-hayes-form-34,Hayes form 34,,,,Bowl,late second- to early third-century,,
-hayes-form-35,Hayes form 35,,,,Small bowl,first half of third century,,
-hayes-form-36,Hayes form 36,,,,Deep bowl,first half of third century,,
-hayes-form-37,Hayes form 37,,,,Bowl,first half of third century,,
-hayes-form-38,Hayes form 38,,,,Deep bowl,first half of third century,,
-hayes-form-39,Hayes form 39,,,,Shallow bowl/dish,first half of third century,,
-hayes-form-40,Hayes form 40,,,,Shallow bowl,early-mid third century,,
-hayes-form-41,Hayes form 41,,,,Large bowl,c. 225-250,,
-hayes-form-42,Hayes form 42,,,,Large dish with flat cut-out hangles,c. 220-240/50,,
-hayes-form-43,Hayes form 43,,,,Small deep bowl,first half of third century,,
-hayes-form-44,Hayes form 44,,220,300,Small bowl,c. 220/40 to late third century (or slightly latery),,
-hayes-form-45,Hayes form 45,,200,300,Large bowl,,,hayes-form-45a;hayes-form-45b;hayes-form-45c
-hayes-form-45a,Hayes form 45a,,230,320,Large bowl,c. 230/40-320,hayes-form-45,
-hayes-form-45b,Hayes form 45b,,,,Large bowl,c. 230/40-320,hayes-form-45,
-hayes-form-45c,Hayes form 45c,,,,Large bowl,early-mid fourth century,hayes-form-45,
-hayes-form-46,Hayes form 46,,275,325,Large bowl,last quarter of third-first quarter of fourth century,,
-hayes-form-47,Hayes form 47,,,,Plate,mid-late third century,,
-hayes-form-48,Hayes form 48,,220,320,Plate,,,hayes-form-48a;hayes-form-48b
-hayes-form-48a,Hayes form 48a,,,,Plate,c. 220-270,hayes-form-48,
-hayes-form-48b,Hayes form 48b,Q109547597,,,Plate,c. 260-320,hayes-form-48,
-hayes-form-49,Hayes form 49,,,,Plate,c. 230/400-300,,
-hayes-form-50,Hayes form 50,,230,300,Large dish,,,hayes-form-50a;hayes-form-50b
-hayes-form-50a,Hayes form 50a,,230,300,Large dish,thin fine examples: c. 230/240-325; later variety c. 300-360,hayes-form-50,
-hayes-form-50b,Hayes form 50b,,250,350,Large dish,c.350-400+,hayes-form-50,
-hayes-form-51,Hayes form 51,Q109547589,,,Dish/bowl,,,hayes-form-51a;hayes-form-51b
-hayes-form-51a,Hayes form 51a,,,,Dish/bowl,early fourth century,hayes-form-51,
-hayes-form-51b,Hayes form 51b,Q109547603,,,Dish/bowl,fourth century (possibly later than A),hayes-form-51,
-hayes-form-52,Hayes form 52,,300,400,Small bowl,,,hayes-form-52a;hayes-form-52b
-hayes-form-52a,Hayes form 52a,,,,Small bowl,c. 300-350?,hayes-form-52,
-hayes-form-52b,Hayes form 52b,Q109547598,280,400,Small bowl,c.280/300 to late fourth century; late variantes early fifth century+,hayes-form-52,
-hayes-form-53,Hayes form 53,,320,430,Bowl,,,hayes-form-53a;hayes-form-53b
-hayes-form-53a,Hayes form 53a,Q109532933,,,Bowl,c. 350-430+,hayes-form-53,
-hayes-form-53b,Hayes form 53b,,,,Bowl,c. 470-430,hayes-form-53,
-hayes-form-54,Hayes form 54,wd:Q109547587,350,400,Dish with scalloped rim,mid-late fourth century,,
-hayes-form-55,Hayes form 55,wd:Q109547590,,,Large dish,first half of fifth century; second half of fourth century; perhaps intermediate,,
-hayes-form-56,Hayes form 56,wd:Q109547588,360,430,Rectangular dish with relief decoration,c. 360-430,,
-hayes-form-57,Hayes form 57,,325,400,Dish,c. 325-400 (?),,
-hayes-form-58,Hayes form 58,,290,550,Flat-based dish,,,hayes-form-58a;hayes-form-58b
-hayes-form-58a,Hayes form 58a,,290,375,Flat-based dish,c. 290/300-375,hayes-form-58,
-hayes-form-58b,Hayes form 58b,wd:Q109547594,290,375,Flat-based dish,c. 290/300-375,hayes-form-58,
-hayes-form-59,Hayes form 59,,320,420,Flat-based dish,,,hayes-form-59a;hayes-form-59b
-hayes-form-59a,Hayes form 59a,,320,450,Flat-based dish,c. 320-380/400,hayes-form-59,
-hayes-form-59b,Hayes form 59b,,320,420,Flat-based dish,c. 320-420,hayes-form-59,
-hayes-form-60,Hayes form 60,,,,Large flat-based plate,c. 320(?)-380,,
-hayes-form-61,Hayes form 61,wd:Q109547604,325,475,Flat-based dish,,,hayes-form-61a;hayes-form-61b
-hayes-form-61a,Hayes form 61a,,325,400,Flat-based dish,c. 325-400/420,hayes-form-61,
-hayes-form-61b,Hayes form 61b,,380,475,Flat-based dish,c. 400-450,hayes-form-61,
-hayes-form-62,Hayes form 62,,350,425,Flat-based dish,c. 350-425,,hayes-form-62a;hayes-form-62b
-hayes-form-62a,Hayes form 62a,,,,Flat-based dish,c. 350-425,hayes-form-62,
-heys-form-62b,Heys form 62b,,,,Flat-based dish,c. 350-425,hayes-form-62,
-hayes-form-63,Hayes form 63,,360,440,Flat-based dish,around the last quarter of the fourth century,,
-hayes-form-64,Hayes form 64,,380,450,Flat-based dish,early-mid fifth century,,
-hayes-form-65,Hayes form 65,,,,Flat-based dish,uncertain; suggest a fourth- rather than fifth-century date,,
-hayes-form-66,Hayes form 66,,,,Large plate,early fifth century,,
-hayes-form-67,Hayes form 67,wd:Q109547591,360,470,Large bowl,,,
-hayes-form-68,Hayes form 68,,350,425,Large bowl,c. 370-425,,
-hayes-form-69,Hayes form 69,,,,Large dish,second quarter of the fifth century,,
-hayes-form-70,Hayes form 70,,,,Small bowl,first half of fifth century (and possibly a little earlier),,
-hayes-form-71,Hayes form 71,,370,450,Small bowl,,,hayes-form-71a;hayes-form-71b
-hayes-form-71a,Hayes form 71a,,,,Small bowl,c. 375-400/420,hayes-form-71,
-hayes-form-71b,Hayes form 71b,,,,Small bowl,early fifth century,hayes-form-71,
-hayes-form-72,Hayes form 72,,400,430,Small bowl,early fifth century,,hayes-form-72a;hayes-form-72b
-hayes-form-72a,Hayes form 72a,,,,Small bowl,early fifth century,hayes-form-72,
-hayes-form-72b,Hayes form 72b,,,,Small bowl,early fifth century,hayes-form-72,
-hayes-form-73,Hayes form 73,,400,450,Small bowl,c. 420-475,,
-hayes-form-73a,Hayes form 73a,,,,Small bowl,c. 420-475,,
-hayes-form-73b,Hayes form 73b,,,,Small bowl,c. 420-475 (mainly late),,
-hayes-form-74,Hayes form 74,,400,450,Small bowl,around third quarter of fifth century,,
-hayes-form-75,Hayes form 75,Q109547599,,,Dish,c. 420-450,,
-hayes-form-76,Hayes form 76,,400,475,Dish,c. 425-475,,
-hayes-form-76a,Hayes form 76a,,425,475,,,,
-hayes-form-76b,Hayes form 76b,,400,450,,,,
-hayes-form-77,Hayes form 77,,,,Large plate,"uncertain, probably fifth century",,
-hayes-form-78,Hayes form 78,,360,440,Small bowl,"uncertain, probably fifth century",,
-hayes-form-79,Hayes form 79,,400,500,Dish,"uncertain, probably fifth century",,
-hayes-form-80,Hayes form 80,,,,Shallow bowl,mid-late fifth century,,hayes-form-80a;hayes-form-80b
-hayes-form-80a,Hayes form 80a,,,,Shallow bowl,,hayes-form-80,
-hayes-form-80b,Hayes form 80b,,500,550,Shallow bowl,,hayes-form-80,
-hayes-form-80b-99,Hayes form 80b/99,,450,500,Shallow bowl,,hayes-form-80,
-hayes-form-81,Hayes form 81,,400,500,Bowl,second half of fifth century,,hayes-form-81a;hayes-form-81b
-hayes-form-81a,Hayes form 81a,,400,500,Bowl,second half of fifth century,hayes-form-81,
-hayes-form-81b,Hayes form 81b,,400,500,Bowl,second half of fifth century,hayes-form-81,
-hayes-form-82,Hayes form 82,Q109547602,430,500,Large plate,,,hayes-form-82a;hayes-form-82b
-hayes-form-82a,Hayes form 82a,,430,475,Large plate,c. 430-475,hayes-form-82,
-hayes-form-82b,Hayes form 82b,,460,500,Large plate,c. 460-500+,hayes-form-82,
-hayes-form-83,Hayes form 83,,420,460,Large dish,c. 420-460,,
-hayes-form-84,Hayes form 84,,440,500,Deep dish,c.440-500,,
-hayes-form-85,Hayes form 85,,450,500,Small bowl,,,hayes-form-85a;hayes-form-85b
-hayes-form-85a,Hayes form 85a,,450,450,Small bowl,mid fifth century,hayes-form-85,
-hayes-form-85b,Hayes form 85b,,450,500,Small bowl,second half of fifth century,hayes-form-85,
-hayes-form-86,Hayes form 86,,475,525,Dish,late fifth to early sixth century,,
-hayes-form-87,Hayes form 87,,450,550,Dish,,,hayes-form-87a;hayes-form-87b;hayes-form-87c
-hayes-form-87a,Hayes form 87a,,450,500,Dish,second half of fifth century,hayes-form-87,
-hayes-form-87b,Hayes form 87b,,475,530,Dish,early sixth century,hayes-form-87,
-hayes-form-87c,Hayes form 87c,,480,550,Dish,early sixth century,hayes-form-87,
-hayes-form-88,Hayes form 88,,500,550,Large dish,early sixth century,,
-hayes-form-89,Hayes form 89,,450,520,Large plate,,,hayes-form-89a;hayes-form-89b
-hayes-form-89a,Hayes form 89a,,,,Large plate,early fifth century,hayes-form-89,
-hayes-form-89b,Hayes form 89b,,,,Large plate,probably mid fifth to early sixth century,hayes-form-89,
-hayes-form-90,Hayes form 90,,550,620,Large dish,,,hayes-form-90a;hayes-form-90b
-hayes-form-90a,Hayes form 90a,,,,Large dish,late fifth to early sixth century,hayes-form-90,
-hayes-form-90b,Hayes form 90b,,500,550,Large dish,"mainly second half of sixth century, and possibly later",hayes-form-90,
-hayes-form-91,Hayes form 91,,350,450,Flanged bowl,,,hayes-form-91a;hayes-form-91a/b;hayes-form-91b;hayes-form-91b/c;hayes-form-91c;91d
-hayes-form-91a,Hayes form 91a,,370,500,Flanged bowl,mid-late fifth century,hayes-form-91,
-hayes-form-91a-b,Hayes form 91a/b,,370,500,Flanged bowl,,hayes-form-91,
-hayes-form-91b,Hayes form 91b,,370,500,Flanged bowl,c. 450-530,hayes-form-91,
-hayes-form-91b-c,Hayes form 91b/c,,500,530,Flanged bowl,early sixth century,hayes-form-91,
-hayes-form-91c,Hayes form 91c,,500,600,Flanged bowl,c.530-600+,hayes-form-91,
-hayes-form-91d,Hayes form 91d,,580,675,Flanged bowl,c.600-650,hayes-form-91,
-hayes-form-92,Hayes form 92,,400,540,Flanged bowl,"about mid fifth cerntury, or earlier",,
-hayes-form-93,Hayes form 93,,470,540,Large bowl,c. 470-540,,hayes-form-93a;hayes-form-93b
-hayes-form-93a,Hayes form 93a,,470,500,Large bowl,c. 470-540 (mostly fifth century),hayes-form-93,
-hayes-form-93b,Hayes form 93b,,500,540,Large bowl,c. 500-540,hayes-form-93,
-hayes-form-94,Hayes form 94,,400,550,Bowl,late fifth to early sixth century,,hayes-form-94a;hayes-form-94b
-hayes-form-94a,Hayes form 94a,,,,Bowl,late fifth to early sixth century,hayes-form-94,
-hayes-form-94b,Hayes form 94b,,,,Bowl,late fifth to early sixth century,hayes-form-94,
-hayes-form-95,Hayes form 95,,,,Bowl,first half of sixth century,,
-hayes-form-96,Hayes form 96,,500,550,Bowl,c. 490-540,,
-hayes-form-97,Hayes form 97,,475,600,Bowl,c. 480-550,,
-hayes-form-98,Hayes form 98,,500,580,Shallow bowl,early sixth century,,
-hayes-form-98a,Hayes form 98a,,,,Shallow bowl,early sixth century,,
-hayes-form-98b,Hayes form 98b,,,,Shallow bowl,early sixth century,,
-hayes-form-99,Hayes form 99,,500,580,Bowl,,,hayes-form-99a;hayes-form-99b;hayes-form-99c
-hayes-form-99a,Hayes form 99a,,500,540,Bowl,c. 510-540,hayes-form-99,
-hayes-form-99b,Hayes form 99b,,530,580,Bowl,c. 530-580,hayes-form-99,
-hayes-form-99c,Hayes form 99c,,560,620,Bowl,c. 560/580-620,hayes-form-99,
-hayes-form-100,Hayes form 100,,580,620,Bowl,late sixth to early seventh century,,
-hayes-form-101,Hayes form 101,,550,600,Footed dish,mid-late sixth century,,
-hayes-form-102,Hayes form 102,,475,625,Small bowl ,late sixth to early seventh century,,
-hayes-form-103,Hayes form 103,,500,575,Large dish|bowl,c. 500 to third quarter sixth century,,"hayes-form-103a,hayes-form-103b"
-hayes-form-103a,Hayes form 103a,,500,575,Large dish|bowl,,hayes-form-103,
-hayes-form-103b,Hayes form 103b,,500,575,Large dish|bowl,,hayes-form-103,
-hayes-form-104,Hayes form 104,Q109547595,500,625,large dish/bowl,,,hayes-form-104a;hayes-form-104b;hayes-form-104c
-hayes-form-104a,Hayes form 104a,,500,580,large dish/bowl,c. 530-580,hayes-form-104,
-hayes-form-104b,Hayes form 104b,,570,600,large dish/bowl,c. 570-600,hayes-form-104,
-hayes-form-104c,Hayes form 104c,,550,625,large dish/bowl,c. 550-625,hayes-form-104,
-hayes-form-105,Hayes form 105,,580,675,Large plate,c. 580/600-660 +,,
-hayes-form-106,Hayes form 106,,600,675,Large plate,c. 600-660 +,,
-hayes-form-107,Hayes form 107,,580,675,Large bowl,c. 600-650,,
-hayes-form-108,Hayes form 108,,600,630,Small bowl ,early seventh century,,
-hayes-form-109,Hayes form 109,,580,675,Dish ,c.580/600-mid seventh century,,
-hayes-form-110,Hayes form 110,,,,Deep bowl(?) ,,,
-hayes-form-111,Hayes form 111,,,,Large serving-dish , late sixth century or the first half of the seventh century ,,
-hayes-form-112,Hayes form 112,,,,,,,
-hayes-form-113,Hayes form 113,,,,,,,
-hayes-form-114,Hayes form 114,,,,,,,
-hayes-form-115,Hayes form 115,,,,,,,
-hayes-form-116,Hayes form 116,,,,,,,
-hayes-form-117,Hayes form 117,,,,,,,
-hayes-form-118,Hayes form 118,,,,,,,
-hayes-form-119,Hayes form 119,,,,,,,
-hayes-form-120,Hayes form 120,,,,,,,
-hayes-form-121,Hayes form 121,,,,Feeder-vase with strainer,,,
-hayes-form-122,Hayes form 122,,,,Feeder-vase ,,,hayes-form-122a;hayes-form-122b
-hayes-form-122a,Hayes form 122a,,,,Feeder-vase ,,hayes-form-122,
-hayes-form-122b,Hayes form 122b,,,,Feeder-vase ,,hayes-form-122,
-hayes-form-123,Hayes form 123,,,,Askos,early second-early third century; mainly mid-late second century,,
-hayes-form-124,Hayes form 124,,,,Inkwell,,,
-hayes-form-125,Hayes form 125,,,,Cruet, uncertain; probably second century,,
-hayes-form-126,Hayes form 126,,,,Spouted jug,uncertain; probably second century,,
-hayes-form-127,Hayes form 127,,,,Wine-dipper(?), first half of third century,,
-hayes-form-128,Hayes form 128,,,,,,,
-hayes-form-129,Hayes form 129,,,,,,,
-hayes-form-130,Hayes form 130,,,,,,,
-hayes-form-131,Hayes form 131,,,,Mugs ,,,
-hayes-form-132,Hayes form 132,,,,Mugs ,,,
-hayes-form-133,Hayes form 133,,,,Mugs ,,,
-hayes-form-134,Hayes form 134,,,,Mugs ,,,
-hayes-form-135,Hayes form 135,,,,Mugs ,,,
-hayes-form-136,Hayes form 136,,,,Mugs ,,,
-hayes-form-137,Hayes form 137,,,,Mugs ,end of first century to mid second century or later,,
-hayes-form-138,Hayes form 138,,,,Mugs ,"second century, or perhaps slightly later",,
-hayes-form-139,Hayes form 139,,,,Mugs ,,,
-hayes-form-140,Hayes form 140,,,,Mugs ,,,hayes-form-140a;hayes-form-140b
-hayes-form-140a,Hayes form 140a,,,,Mugs ,mid second century or earlier,hayes-form-140,
-hayes-form-140b,Hayes form 140b,,,,Mugs ,late second to early third century,hayes-form-140,
-hayes-form-141,Hayes form 141,,,,,,,
-hayes-form-142,Hayes form 142,,,,Indented bowl,uncertain but probably early (late first century?),,
-hayes-form-143,Hayes form 143,,,,Beaker with stamped decoration,,,
-hayes-form-144,Hayes form 144,,,,Two-handled beaker,,,
-hayes-form-145,Hayes form 145,,,,Two-handled bowl with stemmed foot,first half of third century,,
-hayes-form-146,Hayes form 146,,,,Flanged lid,about first half of third century (and possibly later),,
-hayes-form-147,Hayes form 147,,,,Pilgrim-flask,,,
-hayes-form-148,Hayes form 148,,,,Patera with saucepan-handle,probably late first to early second century,,
-hayes-form-151,Hayes form 151,,,,Jugs ,,,
-hayes-form-152,Hayes form 152,,,,Jugs ,,,
-hayes-form-153,Hayes form 153,,,,Jugs ,,,
-hayes-form-154,Hayes form 154,,,,Jugs ,probably late first century,,
-hayes-form-155,Hayes form 155,,,,Jugs ,,,
-hayes-form-156,Hayes form 156,,,,Jugs ,,,
-hayes-form-157,Hayes form 157,,,,Jugs ,"uncertain, probably early second century",,
-hayes-form-158,Hayes form 158,,,,Jugs ,mid-late second century,,
-hayes-form-159,Hayes form 159,,,,Jugs ,,,
-hayes-form-160,Hayes form 160,,,,Jugs ,,,
-hayes-form-161,Hayes form 161,,,,Two-handled flagon,,,
-hayes-form-162,Hayes form 162,,,,Two-handled flagon,late first or early second century,,
-hayes-form-163,Hayes form 163,,,,Two-handled flagon,early-mid third century,,
-hayes-form-164,Hayes form 164,,,,Two-handled flagon,first half of third century,,
-hayes-form-165,Hayes form 165,,,,Two-handled flagon,"presumably third century",,
-hayes-form-166,Hayes form 166,,,,,,,
-hayes-form-167,Hayes form 167,,,,,,,
-hayes-form-168,Hayes form 168,,,,,,,
-hayes-form-169,Hayes form 169,,,,,,,
-hayes-form-170,Hayes form 170,,,,Stemmed goblet,,,
-hayes-form-171,Hayes form 171,,,,Small piriform jug,,,
-hayes-form-172,Hayes form 172,Q109547592,,,Small two-handled flagon,,,
-hayes-form-173,Hayes form 173,,,,Small two-handled flagon,,,
-hayes-form-174,Hayes form 174,Q109547596,,,Jug,,,
-hayes-form-175,Hayes form 175,,,,Two-handled vase ,,,
-hayes-form-176,Hayes form 176,,,,Piriform jug|flagon ,,,
-hayes-form-177,Hayes form 177,,,,Flask,,,
-hayes-form-178,Hayes form 178,,,,Small flask,,,
-hayes-form-179,Hayes form 179,,,,Small flask,c. 200/210-250,,
-hayes-form-180,Hayes form 180,,,,Jug with relief decoration,,,
-hayes-form-181,Hayes form 181,,,,Dish,second half of second century to first half third century,,
-hayes-form-182,Hayes form 182,,150,250,Lid,second half of second to first half of third century ,,
-hayes-form-183,Hayes form 183,,,,Deep casserole,,,
-hayes-form-184,Hayes form 184,,,,Shallow casserole,,,
-hayes-form-185,Hayes form 185,,,,Casserole lid,,,
-hayes-form-186,Hayes form 186,,,,,,,
-hayes-form-187,Hayes form 187,,,,,,,
-hayes-form-188,Hayes form 188,,,,,,,
-hayes-form-189,Hayes form 189,,,,,,,
-hayes-form-190,Hayes form 190,,,,,,,
-hayes-form-191,Hayes form 191,,,,Casserole,,,
-hayes-form-192,Hayes form 192,,,,Lid,,,
-hayes-form-193,Hayes form 193,,,,Deep casserole,,,
-hayes-form-194,Hayes form 194,,,,Casserole,second half of first century A.D. ,,
-hayes-form-195,Hayes form 195,,70,250,Lid ,,,
-hayes-form-196,Hayes form 196,,70,250,Large lid,probably mid second—mid third century,,hayes-form-196a;hayes-form-196b
-hayes-form-196a,Hayes form 196a,,,,Large lid,probably mid second—mid third century,hayes-form-196,
-hayes-form-196b,Hayes form 196b,,,,Large lid,probably mid second—mid third century,hayes-form-196,
+ID,prefLabel,WikiData_URI,Start_Date,End_Date,Type,Suggested_dating,has_Broader
+hayes-form-1,Hayes form 1,Q109547600,50,80,Dish,60-80,
+hayes-form-2,Hayes form 2,,50,100,Small bowl,70-80,
+hayes-form-3,Hayes form 3,,60,200,Dish,,
+hayes-form-3a,Hayes form 3a,,60,90,Dish,60-90,hayes-form-3
+hayes-form-3b,Hayes form 3b,,75,150,Dish,75-150,hayes-form-3
+hayes-form-3c,Hayes form 3c,,100,200,Dish,early-mid second century,hayes-form-3
+hayes-form-4,Hayes form 4,,75,175,Dish,,
+hayes-form-4a,Hayes form 4a,,75,125,Dish,late first to early second century,hayes-form-4
+hayes-form-4b,Hayes form 4b,,125,175,Dish,perhaps mid second century,hayes-form-4
+hayes-form-5,Hayes form 5,,60,150,Dish,,
+hayes-form-5a,Hayes form 5a,,60,100,Dish,Flavian or a little earlier,hayes-form-5
+hayes-form-5b,Hayes form 5b,,60,100,Dish,late first to early second century,hayes-form-5
+hayes-form-5c,Hayes form 5c,,60,150,Dish,perhaps mid second century,hayes-form-5
+hayes-form-6,Hayes form 6,,100,200,Dish,,
+hayes-form-6a,Hayes form 6a,,100,200,Dish,end of first to early second century,hayes-form-6
+hayes-form-6b,Hayes form 6b,,100,200,Dish,about mid to end second century,hayes-form-6
+hayes-form-6c,Hayes form 6c,,100,200,Dish,,hayes-form-6
+hayes-form-7,Hayes form 7,,70,150,Bowl,,
+hayes-form-7a,Hayes form 7a,,60,125,Bowl,Flavian-early second century,hayes-form-7
+hayes-form-7b,Hayes form 7b,,100,200,Bowl,early-mid second century,hayes-form-7
+hayes-form-8,Hayes form 8,,75,200,Carinated bowl,,
+hayes-form-8a,Hayes form 8a,,75,160,Carinated bowl,80/90-160+; fine thin-walled pieces Flavian,hayes-form-8
+hayes-form-8b,Hayes form 8b,,150,200,Carinated bowl,second half of second century,hayes-form-8
+hayes-form-9,Hayes form 9,,100,200,Bowl,,
+hayes-form-9a,Hayes form 9a,,100,160,Bowl,c.100-160+,hayes-form-9
+hayes-form-9b,Hayes form 9b,,150,200,Bowl,second half of second century,hayes-form-9
+hayes-form-10,Hayes form 10,,100,200,Large carinated bowl,second century,
+hayes-form-10a,Hayes form 10a,,100,150,Large carinated bowl,early second century,hayes-form-10
+hayes-form-10b,Hayes form 10b,,150,200,Large carinated bowl,late second century,hayes-form-10
+hayes-form-11,Hayes form 11,,100,200,Large carinated bowl,presumably second century,
+hayes-form-12-102,Hayes form 12/102,,475,500,Small bowl,presumably second century,
+hayes-form-13,Hayes form 13,,100,150,Small dish,probably early second century,
+hayes-form-14,Hayes form 14,,125,200,Bowl,,
+hayes-form-14a,Hayes form 14a,,125,175,Bowl,mid second century,hayes-form-14
+hayes-form-14b,Hayes form 14b,,150,200,Bowl,second half of second century (c. 160-200+),hayes-form-14
+hayes-form-14c,Hayes form 14c,,,,Bowl,late second-early third century (?),hayes-form-14
+hayes-form-15,Hayes form 15,,150,200,Carinated bowl,early-mid third century,
+hayes-form-16,Hayes form 16,,150,200,Small dish,c. 150-200+,
+hayes-form-17,Hayes form 17,,150,200,Small bowl,,
+hayes-form-17a,Hayes form 17a,,,,Small bowl,,
+hayes-form-17b,Hayes form 17b,,,,Small bowl,,
+hayes-form-18,Hayes form 18,,200,225,Shallow dish,early third century,
+hayes-form-19,Hayes form 19,,75,125,Casserole,late first-early second century,
+hayes-form-20,Hayes form 20,,75,125,Flanged lid,late first-early second century,
+hayes-form-21,Hayes form 21,,100,150,Casserole,"uncertain, probably early-mid second century (on account of the rouletting)",
+hayes-form-22,Hayes form 22,,100,150,Lid,"uncertain, probably early-mid second century",
+hayes-form-23,Hayes form 23,,70,220,Casserole,,
+hayes-form-23a,Hayes form 23a,,70,150,Casserole,early-mid second century,hayes-form-23
+hayes-form-23b,Hayes form 23b,,150,220,Casserole,mid second-early third century,hayes-form-23
+hayes-form-24,Hayes form 24,,175,225,Plate,probably late second or early third century,
+hayes-form-25,Hayes form 25,,100,200,Rectangular dish,"uncertain, but presumably second century on grounds of style and fabric",
+hayes-form-26,Hayes form 26,,150,225,Flat-based dish,second half of second century+,
+hayes-form-27,Hayes form 27,,160,220,Dish,c. 160-220,
+hayes-form-28,Hayes form 28,,200,225,Bowl,early third century,
+hayes-form-29-,Hayes form 29 ,,200,220,Dish,probably early third century,
+hayes-form-30,Hayes form 30,,200,250,Large dish,first half of third century,
+hayes-form-31,Hayes form 31,,200,250,Large dish,early-mid third century,
+hayes-form-32,Hayes form 32,,210,300,Dish,early-mid third century,
+hayes-form-32-58,Hayes form 32/58,,280,420,,,
+hayes-form-33,Hayes form 33,,200,250,Plate,c. 200-250+,
+hayes-form-34,Hayes form 34,,,,Bowl,late second- to early third-century,
+hayes-form-35,Hayes form 35,,,,Small bowl,first half of third century,
+hayes-form-36,Hayes form 36,,,,Deep bowl,first half of third century,
+hayes-form-37,Hayes form 37,,,,Bowl,first half of third century,
+hayes-form-38,Hayes form 38,,,,Deep bowl,first half of third century,
+hayes-form-39,Hayes form 39,,,,Shallow bowl/dish,first half of third century,
+hayes-form-40,Hayes form 40,,,,Shallow bowl,early-mid third century,
+hayes-form-41,Hayes form 41,,,,Large bowl,c. 225-250,
+hayes-form-42,Hayes form 42,,,,Large dish with flat cut-out hangles,c. 220-240/50,
+hayes-form-43,Hayes form 43,,,,Small deep bowl,first half of third century,
+hayes-form-44,Hayes form 44,,220,300,Small bowl,c. 220/40 to late third century (or slightly latery),
+hayes-form-45,Hayes form 45,,200,300,Large bowl,,
+hayes-form-45a,Hayes form 45a,,230,320,Large bowl,c. 230/40-320,hayes-form-45
+hayes-form-45b,Hayes form 45b,,,,Large bowl,c. 230/40-320,hayes-form-45
+hayes-form-45c,Hayes form 45c,,,,Large bowl,early-mid fourth century,hayes-form-45
+hayes-form-46,Hayes form 46,,275,325,Large bowl,last quarter of third-first quarter of fourth century,
+hayes-form-47,Hayes form 47,,,,Plate,mid-late third century,
+hayes-form-48,Hayes form 48,,220,320,Plate,,
+hayes-form-48a,Hayes form 48a,,,,Plate,c. 220-270,hayes-form-48
+hayes-form-48b,Hayes form 48b,Q109547597,,,Plate,c. 260-320,hayes-form-48
+hayes-form-49,Hayes form 49,,,,Plate,c. 230/400-300,
+hayes-form-50,Hayes form 50,,230,300,Large dish,,
+hayes-form-50a,Hayes form 50a,,230,300,Large dish,thin fine examples: c. 230/240-325; later variety c. 300-360,hayes-form-50
+hayes-form-50b,Hayes form 50b,,250,350,Large dish,c.350-400+,hayes-form-50
+hayes-form-51,Hayes form 51,Q109547589,,,Dish/bowl,,
+hayes-form-51a,Hayes form 51a,,,,Dish/bowl,early fourth century,hayes-form-51
+hayes-form-51b,Hayes form 51b,Q109547603,,,Dish/bowl,fourth century (possibly later than A),hayes-form-51
+hayes-form-52,Hayes form 52,,300,400,Small bowl,,
+hayes-form-52a,Hayes form 52a,,,,Small bowl,c. 300-350?,hayes-form-52
+hayes-form-52b,Hayes form 52b,Q109547598,280,400,Small bowl,c.280/300 to late fourth century; late variantes early fifth century+,hayes-form-52
+hayes-form-53,Hayes form 53,,320,430,Bowl,,
+hayes-form-53a,Hayes form 53a,Q109532933,,,Bowl,c. 350-430+,hayes-form-53
+hayes-form-53b,Hayes form 53b,,,,Bowl,c. 470-430,hayes-form-53
+hayes-form-54,Hayes form 54,wd:Q109547587,350,400,Dish with scalloped rim,mid-late fourth century,
+hayes-form-55,Hayes form 55,wd:Q109547590,,,Large dish,first half of fifth century; second half of fourth century; perhaps intermediate,
+hayes-form-56,Hayes form 56,wd:Q109547588,360,430,Rectangular dish with relief decoration,c. 360-430,
+hayes-form-57,Hayes form 57,,325,400,Dish,c. 325-400 (?),
+hayes-form-58,Hayes form 58,,290,550,Flat-based dish,,
+hayes-form-58a,Hayes form 58a,,290,375,Flat-based dish,c. 290/300-375,hayes-form-58
+hayes-form-58b,Hayes form 58b,wd:Q109547594,290,375,Flat-based dish,c. 290/300-375,hayes-form-58
+hayes-form-59,Hayes form 59,,320,420,Flat-based dish,,
+hayes-form-59a,Hayes form 59a,,320,450,Flat-based dish,c. 320-380/400,hayes-form-59
+hayes-form-59b,Hayes form 59b,,320,420,Flat-based dish,c. 320-420,hayes-form-59
+hayes-form-60,Hayes form 60,,,,Large flat-based plate,c. 320(?)-380,
+hayes-form-61,Hayes form 61,wd:Q109547604,325,475,Flat-based dish,,
+hayes-form-61a,Hayes form 61a,,325,400,Flat-based dish,c. 325-400/420,hayes-form-61
+hayes-form-61b,Hayes form 61b,,380,475,Flat-based dish,c. 400-450,hayes-form-61
+hayes-form-62,Hayes form 62,,350,425,Flat-based dish,c. 350-425,
+hayes-form-62a,Hayes form 62a,,,,Flat-based dish,c. 350-425,hayes-form-62
+heys-form-62b,Heys form 62b,,,,Flat-based dish,c. 350-425,hayes-form-62
+hayes-form-63,Hayes form 63,,360,440,Flat-based dish,around the last quarter of the fourth century,
+hayes-form-64,Hayes form 64,,380,450,Flat-based dish,early-mid fifth century,
+hayes-form-65,Hayes form 65,,,,Flat-based dish,uncertain; suggest a fourth- rather than fifth-century date,
+hayes-form-66,Hayes form 66,,,,Large plate,early fifth century,
+hayes-form-67,Hayes form 67,wd:Q109547591,360,470,Large bowl,,
+hayes-form-68,Hayes form 68,,350,425,Large bowl,c. 370-425,
+hayes-form-69,Hayes form 69,,,,Large dish,second quarter of the fifth century,
+hayes-form-70,Hayes form 70,,,,Small bowl,first half of fifth century (and possibly a little earlier),
+hayes-form-71,Hayes form 71,,370,450,Small bowl,,
+hayes-form-71a,Hayes form 71a,,,,Small bowl,c. 375-400/420,hayes-form-71
+hayes-form-71b,Hayes form 71b,,,,Small bowl,early fifth century,hayes-form-71
+hayes-form-72,Hayes form 72,,400,430,Small bowl,early fifth century,
+hayes-form-72a,Hayes form 72a,,,,Small bowl,early fifth century,hayes-form-72
+hayes-form-72b,Hayes form 72b,,,,Small bowl,early fifth century,hayes-form-72
+hayes-form-73,Hayes form 73,,400,450,Small bowl,c. 420-475,
+hayes-form-73a,Hayes form 73a,,,,Small bowl,c. 420-475,
+hayes-form-73b,Hayes form 73b,,,,Small bowl,c. 420-475 (mainly late),
+hayes-form-74,Hayes form 74,,400,450,Small bowl,around third quarter of fifth century,
+hayes-form-75,Hayes form 75,Q109547599,,,Dish,c. 420-450,
+hayes-form-76,Hayes form 76,,400,475,Dish,c. 425-475,
+hayes-form-76a,Hayes form 76a,,425,475,,,
+hayes-form-76b,Hayes form 76b,,400,450,,,
+hayes-form-77,Hayes form 77,,,,Large plate,"uncertain, probably fifth century",
+hayes-form-78,Hayes form 78,,360,440,Small bowl,"uncertain, probably fifth century",
+hayes-form-79,Hayes form 79,,400,500,Dish,"uncertain, probably fifth century",
+hayes-form-80,Hayes form 80,,,,Shallow bowl,mid-late fifth century,
+hayes-form-80a,Hayes form 80a,,,,Shallow bowl,,hayes-form-80
+hayes-form-80b,Hayes form 80b,,500,550,Shallow bowl,,hayes-form-80
+hayes-form-80b-99,Hayes form 80b/99,,450,500,Shallow bowl,,hayes-form-80
+hayes-form-81,Hayes form 81,,400,500,Bowl,second half of fifth century,
+hayes-form-81a,Hayes form 81a,,400,500,Bowl,second half of fifth century,hayes-form-81
+hayes-form-81b,Hayes form 81b,,400,500,Bowl,second half of fifth century,hayes-form-81
+hayes-form-82,Hayes form 82,Q109547602,430,500,Large plate,,
+hayes-form-82a,Hayes form 82a,,430,475,Large plate,c. 430-475,hayes-form-82
+hayes-form-82b,Hayes form 82b,,460,500,Large plate,c. 460-500+,hayes-form-82
+hayes-form-83,Hayes form 83,,420,460,Large dish,c. 420-460,
+hayes-form-84,Hayes form 84,,440,500,Deep dish,c.440-500,
+hayes-form-85,Hayes form 85,,450,500,Small bowl,,
+hayes-form-85a,Hayes form 85a,,450,450,Small bowl,mid fifth century,hayes-form-85
+hayes-form-85b,Hayes form 85b,,450,500,Small bowl,second half of fifth century,hayes-form-85
+hayes-form-86,Hayes form 86,,475,525,Dish,late fifth to early sixth century,
+hayes-form-87,Hayes form 87,,450,550,Dish,,
+hayes-form-87a,Hayes form 87a,,450,500,Dish,second half of fifth century,hayes-form-87
+hayes-form-87b,Hayes form 87b,,475,530,Dish,early sixth century,hayes-form-87
+hayes-form-87c,Hayes form 87c,,480,550,Dish,early sixth century,hayes-form-87
+hayes-form-88,Hayes form 88,,500,550,Large dish,early sixth century,
+hayes-form-89,Hayes form 89,,450,520,Large plate,,
+hayes-form-89a,Hayes form 89a,,,,Large plate,early fifth century,hayes-form-89
+hayes-form-89b,Hayes form 89b,,,,Large plate,probably mid fifth to early sixth century,hayes-form-89
+hayes-form-90,Hayes form 90,,550,620,Large dish,,
+hayes-form-90a,Hayes form 90a,,,,Large dish,late fifth to early sixth century,hayes-form-90
+hayes-form-90b,Hayes form 90b,,500,550,Large dish,"mainly second half of sixth century, and possibly later",hayes-form-90
+hayes-form-91,Hayes form 91,,350,450,Flanged bowl,,
+hayes-form-91a,Hayes form 91a,,370,500,Flanged bowl,mid-late fifth century,hayes-form-91
+hayes-form-91a-b,Hayes form 91a/b,,370,500,Flanged bowl,,hayes-form-91
+hayes-form-91b,Hayes form 91b,,370,500,Flanged bowl,c. 450-530,hayes-form-91
+hayes-form-91b-c,Hayes form 91b/c,,500,530,Flanged bowl,early sixth century,hayes-form-91
+hayes-form-91c,Hayes form 91c,,500,600,Flanged bowl,c.530-600+,hayes-form-91
+hayes-form-91d,Hayes form 91d,,580,675,Flanged bowl,c.600-650,hayes-form-91
+hayes-form-92,Hayes form 92,,400,540,Flanged bowl,"about mid fifth cerntury, or earlier",
+hayes-form-93,Hayes form 93,,470,540,Large bowl,c. 470-540,
+hayes-form-93a,Hayes form 93a,,470,500,Large bowl,c. 470-540 (mostly fifth century),hayes-form-93
+hayes-form-93b,Hayes form 93b,,500,540,Large bowl,c. 500-540,hayes-form-93
+hayes-form-94,Hayes form 94,,400,550,Bowl,late fifth to early sixth century,
+hayes-form-94a,Hayes form 94a,,,,Bowl,late fifth to early sixth century,hayes-form-94
+hayes-form-94b,Hayes form 94b,,,,Bowl,late fifth to early sixth century,hayes-form-94
+hayes-form-95,Hayes form 95,,,,Bowl,first half of sixth century,
+hayes-form-96,Hayes form 96,,500,550,Bowl,c. 490-540,
+hayes-form-97,Hayes form 97,,475,600,Bowl,c. 480-550,
+hayes-form-98,Hayes form 98,,500,580,Shallow bowl,early sixth century,
+hayes-form-98a,Hayes form 98a,,,,Shallow bowl,early sixth century,
+hayes-form-98b,Hayes form 98b,,,,Shallow bowl,early sixth century,
+hayes-form-99,Hayes form 99,,500,580,Bowl,,
+hayes-form-99a,Hayes form 99a,,500,540,Bowl,c. 510-540,hayes-form-99
+hayes-form-99b,Hayes form 99b,,530,580,Bowl,c. 530-580,hayes-form-99
+hayes-form-99c,Hayes form 99c,,560,620,Bowl,c. 560/580-620,hayes-form-99
+hayes-form-100,Hayes form 100,,580,620,Bowl,late sixth to early seventh century,
+hayes-form-101,Hayes form 101,,550,600,Footed dish,mid-late sixth century,
+hayes-form-102,Hayes form 102,,475,625,Small bowl ,late sixth to early seventh century,
+hayes-form-103,Hayes form 103,,500,575,Large dish|bowl,c. 500 to third quarter sixth century,
+hayes-form-103a,Hayes form 103a,,500,575,Large dish|bowl,,hayes-form-103
+hayes-form-103b,Hayes form 103b,,500,575,Large dish|bowl,,hayes-form-103
+hayes-form-104,Hayes form 104,Q109547595,500,625,large dish/bowl,,
+hayes-form-104a,Hayes form 104a,,500,580,large dish/bowl,c. 530-580,hayes-form-104
+hayes-form-104b,Hayes form 104b,,570,600,large dish/bowl,c. 570-600,hayes-form-104
+hayes-form-104c,Hayes form 104c,,550,625,large dish/bowl,c. 550-625,hayes-form-104
+hayes-form-105,Hayes form 105,,580,675,Large plate,c. 580/600-660 +,
+hayes-form-106,Hayes form 106,,600,675,Large plate,c. 600-660 +,
+hayes-form-107,Hayes form 107,,580,675,Large bowl,c. 600-650,
+hayes-form-108,Hayes form 108,,600,630,Small bowl ,early seventh century,
+hayes-form-109,Hayes form 109,,580,675,Dish ,c.580/600-mid seventh century,
+hayes-form-110,Hayes form 110,,,,Deep bowl(?) ,,
+hayes-form-111,Hayes form 111,,,,Large serving-dish , late sixth century or the first half of the seventh century ,
+hayes-form-112,Hayes form 112,,,,,,
+hayes-form-113,Hayes form 113,,,,,,
+hayes-form-114,Hayes form 114,,,,,,
+hayes-form-115,Hayes form 115,,,,,,
+hayes-form-116,Hayes form 116,,,,,,
+hayes-form-117,Hayes form 117,,,,,,
+hayes-form-118,Hayes form 118,,,,,,
+hayes-form-119,Hayes form 119,,,,,,
+hayes-form-120,Hayes form 120,,,,,,
+hayes-form-121,Hayes form 121,,,,Feeder-vase with strainer,,
+hayes-form-122,Hayes form 122,,,,Feeder-vase ,,
+hayes-form-122a,Hayes form 122a,,,,Feeder-vase ,,hayes-form-122
+hayes-form-122b,Hayes form 122b,,,,Feeder-vase ,,hayes-form-122
+hayes-form-123,Hayes form 123,,,,Askos,early second-early third century; mainly mid-late second century,
+hayes-form-124,Hayes form 124,,,,Inkwell,,
+hayes-form-125,Hayes form 125,,,,Cruet, uncertain; probably second century,
+hayes-form-126,Hayes form 126,,,,Spouted jug,uncertain; probably second century,
+hayes-form-127,Hayes form 127,,,,Wine-dipper(?), first half of third century,
+hayes-form-128,Hayes form 128,,,,,,
+hayes-form-129,Hayes form 129,,,,,,
+hayes-form-130,Hayes form 130,,,,,,
+hayes-form-131,Hayes form 131,,,,Mugs ,,
+hayes-form-132,Hayes form 132,,,,Mugs ,,
+hayes-form-133,Hayes form 133,,,,Mugs ,,
+hayes-form-134,Hayes form 134,,,,Mugs ,,
+hayes-form-135,Hayes form 135,,,,Mugs ,,
+hayes-form-136,Hayes form 136,,,,Mugs ,,
+hayes-form-137,Hayes form 137,,,,Mugs ,end of first century to mid second century or later,
+hayes-form-138,Hayes form 138,,,,Mugs ,"second century, or perhaps slightly later",
+hayes-form-139,Hayes form 139,,,,Mugs ,,
+hayes-form-140,Hayes form 140,,,,Mugs ,,
+hayes-form-140a,Hayes form 140a,,,,Mugs ,mid second century or earlier,hayes-form-140
+hayes-form-140b,Hayes form 140b,,,,Mugs ,late second to early third century,hayes-form-140
+hayes-form-141,Hayes form 141,,,,,,
+hayes-form-142,Hayes form 142,,,,Indented bowl,uncertain but probably early (late first century?),
+hayes-form-143,Hayes form 143,,,,Beaker with stamped decoration,,
+hayes-form-144,Hayes form 144,,,,Two-handled beaker,,
+hayes-form-145,Hayes form 145,,,,Two-handled bowl with stemmed foot,first half of third century,
+hayes-form-146,Hayes form 146,,,,Flanged lid,about first half of third century (and possibly later),
+hayes-form-147,Hayes form 147,,,,Pilgrim-flask,,
+hayes-form-148,Hayes form 148,,,,Patera with saucepan-handle,probably late first to early second century,
+hayes-form-151,Hayes form 151,,,,Jugs ,,
+hayes-form-152,Hayes form 152,,,,Jugs ,,
+hayes-form-153,Hayes form 153,,,,Jugs ,,
+hayes-form-154,Hayes form 154,,,,Jugs ,probably late first century,
+hayes-form-155,Hayes form 155,,,,Jugs ,,
+hayes-form-156,Hayes form 156,,,,Jugs ,,
+hayes-form-157,Hayes form 157,,,,Jugs ,"uncertain, probably early second century",
+hayes-form-158,Hayes form 158,,,,Jugs ,mid-late second century,
+hayes-form-159,Hayes form 159,,,,Jugs ,,
+hayes-form-160,Hayes form 160,,,,Jugs ,,
+hayes-form-161,Hayes form 161,,,,Two-handled flagon,,
+hayes-form-162,Hayes form 162,,,,Two-handled flagon,late first or early second century,
+hayes-form-163,Hayes form 163,,,,Two-handled flagon,early-mid third century,
+hayes-form-164,Hayes form 164,,,,Two-handled flagon,first half of third century,
+hayes-form-165,Hayes form 165,,,,Two-handled flagon,"presumably third century",
+hayes-form-166,Hayes form 166,,,,,,
+hayes-form-167,Hayes form 167,,,,,,
+hayes-form-168,Hayes form 168,,,,,,
+hayes-form-169,Hayes form 169,,,,,,
+hayes-form-170,Hayes form 170,,,,Stemmed goblet,,
+hayes-form-171,Hayes form 171,,,,Small piriform jug,,
+hayes-form-172,Hayes form 172,Q109547592,,,Small two-handled flagon,,
+hayes-form-173,Hayes form 173,,,,Small two-handled flagon,,
+hayes-form-174,Hayes form 174,Q109547596,,,Jug,,
+hayes-form-175,Hayes form 175,,,,Two-handled vase ,,
+hayes-form-176,Hayes form 176,,,,Piriform jug|flagon ,,
+hayes-form-177,Hayes form 177,,,,Flask,,
+hayes-form-178,Hayes form 178,,,,Small flask,,
+hayes-form-179,Hayes form 179,,,,Small flask,c. 200/210-250,
+hayes-form-180,Hayes form 180,,,,Jug with relief decoration,,
+hayes-form-181,Hayes form 181,,,,Dish,second half of second century to first half third century,
+hayes-form-182,Hayes form 182,,150,250,Lid,second half of second to first half of third century ,
+hayes-form-183,Hayes form 183,,,,Deep casserole,,
+hayes-form-184,Hayes form 184,,,,Shallow casserole,,
+hayes-form-185,Hayes form 185,,,,Casserole lid,,
+hayes-form-186,Hayes form 186,,,,,,
+hayes-form-187,Hayes form 187,,,,,,
+hayes-form-188,Hayes form 188,,,,,,
+hayes-form-189,Hayes form 189,,,,,,
+hayes-form-190,Hayes form 190,,,,,,
+hayes-form-191,Hayes form 191,,,,Casserole,,
+hayes-form-192,Hayes form 192,,,,Lid,,
+hayes-form-193,Hayes form 193,,,,Deep casserole,,
+hayes-form-194,Hayes form 194,,,,Casserole,second half of first century A.D. ,
+hayes-form-195,Hayes form 195,,70,250,Lid ,,
+hayes-form-196,Hayes form 196,,70,250,Large lid,probably mid second—mid third century,
+hayes-form-196a,Hayes form 196a,,,,Large lid,probably mid second—mid third century,hayes-form-196
+hayes-form-196b,Hayes form 196b,,,,Large lid,probably mid second—mid third century,hayes-form-196
 hayes-form-197,Hayes form 197,,175,,Casserole ,"late second to mid third century
-",,
-hayes-form-198,Hayes form 198,,,,Jar,,,
-hayes-form-199,Hayes form 199,,,,Jar,Late second-third century(?),,
-hayes-form-200,Hayes form 200,,,,Mug,late second to early third century,,
+",
+hayes-form-198,Hayes form 198,,,,Jar,,
+hayes-form-199,Hayes form 199,,,,Jar,Late second-third century(?),
+hayes-form-200,Hayes form 200,,,,Mug,late second to early third century,
