@@ -1,0 +1,22 @@
+PREFIX : <https://dkglab.github.io/ns/for/shapes/>
+PREFIX pno: <http://linked.data.gov.au/def/placenames/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+:RomanProvinceShape
+  a sh:NodeShape ;
+  sh:targetClass pno:Place ;
+  # sh:closed "true"^^xsd:boolean ;
+  # sh:ignoredProperties (rdf:type) ;
+  sh:property
+    :RomanProvinceHasPlaceNameShape
+  .
+
+:RomanProvinceHasPlaceNameShape
+  a sh:PropertyShape ;
+  sh:path pno:hasPlaceName ;
+  sh:datatype xsd:string ;
+  sh:minCount 1 ;
+  .

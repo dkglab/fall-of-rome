@@ -1,5 +1,6 @@
 SA := tools/sparql-anything/sparql-anything.jar
 RSPARQL := ./tools/jena/bin/rsparql
+SHACL := ./tools/jena/bin/shacl
 QUERY ?= queries/geosparql.rq
 
 .PHONY: all setup run-query clean superclean
@@ -30,7 +31,7 @@ superclean: clean
 $(SA):
 	$(MAKE) -s -C tools/sparql-anything
 
-$(RSPARQL):
+$(RSPARQL) $(SHACL):
 	$(MAKE) -s -C tools/jena
 
 data/located-sites/input.csv: data/located-sites/located-sites.csv scripts/process-site-names.py
@@ -48,9 +49,13 @@ data/roman-provinces/input.csv: data/roman-provinces/roman-provinces.csv
 data/municipalities/input.csv: data/municipalities/municipalities.csv
 	cp $< $@
 
-graph/%.ttl: data/%/input.csv queries/%.rq | $(SA)
+graph/%.ttl: data/%/input.csv queries/%.rq shapes/%.ttl | $(SA) $(SHACL)
 	mkdir -p graph
 	java -jar $(SA) \
 	-c location=$< \
 	-q queries/$*.rq \
 	> $@
+	$(SHACL) validate \
+	--shapes shapes/$*.ttl \
+	--data $@ \
+	--text
