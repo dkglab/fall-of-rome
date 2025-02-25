@@ -6,7 +6,7 @@ site/index.html: \
 	snowman.yaml views.yaml \
 	$(wildcard queries/*.rq) \
 	$(wildcard templates/*.html) $(wildcard templates/layouts/*.html)
-	../tools/snowman/snowman build
+	../tools/snowman/snowman build -v -t
 
 clean:
 	rm -rf site
