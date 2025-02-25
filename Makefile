@@ -1,13 +1,14 @@
 SA := tools/sparql-anything/sparql-anything.jar
 RSPARQL := ./tools/jena/bin/rsparql
 SM := ./tools/snowman/snowman
+SHACL := ./tools/jena/bin/shacl
 QUERY ?= queries/geosparql.rq
 
 .PHONY: all setup run-query clean superclean
 
 all: \
-	graph/located-sites.ttl \
 	graph/site-types.ttl \
+	graph/located-sites.ttl \
 	graph/ceramic-types.ttl \
 	graph/roman-provinces.ttl \
 	graph/municipalities.ttl
@@ -34,7 +35,7 @@ superclean: clean
 $(SA):
 	$(MAKE) -s -C tools/sparql-anything
 
-$(RSPARQL):
+$(RSPARQL) $(SHACL):
 	$(MAKE) -s -C tools/jena
 
 $(SM):
@@ -55,7 +56,7 @@ data/roman-provinces/input.csv: data/roman-provinces/roman-provinces.csv
 data/municipalities/input.csv: data/municipalities/municipalities.csv
 	cp $< $@
 
-graph/%.ttl: data/%/input.csv queries/%.rq | $(SA)
+graph/%.ttl: data/%/input.csv queries/%.rq shapes/%.ttl | $(SA) $(SHACL)
 	mkdir -p graph
 	java -jar $(SA) \
 	-c location=$< \
@@ -66,3 +67,8 @@ build-snowman: all | $(SM)
 	$(MAKE) -s -C tools/geosparql start
 	$(MAKE) -C snowman
 	$(MAKE) -s -C tools/geosparql stop
+
+	$(SHACL) validate \
+	--shapes shapes/$*.ttl \
+	--data $@ \
+	--text
