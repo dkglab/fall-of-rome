@@ -2,3 +2,6 @@ views:
   - output: "index.html"
     query: "site-types.rq"
     template: "index.html"
+  - output: "{{id}}.html"
+    query: "site-types.rq"
+    template: "site-type.html"
