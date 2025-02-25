@@ -16,12 +16,13 @@ CONSTRUCT {
     skos:closeMatch ?wikiEntity ;
     skos:closeMatch ?pleiadesPlaceType ;
     skos:definition ?siteTypeDefinition ;
-    skos:inScheme <https://dkglab.github.io/ns/for/kos/site-types> ;
-    .
+    skos:inScheme <https://dkglab.github.io/ns/for/kos/site-types> .
+    
    <https://dkglab.github.io/ns/for/kos/site-types> a skos:ConceptScheme ;
     dcterms:title "Site Types Concept Scheme" ;
     dcterms:description "A SKOS-based concept scheme for linking and managing site types within a structured knowledge graph."
 }
+
 WHERE {
   SERVICE <x-sparql-anything:> {
     fx:properties
