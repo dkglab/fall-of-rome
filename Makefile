@@ -1,4 +1,5 @@
 SA := tools/sparql-anything/sparql-anything.jar
+SP := tools/skos-play/skos-play-cli.jar
 RSPARQL := ./tools/jena/bin/rsparql
 SHACL := ./tools/jena/bin/shacl
 QUERY ?= queries/geosparql.rq
@@ -7,10 +8,12 @@ QUERY ?= queries/geosparql.rq
 
 all: \
 	graph/site-types.ttl \
-	graph/located-sites.ttl \
 	graph/ceramic-types.ttl \
 	graph/roman-provinces.ttl \
-	graph/municipalities.ttl
+	graph/municipalities.ttl \
+	graph/located-sites.ttl \
+	kos/site-types.pdf \
+	kos/ceramic-types.pdf
 
 setup: $(SA) $(RSPARQL)
 
@@ -27,9 +30,13 @@ superclean: clean
 	$(MAKE) -s -C tools/sparql-anything clean
 	$(MAKE) -s -C tools/jena clean
 	$(MAKE) -s -C tools/geosparql clean
+	$(MAKE) -s -C tools/skos-play clean
 
 $(SA):
 	$(MAKE) -s -C tools/sparql-anything
+
+$(SP):
+	$(MAKE) -s -C tools/skos-play
 
 $(RSPARQL) $(SHACL):
 	$(MAKE) -s -C tools/jena
@@ -59,3 +66,11 @@ graph/%.ttl: data/%/input.csv queries/%.rq shapes/%.ttl | $(SA) $(SHACL)
 	--shapes shapes/$*.ttl \
 	--data $@ \
 	--text
+
+kos/%.pdf: graph/%.ttl | $(SP)
+	mkdir -p kos
+	java -jar $(SP) \
+	alphabetical \
+	--input $< \
+	--output $@ \
+	--lang ""
