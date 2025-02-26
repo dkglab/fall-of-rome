@@ -62,13 +62,13 @@ graph/%.ttl: data/%/input.csv queries/%.rq shapes/%.ttl | $(SA) $(SHACL)
 	-c location=$< \
 	-q queries/$*.rq \
 	> $@
+	$(SHACL) validate \
+	--shapes shapes/$*.ttl \
+	--data $@ \
+	--text
 
 build-snowman: all | $(SM)
 	$(MAKE) -s -C tools/geosparql start
 	$(MAKE) -C snowman
 	$(MAKE) -s -C tools/geosparql stop
 
-	$(SHACL) validate \
-	--shapes shapes/$*.ttl \
-	--data $@ \
-	--text
