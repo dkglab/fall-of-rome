@@ -14,5 +14,5 @@ site/index.html: \
 clean:
 	rm -rf site
 
-superclean:
+superclean: clean
 	rm -rf .snowman
