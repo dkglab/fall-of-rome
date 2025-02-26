@@ -1,21 +1,20 @@
 SA := tools/sparql-anything/sparql-anything.jar
 SP := tools/skos-play/skos-play-cli.jar
 RSPARQL := ./tools/jena/bin/rsparql
+SM := ./tools/snowman/snowman
 SHACL := ./tools/jena/bin/shacl
 QUERY ?= queries/geosparql.rq
 
-.PHONY: all setup run-query serve-kos clean superclean
+.PHONY: all setup run-query build-snowman serve-site serve-kos clean superclean
 
 all: \
 	graph/site-types.ttl \
 	graph/ceramic-types.ttl \
 	graph/roman-provinces.ttl \
 	graph/municipalities.ttl \
-	graph/located-sites.ttl \
-	kos/site-types.html \
-	kos/ceramic-types.html
+	graph/located-sites.ttl
 
-setup: $(SA) $(RSPARQL)
+setup: $(SA) $(RSPARQL) $(SM)
 
 run-query: graph/located-sites.ttl | $(RSPARQL)
 	$(MAKE) -s -C tools/geosparql start
@@ -25,12 +24,15 @@ run-query: graph/located-sites.ttl | $(RSPARQL)
 
 clean:
 	rm -rf graph data/*/input.csv
+	$(MAKE) -s -C snowman clean
 
 superclean: clean
 	$(MAKE) -s -C tools/sparql-anything clean
 	$(MAKE) -s -C tools/jena clean
 	$(MAKE) -s -C tools/geosparql clean
 	$(MAKE) -s -C tools/skos-play clean
+	$(MAKE) -s -C tools/snowman clean
+	$(MAKE) -s -C snowman superclean
 
 $(SA):
 	$(MAKE) -s -C tools/sparql-anything
@@ -40,6 +42,9 @@ $(SP):
 
 $(RSPARQL) $(SHACL):
 	$(MAKE) -s -C tools/jena
+
+$(SM):
+	$(MAKE) -s -C tools/snowman
 
 data/located-sites/input.csv: data/located-sites/located-sites.csv scripts/process-site-names.py
 	cat $< | python3 scripts/process-site-names.py > $@
@@ -78,3 +83,11 @@ kos/%.html: graph/%.ttl | $(SP)
 
 serve-kos: all
 	python3 -m http.server -b 127.0.0.1 -d kos 8001
+
+build-snowman: all | $(SM)
+	$(MAKE) -s -C tools/geosparql start
+	$(MAKE) -C snowman
+	$(MAKE) -s -C tools/geosparql stop
+
+serve-site: build-snowman
+	$(MAKE) -s -C snowman serve
