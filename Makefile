@@ -1,10 +1,11 @@
 SA := tools/sparql-anything/sparql-anything.jar
+SP := tools/skos-play/skos-play-cli.jar
 RSPARQL := ./tools/jena/bin/rsparql
 SM := ./tools/snowman/snowman
 SHACL := ./tools/jena/bin/shacl
 QUERY ?= queries/geosparql.rq
 
-.PHONY: all setup run-query build-snowman serve-site clean superclean
+.PHONY: all setup run-query build-snowman serve-site serve-kos clean superclean
 
 all: \
 	graph/site-types.ttl \
@@ -29,11 +30,15 @@ superclean: clean
 	$(MAKE) -s -C tools/sparql-anything clean
 	$(MAKE) -s -C tools/jena clean
 	$(MAKE) -s -C tools/geosparql clean
+	$(MAKE) -s -C tools/skos-play clean
 	$(MAKE) -s -C tools/snowman clean
 	$(MAKE) -s -C snowman superclean
 
 $(SA):
 	$(MAKE) -s -C tools/sparql-anything
+
+$(SP):
+	$(MAKE) -s -C tools/skos-play
 
 $(RSPARQL) $(SHACL):
 	$(MAKE) -s -C tools/jena
@@ -66,6 +71,18 @@ graph/%.ttl: data/%/input.csv queries/%.rq shapes/%.ttl | $(SA) $(SHACL)
 	--shapes shapes/$*.ttl \
 	--data $@ \
 	--text
+
+kos/%.html: graph/%.ttl | $(SP)
+	mkdir -p kos
+	java -jar $(SP) \
+	alphabetical \
+	--format html \
+	--input $< \
+	--output $@ \
+	--lang ""
+
+serve-kos: all
+	python3 -m http.server -b 127.0.0.1 -d kos 8001
 
 build-snowman: all | $(SM)
 	$(MAKE) -s -C tools/geosparql start
