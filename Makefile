@@ -8,10 +8,10 @@ QUERY ?= queries/geosparql.rq
 
 all: \
 	graph/site-types.ttl \
-	graph/located-sites.ttl \
 	graph/ceramic-types.ttl \
 	graph/roman-provinces.ttl \
-	graph/municipalities.ttl
+	graph/municipalities.ttl \
+	graph/located-sites.ttl
 
 setup: $(SA) $(RSPARQL) $(SM)
 
