@@ -1,0 +1,3 @@
+[submodule "Sparql-Anything"]
+	path = tools/sparql-anything/repo
+	url = https://github.com/dkglab/sparql.anything
