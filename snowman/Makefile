@@ -8,7 +8,8 @@ serve: all
 site/index.html: \
 	snowman.yaml views.yaml \
 	$(wildcard queries/*.rq) \
-	$(wildcard templates/*.html) $(wildcard templates/layouts/*.html)
+	$(wildcard templates/*.html) \
+	$(wildcard templates/layouts/*.html)
 	../tools/snowman/snowman build -v -t
 
 clean:
