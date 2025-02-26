@@ -4,7 +4,7 @@ SM := ./tools/snowman/snowman
 SHACL := ./tools/jena/bin/shacl
 QUERY ?= queries/geosparql.rq
 
-.PHONY: all setup run-query clean superclean
+.PHONY: all setup run-query build-snowman serve-site clean superclean
 
 all: \
 	graph/site-types.ttl \
@@ -72,3 +72,5 @@ build-snowman: all | $(SM)
 	$(MAKE) -C snowman
 	$(MAKE) -s -C tools/geosparql stop
 
+serve-site: build-snowman
+	$(MAKE) -s -C snowman serve
