@@ -1,5 +1,6 @@
 /tools/sparql-anything/*
 !/tools/sparql-anything/Makefile
+!/tools/sparql-anything/repo
 /tools/jena/*
 !/tools/jena/Makefile
 /tools/geosparql/*
