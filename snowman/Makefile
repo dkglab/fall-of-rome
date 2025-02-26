@@ -1,6 +1,9 @@
-.PHONY: all clean superclean
+.PHONY: all serve clean superclean
 
 all: site/index.html
+
+serve: all
+	../tools/snowman/snowman server
 
 site/index.html: \
 	snowman.yaml views.yaml \
