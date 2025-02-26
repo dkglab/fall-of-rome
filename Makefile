@@ -4,7 +4,7 @@ RSPARQL := ./tools/jena/bin/rsparql
 SHACL := ./tools/jena/bin/shacl
 QUERY ?= queries/geosparql.rq
 
-.PHONY: all setup run-query clean superclean
+.PHONY: all setup run-query serve-kos clean superclean
 
 all: \
 	graph/site-types.ttl \
@@ -12,8 +12,8 @@ all: \
 	graph/roman-provinces.ttl \
 	graph/municipalities.ttl \
 	graph/located-sites.ttl \
-	kos/site-types.pdf \
-	kos/ceramic-types.pdf
+	kos/site-types.html \
+	kos/ceramic-types.html
 
 setup: $(SA) $(RSPARQL)
 
@@ -67,10 +67,14 @@ graph/%.ttl: data/%/input.csv queries/%.rq shapes/%.ttl | $(SA) $(SHACL)
 	--data $@ \
 	--text
 
-kos/%.pdf: graph/%.ttl | $(SP)
+kos/%.html: graph/%.ttl | $(SP)
 	mkdir -p kos
 	java -jar $(SP) \
 	alphabetical \
+	--format html \
 	--input $< \
 	--output $@ \
 	--lang ""
+
+serve-kos: all
+	python3 -m http.server -b 127.0.0.1 -d kos 8001

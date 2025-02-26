@@ -24,3 +24,8 @@ QUERY=queries/my-query.rq make run-query
 
 Running a query starts a GeoSPARQL server running on port 3030. To
 stop the server, run `make -C tools/geosparql stop`.
+
+## Serving the KOS documentation
+
+Run `serve-kos` to serve the HTML files in `kos/`, documenting our
+SKOS taxonomies, at <http://127.0.0.1:8001/>.
