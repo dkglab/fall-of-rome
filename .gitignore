@@ -1,8 +1,12 @@
 /tools/sparql-anything/*
 !/tools/sparql-anything/Makefile
+/tools/snowman/*
+!tools/snowman/Makefile
 /tools/jena/*
 !/tools/jena/Makefile
 /tools/geosparql/*
 !/tools/geosparql/Makefile
 /data/*/input.csv
 /graph/*.ttl
+snowman/site
+snowman/.snowman
