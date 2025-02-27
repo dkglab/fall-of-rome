@@ -14,7 +14,9 @@ all: \
 	graph/ceramic-types.ttl \
 	graph/roman-provinces.ttl \
 	graph/municipalities.ttl \
-	graph/located-sites.ttl
+	graph/located-sites.ttl \
+	kos/site-types.html \
+	kos/ceramic-types.html
 
 setup: $(SA) $(RSPARQL) $(SM)
 
