@@ -27,3 +27,14 @@ stop the server, run `make -C tools/geosparql stop`.
 
 If the GeoSPARQL server seems to be down, you can restart it with
 `make restart-geosparql-server`.
+
+## Building and serving the Web site
+
+Run `make serve-site` to build the static Web site under
+`snowman/site/` and serve it at <http://127.0.0.1:8000/>.
+
+## Serving the KOS documentation
+
+Run `serve-kos` to serve the HTML files in `kos/`, documenting our
+SKOS taxonomies, at <http://127.0.0.1:8001/>.
+>>>>>>> main

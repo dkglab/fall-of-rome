@@ -1,0 +1,2 @@
+# Iberian muncipalities
+Present-day geographic polygons for Spanish and Portuguese municipalities are represented in `spain-municipalities-simplified.geojson` and `portugal-municipalities.geojson`, respectively. These files were downloaded from [geoBoundaries](https://www.geoboundaries.org/). 

@@ -1,0 +1,26 @@
+PREFIX xyz: <http://sparql.xyz/facade-x/data/>
+PREFIX fx: <http://sparql.xyz/facade-x/ns/>
+PREFIX for: <https://dkglab.github.io/ns/for/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX pno: <http://linked.data.gov.au/def/placenames/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+CONSTRUCT {
+  ?municipality a pno:Place ;
+        pno:hasPlaceName ?municipalityName ;
+        dcterms:identifier ?municipalityWikiURI .
+}
+
+WHERE {
+  SERVICE <x-sparql-anything:> {
+    fx:properties fx:csv.headers "true" .
+
+    ?row xyz:Municipality ?municipalityName ;
+         xyz:municipality_wiki_uri ?municipalityWikiURI .
+
+    # Encode Municipality name for URI safety
+  BIND(REPLACE(?MunicipalityName, " ", "-") AS ?id)
+    # Mint new URIs using the fx:entity function
+  BIND(fx:entity(for:, "municipality/", ?id) AS ?municipality)  }
+}

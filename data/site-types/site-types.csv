@@ -1,39 +1,41 @@
-Site Type,skos:prefLabel ?,Broader: Analysis Site Type ?,Narrower: ?,Site Type_Count,Uncertainty ?,Wiki Identifier,Pleiades,Notes,,,Analysis_Site_Type,Count
-Cave,Cave,Cave,,32,N,,cave,"In Pleiades, there is a place type of Cave. Ex. Guattari Cave has instance of archaeological site (Q839954) in Wikidata",,,Other rural,992
-City,City,City,,153,N,,,"In Pleidaes, cities are categorized as: settlement, archaeological site, citadel",,,Villa,959
-City / Hillfort ,City,City,City / Hillfort ,3,Y,,,,,,Other urban,481
-City? ,City,City,City? ,4,Y,,,,,,City,161
-Small City ,Small City ,City,,1,Y,,,,,,Hillfort,151
-Coin find ,Coin find ,Coin find,,3,Y,,,"Search in Pleiades pulls ""coin hoard""",,,Cave,32
-Coin hoard ,Coin hoard ,Coin find,,7,N,Q15484785,coin hoard,IDEA Wikidata model - objects found within building: coin hoard,,,Coin find,10
-Hillfort ,Hillfort ,Hillfort,,132,N,,,"In Pleidaes, there is a place type of Hillfort. In Wikidata, there are different instances including hillfort (Q744099), contour fort (Q28045079). ",,,Underwater Site,10
-Hillfort / Mansio ,Hillfort,Hillfort,Hillfort / Mansio ,2,Y,,,,,,Military Installation,6
-Hillfort / Villa ,Hillfort,Hillfort,Hillfort / Villa ,3,Y,,,,,,Necropolis,4
-Hillfort?,Hillfort,Hillfort,Hillfort?,14,Y,,,,,,Sanctuary / Shrine,3
-Island,Island,Island,,2,N,Q23442,island,"In Pleiades and Wikidata, site type of island (Q23442)",,,Island,2
-Military Camp,Military Camp,Military Camp,,1,Y,Q1198413,,"In Pleiades, site type of fort. Ex. Dangstetten(Q2179590), but in Wikidata instance of military camp (Q1198413), archaeological site (Q839954)",,,Military Camp,1
-Military Installation,Military Installation,Military Installation,,6,Y,,,"In Pleiades, different place types (fort, station (road or coastal), settlement-modern, military installation or camp, temporary). In Wikidata, different types of forts - milecastle (Q1568283), castrum (Q88205), ancient roman structure (Q14752696), roman military frontiers and fortifications (Q12433046). ",,,Mine,1
-Mine ,Mine ,Mine,,1,N,Q820477,mine,"In Pleiades, there is a place type of mine. Ex. Mines at Serabit el-Khadim (Q131144727), instance of mine (Q820477) and archaeological site ",,,Palace,1
-Monument,Monument,Monument,,1,N,Q4989906,monument,Pleiades + Wikidata entries for monument ,,,No context,1
-Necropolis,Necropolis,Necropolis,,4,N,Q200141,necropolis,"In Pleiades, place type of catacomb, cemetery, necropolis. In Wikidata, necropolis (Q200141) or Ancient Roman Necropolis (Q125855764).",,,Monument,1
-No context ,No context ,No context,,1,N,,,,,,Roman road,1
-Ceramic scatter,Ceramic scatter,Other rural,,39,N,,,,,,,
-Rural settlement ,Rural settlement ,Other rural,,950,N,,,"In Pleiades, place type of settlement or villa",,,,
-Rural settlement? ,Rural settlement ,Other rural,Rural settlement? ,3,Y,,,,,,,
-Domus,Domus,Other urban,,53,N,Q782970 / Q94912043,,IDEA data model - domus / domus ecclesiae,,,,
-Industrial,Industrial,Other urban,,22,N,,production center,"In Pleiades, place type of production center (manufacturing, fishing), settlement. Ex. Lezoux",,,,
-Mansio / Villa ,Mansion,Other urban,Mansio / Villa ,3,Y,Q1891165,,"In Pleiades, place type of archaeological site. Wikidata instance of mansio",,,,
-Mansio?,Mansion,Other urban,Mansio?,12,Y,,,,,,,
-Olive production center ,Olive production center ,Other urban,,1,N,,,Pleiades place type of production center?,,,,
-Salting site ,Salting site ,Other urban,,1,N,,,Pleiades place type of production center?,,,,
-Urban area ,Urban Area,Other urban,,150,N,,,Settlement or archaeological site?,,,,
-Urban Area ,Urban Area ,Other urban,,214,N,,,,,,,
-Urban Area / Domus ,Urban Area,Other urban,Urban Area / Domus ,1,Y,,,,,,,
-Urban area / Hillfort ,Urban Area,Other urban,Urban area / Hillfort ,1,Y,,,,,,,
-Urban bath,Urban bath,Other urban,,23,N,Q105723968,,IDEA Wikidata model - bath building,,,,
-Palace ,Palace ,Palace,,1,N,Q16560,,IDEA Wikidata model - palace,,,,
-Roman road ,Roman road ,Roman road,,1,N,Q28670463,roman road,"In Pleiades, place type of roman road. Wikidata instance of Roman road (Q28670463).",,,,
-Sanctuary / Shrine,Sanctuary / Shrine,Sancturary / Shrine,,3,N,Q29553 / Q697295,,IDEA data model - sanctuary / shrine ,,,,
-Underwater Site ,Underwater Site ,Underwater Site,,10,N,,,settlement or archaeological site?,,,,
-Villa,Villa,Villa,,885,N,Q918230,villa,"In Pleiades, place type of villa. Wikidata instances of Roman villa (Q918230), villa (Q3950), and ancient Roman structure (Q14752696). ",,,,
-Villa? ,Villa,Villa,Villa? ,74,Y,,,,,,,
+ID,Site_Type,prefLabel,broader,definition,wiki_id,pleiades_place
+cave,Cave,Cave,,"Caves are caves where material has been reported, usually but not always burials.",Q35509,cave
+city,City,City,,"City represents an entire (usually ancient) city. This is used when no greater specificity is provided in publications, or for things that encompass a whole city (walls, bishoprics, etc).",,
+city-hillfort,City / Hillfort ,City / Hillfort,city,,,
+city-?,City? ,City?,city,,,
+small-city,Small City ,Small City,city,,,
+coin-find,Coin find ,Coin find,,"A coin find is the site of a coin or coin hoard find location, but no evidence for other archaeological material.",,
+coin-hoard,Coin hoard ,Coin hoard,coin-find,,Q15484785,
+hillfort ,Hillfort ,Hillfort,,"A hillfort is a fortified hilltop settlement of multiple houses, usually pre-Roman, occasionally occupied in the late Roman period. One of the major transformations of the post-Roman world was the abandonment of unfortified, dispersed villas, in favor of the reoccupation of Iron Age hillforts.",Q744099,hillfort
+hillfort-mansio ,Hillfort / Mansio ,Hillfort / Mansio,hillfort,,,
+hillfort-villa,Hillfort / Villa ,Hillfort / Villa,hillfort,,,
+hillfort-?,Hillfort?,Hillfort?,hillfort,,,
+island,Island,Island,,,Q23442,island
+military-camp,Military Camp,Military Camp,,,Q1198413,
+military-installation,Military Installation,Military Installation,,,,
+mine,Mine ,Mine,,,Q820477,mine
+monument,Monument,Monument,,,Q4989906,monument
+necropolis,Necropolis,Necropolis,,,Q200141,cemetery
+no-context,No context ,No context,,,,
+other-rural,Other rural,Other rural,,"""Other rural"" is a generic label for all the different types of small rural settlements that are not villas. These can be individual farmsteads, villages, or mere ceramic scatters whose nature is unknown. It basically means rural, not villa.",,
+ceramic-scatter,Ceramic scatter,Ceramic scatter,other-rural,,,
+rural-settlement,Rural settlement ,Rural settlement,other-rural,,,
+rural-settlement-?,Rural settlement? ,Rural settlement? ,other-rural,,,
+domus,Domus,Domus,other-urban,,Q782970,
+industrial,Industrial,Industrial,other-urban,,,production
+mansio-villa,Mansio / Villa ,Mansio / Villa ,other-urban,,Q1891165,
+mansio-?,Mansio?,Mansio?,other-urban,,,
+olive-production-center ,Olive production center ,Olive production center ,other-urban,,,production
+salting-site ,Salting site ,Salting site ,other-urban,,,production
+urban-area-1 ,Urban area ,Urban area ,other-urban,,,
+urban-area-2 ,Urban Area ,Urban Area ,other-urban,,,
+urban-area-domus ,Urban Area / Domus ,Urban Area / Domus ,other-urban,,,
+urban-area-hillfort ,Urban area / Hillfort ,Urban area / Hillfort ,other-urban,,,
+urban-bath,Urban bath,Urban bath,other-urban,,Q105723968,bath
+other-urban,Other urban,Other Urban,,"""Other urban,"" like ""Other rural,"" is a catch-all for areas of Roman (and sometimes modern) cities. Usually used for areas excavated in rescue operations before construction, in which the area excavated is very small and the function of the excavated area unclear.",,
+palace,Palace ,Palace ,,,Q16560,palace
+roman-road ,Roman road ,Roman road ,,,Q28670463,road
+sanctuary-shrine,Sanctuary / Shrine,Sanctuary / Shrine,,,Q29553,sanctuary
+underwater-site ,Underwater Site ,Underwater Site ,,"Underwater sites are underwater. Often but not always shipwrecks, or material found in dredging.",,
+villa,Villa,Villa,,"A villa is the most typical Roman rural settlement, with an elite residence as well as productive facilities. Dispersed through the countryside as opposed to ""nucleated"" settlement like a village. Identified in the archaeological record by some combination of columns, mosaics, processing facilities on a large scale, prestige goods like sigillata ceramics. A vague and disputed, though fundamental, category.",Q918230,villa
+villa-? ,Villa? ,Villa? ,villa,,,

@@ -1,0 +1,63 @@
+PREFIX xyz: <http://sparql.xyz/facade-x/data/>
+PREFIX fx: <http://sparql.xyz/facade-x/ns/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX wd: <https://www.wikidata.org/entity/>
+PREFIX for: <https://dkglab.github.io/ns/for/>
+
+CONSTRUCT {
+  ?ceramicType a skos:Concept ;
+        skos:prefLabel ?prefLabel ;
+        dcterms:identifier ?id ;
+        skos:exactMatch ?wiki_Entity ;
+        dcterms:temporal ?startDate, ?endDate ;
+        skos:broader ?broaderForm ;
+        skos:definition ?type_ARS ;
+        skos:note ?suggestedDating
+        .
+}
+WHERE {
+  SERVICE <x-sparql-anything:> {
+    fx:properties
+      fx:trim-strings true ;
+      fx:csv.headers true ;
+      fx:csv.null-string  "" ;
+      .
+
+    ?row 
+      xyz:ID ?id ;
+      xyz:prefLabel ?prefLabel ;
+      .
+
+    BIND(fx:entity(for:, "ceramic-type/", ?id) as ?ceramicType)
+
+    OPTIONAL {
+      ?row xyz:Type ?type_ARS
+    }
+
+    OPTIONAL {
+      ?row xyz:WikiData_URI ?wikiId
+      BIND(fx:entity(wd:, ?wikiId) AS ?wiki_Entity)
+    }
+
+    OPTIONAL {
+      ?row xyz:Suggested_dating ?suggestedDating
+    }
+    
+    OPTIONAL {
+      ?row xyz:has_Broader ?broaderId
+      BIND(fx:entity(for:, "ceramic-type/", ?broaderId) AS ?broaderForm)
+    }
+    
+    OPTIONAL {
+      ?row xyz:Start_Date ?startDate
+    }
+
+    OPTIONAL {
+      ?row xyz:End_Date ?endDate
+    }
+  }
+}
+
+
