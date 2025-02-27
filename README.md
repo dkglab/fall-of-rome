@@ -37,4 +37,3 @@ Run `make serve-site` to build the static Web site under
 
 Run `serve-kos` to serve the HTML files in `kos/`, documenting our
 SKOS taxonomies, at <http://127.0.0.1:8001/>.
->>>>>>> main
