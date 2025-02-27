@@ -39,23 +39,26 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
   sh:maxCount 1 ;
   .
 
-#optional properties 
+#optional properties with a maximum count 
 
 :SiteTypeBroaderShape
   a sh:PropertyShape ;
   sh:path skos:broader ;
   sh:datatype xsd:string ;
+  sh:maxCount 1 ;
   .
 
 :SiteTypeCloseMatchShape
   a sh:PropertyShape ;
   sh:path skos:broader ;
   sh:datatype xsd:string ;
+  sh:maxCount 2 ;
   .
 
 :SiteTypeDefinitionShape
   a sh:PropertyShape ;
   sh:path skos:definition ;
   sh:datatype xsd:string ;
+  sh:maxCount 1 ;
   .
 
