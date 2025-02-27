@@ -1,0 +1,18 @@
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+PREFIX for: <https://dkglab.github.io/ns/for/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+CONSTRUCT {
+  ?site a geo:Feature ;
+    skos:prefLabel ?label ;
+    geo:hasGeometry ?geometry .
+  ?geometry geo:asGeoJSON ?geojson .
+}
+WHERE {
+  ?site a geo:Feature ;
+        skos:prefLabel ?label ;
+        geo:hasGeometry ?geometry .
+  ?geometry geo:asWKT ?wkt .
+  BIND(geof:asGeoJSON(?wkt) AS ?geojson)
+}

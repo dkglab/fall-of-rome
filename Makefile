@@ -3,9 +3,11 @@ SP := tools/skos-play/skos-play-cli.jar
 RSPARQL := ./tools/jena/bin/rsparql
 SM := ./tools/snowman/snowman
 SHACL := ./tools/jena/bin/shacl
-QUERY ?= queries/geosparql.rq
+SIS := tools/sis/bin/sis
+SIS_DATA := tools/sis/data/installed
+QUERY ?= queries/select/features-within-bbox.rq
 
-.PHONY: all setup run-query build-snowman serve-site serve-kos clean superclean
+.PHONY: all setup run-query build-snowman serve-site serve-kos restart-geosparql-server clean superclean
 
 all: \
 	graph/site-types.ttl \
@@ -16,11 +18,14 @@ all: \
 
 setup: $(SA) $(RSPARQL) $(SM)
 
-run-query: graph/located-sites.ttl | $(RSPARQL)
+run-query: graph/located-sites.ttl $(SIS_DATA) | $(RSPARQL)
 	$(MAKE) -s -C tools/geosparql start
 	$(RSPARQL) \
 	--query $(QUERY) \
 	--service http://localhost:3030/sites
+
+restart-geosparql-server:
+	$(MAKE) -s -C tools/geosparql restart
 
 clean:
 	rm -rf graph data/*/input.csv
@@ -30,6 +35,7 @@ superclean: clean
 	$(MAKE) -s -C tools/sparql-anything clean
 	$(MAKE) -s -C tools/jena clean
 	$(MAKE) -s -C tools/geosparql clean
+	$(MAKE) -s -C tools/sis clean
 	$(MAKE) -s -C tools/skos-play clean
 	$(MAKE) -s -C tools/snowman clean
 	$(MAKE) -s -C snowman superclean
@@ -42,6 +48,9 @@ $(SP):
 
 $(RSPARQL) $(SHACL):
 	$(MAKE) -s -C tools/jena
+
+$(SIS_DATA):
+	$(MAKE) -s -C tools/sis
 
 $(SM):
 	$(MAKE) -s -C tools/snowman

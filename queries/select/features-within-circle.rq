@@ -1,0 +1,24 @@
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+PREFIX uom: <http://www.opengis.net/def/uom/OGC/1.0/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX site: <https://dkglab.github.io/ns/for/site/>
+
+SELECT ?feature ?label ?wkt
+WHERE {
+  ?feature skos:prefLabel ?label ;
+           geo:hasGeometry ?geometry .
+  ?geometry geo:asWKT ?wkt .
+
+  BIND(
+    geof:buffer(
+      "POINT(-5.016805 36.888297)"^^geo:wktLiteral,
+      500,
+      uom:kilometer
+    ) AS ?bufferGeom
+  )
+
+  FILTER(
+    geof:sfIntersects(?wkt, ?bufferGeom)
+  )
+}

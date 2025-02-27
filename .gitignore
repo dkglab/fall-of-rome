@@ -2,6 +2,8 @@
 !/tools/geosparql/Makefile
 /tools/jena/*
 !/tools/jena/Makefile
+/tools/sis/*
+!tools/sis/Makefile
 /tools/skos-play/*
 !/tools/skos-play/Makefile
 /tools/snowman/*
