@@ -1,4 +1,6 @@
 PREFIX : <https://dkglab.github.io/ns/for/shapes/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX pno: <http://linked.data.gov.au/def/placenames/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -11,7 +13,9 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
   # sh:closed "true"^^xsd:boolean ;
   # sh:ignoredProperties (rdf:type) ;
   sh:property
-    :MunicipalityHasPlaceNameShape
+    :MunicipalityHasPlaceNameShape ,
+    :MunicipalityHasGeometryShape ,
+    :MunicipalityHasIdentifierShape
   .
 
 :MunicipalityHasPlaceNameShape
@@ -20,3 +24,48 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
   sh:datatype xsd:string ;
   sh:minCount 1 ;
   .
+
+:MunicipalityHasGeometryShape
+  a sh:PropertyShape ;
+  sh:path geo:hasGeometry ; 
+  sh:node :GeometryShape ;
+  sh:minCount 1 ;
+  .
+
+:MunicipalityHasIdentifierShape
+  a sh:PropertyShape ;
+  sh:path dcterms:identifier ;
+  sh:datatype xsd:string ;
+  sh:minCount 1 ;
+  .
+
+# other properties we could add to the data
+:MunicipalityHasClassificationShape
+  a sh:PropertyShape ;
+  sh:path pno:hasPlaceClassification ;
+  sh:datatype xsd:string ;
+  sh:maxCount 1 ;
+  .
+
+# :GeometryShape
+#   a sh:NodeShape ;
+#   sh:targetClass geo:Geometry ;
+#   sh:property
+#     :GeometryHasTypeShape
+#     :GeometryHasCoordinatesShape
+#   .
+
+# :GeometryHasTypeShape
+#   a sh:PropertyShape ;
+#   sh:path geo:hasGeometryType ;
+#   sh:datatype xsd:string ;
+#   sh:minCount 1 ;
+#   .
+
+# :GeometryHasCoordinatesShape
+#   a sh:PropertyShape ;
+#   sh:path geo:hasGeometryCoordinates ;
+#   sh:datatype xsd:string ;
+#   sh:minCount 1 ;
+#   .
+
