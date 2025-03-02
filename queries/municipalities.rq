@@ -5,17 +5,29 @@ PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX pno: <http://linked.data.gov.au/def/placenames/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
 CONSTRUCT {
+<<<<<<< HEAD
   ?municipality a pno:Place ;
         pno:hasPlaceName ?municipalityName ;
         dcterms:identifier ?municipalityWikiURI .
+=======
+  ?Municipality a pno:Place ;
+        pno:hasPlaceName ?Municipality_wiki ;
+        pno:hasPlaceName ?municipality_alter_name ;
+        dcterms:identifier ?municipality_wiki_uri ;
+        a geo:Feature ; 
+        geo:hasGeometry ?geometry .
+  ?geometry geo:asGeoJSON ?geoJSON .
+>>>>>>> fdced3a (Still not working 100%, some coordiates are retrieved)
 }
 
 WHERE {
   SERVICE <x-sparql-anything:> {
     fx:properties fx:csv.headers "true" .
 
+<<<<<<< HEAD
     ?row xyz:Municipality ?municipalityName ;
          xyz:municipality_wiki_uri ?municipalityWikiURI .
 
@@ -23,4 +35,43 @@ WHERE {
   BIND(REPLACE(?MunicipalityName, " ", "-") AS ?id)
     # Mint new URIs using the fx:entity function
   BIND(fx:entity(for:, "municipality/", ?id) AS ?municipality)  }
+=======
+    ?row xyz:Municipality_wiki ?Municipality_wiki ;
+            xyz:municipality_wiki_uri ?municipality_wiki_uri ;
+            xyz:municipality_alter_name ?municipality_alter_name .
+
+
+  # BIND(STR(?MunicipalityName) AS ?id)
+  BIND(REPLACE(STR(?Municipality_wiki), "[^a-zA-Z0-9]", "_") AS ?id)
+  # Mint new URIs using the fx:entity function
+  BIND(fx:entity(for:, "Municipality_wiki/", ?id) AS ?Municipality)  
+  }
+
+  SERVICE <x-sparql-anything:location=data/municipalities/portugal-municipalities.geojson> {
+    fx:properties fx:media-type "application/json" .
+
+    # Access geometry and coordinates
+    ?feature xyz:properties/xyz:shapeName ?municipalityName ;
+             xyz:geometry ?geometryObject .
+
+    ?geometryObject xyz:type ?type ;
+                    xyz:coordinates ?ringArray .
+
+    # Since coordinates are an array of arrays, iterate over the arrays (each array contains a pair of lat, lon)
+    ?ringArray fx:anySlot ?pointArray .
+    ?pointArray fx:anySlot ?coords .
+    
+    # Now extract lat and lon from the coordinate pairs
+    ?coords rdf:_1 ?lon ;
+            rdf:_2 ?lat .
+        
+    # Generate GeoJSON from the coordinates
+    BIND(STR(?type) AS ?typeStr)
+    BIND(CONCAT("[", STR(?lat), ", ", STR(?lon), "]") AS ?coordinatesStr)
+    BIND(CONCAT('{"type":"', ?typeStr, '","coordinates":', ?coordinatesStr, '}') AS ?geoJSONString)
+    BIND(STRDT(?geoJSONString, geo:geoJSONLiteral) AS ?geoJSON)
+    BIND(?geometryObject AS ?geometry)
+    BIND(?municipalityName AS ?municipality_later_name)  
+  }
+>>>>>>> fdced3a (Still not working 100%, some coordiates are retrieved)
 }
