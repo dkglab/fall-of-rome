@@ -54,6 +54,7 @@ WHERE {
     BIND(CONCAT('{"type":"', ?typeStr, '","coordinates":', ?coordinatesStr, '}') AS ?geoJSONString)
     BIND(STRDT(?geoJSONString, geo:geoJSONLiteral) AS ?geoJSON)
     BIND(?geometryObject AS ?geometry)
-    BIND(?municipalityName AS ?municipality_later_name)  
+    BIND(?municipalityName AS ?municipality_alter_name)  
+
   }
 }
