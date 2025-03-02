@@ -8,11 +8,6 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
 CONSTRUCT {
-<<<<<<< HEAD
-  ?municipality a pno:Place ;
-        pno:hasPlaceName ?municipalityName ;
-        dcterms:identifier ?municipalityWikiURI .
-=======
   ?Municipality a pno:Place ;
         pno:hasPlaceName ?Municipality_wiki ;
         pno:hasPlaceName ?municipality_alter_name ;
@@ -20,26 +15,14 @@ CONSTRUCT {
         a geo:Feature ; 
         geo:hasGeometry ?geometry .
   ?geometry geo:asGeoJSON ?geoJSON .
->>>>>>> fdced3a (Still not working 100%, some coordiates are retrieved)
 }
 
 WHERE {
   SERVICE <x-sparql-anything:> {
     fx:properties fx:csv.headers "true" .
-
-<<<<<<< HEAD
-    ?row xyz:Municipality ?municipalityName ;
-         xyz:municipality_wiki_uri ?municipalityWikiURI .
-
-    # Encode Municipality name for URI safety
-  BIND(REPLACE(?MunicipalityName, " ", "-") AS ?id)
-    # Mint new URIs using the fx:entity function
-  BIND(fx:entity(for:, "municipality/", ?id) AS ?municipality)  }
-=======
     ?row xyz:Municipality_wiki ?Municipality_wiki ;
             xyz:municipality_wiki_uri ?municipality_wiki_uri ;
             xyz:municipality_alter_name ?municipality_alter_name .
-
 
   # BIND(STR(?MunicipalityName) AS ?id)
   BIND(REPLACE(STR(?Municipality_wiki), "[^a-zA-Z0-9]", "_") AS ?id)
@@ -73,5 +56,4 @@ WHERE {
     BIND(?geometryObject AS ?geometry)
     BIND(?municipalityName AS ?municipality_later_name)  
   }
->>>>>>> fdced3a (Still not working 100%, some coordiates are retrieved)
 }
