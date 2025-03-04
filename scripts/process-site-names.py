@@ -6,6 +6,7 @@ town_pattern: re.Pattern = re.compile(r"(.+?) -- ")
 
 
 def process_row(row: dict[str, Any]):
+    row["Site Name"] = row["Site Name"].replace("\n", " ")
     site_name = row["Site Name"]
     site_name = site_name.replace("c/", "Calle")
     towns = re.findall(town_pattern, site_name)
