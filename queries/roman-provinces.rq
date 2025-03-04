@@ -26,7 +26,7 @@ WHERE {
          xyz:pleiades_uri ?pleiades_uri ;
          xyz:provincia_alter_name ?provincia_alter_name .
 
-    BIND(REPLACE(STR(?Provincia_wiki), " ", "-") AS ?id)
+    BIND(REPLACE(?Provincia_wiki, " ", "-") AS ?id)
     BIND(fx:entity(for:, "Provincia_wiki/", ?id) AS ?Provincia)
     # Mint new URIs using the fx:entity function
     # BIND(fx:entity("https://dkglab.github.io/ns/for/", "Provincia_wiki/", ?id) AS ?ProvinciaURI)
