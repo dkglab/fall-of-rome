@@ -34,6 +34,7 @@ restart-geosparql-server:
 	$(MAKE) -s -C tools/geosparql restart
 
 clean:
+	$(MAKE) -s -C tools/geosparql stop
 	rm -rf graph data/*/input.csv
 	$(MAKE) -s -C snowman clean
 
@@ -102,7 +103,6 @@ serve-kos: all
 build-snowman: all | $(SM)
 	$(MAKE) -s -C tools/geosparql start
 	$(MAKE) -C snowman
-	$(MAKE) -s -C tools/geosparql stop
 
 serve-site: build-snowman
 	$(MAKE) -s -C snowman serve
