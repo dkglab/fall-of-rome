@@ -1,12 +1,17 @@
 {{ template "base" . }}
 
-{{ define "title" }}{{ end }}
+{{ define "title" }}All sites{{ end }}
 
-{{ define "content" }}
-<h1>Fall of Rome</h1>
-<div class="mb">
-{{ range . }}
-<a href="site-type/{{ .id }}.html">{{ .site_type }}</a><br>
-{{ end }}
+{{ define "stylesheets" -}}
+<link rel="stylesheet" href="index.css" />
+{{- end }}
+
+{{ define "content" -}}
+<header>
+  <h1>All located archaeological sites</h1>
+</header>
+<div class="list">
+  <long-list items="sites.json"></long-list>
 </div>
-{{ end }}
+<script src="index.js"></script>
+{{- end }}

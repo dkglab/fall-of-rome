@@ -16,5 +16,9 @@
 /data/*/input.csv
 /graph/*.ttl
 /kos/
-snowman/.snowman
-snowman/site/
+/snowman/.built
+/snowman/.snowman
+/snowman/site/
+/snowman/static/index.js*
+/webapp/node_modules/
+/webapp/build/

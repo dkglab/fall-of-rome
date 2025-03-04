@@ -37,6 +37,7 @@ clean:
 	$(MAKE) -s -C tools/geosparql stop
 	rm -rf graph data/*/input.csv
 	$(MAKE) -s -C snowman clean
+	$(MAKE) -s -C webapp clean
 
 superclean: clean
 	$(MAKE) -s -C tools/sparql-anything clean
@@ -46,6 +47,7 @@ superclean: clean
 	$(MAKE) -s -C tools/skos-play clean
 	$(MAKE) -s -C tools/snowman clean
 	$(MAKE) -s -C snowman superclean
+	$(MAKE) -s -C webapp superclean
 
 $(SA):
 	$(MAKE) -s -C tools/sparql-anything
@@ -100,7 +102,14 @@ kos/%.html: graph/%.ttl | $(SP)
 serve-kos: all
 	python3 -m http.server -b 127.0.0.1 -d kos 8001
 
-build-snowman: all | $(SM)
+webapp/build/index.js:
+	$(MAKE) -s -C webapp
+
+snowman/static/index.js: webapp/build/index.js
+	mkdir -p snowman/static
+	cp $<* snowman/static/
+
+build-snowman: all snowman/static/index.js $(SIS_DATA) | $(SM)
 	$(MAKE) -s -C tools/geosparql start
 	$(MAKE) -C snowman
 

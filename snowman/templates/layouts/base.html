@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Fall of Rome{{ block "title" . }}{{ end }}</title>
+    <title>Fall of Rome: {{ block "title" . }}{{ end }}</title>
+    {{ block "stylesheets" . }}{{ end }}
   </head>
-  <body class="mx max-width line-height">
-    <div class="my"><a href="/">Fall of Rome</a></div>
+  <body>
     {{ block "content" . }}{{ end }}
   </body>
 </html>
