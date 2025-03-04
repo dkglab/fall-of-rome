@@ -7,20 +7,24 @@ SIS := tools/sis/bin/sis
 SIS_DATA := tools/sis/data/installed
 QUERY ?= queries/select/features-within-bbox.rq
 
-.PHONY: all setup run-query build-snowman serve-site serve-kos restart-geosparql-server clean superclean
+.PHONY: all graph setup run-query build-snowman serve-site serve-kos restart-geosparql-server clean superclean
 
-all: \
+graph: \
 	graph/site-types.ttl \
 	graph/ceramic-types.ttl \
 	graph/roman-provinces.ttl \
 	graph/municipalities.ttl \
-	graph/located-sites.ttl \
+	graph/located-sites.ttl
+
+all: \
+	graph \
 	kos/site-types.html \
-	kos/ceramic-types.html
+	kos/ceramic-types.html \
+	webapp/build/index.js
 
 setup: $(SA) $(RSPARQL) $(SM)
 
-run-query: graph/located-sites.ttl $(SIS_DATA) | $(RSPARQL)
+run-query: graph $(SIS_DATA) | $(RSPARQL)
 	$(MAKE) -s -C tools/geosparql start
 	$(RSPARQL) \
 	--query $(QUERY) \
