@@ -1,11 +1,11 @@
 .PHONY: all serve clean superclean
 
-all: site/index.html
+all: .built
 
 serve: all
 	../tools/snowman/snowman server
 
-site/index.html: \
+.built: \
 	snowman.yaml views.yaml \
 	$(wildcard queries/*.rq) \
 	$(wildcard static/*) \
@@ -13,9 +13,10 @@ site/index.html: \
 	$(wildcard templates/*.json) \
 	$(wildcard templates/layouts/*.html)
 	../tools/snowman/snowman build -v -t
+	touch $@
 
 clean:
-	rm -rf site
+	rm -rf site .built
 
 superclean: clean
 	rm -rf .snowman
