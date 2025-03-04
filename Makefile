@@ -7,20 +7,24 @@ SIS := tools/sis/bin/sis
 SIS_DATA := tools/sis/data/installed
 QUERY ?= queries/select/features-within-bbox.rq
 
-.PHONY: all setup run-query build-snowman serve-site serve-kos restart-geosparql-server clean superclean
+.PHONY: all graph setup run-query build-snowman serve-site serve-kos restart-geosparql-server clean superclean
 
-all: \
+graph: \
 	graph/site-types.ttl \
 	graph/ceramic-types.ttl \
 	graph/roman-provinces.ttl \
 	graph/municipalities.ttl \
-	graph/located-sites.ttl \
+	graph/located-sites.ttl
+
+all: \
+	graph \
 	kos/site-types.html \
-	kos/ceramic-types.html
+	kos/ceramic-types.html \
+	webapp/build/index.js
 
 setup: $(SA) $(RSPARQL) $(SM)
 
-run-query: graph/located-sites.ttl $(SIS_DATA) | $(RSPARQL)
+run-query: graph $(SIS_DATA) | $(RSPARQL)
 	$(MAKE) -s -C tools/geosparql start
 	$(RSPARQL) \
 	--query $(QUERY) \
@@ -30,8 +34,10 @@ restart-geosparql-server:
 	$(MAKE) -s -C tools/geosparql restart
 
 clean:
+	$(MAKE) -s -C tools/geosparql stop
 	rm -rf graph data/*/input.csv
 	$(MAKE) -s -C snowman clean
+	$(MAKE) -s -C webapp clean
 
 superclean: clean
 	$(MAKE) -s -C tools/sparql-anything clean
@@ -41,6 +47,7 @@ superclean: clean
 	$(MAKE) -s -C tools/skos-play clean
 	$(MAKE) -s -C tools/snowman clean
 	$(MAKE) -s -C snowman superclean
+	$(MAKE) -s -C webapp superclean
 
 $(SA):
 	$(MAKE) -s -C tools/sparql-anything
@@ -95,10 +102,16 @@ kos/%.html: graph/%.ttl | $(SP)
 serve-kos: all
 	python3 -m http.server -b 127.0.0.1 -d kos 8001
 
-build-snowman: all | $(SM)
+webapp/build/index.js:
+	$(MAKE) -s -C webapp
+
+snowman/static/index.js: webapp/build/index.js
+	mkdir -p snowman/static
+	cp $<* snowman/static/
+
+build-snowman: all snowman/static/index.js $(SIS_DATA) | $(SM)
 	$(MAKE) -s -C tools/geosparql start
 	$(MAKE) -C snowman
-	$(MAKE) -s -C tools/geosparql stop
 
 serve-site: build-snowman
 	$(MAKE) -s -C snowman serve
