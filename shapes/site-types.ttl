@@ -30,3 +30,35 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
   sh:minCount 1 ;
   sh:maxCount 1 ;
   .
+
+:SiteTypeInSchemeShape
+  a sh:PropertyShape ;
+  sh:path skos:inScheme ;
+  sh:datatype xsd:string ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  .
+
+#optional properties with a maximum count 
+
+:SiteTypeBroaderShape
+  a sh:PropertyShape ;
+  sh:path skos:broader ;
+  sh:datatype xsd:string ;
+  sh:maxCount 1 ;
+  .
+
+:SiteTypeCloseMatchShape
+  a sh:PropertyShape ;
+  sh:path skos:broader ;
+  sh:datatype xsd:string ;
+  sh:maxCount 2 ;
+  .
+
+:SiteTypeDefinitionShape
+  a sh:PropertyShape ;
+  sh:path skos:definition ;
+  sh:datatype xsd:string ;
+  sh:maxCount 1 ;
+  .
+

@@ -1,0 +1,17 @@
+{{ template "base" . }}
+
+{{ define "title" }}All sites{{ end }}
+
+{{ define "stylesheets" -}}
+<link rel="stylesheet" href="index.css" />
+{{- end }}
+
+{{ define "content" -}}
+<header>
+  <h1>All located archaeological sites</h1>
+</header>
+<div class="list">
+  <long-list items="sites.json"></long-list>
+</div>
+<script src="index.js"></script>
+{{- end }}

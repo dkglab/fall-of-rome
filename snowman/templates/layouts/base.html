@@ -1,0 +1,12 @@
+{{ define "base" }}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Fall of Rome: {{ block "title" . }}{{ end }}</title>
+    {{ block "stylesheets" . }}{{ end }}
+  </head>
+  <body>
+    {{ block "content" . }}{{ end }}
+  </body>
+</html>
+{{ end }}

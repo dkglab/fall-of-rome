@@ -3,9 +3,9 @@ SHELL := /usr/bin/env bash
 GS_HOST := https://repo1.maven.org/maven2/org/apache/jena/jena-fuseki-geosparql
 GS_VERSION := 5.3.0
 DS_NAME ?= sites
-DS_FILE ?= ../../graph/located-sites.ttl
+DS_FILES ?= $(wildcard ../../graph/*.ttl)
 
-.PHONY: all clean start stop
+.PHONY: all clean start stop restart
 
 all: jena-fuseki-geosparql.jar
 
@@ -15,10 +15,11 @@ clean: stop
 start: jena-fuseki-geosparql.jar
 	if [ ! -e run/geosparql.pid ]; then \
 	mkdir -p run; \
+	SIS_DATA=../sis/data \
 	java -jar jena-fuseki-geosparql.jar \
 	--port 3030 \
 	--dataset $(DS_NAME) \
-	--rdf_file $(DS_FILE) \
+	$(foreach file,$(DS_FILES),-rf $(file) ) \
 	> run/geosparql.log 2>&1 \
 	& echo $$! \
 	> run/geosparql.pid; \
@@ -30,6 +31,8 @@ stop:
 	kill $$(cat run/geosparql.pid) || true; \
 	rm -f run/geosparql.pid; \
 	fi
+
+restart: stop start
 
 jena-fuseki-geosparql.jar:
 	curl -L $(GS_HOST)/$(GS_VERSION)/jena-fuseki-geosparql-$(GS_VERSION).jar > $@
