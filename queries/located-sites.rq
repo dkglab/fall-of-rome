@@ -20,7 +20,10 @@ CONSTRUCT {
 }
 WHERE {
   SERVICE <x-sparql-anything:> {
-    fx:properties fx:csv.headers "true" .
+    fx:properties
+      fx:trim-strings true ;
+      fx:csv.headers true ;
+      .
 
     ?row xyz:HLLG%20%23 ?hllg_number .
     ?row xyz:Site%20Name ?site_name .
