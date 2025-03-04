@@ -12,6 +12,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
   # sh:ignoredProperties (rdf:type) ;
   sh:property
     :CeramicTypePreferredLabelShape
+    :CeramicTypeIdentifierShape
+    :CeramicTypeDefinitionShape
+    :CeramicBroaderShape
+    :CeramicNarrowerShape
+    :CeramicTemporalShape
+    :CeramicNoteShape
   .
 
 :CeramicTypePreferredLabelShape
@@ -19,5 +25,51 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
   sh:path skos:prefLabel ;
   sh:datatype xsd:string ;
   sh:minCount 1 ;
+  sh:maxCount 1 ;
+  .
+
+:CeramicTypeIdentifierShape
+  a sh:PropertyShape ;
+  sh:path dcterms:identifier ;
+  sh:datatype xsd:string ;
+  sh:minCount 1 ;
+  sh:maxCount 1 ;
+  .
+
+#optional properties
+
+:CeramicTypeDefinitionShape
+  a sh:PropertyShape ;
+  sh:path skos:definition ;
+  sh:datatype xsd:string ;
+  sh:maxCount 1 ;
+  .
+
+:CeramicBroaderShape
+  a sh:PropertyShape ;
+  sh:path skos:broader ;
+  sh:datatype xsd:string ;
+  sh:maxCount 1 ;
+  .
+
+:CeramicNarrowerShape
+  a sh:PropertyShape ;
+  sh:path skos:narrower ;
+  sh:datatype xsd:string ;
+  sh:maxCount 1 ;
+  .
+
+:CeramicTemporalShape
+  a sh:PropertyShape ;
+  sh:path dcterms:temporal ;
+  sh:datatype xsd:gYear ;
+  sh:maxCount 2 ;
+  .
+
+#used for Hayes' suggested dating
+:CeramicNoteShape
+  a sh:PropertyShape ;
+  sh:path skos:note ;
+  sh:datatype xsd:string ;
   sh:maxCount 1 ;
   .
