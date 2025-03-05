@@ -4,6 +4,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX sh: <http://www.w3.org/ns/shacl#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
 
 :CeramicTypeShape
   a sh:NodeShape ;
@@ -11,12 +12,12 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
   # sh:closed "true"^^xsd:boolean ;
   # sh:ignoredProperties (rdf:type) ;
   sh:property
-    :CeramicTypePreferredLabelShape
-    :CeramicTypeIdentifierShape
-    :CeramicTypeDefinitionShape
-    :CeramicBroaderShape
-    :CeramicNarrowerShape
-    :CeramicTemporalShape
+    :CeramicTypePreferredLabelShape ,
+    :CeramicTypeIdentifierShape ,
+    :CeramicTypeDefinitionShape ,
+    :CeramicBroaderShape ,
+    :CeramicNarrowerShape ,
+    :CeramicTemporalShape ,
     :CeramicNoteShape
   .
 
