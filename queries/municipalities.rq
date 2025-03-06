@@ -13,8 +13,8 @@ CONSTRUCT {
         pno:hasPlaceName ?municipality_alter_name ;
         dcterms:identifier ?municipality_wiki_uri ;
         a geo:Feature ; 
-        geo:hasGeometry ?geometry .
-  ?geometry geo:asGeoJSON ?geoJSON .
+        geo:hasGeometry [ geo:asGeoJSON ?geoJSON ] ;
+        .
 }
 
 WHERE {
@@ -31,30 +31,16 @@ WHERE {
   }
 
   SERVICE <x-sparql-anything:location=data/municipalities/portugal-municipalities.geojson> {
-    fx:properties fx:media-type "application/json" .
+    fx:properties
+      fx:media-type "application/json" ;
+      fx:json.literize "geometry" ;
+      .
 
     # Access geometry and coordinates
     ?feature xyz:properties/xyz:shapeName ?municipalityName ;
-             xyz:geometry ?geometryObject .
+             xyz:geometry ?geoJSONString .
 
-    ?geometryObject xyz:type ?type ;
-                    xyz:coordinates ?ringArray .
-
-    # Since coordinates are an array of arrays, iterate over the arrays (each array contains a pair of lat, lon)
-    ?ringArray fx:anySlot ?pointArray .
-    ?pointArray fx:anySlot ?coords .
-    
-    # Now extract lat and lon from the coordinate pairs
-    ?coords rdf:_1 ?lon ;
-            rdf:_2 ?lat .
-        
-    # Generate GeoJSON from the coordinates
-    BIND(STR(?type) AS ?typeStr)
-    BIND(CONCAT("[", STR(?lat), ", ", STR(?lon), "]") AS ?coordinatesStr)
-    BIND(CONCAT('{"type":"', ?typeStr, '","coordinates":', ?coordinatesStr, '}') AS ?geoJSONString)
     BIND(STRDT(?geoJSONString, geo:geoJSONLiteral) AS ?geoJSON)
-    BIND(?geometryObject AS ?geometry)
     BIND(?municipalityName AS ?municipality_alter_name)  
-
   }
 }
