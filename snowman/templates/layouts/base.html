@@ -3,10 +3,21 @@
 <html lang="en">
   <head>
     <title>Fall of Rome: {{ block "title" . }}{{ end }}</title>
-    {{ block "stylesheets" . }}{{ end }}
+    <link rel="stylesheet" href="/index.css" />
   </head>
   <body>
+    <nav>
+      <ol>
+        <li><a href="/">Sites</a></li>
+        <li><a href="/site-types/">Site types</a></li>
+        <li><a href="/ceramic-types/">Ceramic types</a></li>
+        <li><a href="/roman-provinces/">Roman provinces</a></li>
+        <li><a href="/municipalities/">Municipalities</a></li>
+      </ol>
+    </nav>
+    <main>
     {{ block "content" . }}{{ end }}
+    </main>
   </body>
 </html>
 {{ end }}

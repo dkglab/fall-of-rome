@@ -1,0 +1,14 @@
+{{ template "base" . }}
+
+{{ define "title" }}Roman provinces{{ end }}
+
+{{ define "content" -}}
+<header>
+  <h1>Roman provinces</h1>
+</header>
+<div class="list">
+  {{ range . }}
+  <div><a href="{{ .id }}.html">{{ .roman_province }}</a></div>
+  {{ end }}
+</div>
+{{- end }}

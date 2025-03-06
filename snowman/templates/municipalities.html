@@ -1,0 +1,14 @@
+{{ template "base" . }}
+
+{{ define "title" }}Municipalities{{ end }}
+
+{{ define "content" -}}
+<header>
+  <h1>Municipalities</h1>
+</header>
+<div class="list">
+  {{ range . }}
+  <div><a href="{{ .id }}.html">{{ .municipality }}</a></div>
+  {{ end }}
+</div>
+{{- end }}

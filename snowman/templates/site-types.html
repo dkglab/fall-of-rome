@@ -1,0 +1,14 @@
+{{ template "base" . }}
+
+{{ define "title" }}Site types{{ end }}
+
+{{ define "content" -}}
+<header>
+  <h1>Site types</h1>
+</header>
+<div class="list">
+  {{ range . }}
+  <div><a href="{{ .id }}.html">{{ .site_type }}</a></div>
+  {{ end }}
+</div>
+{{- end }}
