@@ -1,0 +1,14 @@
+{{ template "base" . }}
+
+{{ define "title" }}Ceramic types{{ end }}
+
+{{ define "content" -}}
+<header>
+  <h1>Ceramic types</h1>
+</header>
+<div class="list">
+  {{ range . }}
+  <div><a href="{{ .id }}.html">{{ .ceramic_type }}</a></div>
+  {{ end }}
+</div>
+{{- end }}
