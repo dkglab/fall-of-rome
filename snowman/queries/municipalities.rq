@@ -6,13 +6,3 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX wiki: <https://www.wikidata.org/entity/>
 PREFIX ple: <https://pleiades.stoa.org/vocabularies/place-types/>
-
-SELECT ?uri ?site_type ?id WHERE {
-  ?uri
-    rdf:type skos:Concept ;
-    skos:inScheme kos:site-types ;
-    dcterms:identifier ?id ;
-    skos:prefLabel ?site_type ;
-    .
-}
-ORDER BY LCASE(?site_type)
