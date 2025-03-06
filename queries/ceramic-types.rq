@@ -5,6 +5,7 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX wd: <https://www.wikidata.org/entity/>
 PREFIX for: <https://dkglab.github.io/ns/for/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 CONSTRUCT {
   ?ceramicType a skos:Concept ;
@@ -51,11 +52,13 @@ WHERE {
     }
     
     OPTIONAL {
-      ?row xyz:Start_Date ?startDate
+    ?row xyz:Start_Date ?startDateRaw
+    BIND(xsd:gYear(?startDateRaw) AS ?startDate)
     }
 
     OPTIONAL {
-      ?row xyz:End_Date ?endDate
+    ?row xyz:End_Date ?endDateRaw
+    BIND(xsd:gYear(?endDateRaw) AS ?endDate)
     }
   }
 }
