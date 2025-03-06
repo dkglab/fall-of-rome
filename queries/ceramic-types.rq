@@ -5,10 +5,12 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX wd: <https://www.wikidata.org/entity/>
 PREFIX for: <https://dkglab.github.io/ns/for/>
+PREFIX kos: <https://dkglab.github.io/ns/for/kos/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 CONSTRUCT {
   ?ceramicType a skos:Concept ;
+        skos:inScheme kos:ceramic-types ;
         skos:prefLabel ?prefLabel ;
         dcterms:identifier ?id ;
         skos:exactMatch ?wiki_Entity ;
@@ -17,6 +19,10 @@ CONSTRUCT {
         skos:definition ?type_ARS ;
         skos:note ?suggestedDating
         .
+
+  kos:ceramic-types
+    a skos:ConceptScheme ;
+    dcterms:title "Ceramic Types Concept Scheme" .
 }
 WHERE {
   SERVICE <x-sparql-anything:> {
