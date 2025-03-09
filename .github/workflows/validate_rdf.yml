@@ -1,0 +1,16 @@
+name: Validate RDF
+run-name: ${{ github.actor }} is valdating generated RDF data
+on: [push]
+jobs:
+  Validate-RDF:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "21"
+      - name: Setup
+        run: make setup superclean
+      - name: Check
+        run: make clean all
