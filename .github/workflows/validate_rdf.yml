@@ -1,6 +1,9 @@
 name: Validate RDF
 run-name: ${{ github.actor }} is valdating generated RDF data
-on: [push]
+on: 
+  push:
+    branches:
+      - main
 jobs:
   Validate-RDF:
     runs-on: ubuntu-latest
