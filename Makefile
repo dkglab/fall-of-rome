@@ -1,3 +1,4 @@
+SHELL := /usr/bin/env bash
 SA := tools/sparql-anything/sparql-anything.jar
 SP := tools/skos-play/skos-play-cli.jar
 RSPARQL := ./tools/jena/bin/rsparql
