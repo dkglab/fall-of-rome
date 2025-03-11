@@ -4,8 +4,6 @@ SP := tools/skos-play/skos-play-cli.jar
 RSPARQL := ./tools/jena/bin/rsparql
 SM := ./tools/snowman/snowman
 SHACL := ./tools/jena/bin/shacl
-SIS := tools/sis/bin/sis
-SIS_DATA := tools/sis/data/installed
 QUERY ?= queries/select/features-within-bbox.rq
 
 .PHONY: all graph setup run-query build-snowman serve-site serve-kos restart-geosparql-server clean superclean
@@ -25,7 +23,7 @@ all: \
 
 setup: $(SA) $(RSPARQL) $(SM)
 
-run-query: graph | $(SIS_DATA) $(RSPARQL)
+run-query: graph | $(RSPARQL)
 	$(MAKE) -s -C tools/geosparql start
 	$(RSPARQL) \
 	--query $(QUERY) \
@@ -44,7 +42,6 @@ superclean: clean
 	$(MAKE) -s -C tools/sparql-anything clean
 	$(MAKE) -s -C tools/jena clean
 	$(MAKE) -s -C tools/geosparql clean
-	$(MAKE) -s -C tools/sis clean
 	$(MAKE) -s -C tools/skos-play clean
 	$(MAKE) -s -C tools/snowman clean
 	$(MAKE) -s -C snowman superclean
@@ -58,9 +55,6 @@ $(SP):
 
 $(RSPARQL) $(SHACL):
 	$(MAKE) -s -C tools/jena
-
-$(SIS_DATA):
-	$(MAKE) -s -C tools/sis
 
 $(SM):
 	$(MAKE) -s -C tools/snowman
@@ -80,7 +74,7 @@ data/roman-provinces/input.csv: data/roman-provinces/roman-provinces.csv
 data/municipalities/input.csv: data/municipalities/municipalities.csv
 	cp $< $@
 
-graph/%.ttl: data/%/input.csv queries/%.rq shapes/%.ttl | $(SIS_DATA) $(SA) $(SHACL)
+graph/%.ttl: data/%/input.csv queries/%.rq shapes/%.ttl | $(SA) $(SHACL)
 	mkdir -p graph
 	SIS_DATA=tools/sis/data \
 	java -jar $(SA) \
@@ -114,7 +108,7 @@ snowman/static/index.js: webapp/build/index.js
 	mkdir -p snowman/static
 	cp $<* snowman/static/
 
-build-snowman: all snowman/static/index.js $(SIS_DATA) | $(SM)
+build-snowman: all snowman/static/index.js | $(SM)
 	$(MAKE) -s -C tools/geosparql start
 	$(MAKE) -C snowman
 
