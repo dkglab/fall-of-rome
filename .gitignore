@@ -5,7 +5,6 @@
 /tools/sis/*
 !/tools/sis/Makefile
 !/tools/sis/data/
-/tools/sis/data/installed
 /tools/skos-play/*
 !/tools/skos-play/Makefile
 /tools/snowman/*
