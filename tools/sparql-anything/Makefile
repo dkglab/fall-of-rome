@@ -1,7 +1,7 @@
 SHELL := /usr/bin/env bash
 .SHELLFLAGS := -O extglob -c
-SA_HOST := https://github.com/SPARQL-Anything/sparql.anything/releases/download
-SA_VERSION := 0.9.0
+SA_HOST := https://github.com/dkglab/sparql.anything/releases/download
+SA_VERSION := 1.0.0-SNAPSHOT
 
 .PHONY: all clean
 
@@ -11,4 +11,4 @@ clean:
 	rm -rf !(Makefile)
 
 sparql-anything.jar:
-	curl -L $(SA_HOST)/$(SA_VERSION)/sparql-anything-$(SA_VERSION).jar > $@
+	curl -L $(SA_HOST)/v$(SA_VERSION)/sparql-anything-$(SA_VERSION)-geosparql.jar > $@

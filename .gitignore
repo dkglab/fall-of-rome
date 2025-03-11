@@ -3,11 +3,11 @@
 /tools/jena/*
 !/tools/jena/Makefile
 /tools/sis/*
-!tools/sis/Makefile
+!/tools/sis/Makefile
 /tools/skos-play/*
 !/tools/skos-play/Makefile
 /tools/snowman/*
-!tools/snowman/Makefile
+!/tools/snowman/Makefile
 /tools/sparql-anything/*
 !/tools/sparql-anything/Makefile
 .*-debug.xml
