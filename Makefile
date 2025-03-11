@@ -79,8 +79,9 @@ data/roman-provinces/input.csv: data/roman-provinces/roman-provinces.csv
 data/municipalities/input.csv: data/municipalities/municipalities.csv
 	cp $< $@
 
-graph/%.ttl: data/%/input.csv queries/%.rq shapes/%.ttl | $(SA) $(SHACL)
+graph/%.ttl: data/%/input.csv queries/%.rq shapes/%.ttl | $(SIS_DATA) $(SA) $(SHACL)
 	mkdir -p graph
+	SIS_DATA=tools/sis/data \
 	java -jar $(SA) \
 	-c location=$< \
 	-q queries/$*.rq \
