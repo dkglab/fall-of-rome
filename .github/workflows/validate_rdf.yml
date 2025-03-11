@@ -16,7 +16,4 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "21"
-      - name: Setup
-        run: make setup superclean
-      - name: Check
-        run: make clean all
+      - run: make graph
