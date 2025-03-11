@@ -33,7 +33,7 @@ WHERE {
   SERVICE <x-sparql-anything:location=data/municipalities/portugal-municipalities.geojson> {
     fx:properties
       fx:media-type "application/json" ;
-      fx:json.literize "geometry" ;
+      fx:json.literalize "geometry" ;
       .
 
     # Access geometry and coordinates
