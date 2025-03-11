@@ -1,3 +1,4 @@
+SHELL := /usr/bin/env bash
 SA := tools/sparql-anything/sparql-anything.jar
 SP := tools/skos-play/skos-play-cli.jar
 RSPARQL := ./tools/jena/bin/rsparql
@@ -86,10 +87,13 @@ graph/%.ttl: data/%/input.csv queries/%.rq shapes/%.ttl | $(SIS_DATA) $(SA) $(SH
 	-c location=$< \
 	-q queries/$*.rq \
 	> $@
+	@output=$$(\
 	$(SHACL) validate \
 	--shapes shapes/$*.ttl \
 	--data $@ \
-	--text
+	--text\
+	); [ "$$output" == "Conforms" ] || \
+	{ echo "\033[0;31mSHACL validation failed for $@:\033[0m\n$$output"; exit 1; }
 
 kos/%.html: graph/%.ttl | $(SP)
 	mkdir -p kos
