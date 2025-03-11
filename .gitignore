@@ -10,7 +10,7 @@
 !tools/snowman/Makefile
 /tools/sparql-anything/*
 !/tools/sparql-anything/Makefile
-!/tools/sparql-anything/repo
+!/tools/sparql-anything/.gitmodules
 .*-debug.xml
 .DS_Store
 /alignment-cache/
