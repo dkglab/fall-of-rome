@@ -24,7 +24,7 @@ all: \
 
 setup: $(SA) $(RSPARQL) $(SM)
 
-run-query: graph $(SIS_DATA) | $(RSPARQL)
+run-query: graph | $(SIS_DATA) $(RSPARQL)
 	$(MAKE) -s -C tools/geosparql start
 	$(RSPARQL) \
 	--query $(QUERY) \
