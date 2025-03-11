@@ -8,7 +8,7 @@ SA_VERSION := 1.0.0-SNAPSHOT
 all: sparql-anything.jar
 
 clean:
-	rm -rf !(Makefile)
+	rm -rf !(Makefile|.gitmodules)
 
 sparql-anything.jar:
 	curl -L $(SA_HOST)/v$(SA_VERSION)/sparql-anything-$(SA_VERSION)-geosparql.jar > $@
