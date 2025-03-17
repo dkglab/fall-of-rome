@@ -21,7 +21,6 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :MunicipalityHasPlaceNameShape
   a sh:PropertyShape ;
   sh:path pno:hasPlaceName ;
-  sh:datatype xsd:string ;
   sh:minCount 1 ;
   .
 
