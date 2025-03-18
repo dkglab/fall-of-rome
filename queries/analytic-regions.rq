@@ -1,0 +1,22 @@
+PREFIX xyz: <http://sparql.xyz/facade-x/data/>
+PREFIX fx: <http://sparql.xyz/facade-x/ns/>
+PREFIX for: <https://dkglab.github.io/ns/for/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX pno: <http://linked.data.gov.au/def/placenames/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+CONSTRUCT {
+  ?region a geo:Feature ;
+    skos:prefLabel ?region_name .
+} WHERE {
+  SERVICE <x-sparql-anything:> {
+    fx:properties fx:csv.headers "true" .
+
+    ?row xyz:value ?region_name .
+
+    BIND(REPLACE(LCASE(?region_name), "[^a-z0-9]", "-") AS ?id)
+    BIND(fx:entity(for:, "analytic-region/", ?id) AS ?region)
+  }
+}
