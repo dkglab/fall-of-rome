@@ -1,0 +1,14 @@
+{{ template "base" . }}
+
+{{ define "title" }}Analytic regions{{ end }}
+
+{{ define "content" -}}
+<header>
+  <h1>Analytic regions</h1>
+</header>
+<div class="list">
+  {{ range . }}
+  <div><a href="{{ .id }}.html">{{ .region_name }}</a></div>
+  {{ end }}
+</div>
+{{- end }}
