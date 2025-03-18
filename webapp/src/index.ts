@@ -35,7 +35,8 @@ export class LongList extends LitElement {
     return html`
       <lit-virtualizer
         .items=${this.items}
-        .renderItem=${(item: Item) => html`<div>${item.name}</div>`}
+        .renderItem=${(item: Item) =>
+          html`<div><a href="site/${item.id}.html">${item.name}</a></div>`}
       ></lit-virtualizer>
     `
   }

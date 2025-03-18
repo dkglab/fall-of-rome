@@ -4,8 +4,10 @@ PREFIX for: <https://dkglab.github.io/ns/for/>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
-SELECT ?site ?site_name WHERE {
+SELECT ?id ?site_name WHERE {
   ?site a geo:Feature ;
     skos:prefLabel ?site_name .
+
+  BIND(STRAFTER(STR(?site), CONCAT(STR(for:site), "/")) AS ?id)
 }
 ORDER BY LCASE(?site_name)

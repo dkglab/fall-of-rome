@@ -5,6 +5,9 @@ views:
     unsafe: true
   - output: "index.html"
     template: "index.html"
+  - output: "site/{{id}}.html"
+    query: "sites.rq"
+    template: "site.html"
   - output: "site-types/index.html"
     query: "site-types.rq"
     template: "site-types.html"
