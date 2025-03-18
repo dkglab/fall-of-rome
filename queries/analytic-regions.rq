@@ -1,15 +1,22 @@
-PREFIX xyz: <http://sparql.xyz/facade-x/data/>
-PREFIX fx: <http://sparql.xyz/facade-x/ns/>
-PREFIX for: <https://dkglab.github.io/ns/for/>
-PREFIX geo: <http://www.opengis.net/ont/geosparql#>
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-PREFIX pno: <http://linked.data.gov.au/def/placenames/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX for: <https://dkglab.github.io/ns/for/>
+PREFIX fx: <http://sparql.xyz/facade-x/ns/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX xyz: <http://sparql.xyz/facade-x/data/>
 
 CONSTRUCT {
   ?region a geo:Feature ;
-    skos:prefLabel ?region_name .
+    skos:prefLabel ?region_name ;
+    .
+
+  for:analytic-regions a geo:FeatureCollection ;
+    rdfs:member ?region ;
+    dcterms:title "Analytic regions" ;
+    .
+
 } WHERE {
   SERVICE <x-sparql-anything:> {
     fx:properties fx:csv.headers "true" .

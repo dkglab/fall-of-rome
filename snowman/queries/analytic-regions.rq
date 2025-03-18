@@ -1,0 +1,14 @@
+PREFIX for: <https://dkglab.github.io/ns/for/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?id ?region_name WHERE {
+  ?region a geo:Feature ;
+    skos:prefLabel ?region_name .
+
+  for:analytic-regions rdfs:member ?region .
+
+  BIND(STRAFTER(STR(?region), CONCAT(STR(for:analytic-region), "/")) AS ?id)
+}
+ORDER BY LCASE(?region_name)
