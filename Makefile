@@ -13,6 +13,7 @@ graph: \
 	graph/ceramic-types.ttl \
 	graph/roman-provinces.ttl \
 	graph/municipalities.ttl \
+	graph/analytic-regions.ttl \
 	graph/located-sites.ttl
 
 all: \
@@ -72,6 +73,9 @@ data/roman-provinces/input.csv: data/roman-provinces/roman-provinces.csv
 	cp $< $@
 
 data/municipalities/input.csv: data/municipalities/municipalities.csv
+	cp $< $@
+
+data/analytic-regions/input.csv: data/analytic-regions/analytic-regions.csv
 	cp $< $@
 
 graph/%.ttl: data/%/input.csv queries/%.rq shapes/%.ttl | $(SA) $(SHACL)
