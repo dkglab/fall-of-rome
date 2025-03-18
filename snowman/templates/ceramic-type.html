@@ -7,5 +7,16 @@
   <h1>{{ .ceramic_type }}</h1>
 </header>
 <div>
+  <p><strong>Form type:</strong> {{ .form_type }}</p>
+  <p><strong>Wikidata:</strong> {{ .wiki_entity }}</p>
+  <p><strong>Start date:</strong> {{ .start_date}}</p>
+  <p><strong>End date:</strong> {{ .end_date }}</p>
+  <p><strong>Suggested dating:</strong> {{ .suggested_dating }}</p>
+  <p><strong>Part of:</strong><ul>
+    <li>{{ .group1 }}</li>
+    <li>{{ .group2 }}</li>
+    <li>{{ .group3 }}</li>
+    <li>{{ .group4 }}</li>
+  </ul></p>
 </div>
 {{- end }}
