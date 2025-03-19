@@ -10,7 +10,8 @@ PREFIX xyz: <http://sparql.xyz/facade-x/data/>
 CONSTRUCT {
   ?region a geo:Feature ;
     skos:prefLabel ?region_name ;
-    .
+    #geo:hasGeometry ?geometry .
+  #?geometry geo:asGeoJSON ?geoJSON .
 
   for:analytic-regions a geo:FeatureCollection ;
     rdfs:member ?region ;
@@ -21,7 +22,10 @@ CONSTRUCT {
   SERVICE <x-sparql-anything:> {
     fx:properties fx:csv.headers "true" .
 
-    ?row xyz:value ?region_name .
+    ?row 
+      xyz:value ?region_name ;
+      #xyz:geometry ?geometry 
+      . 
 
     BIND(REPLACE(LCASE(?region_name), "[^a-z0-9]", "-") AS ?id)
     BIND(fx:entity(for:, "analytic-region/", ?id) AS ?region)
