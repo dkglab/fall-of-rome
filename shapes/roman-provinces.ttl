@@ -14,8 +14,8 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
   # sh:ignoredProperties (rdf:type) ;
   sh:property
     :RomanProvinceHasPlaceNameShape ,
-    :RomanProvincesHasGeometryShape ,
-    :RomanProvincesHasIdentifierShape
+    :RomanProvinceHasGeometryShape ,
+    :RomanProvinceHasIdentifierShape
   .
 
 :RomanPlaceNameShape
@@ -30,14 +30,14 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
   sh:minCount 1 ;
   .
   
-:RomanProvincesHasGeometryShape
+:RomanProvinceHasGeometryShape
   a sh:PropertyShpe ;
   sh:path geo:hasGeometry ;
   sh:node :GeometryShape ;
   sh:minCount 1 ;
   .
 
-:RomanProvincesHasIdentifierShape 
+:RomanProvinceHasIdentifierShape 
   a sh:PropertyShape ;
   sh:path dcterms:identifier ;
   sh:minCount 1 ;
