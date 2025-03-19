@@ -7,31 +7,17 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX wiki: <https://www.wikidata.org/entity/>
 PREFIX ple: <https://pleiades.stoa.org/vocabularies/place-types/>
 
-SELECT ?uri ?site_type ?id WHERE {
+SELECT ?uri ?site_type ?id ?concept ?subConcept WHERE {
   ?uri
     rdf:type skos:Concept ;
     skos:inScheme kos:site-types ;
     dcterms:identifier ?id ;
     skos:prefLabel ?site_type ;
     .
-}
-order by LCASE(?site_type)
 
-#trying to add narrower variable but can't run html for some reason 
+    ?subconcept skos:broader ?concept ;
+    .
+} 
+#groupby concept? 
+order by LCASE(?concept)
 
-#select ?uri ?site_type ?id ?narrowerSiteType ?broaderSiteType where {
-    #?uri rdf:type skos:Concept ;
-        #dcterms:identifier ?narrowId ;
-        #skos:prefLabel ?site_type .
-    
-    #OPTIONAL {?uri skos:broader ?broaderSiteType .}
-
-    #BIND(IF(BOUND(?broaderSiteType), ?site_type, UNDEF) AS ?narrowerSiteType) . 
-
-    #filter(CONTAINS(STR(?uri), "site-type"))
-#}
-#order by LCASE(?site_type)
-
-#Questions:
-# - In HTML, we need headers (h2?) for the broader categories and a smaller list under them of the corresponding narrower categories (<li>, h3) 
-#- how do we assign the correct narrower values in those lists to their broader category? 
