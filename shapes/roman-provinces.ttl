@@ -3,6 +3,8 @@ PREFIX pno: <http://linked.data.gov.au/def/placenames/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 :RomanProvinceShape
@@ -11,11 +13,32 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
   # sh:closed "true"^^xsd:boolean ;
   # sh:ignoredProperties (rdf:type) ;
   sh:property
-    :RomanProvinceHasPlaceNameShape
+    :RomanProvinceHasPlaceNameShape ,
+    :RomanProvincesHasGeometryShape ,
+    :RomanProvincesHasIdentifierShape
   .
+
+:RomanPlaceNameShape
+  a sh:NodeShape ;
+  sh:targetClass pno:PlaceName ;
+  sh:minCount 1;
+.
 
 :RomanProvinceHasPlaceNameShape
   a sh:PropertyShape ;
   sh:path pno:hasPlaceName ;
+  sh:minCount 1 ;
+  .
+  
+:RomanProvincesHasGeometryShape
+  a sh:PropertyShpe ;
+  sh:path geo:hasGeometry ;
+  sh:node :GeometryShape ;
+  sh:minCount 1 ;
+.
+
+:RomanProvincesHasIdentifierShape 
+  a sh:PropertyShape ;
+  sh:path dcterms:identifier ;
   sh:minCount 1 ;
   .
