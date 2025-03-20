@@ -7,21 +7,33 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX wiki: <https://www.wikidata.org/entity/>
 PREFIX ple: <https://pleiades.stoa.org/vocabularies/place-types/>
 
-SELECT ?uri ?site_type ?id ?concept ?subConcept ?siteTypeDefinition ?wikiEntity ?pleiadesPlaceType WHERE {
+SELECT ?uri ?site_type ?id ?siteTypeDefinition ?wikiEntity ?pleiadesPlaceType ?broaderSiteType ?narrowerSiteType
+WHERE {
   ?uri
     rdf:type skos:Concept ;
     skos:inScheme kos:site-types ;
     dcterms:identifier ?id ;
     skos:prefLabel ?site_type ;
-    skos:definition ?siteTypeDefinition ;
-    skos:closeMatch ?wikiEntity ;
-    skos:closeMatch ?pleiadesPlaceType ;
     .
-#add pleiades and wiki close match definitions 
 
-    ?subconcept skos:broader ?concept ;
-    .
+  OPTIONAL { ?uri skos:definition ?siteTypeDefinition .}
+  OPTIONAL { ?uri skos:closeMatch ?wikiEntity .}
+  OPTIONAL { ?uri skos:closeMatch ?pleiadesPlaceType .}
+  #closeMatch returns either wiki or pleiades but not both 
+  OPTIONAL { ?uri skos:broader ?broaderSiteType .}
+
+ # trying to add a variable for narrower site type, but these don't work: 
+  #OPTIONAL { ?narrowerSiteType 
+                #skos:broader ?broaderSiteType
+                #skos:inScheme kos:site-types ; 
+                #.} 
+
+  #OPTIONAL { ?broaderSiteType skos:narrower ?narrowerSiteType .}
+  #OPTIONAL { ?uri skos:narrower ?narrowerSiteType .}
+
+#to add: additional definitions from pleiades and wikidata
+
 } 
-#groupby concept? 
-order by LCASE(?concept)
+#group by ? 
+order by LCASE(?site_type)
 
