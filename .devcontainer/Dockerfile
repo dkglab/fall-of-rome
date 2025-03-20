@@ -3,3 +3,4 @@ RUN wget -O - https://dathere.github.io/qsv-deb-releases/qsv-deb.gpg | gpg --dea
 RUN echo "deb [signed-by=/usr/share/keyrings/qsv-deb.gpg] https://dathere.github.io/qsv-deb-releases ./" | tee /etc/apt/sources.list.d/qsv.list
 RUN apt update
 RUN apt install -y qsv swi-prolog python3
+RUN pip install geomet
