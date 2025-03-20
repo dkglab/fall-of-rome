@@ -11,6 +11,7 @@ CONSTRUCT {
   ?Municipality a pno:Place ;
         pno:hasPlaceName ?Muncipality_place_name_for_uri;
         #pno:hasPlaceName ?municipality_alter_name ;
+        pno:hasPlaceName ?Muncipality_alter_place_name_for_uri ;
         dcterms:identifier ?municipality_wiki_uri ;
         a geo:Feature ; 
         geo:hasGeometry [ geo:asGeoJSON ?geoJSON ] ;
@@ -26,10 +27,16 @@ WHERE {
 
   # BIND(STR(?MunicipalityName) AS ?id)
   BIND(REPLACE(STR(?Municipality_wiki), "[^a-zA-Z0-9]", "_") AS ?id)
+  # BIND(STR(?MunicipalityName) AS ?id)
+  BIND(REPLACE(STR(?municipality_alter_name), "[^a-zA-Z0-9]", "_") AS ?place_name_alter)
   # Mint new URIs using the fx:entity function
   BIND(fx:entity(for:, "place/", ?id) AS ?Municipality)  
   # Mint new Place name URIs using the fx:entity function 
   BIND(fx:entity(for:, "place-name/", ?id) AS ?Muncipality_place_name_for_uri)   
+  # Mint new Place name URIs using the fx:entity function 
+  BIND(fx:entity(for:, "place-name/", ?place_name_alter) AS ?Muncipality_alter_place_name_for_uri)   
+
+  
   }
 
   SERVICE <x-sparql-anything:location=data/municipalities/portugal-municipalities.geojson> {

@@ -34,7 +34,6 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :MunicipalityHasIdentifierShape
   a sh:PropertyShape ;
   sh:path dcterms:identifier ;
-  sh:datatype xsd:string ;
   sh:minCount 1 ;
   .
 
