@@ -16,6 +16,7 @@
 .DS_Store
 /alignment-cache/
 /data/*/input.csv
+/data/*/input.geojson
 /graph/*.ttl
 /kos/
 /snowman/.built
