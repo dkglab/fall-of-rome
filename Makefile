@@ -35,7 +35,7 @@ restart-geosparql-server:
 
 clean:
 	$(MAKE) -s -C tools/geosparql stop
-	rm -rf graph data/*/input.csv
+	rm -rf graph data/*/input.csv data/*/input.geojson
 	$(MAKE) -s -C snowman clean
 	$(MAKE) -s -C webapp clean
 
@@ -70,9 +70,15 @@ data/ceramic-types/input.csv: data/ceramic-types/hayes-ars-types.csv
 	cp $< $@
 
 data/roman-provinces/input.csv: data/roman-provinces/roman-provinces.csv
+	cat data/roman-provinces/Spain-Late-Antique-Provinces.geojson | \
+	python3 scripts/process-geojson.py > \
+	data/roman-provinces/input.geojson
 	cp $< $@
 
 data/municipalities/input.csv: data/municipalities/municipalities.csv
+	cat data/municipalities/portugal-municipalities.geojson | \
+	python3 scripts/process-geojson.py > \
+	data/municipalities/input.geojson
 	cp $< $@
 
 data/analytic-regions/input.csv: data/analytic-regions/analytic-regions.csv

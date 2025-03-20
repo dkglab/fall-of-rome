@@ -14,7 +14,7 @@ CONSTRUCT {
         pno:hasPlaceName ?Muncipality_alter_place_name_for_uri ;
         dcterms:identifier ?municipality_wiki_uri ;
         a geo:Feature ; 
-        geo:hasGeometry [ geo:asGeoJSON ?geoJSON ] ;
+        geo:hasGeometry [ geo:asWKT ?wktLiteral ] ;
         .
 }
 
@@ -39,17 +39,17 @@ WHERE {
   
   }
 
-  SERVICE <x-sparql-anything:location=data/municipalities/portugal-municipalities.geojson> {
+  SERVICE <x-sparql-anything:location=data/municipalities/input.geojson> {
     fx:properties
       fx:media-type "application/json" ;
-      fx:json.literalize "geometry" ;
+      # fx:json.literalize "geometry" ;
       .
 
     # Access geometry and coordinates
     ?feature xyz:properties/xyz:shapeName ?municipalityName ;
-             xyz:geometry ?geoJSONString .
+             xyz:geometry ?wktLiteralString .
 
-    BIND(STRDT(?geoJSONString, geo:geoJSONLiteral) AS ?geoJSON)
+    BIND(STRDT(?wktLiteralString, geo:wktLiteral) AS ?wktLiteral)
     BIND(?municipalityName AS ?municipality_alter_name)  
   }
 }
