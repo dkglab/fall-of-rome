@@ -12,7 +12,7 @@ CONSTRUCT {
     skos:prefLabel ?region_name ;
     #geo:hasGeometry ?geometry .
   #?geometry geo:asGeoJSON ?geoJSON .
-
+    .
   for:analytic-regions a geo:FeatureCollection ;
     rdfs:member ?region ;
     dcterms:title "Analytic regions" ;
