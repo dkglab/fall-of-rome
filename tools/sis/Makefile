@@ -8,7 +8,7 @@ SIS_VERSION := 1.4
 all: data/installed
 
 clean:
-	rm -rf !(Makefile)
+	rm -rf !(Makefile|data)
 
 apache-sis-$(SIS_VERSION)-bin.zip:
 	curl -L $(SIS_HOST)/$(SIS_VERSION)/$@ > $@
