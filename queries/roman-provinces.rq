@@ -13,8 +13,10 @@ CONSTRUCT {
       dcterms:identifier ?provincia_for_uri ;
       dcterms:identifier ?provincia_wiki_uri ;
       dcterms:identifier ?provincia_pleiades_uri ;  
-      geo:hasGeometry ?geometry .
-  ?geometry geo:asGeoJSON ?geoJSON .
+      geo:hasGeometry [ geo:asGeoJSON ?geoJSON ] ;
+      .
+  #     geo:hasGeometry ?geometry .
+  # ?geometry geo:asGeoJSON ?geoJSON .
 }
 WHERE {
   SERVICE <x-sparql-anything:> {
@@ -32,32 +34,15 @@ WHERE {
     BIND(fx:entity(for:, "place-name/", ?id) AS ?provincia_place_name_for_uri)  
   }
 
-  # SERVICE <x-sparql-anything:location=data/roman-provinces/Spain-Late-Antique-Provinces.geojson> {
-  #   fx:properties fx:media-type "application/json" .
-  #   ?feature xyz:properties/xyz:Name ?provinceName ;
-  #            xyz:geometry ?geometryObj .
-  #   ?geometryObj xyz:type ?type ;            
-  #            xyz:coordinates ?polygonArray .
-  # # Key points about the MultiPolygon structure:a MultiPolygon holds multiple individual polygon geometries. 
-  # # Rings within a Polygon:Each polygon is made up of one or more rings, 
-  # # where the first ring is considered the exterior ring and subsequent rings are interior holes. 
-  # # Points in a Ring:
-  # # Each ring is a sequence of points, which are ordered and connect to form a closed loop. 
-  # # Coordinate Pairs:
-  # # Each point is represented by a pair of coordinates (X, Y) specifying its position on a coordinate plane. 
-         
-  #   ?polygonArray fx:anySlot ?ringarray .
-  #   ?ringArray fx:anySlot ?pointArray .
-  #   ?pointArray fx:anySlot ?coords .
-  #   ?coords rdf:_1 ?lat ;
-  #           rdf:_2 ?lon .
-  
-  # BIND(STR(?type) AS ?typeStr) 
-  # BIND(CONCAT("[", STR(?lat), ", ", STR(?lon), "]") AS ?coordinatesStr)
-  # BIND(CONCAT('{"type":"', ?typeStr, '","coordinates":', ?coordinatesStr,'}') AS ?geoJSONString)  
-  # BIND(STRDT(?geoJSONString, geo:geoJSONLiteral) AS ?geoJSON)
-# Bind the geometry object and province name to corresponding variables
-#   BIND(?geometryObj AS ?geometry)
-#   BIND(?provinceName AS ?provincia_alter_name)     
-#   }
+  SERVICE <x-sparql-anything:location=data/roman-provinces/Spain-Late-Antique-Provinces.geojson> {
+    fx:properties fx:media-type "application/json" ;
+      fx:json.literalize "geometry" ;
+      .
+    # Access geometry and coordinates.  
+    ?feature xyz:properties/xyz:Name ?provinceName ;
+             xyz:geometry ?geoJSONString .         
+    
+    BIND(STRDT(?geoJSONString, geo:geoJSONLiteral) AS ?geoJSON)
+    BIND(?provinceName AS ?provincia_alter_name)     
+  }
 }
