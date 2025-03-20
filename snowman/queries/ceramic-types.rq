@@ -7,17 +7,22 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX wiki: <https://www.wikidata.org/entity/>
 PREFIX ple: <https://pleiades.stoa.org/vocabularies/place-types/>
 
+# SELECT ?uri ?ceramic_type ?id WHERE {
 SELECT ?uri ?ceramic_type ?id ?wiki_entity ?form_type ?start_date ?end_date ?suggested_dating ?group1 ?group2 ?group3 ?group4 WHERE {
   ?uri
     rdf:type skos:Concept ;
     skos:inScheme kos:ceramic-types ;
     dcterms:identifier ?id ;
-    skos:prefLabel ?ceramic_type ;
-    skos:exactMatch ?wiki_entity ; 
-    skos:definition ?form_type ;
-    dcterms:temporal ?start_date, ?end_date ;
-    skos:note ?suggested_dating ;
-    skos:broader ?group1, ?group2, ?group3, ?group4
-    .
+    skos:prefLabel ?ceramic_type .
+
+    OPTIONAL { ?uri skos:exactMatch ?wiki_entity . }
+    OPTIONAL { ?uri skos:definition ?form_type . }
+    OPTIONAL { ?uri dcterms:temporal ?start_date . }
+    OPTIONAL { ?uri dcterms:temporal ?end_date . }
+    OPTIONAL { ?uri skos:note ?suggested_dating . }
+    OPTIONAL { ?uri skos:broader ?group1 . }
+    OPTIONAL { ?uri skos:broader ?group2 . }
+    OPTIONAL { ?uri skos:broader ?group3 . }
+    OPTIONAL { ?uri skos:broader ?group4 . }
 }
 ORDER BY LCASE(?ceramic_type)
