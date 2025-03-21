@@ -15,4 +15,6 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "17"
-      - run: make graph
+      - uses: devcontainers/ci@v0.3
+        with: 
+          runCmd: make graph
