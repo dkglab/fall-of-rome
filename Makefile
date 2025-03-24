@@ -4,23 +4,22 @@ SP := tools/skos-play/skos-play-cli.jar
 RSPARQL := ./tools/jena/bin/rsparql
 SM := ./tools/snowman/snowman
 SHACL := ./tools/jena/bin/shacl
+RIOT := ./tools/jena/bin/riot
+ARQ := ./tools/jena/bin/arq
 PYTHON := ./venv/bin/python
 PIP := ./venv/bin/python -m pip
 
 QUERY ?= queries/select/features-within-bbox.rq
+
+GRAPHS := site-types ceramic-types roman-provinces municipalities analytic-regions located-sites
+GRAPH_FILES := $(foreach g,$(GRAPHS),graph/$(g).ttl)
 
 STATIC := long-list.js map-view.js maplibre-gl.css
 STATIC_FILES := $(foreach s,$(STATIC),snowman/static/$(s))
 
 .PHONY: all graph setup run-query build-snowman serve-site serve-kos restart-geosparql-server clean superclean
 
-graph: \
-	graph/site-types.ttl \
-	graph/ceramic-types.ttl \
-	graph/roman-provinces.ttl \
-	graph/municipalities.ttl \
-	graph/analytic-regions.ttl \
-	graph/located-sites.ttl
+graph: graph/inferred.ttl
 
 all: \
 	graph \
@@ -61,7 +60,7 @@ $(SA):
 $(SP):
 	$(MAKE) -s -C tools/skos-play
 
-$(RSPARQL) $(SHACL):
+$(RSPARQL) $(SHACL) $(RIOT) $(ARQ):
 	$(MAKE) -s -C tools/jena
 
 $(SM):
@@ -95,6 +94,28 @@ data/municipalities/input.csv: data/municipalities/municipalities.csv | $(PYTHON
 
 data/analytic-regions/input.csv: data/analytic-regions/analytic-regions.csv
 	cp $< $@
+
+vocab/geo.in.ttl:
+	mkdir -p vocab
+	curl -L https://opengeospatial.github.io/ogc-geosparql/geosparql11/geo.ttl > $@
+
+vocab/geo.ttl: vocab/geo.in.ttl queries/filter-datatype-property-ranges.rq | $(ARQ)
+	$(ARQ) \
+	--data $< \
+	--query queries/filter-datatype-property-ranges.rq \
+	--results ttl \
+	--set ttl:directiveStyle=rdf11 \
+	--set ttl:indentStyle=long \
+	> $@
+
+graph/inferred.ttl: vocab/geo.ttl $(GRAPH_FILES) | $(RIOT)
+	$(RIOT) \
+	--rdfs $< \
+	--formatted ttl \
+	--set ttl:directiveStyle=rdf11 \
+	--set ttl:indentStyle=long \
+	$(GRAPH_FILES) \
+	> $@
 
 graph/%.ttl: data/%/input.csv queries/%.rq shapes/%.ttl | $(SA) $(SHACL)
 	mkdir -p graph

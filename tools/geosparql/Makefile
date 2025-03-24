@@ -3,7 +3,7 @@ SHELL := /usr/bin/env bash
 GS_HOST := https://repo1.maven.org/maven2/org/apache/jena/jena-fuseki-geosparql
 GS_VERSION := 5.3.0
 DS_NAME ?= sites
-DS_FILES ?= $(wildcard ../../graph/*.ttl)
+DS_FILE ?= ../../graph/inferred.ttl
 
 .PHONY: all clean start stop restart
 
@@ -19,7 +19,7 @@ start: jena-fuseki-geosparql.jar
 	java -jar jena-fuseki-geosparql.jar \
 	--port 3030 \
 	--dataset $(DS_NAME) \
-	$(foreach file,$(DS_FILES),-rf $(file) ) \
+	--rdf_file $(DS_FILE) \
 	> run/geosparql.log 2>&1 \
 	& echo $$! \
 	> run/geosparql.pid; \
