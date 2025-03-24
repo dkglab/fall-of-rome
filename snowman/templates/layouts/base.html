@@ -4,6 +4,7 @@
   <head>
     <title>Fall of Rome: {{ block "title" . }}{{ end }}</title>
     <link rel="stylesheet" href="/index.css" />
+    {{ block "css" . }}{{ end }}
   </head>
   <body>
     <nav>
@@ -14,6 +15,7 @@
         <li><a href="/roman-provinces/">Roman provinces</a></li>
         <li><a href="/municipalities/">Municipalities</a></li>
         <li><a href="/analytic-regions/">Analytic regions</a></li>
+        <li><a href="/map/">Map</a></li>
       </ol>
     </nav>
     <main>

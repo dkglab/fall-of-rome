@@ -1,0 +1,13 @@
+{{ template "base" . }}
+
+{{ define "title" }}Map{{ end }}
+
+{{ define "css" -}}
+    <link rel="stylesheet" href="/map.css" />
+{{- end }}
+
+
+{{ define "content" -}}
+      <tile-map id="map" class="grow"></tile-map>
+      <script src="/map-view.js"></script>
+{{- end }}

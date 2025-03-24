@@ -22,7 +22,8 @@
 /snowman/.built
 /snowman/.snowman
 /snowman/site/
-/snowman/static/index.js*
+/snowman/static/*.js*
 /webapp/node_modules/
 /webapp/build/
 /venv/
+/snowman/static/maplibre-gl.css

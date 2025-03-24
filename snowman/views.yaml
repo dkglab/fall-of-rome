@@ -38,3 +38,5 @@ views:
   - output: "analytic-regions/{{id}}.html"
     query: "analytic-regions.rq"
     template: "analytic-region.html"
+  - output: "map/index.html"
+    template: "map.html"
