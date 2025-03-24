@@ -25,3 +25,4 @@
 /snowman/static/index.js*
 /webapp/node_modules/
 /webapp/build/
+/venv/
