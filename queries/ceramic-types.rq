@@ -17,7 +17,11 @@ CONSTRUCT {
         dcterms:temporal ?startDate, ?endDate ;
         skos:broader ?broaderForm ;
         skos:definition ?type_ARS ;
-        skos:note ?suggestedDating
+        skos:note ?suggestedDating;
+        kos:ARSGroup ?ARSGroup ;
+        kos:ARSGroup2 ?ARSGroup2 ;
+        kos:ARSImportHorizon ?ARSImportHorizon ;
+        kos:ARSImportHorizon2 ?ARSImportHorizon2 
         .
 
   kos:ceramic-types
@@ -65,6 +69,21 @@ WHERE {
     OPTIONAL {
     ?row xyz:End_Date ?endDateRaw
     BIND(xsd:gYear(?endDateRaw) AS ?endDate)
+    }
+
+    OPTIONAL { 
+    ?row xyz:ARS_Group_ID ?ARSGroup
+    }
+
+    OPTIONAL {
+    ?row xyz:ARS_Group_2_ID ?ARSGroup2 
+    }
+
+    OPTIONAL {
+    ?row xyz:ARS_Import_Horizon_ID ?ARSImportHorizon 
+    }
+    OPTIONAL {
+    ?row xyz:ARS_Import_Horizon_2_ID ?ARSImportHorizon2 
     }
   }
 }
