@@ -16,6 +16,7 @@
 .DS_Store
 /alignment-cache/
 /data/*/input.csv
+/data/*/input.geojson
 /graph/*.ttl
 /kos/
 /snowman/.built
@@ -24,3 +25,4 @@
 /snowman/static/index.js*
 /webapp/node_modules/
 /webapp/build/
+/venv/

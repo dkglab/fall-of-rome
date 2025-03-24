@@ -13,7 +13,7 @@ CONSTRUCT {
       dcterms:identifier ?provincia_for_uri ;
       dcterms:identifier ?provincia_wiki_uri ;
       dcterms:identifier ?provincia_pleiades_uri ;  
-      geo:hasGeometry [ geo:asGeoJSON ?geoJSON ] ;
+      geo:hasGeometry [ geo:asWKT ?wktLiteral ] ;
       .
   #     geo:hasGeometry ?geometry .
   # ?geometry geo:asGeoJSON ?geoJSON .
@@ -34,15 +34,15 @@ WHERE {
     BIND(fx:entity(for:, "place-name/", ?id) AS ?provincia_place_name_for_uri)  
   }
 
-  SERVICE <x-sparql-anything:location=data/roman-provinces/Spain-Late-Antique-Provinces.geojson> {
+  SERVICE <x-sparql-anything:location=data/roman-provinces/input.geojson> {
     fx:properties fx:media-type "application/json" ;
-      fx:json.literalize "geometry" ;
+      # fx:json.literalize "geometry" ;
       .
     # Access geometry and coordinates.  
     ?feature xyz:properties/xyz:Name ?provinceName ;
-             xyz:geometry ?geoJSONString .         
+             xyz:geometry ?wktLiteralString .         
     
-    BIND(STRDT(?geoJSONString, geo:geoJSONLiteral) AS ?geoJSON)
+    BIND(STRDT(?wktLiteralString, geo:wktLiteral) AS ?wktLiteral)
     BIND(?provinceName AS ?provincia_alter_name)     
   }
 }

@@ -4,6 +4,9 @@ SP := tools/skos-play/skos-play-cli.jar
 RSPARQL := ./tools/jena/bin/rsparql
 SM := ./tools/snowman/snowman
 SHACL := ./tools/jena/bin/shacl
+PYTHON := ./venv/bin/python
+PIP := ./venv/bin/python -m pip
+
 QUERY ?= queries/select/features-within-bbox.rq
 
 .PHONY: all graph setup run-query build-snowman serve-site serve-kos restart-geosparql-server clean superclean
@@ -35,7 +38,7 @@ restart-geosparql-server:
 
 clean:
 	$(MAKE) -s -C tools/geosparql stop
-	rm -rf graph data/*/input.csv
+	rm -rf graph data/*/input.csv data/*/input.geojson
 	$(MAKE) -s -C snowman clean
 	$(MAKE) -s -C webapp clean
 
@@ -47,6 +50,7 @@ superclean: clean
 	$(MAKE) -s -C tools/snowman clean
 	$(MAKE) -s -C snowman superclean
 	$(MAKE) -s -C webapp superclean
+	rm -rf venv
 
 $(SA):
 	$(MAKE) -s -C tools/sparql-anything
@@ -60,8 +64,13 @@ $(RSPARQL) $(SHACL):
 $(SM):
 	$(MAKE) -s -C tools/snowman
 
-data/located-sites/input.csv: data/located-sites/located-sites.csv scripts/process-site-names.py
-	cat $< | python3 scripts/process-site-names.py > $@
+$(PYTHON):
+	python3 -m venv venv
+	$(PIP) install --upgrade pip
+	$(PIP) install -r scripts/requirements.txt
+
+data/located-sites/input.csv: data/located-sites/located-sites.csv scripts/process-site-names.py | $(PYTHON)
+	cat $< | $(PYTHON) scripts/process-site-names.py > $@
 
 data/site-types/input.csv: data/site-types/site-types.csv
 	cp $< $@
@@ -69,10 +78,16 @@ data/site-types/input.csv: data/site-types/site-types.csv
 data/ceramic-types/input.csv: data/ceramic-types/hayes-ars-types.csv
 	cp $< $@
 
-data/roman-provinces/input.csv: data/roman-provinces/roman-provinces.csv
+data/roman-provinces/input.csv: data/roman-provinces/roman-provinces.csv | $(PYTHON)
+	cat data/roman-provinces/Spain-Late-Antique-Provinces.geojson | \
+	$(PYTHON) scripts/process-geojson.py > \
+	data/roman-provinces/input.geojson
 	cp $< $@
 
-data/municipalities/input.csv: data/municipalities/municipalities.csv
+data/municipalities/input.csv: data/municipalities/municipalities.csv | $(PYTHON)
+	cat data/municipalities/portugal-municipalities.geojson | \
+	$(PYTHON) scripts/process-geojson.py > \
+	data/municipalities/input.geojson
 	cp $< $@
 
 data/analytic-regions/input.csv: data/analytic-regions/analytic-regions.csv
@@ -102,8 +117,8 @@ kos/%.html: graph/%.ttl | $(SP)
 	--output $@ \
 	--lang ""
 
-serve-kos: all
-	python3 -m http.server -b 127.0.0.1 -d kos 8001
+serve-kos: all | $(PYTHON)
+	$(PYTHON) -m http.server -b 127.0.0.1 -d kos 8001
 
 webapp/build/index.js:
 	$(MAKE) -s -C webapp

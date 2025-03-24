@@ -11,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          distribution: "temurin"
-          java-version: "17"
-      - run: make graph
+      - uses: devcontainers/ci@v0.3
+        with: 
+          runCmd: make graph
