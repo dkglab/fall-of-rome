@@ -3,11 +3,9 @@
 {{ define "title" }}All sites{{ end }}
 
 {{ define "content" -}}
-<header>
-  <h1>All located archaeological sites</h1>
-</header>
-<div class="list">
-  <long-list items="sites.json"></long-list>
-</div>
-<script src="index.js"></script>
+  <header>
+    <h1>All located archaeological sites</h1>
+  </header>
+  <long-list items="sites.json" class="grow"></long-list>
+  <script src="/long-list.js"></script>
 {{- end }}

@@ -9,6 +9,9 @@ PIP := ./venv/bin/python -m pip
 
 QUERY ?= queries/select/features-within-bbox.rq
 
+STATIC := long-list.js map-view.js maplibre-gl.css
+STATIC_FILES := $(foreach s,$(STATIC),snowman/static/$(s))
+
 .PHONY: all graph setup run-query build-snowman serve-site serve-kos restart-geosparql-server clean superclean
 
 graph: \
@@ -23,7 +26,7 @@ all: \
 	graph \
 	kos/site-types.html \
 	kos/ceramic-types.html \
-	webapp/build/index.js
+	$(STATIC_FILES)
 
 setup: $(SA) $(RSPARQL) $(SM)
 
@@ -38,7 +41,7 @@ restart-geosparql-server:
 
 clean:
 	$(MAKE) -s -C tools/geosparql stop
-	rm -rf graph data/*/input.csv data/*/input.geojson
+	rm -rf graph data/*/input.csv data/*/input.geojson $(STATIC_FILES)
 	$(MAKE) -s -C snowman clean
 	$(MAKE) -s -C webapp clean
 
@@ -120,14 +123,12 @@ kos/%.html: graph/%.ttl | $(SP)
 serve-kos: all | $(PYTHON)
 	$(PYTHON) -m http.server -b 127.0.0.1 -d kos 8001
 
-webapp/build/index.js:
-	$(MAKE) -s -C webapp
-
-snowman/static/index.js: webapp/build/index.js
+$(STATIC_FILES) &:
+	$(MAKE) -s -C webapp all
 	mkdir -p snowman/static
-	cp $<* snowman/static/
+	cp webapp/build/* snowman/static/
 
-build-snowman: all snowman/static/index.js | $(SM)
+build-snowman: all | $(SM)
 	$(MAKE) -s -C tools/geosparql start
 	$(MAKE) -C snowman
 

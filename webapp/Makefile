@@ -2,18 +2,24 @@ ESB := node_modules/.bin/esbuild
 
 .PHONY: all clean superclean
 
-all: \
-	build/index.js
+MODS := long-list map-view
+TS := $(foreach m,$(MODS),src/$(m).ts)
+JS := $(foreach m,$(MODS),build/$(m).js)
 
-clean:
+all : $(JS) build/maplibre-gl.css
+
+clean :
 	rm -rf build
 
-superclean: clean
+superclean : clean
 	rm -rf node_modules
 
-build/index.js: build.cjs tsconfig.json src/index.ts | $(ESB)
+$(ESB) node_modules/maplibre-gl/dist/maplibre-gl.css &:
+	npm install
+
+build/%.js : build.cjs tsconfig.json $(TS) | $(ESB)
 	mkdir -p build
 	node $<
 
-$(ESB):
-	npm install
+build/maplibre-gl.css : node_modules/maplibre-gl/dist/maplibre-gl.css
+	cp $< $@
