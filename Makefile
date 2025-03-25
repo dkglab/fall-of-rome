@@ -14,7 +14,7 @@ QUERY ?= queries/select/features-within-bbox.rq
 GRAPHS := site-types ceramic-types roman-provinces municipalities analytic-regions located-sites
 GRAPH_FILES := $(foreach g,$(GRAPHS),graph/$(g).ttl)
 
-STATIC := long-list.js map-view.js maplibre-gl.css
+STATIC := list-view.js map-view.js maplibre-gl.css web_bg.wasm
 STATIC_FILES := $(foreach s,$(STATIC),snowman/static/$(s))
 
 .PHONY: all graph setup run-query build-snowman serve-site serve-kos restart-geosparql-server clean superclean
@@ -22,7 +22,7 @@ STATIC_FILES := $(foreach s,$(STATIC),snowman/static/$(s))
 graph: graph/inferred.ttl
 
 all: \
-	graph \
+	snowman/static/data.ttl \
 	kos/site-types.html \
 	kos/ceramic-types.html \
 	$(STATIC_FILES)
@@ -148,6 +148,9 @@ $(STATIC_FILES) &:
 	$(MAKE) -s -C webapp all
 	mkdir -p snowman/static
 	cp webapp/build/* snowman/static/
+
+snowman/static/data.ttl: graph/inferred.ttl
+	cp $< $@
 
 build-snowman: all | $(SM)
 	$(MAKE) -s -C tools/geosparql start

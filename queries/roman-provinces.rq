@@ -17,6 +17,11 @@ CONSTRUCT {
       .
   #     geo:hasGeometry ?geometry .
   # ?geometry geo:asGeoJSON ?geoJSON .
+
+  for:roman-provinces a geo:FeatureCollection ;
+    rdfs:member ?Provincia ;
+    dcterms:title "Roman provinces" ;
+    .
 }
 WHERE {
   SERVICE <x-sparql-anything:> {

@@ -16,6 +16,11 @@ CONSTRUCT {
         a geo:Feature ; 
         geo:hasGeometry [ geo:asWKT ?wktLiteral ] ;
         .
+
+  for:municipalities a geo:FeatureCollection ;
+    rdfs:member ?Municipality ;
+    dcterms:title "Municipalities" ;
+    .
 }
 
 WHERE {

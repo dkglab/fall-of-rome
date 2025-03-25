@@ -8,11 +8,11 @@ type Item = {
 }
 
 @customElement("long-list")
-export class LongList extends LitElement {
+export default class LongList extends LitElement {
   static styles = css``
 
   @property({ type: Array })
-  items = []
+  items: Item[] = []
 
   connectedCallback() {
     super.connectedCallback()
