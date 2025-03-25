@@ -10,10 +10,10 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
   ?Municipality a pno:Place ;
-        pno:hasPlaceName ?Muncipality_place_name_for_uri;
+        pno:hasPlaceName ?Muncipality_wiki_place_name_for_uri;
         #pno:hasPlaceName ?municipality_alter_name ;
         pno:hasPlaceName ?Muncipality_alter_place_name_for_uri ;
-        dcterms:identifier ?municipality_wiki_uri ;
+        dcterms:identifier ?id ;
         a geo:Feature ; 
         geo:hasGeometry [ geo:asWKT ?wktLiteral ] ;
         .
@@ -38,7 +38,7 @@ WHERE {
   # Mint new URIs using the fx:entity function
   BIND(fx:entity(for:, "place/", ?id) AS ?Municipality)  
   # Mint new Place name URIs using the fx:entity function 
-  BIND(fx:entity(for:, "place-name/", ?id) AS ?Muncipality_place_name_for_uri)   
+  BIND(fx:entity(for:, "place-name/", ?id) AS ?Muncipality_wiki_place_name_for_uri)   
   # Mint new Place name URIs using the fx:entity function 
   BIND(fx:entity(for:, "place-name/", ?place_name_alter) AS ?Muncipality_alter_place_name_for_uri)   
 

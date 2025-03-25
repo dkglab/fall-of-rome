@@ -6,3 +6,17 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX wiki: <https://www.wikidata.org/entity/>
 PREFIX ple: <https://pleiades.stoa.org/vocabularies/place-types/>
+PREFIX xyz: <http://sparql.xyz/facade-x/data/>
+PREFIX fx: <http://sparql.xyz/facade-x/ns/>
+PREFIX pno: <http://linked.data.gov.au/def/placenames/>
+SELECT ?uri ?place_name ?id ?geometry  WHERE {
+  ?uri
+    rdf:type pno:Place ;
+    pno:hasPlaceName ?place_name ;
+    dcterms:identifier ?id ;
+    a geo:Feature ;   
+    geo:hasGeometry [ geo:asWKT ?geometry ] ; 
+    
+    .
+}
+ORDER BY LCASE(?id)
