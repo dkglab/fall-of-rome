@@ -6,6 +6,8 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX wiki: <https://www.wikidata.org/entity/>
 PREFIX ple: <https://pleiades.stoa.org/vocabularies/place-types/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
 
 # SELECT ?uri ?ceramic_type ?id WHERE {
 SELECT ?uri ?ceramic_type ?id ?wiki_entity ?form_type ?start_date ?end_date ?suggested_dating ?ARSGroup ?ARSGroup2 ?ARSImportHorizon ?ARSImportHorizon2 WHERE {
@@ -14,7 +16,7 @@ SELECT ?uri ?ceramic_type ?id ?wiki_entity ?form_type ?start_date ?end_date ?sug
     skos:inScheme kos:ceramic-types ;
     dcterms:identifier ?id ;
     skos:prefLabel ?ceramic_type .
-
+    BIND(xsd:integer(REPLACE(?id, "[^0-9]", ""))AS ?numid)
     OPTIONAL { ?uri skos:exactMatch ?wiki_entity . }
     OPTIONAL { ?uri skos:definition ?form_type . }
     OPTIONAL { ?uri dcterms:temporal ?start_date . }
@@ -25,4 +27,4 @@ SELECT ?uri ?ceramic_type ?id ?wiki_entity ?form_type ?start_date ?end_date ?sug
     OPTIONAL { ?uri kos:ARSImportHorizon ?ARSImportHorizon . }
     OPTIONAL { ?uri kos:ARSImportHorizon2 ?ARSImportHorizon . }
 }
-ORDER BY LCASE(?ceramic_type)
+ORDER BY (?numid)
