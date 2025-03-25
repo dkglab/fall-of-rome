@@ -8,7 +8,7 @@ PREFIX wiki: <https://www.wikidata.org/entity/>
 PREFIX ple: <https://pleiades.stoa.org/vocabularies/place-types/>
 
 # SELECT ?uri ?ceramic_type ?id WHERE {
-SELECT ?uri ?ceramic_type ?id ?wiki_entity ?form_type ?start_date ?end_date ?suggested_dating ?group1 ?group2 ?group3 ?group4 WHERE {
+SELECT ?uri ?ceramic_type ?id ?wiki_entity ?form_type ?start_date ?end_date ?suggested_dating ?ARSGroup ?ARSGroup2 ?ARSImportHorizon ?ARSImportHorizon2 WHERE {
   ?uri
     rdf:type skos:Concept ;
     skos:inScheme kos:ceramic-types ;
@@ -20,9 +20,9 @@ SELECT ?uri ?ceramic_type ?id ?wiki_entity ?form_type ?start_date ?end_date ?sug
     OPTIONAL { ?uri dcterms:temporal ?start_date . }
     OPTIONAL { ?uri dcterms:temporal ?end_date . }
     OPTIONAL { ?uri skos:note ?suggested_dating . }
-    OPTIONAL { ?uri skos:broader ?group1 . }
-    OPTIONAL { ?uri skos:broader ?group2 . }
-    OPTIONAL { ?uri skos:broader ?group3 . }
-    OPTIONAL { ?uri skos:broader ?group4 . }
+    OPTIONAL { ?uri kos:ARSGroup ?ARSGroup . }
+    OPTIONAL { ?uri kos:ARSGroup2 ?ARSGroup2 . }
+    OPTIONAL { ?uri kos:ARSImportHorizon ?ARSImportHorizon . }
+    OPTIONAL { ?uri kos:ARSImportHorizon2 ?ARSImportHorizon . }
 }
 ORDER BY LCASE(?ceramic_type)
