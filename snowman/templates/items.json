@@ -1,7 +1,0 @@
-[
-{{ $items := . -}}
-{{- range $index, $item := . -}}
-  {"id": "{{ .id }}", "name": "{{ replace .site_name "\"" "\\\"" -1 }}"}
-  {{- if ne (add $index 1) (len $items) }},{{ end }}
-{{ end -}}
-]

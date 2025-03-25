@@ -1,8 +1,4 @@
 views:
-  - output: "sites.json"
-    query: "sites.rq"
-    template: "items.json"
-    unsafe: true
   - output: "index.html"
     template: "index.html"
   - output: "site/{{id}}.html"
