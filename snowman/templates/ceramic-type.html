@@ -7,16 +7,20 @@
   <h1>{{ .ceramic_type }}</h1>
 </header>
 <div>
-  <p><strong>Form type:</strong> {{ .form_type }}</p>
-  <p><strong>Wikidata:</strong> <a href="{{ .wiki_entity }}">{{ .wiki_entity }}</a></p>
-  <p><strong>Start date:</strong> {{ .start_date}}</p>
-  <p><strong>End date:</strong> {{ .end_date }}</p>
-  <p><strong>Suggested dating:</strong> {{ .suggested_dating }}</p>
-  <p><strong>Part of:</strong><ul>
-    <li>{{ .ARSGroup }}</li>
-    <li>{{ .ARSGroup2 }}</li>
-    <li>{{ .ARSImportHorizon }}</li>
-    <li>{{ .ARSImportHorizon2 }}</li>
-  </ul></p>
+  <p><strong>Form type:</strong> {{ if .form_type }}{{ .form_type }}{{ else }}Undefined{{ end }}</p>
+  <p><strong>Wikidata:</strong> {{ if .wiki_entity }}<a href="{{ .wiki_entity }}">{{ .wiki_entity }}</a>{{ else }}Undefined{{ end }}</p>
+  <p><strong>Start date:</strong> {{ if .start_date }}{{ .start_date }}{{ else }}Undefined{{ end }}</p>
+  <p><strong>End date:</strong> {{ if .end_date }}{{ .end_date }}{{ else }}Undefined{{ end }}</p>
+  <p><strong>Suggested dating:</strong> {{ if .suggested_dating }}{{ .suggested_dating }}{{ else }}Undefined{{ end }}</p>
+  {{ if or .ARSGroup .ARSGroup2 .ARSImportHorizon .ARSImportHorizon2 }}
+    <p><strong>Part of:</strong>
+      <ul>
+        {{ if .ARSGroup }}<li>{{ .ARSGroup }}</li>{{ end }}
+        {{ if .ARSGroup2 }}<li>{{ .ARSGroup2 }}</li>{{ end }}
+        {{ if .ARSImportHorizon }}<li>{{ .ARSImportHorizon }}</li>{{ end }}
+        {{ if .ARSImportHorizon2 }}<li>{{ .ARSImportHorizon2 }}</li>{{ end }}
+      </ul>
+    </p>
+  {{ end }}
 </div>
 {{- end }}
