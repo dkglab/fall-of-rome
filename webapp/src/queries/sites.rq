@@ -5,11 +5,15 @@ PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-SELECT ?id ?site_name WHERE {
+SELECT ?id ?site_name ?wkt WHERE {
   for:located-sites rdfs:member ?site .
 
   ?site a geo:Feature ;
-    skos:prefLabel ?site_name .
+    skos:prefLabel ?site_name ;
+    geo:hasGeometry ?geo ;
+    .
+
+  ?geo geo:asWKT ?wkt
 
   BIND(STRAFTER(STR(?site), CONCAT(STR(for:site), "/")) AS ?id)
 }
