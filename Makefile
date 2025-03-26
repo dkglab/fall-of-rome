@@ -27,8 +27,6 @@ graph: graph/inferred.ttl
 
 all: \
 	snowman/static/data.ttl \
-	kos/site-types.html \
-	kos/ceramic-types.html \
 	$(STATIC_FILES)
 
 setup: $(SA) $(RSPARQL) $(SM)
@@ -144,7 +142,7 @@ kos/%.html: graph/%.ttl | $(SP)
 	$(call log,Generating HTML view of $<)
 	java -jar $(SP) alphabetical --format html --input $< --output $@ --lang "" > /dev/null
 
-serve-kos: all | $(PYTHON)
+serve-kos: kos/site-types.html kos/ceramic-types.html | $(PYTHON)
 	$(PYTHON) -m http.server -b 127.0.0.1 -d kos 8001
 
 $(STATIC_FILES) &:
