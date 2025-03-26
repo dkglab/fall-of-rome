@@ -10,15 +10,36 @@
 <div>
   <p><strong>Municipality Name:</strong> {{ .municipality }}</p>
   <p><strong>DKG Gazetteer ID:</strong> {{ .id }}</p>
-  <p><strong>Permalink:</strong> {{ .permalink }}</p>
+  <p><strong>Permalink:</strong> <a href="{{ .permalink }}">{{ .permalink }}</a></p>
   <p><strong>Category:</strong> {{ .definition }}</p>
   <p><strong>Description:</strong> {{ .description }}</p>
-  <p><strong>Identifiers:</strong> {{ .identifiers }}</p><ul>
-    <li>Wikidata: {{ .wiki_id }}</li>
-    <li>VIAF: {{ .viaf_id }}</li>
-    <li>Geonames: {{ .geonames_id }}</li>
+  <p><strong>Identifiers:</strong></p>
+  <ul>
+    <li>Wikidata: <a href="https://www.wikidata.org/wiki/{{ .wiki_id }}">{{ .wiki_id }}</a></li>
+    <li>VIAF: <a href="https://viaf.org/viaf/{{ .viaf_id }}">{{ .viaf_id }}</a></li>
+    <li>Geonames: <a href="https://www.geonames.org/{{ .geonames_id }}">{{ .geonames_id }}</a></li>
   </ul>
-  <p><strong>Geometry:</strong> <div class="geometry">{{ .geometry }}</div></p>
-
+  <p><strong>Geometry:</strong></p>
+  <div class="geometry">{{ .geometry }}</div>
 </div>
+
+<style>
+  header {
+    margin-bottom: 1em;
+  }
+  .geometry {
+    white-space: pre-wrap;
+    background-color: #f9f9f9;
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
 {{- end }}
