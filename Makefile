@@ -34,46 +34,46 @@ all: \
 setup: $(SA) $(RSPARQL) $(SM)
 
 run-query: graph | $(RSPARQL)
-	$(MAKE) -s -C tools/geosparql start
+	@$(MAKE) -s -C tools/geosparql start
 	$(RSPARQL) \
 	--query $(QUERY) \
 	--service http://localhost:3030/sites
 
 restart-geosparql-server:
-	$(MAKE) -s -C tools/geosparql restart
+	@$(MAKE) -s -C tools/geosparql restart
 
 clean:
-	$(MAKE) -s -C tools/geosparql stop
-	rm -rf graph data/*/input.csv data/*/input.geojson $(STATIC_FILES)
-	$(MAKE) -s -C snowman clean
-	$(MAKE) -s -C webapp clean
+	@$(MAKE) -s -C tools/geosparql stop
+	@rm -rf graph data/*/input.csv data/*/input.geojson $(STATIC_FILES)
+	@$(MAKE) -s -C snowman clean
+	@$(MAKE) -s -C webapp clean
 
 superclean: clean
-	$(MAKE) -s -C tools/sparql-anything clean
-	$(MAKE) -s -C tools/jena clean
-	$(MAKE) -s -C tools/geosparql clean
-	$(MAKE) -s -C tools/skos-play clean
-	$(MAKE) -s -C tools/snowman clean
-	$(MAKE) -s -C snowman superclean
-	$(MAKE) -s -C webapp superclean
-	rm -rf venv
+	@$(MAKE) -s -C tools/sparql-anything clean
+	@$(MAKE) -s -C tools/jena clean
+	@$(MAKE) -s -C tools/geosparql clean
+	@$(MAKE) -s -C tools/skos-play clean
+	@$(MAKE) -s -C tools/snowman clean
+	@$(MAKE) -s -C snowman superclean
+	@$(MAKE) -s -C webapp superclean
+	@rm -rf venv
 
 $(SA):
-	$(MAKE) -s -C tools/sparql-anything
+	@$(MAKE) -s -C tools/sparql-anything
 
 $(SP):
-	$(MAKE) -s -C tools/skos-play
+	@$(MAKE) -s -C tools/skos-play
 
 $(RSPARQL) $(SHACL) $(RIOT) $(ARQ):
-	$(MAKE) -s -C tools/jena
+	@$(MAKE) -s -C tools/jena
 
 $(SM):
-	$(MAKE) -s -C tools/snowman
+	@$(MAKE) -s -C tools/snowman
 
 $(PYTHON):
-	python3 -m venv venv
-	$(PIP) install --upgrade pip
-	$(PIP) install -r scripts/requirements.txt
+	@python3 -m venv venv
+	@$(PIP) install -q --upgrade pip
+	@$(PIP) install -q -r scripts/requirements.txt
 
 data/located-sites/input.csv: data/located-sites/located-sites.csv scripts/process-site-names.py | $(PYTHON)
 	cat $< | $(PYTHON) scripts/process-site-names.py > $@
@@ -100,7 +100,7 @@ data/analytic-regions/input.csv: data/analytic-regions/analytic-regions.csv
 	cp $< $@
 
 vocab/geo.in.ttl:
-	mkdir -p vocab
+	@mkdir -p vocab
 	curl -L https://opengeospatial.github.io/ogc-geosparql/geosparql11/geo.ttl > $@
 
 vocab/geo.ttl: vocab/geo.in.ttl queries/filter-datatype-property-ranges.rq | $(ARQ)
@@ -158,28 +158,26 @@ graph/located-sites.ttl: \
 	graph/municipalities.ttl
 
 kos/%.html: graph/%.ttl | $(SP)
-	mkdir -p kos
-	java -jar $(SP) \
-	alphabetical \
-	--format html \
-	--input $< \
-	--output $@ \
-	--lang ""
+	@mkdir -p kos
+	$(call log,Generating HTML view of $<...)
+	java -jar $(SP) alphabetical --format html --input $< --output $@ --lang "" > /dev/null
 
 serve-kos: all | $(PYTHON)
 	$(PYTHON) -m http.server -b 127.0.0.1 -d kos 8001
 
 $(STATIC_FILES) &:
-	$(MAKE) -s -C webapp all
-	mkdir -p snowman/static
-	cp webapp/build/* snowman/static/
+	@$(MAKE) -s -C webapp all
+	@mkdir -p snowman/static
+	@cp webapp/build/* snowman/static/
 
 snowman/static/data.ttl: graph/inferred.ttl
-	cp $< $@
+	@cp $< $@
 
 build-snowman: all | $(SM)
-	$(MAKE) -s -C tools/geosparql start
-	$(MAKE) -C snowman
+	@$(MAKE) -s -C tools/geosparql start
+	$(call log,Generating website...)
+	@$(MAKE) -s -C snowman
 
 serve-site: build-snowman
-	$(MAKE) -s -C snowman serve
+	$(call log,Serving website...)
+	@$(MAKE) -s-C snowman serve

@@ -11,5 +11,5 @@ clean:
 	rm -rf !(Makefile)
 
 jena:
-	curl $(JENA_HOST)/apache-jena-$(JENA_VERSION).tar.gz \
-	| tar zxvf - --strip-components 1
+	curl -s $(JENA_HOST)/apache-jena-$(JENA_VERSION).tar.gz \
+	| tar zxf - --strip-components 1

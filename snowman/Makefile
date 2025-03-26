@@ -12,8 +12,8 @@ serve: all
 	$(wildcard templates/*.html) \
 	$(wildcard templates/*.json) \
 	$(wildcard templates/layouts/*.html)
-	../tools/snowman/snowman build -v -t
-	touch $@
+	../tools/snowman/snowman build
+	@touch $@
 
 clean:
 	rm -rf site .built
