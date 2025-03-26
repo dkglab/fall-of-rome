@@ -19,16 +19,22 @@ STATIC_FILES := $(foreach s,$(STATIC),snowman/static/$(s))
 
 .PHONY: all graph setup run-query build-snowman serve-site serve-kos restart-geosparql-server clean superclean
 
+define green
+\033[0;32m$(1)\033[0m
+endef
+
+define red
+\033[0;31m$(1)\033[0m
+endef
+
 define log
-	@echo -e "\\n\033[0;32m$(1)\033[0m"
+	@echo -e "\\n$(call green,$(1))"
 endef
 
 graph: graph/inferred.ttl
 
 all: \
 	snowman/static/data.ttl \
-	kos/site-types.html \
-	kos/ceramic-types.html \
 	$(STATIC_FILES)
 
 setup: $(SA) $(RSPARQL) $(SM)
@@ -104,47 +110,68 @@ graph/inferred.ttl: vocab/geo.ttl $(GRAPH_FILES) | $(RIOT)
 	> $@
 
 # Recipe to construct a graph TTL file from source data and validate it using SHACL
-graph/%.ttl: queries/%.rq shapes/%.ttl | $(SA) $(SHACL)
+graph/%.ttl: queries/%.rq queries/count/%.rq shapes/%.ttl | $(SA) $(ARQ) $(SHACL)
 	@mkdir -p graph
 	$(call log,Constructing $@ from source data)
 	SIS_DATA=tools/sis/data java -jar $(SA) -q $< > $@
-	$(call log,Validating $@ using shapes/$*.ttl)
-	@echo $(SHACL) validate --shapes shapes/$*.ttl --data $@ --text
-	@output=$$(\
-	$(SHACL) validate \
-	--shapes shapes/$*.ttl \
-	--data $@ \
-	--text\
-	); [ "$$output" == "Conforms" ] && \
-	{ echo -e "\033[0;32mValid!\033[0m"; } || \
-	{ echo -e "\\n$$output\\n\\n\033[0;31mSHACL validation failed for $@; see errors above\033[0m"; exit 1; }
+	$(call log,Counting resources in $@ using $(word 2,$^))
+	@echo $(ARQ) --data $@ --query $(word 2,$^)
+	@count=$$($(ARQ) --data $@ --query $(word 2,$^) --results csv | tail -n 1 | tr -d '\r\n') ; \
+	[ "$$count" -gt 0 ] && \
+	{ echo -e "$(call green,$$count resources constructed)" ; } || \
+	{ echo -e "$(call red,No resources found in $@!)" ; exit 1 ; }
+	$(call log,Validating $@ using $(word 3,$^))
+	@echo $(SHACL) validate --shapes $(word 3,$^) --data $@ --text
+	@output=$$($(SHACL) validate --shapes $(word 3,$^) --data $@ --text) ; \
+	[ "$$output" == "Conforms" ] && \
+	{ echo -e "$(call green,Valid!)" ; } || \
+	{ echo -e "\\n$$output\\n\\n$(call red,SHACL validation failed for $@; see errors above)" ; exit 1 ; }
 
-graph/site-types.ttl: data/site-types/site-types.csv
+# Dependencies for constructing each graph file
 
-graph/ceramic-types.ttl: data/ceramic-types/hayes-ars-types.csv
+graph/site-types.ttl: \
+	data/site-types/site-types.csv \
+	queries/site-types.rq \
+	queries/count/site-types.rq
+
+graph/ceramic-types.ttl: \
+	data/ceramic-types/hayes-ars-types.csv \
+	queries/ceramic-types.rq \
+	queries/count/ceramic-types.rq
 
 graph/roman-provinces.ttl: \
 	data/roman-provinces/roman-provinces.csv \
-	data/roman-provinces/Spain-Late-Antique-Provinces.wkt.json
+	data/roman-provinces/Spain-Late-Antique-Provinces.wkt.json \
+	queries/roman-provinces.rq \
+	queries/count/roman-provinces.rq
 
 graph/municipalities.ttl: \
 	data/municipalities/municipalities.csv \
 	data/municipalities/portugal-municipalities.wkt.json \
-	data/municipalities/spain-municipalities-simplified.wkt.json
+	data/municipalities/spain-municipalities-simplified.wkt.json \
+	queries/municipalities.rq \
+	queries/count/municipalities.rq
 
-graph/analytic-regions.ttl: data/analytic-regions/analytic-regions.csv
+graph/analytic-regions.ttl: \
+	data/analytic-regions/analytic-regions.csv \
+	queries/analytic-regions.rq \
+	queries/count/analytic-regions.rq
 
 graph/located-sites.ttl: \
 	data/located-sites/input.csv \
 	graph/site-types.ttl \
-	graph/municipalities.ttl
+	graph/municipalities.ttl \
+	queries/located-sites.rq \
+	queries/count/located-sites.rq
+
+# End dependencies for constructing each graph file
 
 kos/%.html: graph/%.ttl | $(SP)
 	@mkdir -p kos
 	$(call log,Generating HTML view of $<)
 	java -jar $(SP) alphabetical --format html --input $< --output $@ --lang "" > /dev/null
 
-serve-kos: all | $(PYTHON)
+serve-kos: kos/site-types.html kos/ceramic-types.html | $(PYTHON)
 	$(PYTHON) -m http.server -b 127.0.0.1 -d kos 8001
 
 $(STATIC_FILES) &:
@@ -162,4 +189,4 @@ build-snowman: all | $(SM)
 
 serve-site: build-snowman
 	$(call log,Serving website)
-	@$(MAKE) -s-C snowman serve
+	@$(MAKE) -s -C snowman serve
