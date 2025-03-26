@@ -83,27 +83,6 @@ data/located-sites/input.csv: data/located-sites/located-sites.csv scripts/proce
 	$(call log,Cleaning up archaeological site names...)
 	cat $< | $(PYTHON) scripts/process-site-names.py > $@
 
-data/site-types/input.csv: data/site-types/site-types.csv
-	cp $< $@
-
-data/ceramic-types/input.csv: data/ceramic-types/hayes-ars-types.csv
-	cp $< $@
-
-data/roman-provinces/input.csv: data/roman-provinces/roman-provinces.csv | $(PYTHON)
-	cat data/roman-provinces/Spain-Late-Antique-Provinces.geojson | \
-	$(PYTHON) scripts/process-geojson.py > \
-	data/roman-provinces/input.geojson
-	cp $< $@
-
-data/municipalities/input.csv: data/municipalities/municipalities.csv | $(PYTHON)
-	cat data/municipalities/portugal-municipalities.geojson | \
-	$(PYTHON) scripts/process-geojson.py > \
-	data/municipalities/input.geojson
-	cp $< $@
-
-data/analytic-regions/input.csv: data/analytic-regions/analytic-regions.csv
-	cp $< $@
-
 vocab/geo.in.ttl:
 	@mkdir -p vocab
 	curl -L https://opengeospatial.github.io/ogc-geosparql/geosparql11/geo.ttl > $@
