@@ -80,6 +80,7 @@ $(PYTHON):
 	cat $< | $(PYTHON) scripts/process-geojson.py > $@
 
 data/located-sites/input.csv: data/located-sites/located-sites.csv scripts/process-site-names.py | $(PYTHON)
+	$(call log,Cleaning up archaeological site names...)
 	cat $< | $(PYTHON) scripts/process-site-names.py > $@
 
 data/site-types/input.csv: data/site-types/site-types.csv
@@ -116,12 +117,10 @@ vocab/geo.ttl: vocab/geo.in.ttl queries/filter-datatype-property-ranges.rq | $(A
 	--set ttl:indentStyle=long \
 	> $@
 
+# Recipe to run RDFS inference on all graph files
 graph/inferred.ttl: vocab/geo.ttl $(GRAPH_FILES) | $(RIOT)
-	$(RIOT) \
-	--rdfs $< \
-	--formatted ttl \
-	--set ttl:directiveStyle=rdf11 \
-	--set ttl:indentStyle=long \
+	$(call log,Running RDFS inference on all graph files...)
+	$(RIOT) --rdfs $< -q --formatted ttl --set ttl:directiveStyle=rdf11 --set ttl:indentStyle=long \
 	$(GRAPH_FILES) \
 	> $@
 
