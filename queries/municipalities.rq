@@ -10,14 +10,12 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 CONSTRUCT {
   ?Municipality a pno:Place ;
-        pno:hasPlaceName ?Muncipality_wiki_place_name_for_uri;
-        #pno:hasPlaceName ?municipality_alter_name ;
-        pno:hasPlaceName ?Muncipality_alter_place_name_for_uri ;
-        dcterms:identifier ?id ;
+        pno:hasPlaceName ?Municipality_place_name_for_uri;
+        dcterms:identifier ?wiki_id , ?municipality_viaf_id , ?municipality_geonames_id ; 
+        dcterms:description ?description ;
         a geo:Feature ; 
         geo:hasGeometry [ geo:asWKT ?wktLiteral ] ;
         .
-
   for:municipalities a geo:FeatureCollection ;
     rdfs:member ?Municipality ;
     dcterms:title "Municipalities" ;
@@ -25,37 +23,29 @@ CONSTRUCT {
 }
 
 WHERE {
-  SERVICE <x-sparql-anything:location=data/municipalities/municipalities.csv> {
+  SERVICE <x-sparql-anything:location=data/municipalities/municipalities-version2.csv> {
     fx:properties fx:csv.headers "true" .
-    ?row xyz:Municipality_wiki ?Municipality_wiki ;
-            xyz:municipality_wiki_uri ?municipality_wiki_uri ;
-            xyz:municipality_alter_name ?municipality_alter_name .
-
-  # BIND(STR(?MunicipalityName) AS ?id)
-  BIND(REPLACE(STR(?Municipality_wiki), "[^a-zA-Z0-9]", "_") AS ?id)
-  # BIND(STR(?MunicipalityName) AS ?id)
-  BIND(REPLACE(STR(?municipality_alter_name), "[^a-zA-Z0-9]", "_") AS ?place_name_alter)
-  # Mint new URIs using the fx:entity function
-  BIND(fx:entity(for:, "place/", ?id) AS ?Municipality)  
-  # Mint new Place name URIs using the fx:entity function 
-  BIND(fx:entity(for:, "place-name/", ?id) AS ?Muncipality_wiki_place_name_for_uri)   
-  # Mint new Place name URIs using the fx:entity function 
-  BIND(fx:entity(for:, "place-name/", ?place_name_alter) AS ?Muncipality_alter_place_name_for_uri)   
-
-  
+    ?row xyz:Municipality ?Municipality_name ;
+          xyz:municipality_wiki_uri ?municipality_wiki_uri ;
+          xyz:wiki_id ?wiki_id ;
+          xyz:municipality_viaf_uri ?municipality_viaf_uri ;
+          xyz:municipality_viaf_id ?municipality_viaf_id ;
+          xyz:municipality_geonames_uri ?municipality_geonames_uri ;
+          xyz:municipality_geonames_id ?municipality_geonames_id ;
+          xyz:description ?description ;
+          .
+    BIND(REPLACE(STR(?Municipality_name), "[^a-zA-Z0-9]", "_") AS ?id)
+    BIND(fx:entity(for:, "place/", ?id) AS ?Municipality)  
+    BIND(fx:entity(for:, "place-name/", ?id) AS ?Municipality_place_name_for_uri)   
   }
 
   SERVICE <x-sparql-anything:location=data/municipalities/portugal-municipalities.wkt.json> {
     fx:properties
-      fx:media-type "application/json" ;
-      # fx:json.literalize "geometry" ;
-      .
-
-    # Access geometry and coordinates
-    ?feature xyz:properties/xyz:shapeName ?municipalityName ;
+      fx:media-type "application/json" .
+      
+    ?feature xyz:properties/xyz:shapeName ?Municipality_name ;
              xyz:geometry ?wktLiteralString .
 
     BIND(STRDT(?wktLiteralString, geo:wktLiteral) AS ?wktLiteral)
-    BIND(?municipalityName AS ?municipality_alter_name)  
   }
 }
