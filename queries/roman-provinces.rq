@@ -25,7 +25,7 @@ CONSTRUCT {
     .
 }
 WHERE {
-  SERVICE <x-sparql-anything:> {
+  SERVICE <x-sparql-anything:location=data/roman-provinces/roman-provinces.csv> {
     fx:properties fx:csv.headers "true" .
 
     ?row xyz:provincia_wiki_name ?provincia_wiki_name ;

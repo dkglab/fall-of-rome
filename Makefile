@@ -19,6 +19,10 @@ STATIC_FILES := $(foreach s,$(STATIC),snowman/static/$(s))
 
 .PHONY: all graph setup run-query build-snowman serve-site serve-kos restart-geosparql-server clean superclean
 
+define log
+	@echo -e "\\n\033[0;32m$(1)\033[0m"
+endef
+
 graph: graph/inferred.ttl
 
 all: \
@@ -117,20 +121,41 @@ graph/inferred.ttl: vocab/geo.ttl $(GRAPH_FILES) | $(RIOT)
 	$(GRAPH_FILES) \
 	> $@
 
-graph/%.ttl: data/%/input.csv queries/%.rq shapes/%.ttl | $(SA) $(SHACL)
-	mkdir -p graph
-	SIS_DATA=tools/sis/data \
-	java -jar $(SA) \
-	-c location=$< \
-	-q queries/$*.rq \
-	> $@
+# Recipe to construct a graph TTL file from source data and validate it using SHACL
+graph/%.ttl: queries/%.rq shapes/%.ttl | $(SA) $(SHACL)
+	@mkdir -p graph
+	$(call log,Constructing $@ from source data...)
+	SIS_DATA=tools/sis/data java -jar $(SA) -q $< > $@
+	$(call log,Validating $@ using shapes/$*.ttl...)
+	@echo $(SHACL) validate --shapes shapes/$*.ttl --data $@ --text
 	@output=$$(\
 	$(SHACL) validate \
 	--shapes shapes/$*.ttl \
 	--data $@ \
 	--text\
-	); [ "$$output" == "Conforms" ] || \
-	{ echo "\033[0;31mSHACL validation failed for $@:\033[0m\n$$output"; exit 1; }
+	); [ "$$output" == "Conforms" ] && \
+	{ echo -e "\033[0;32mValid!\033[0m"; } || \
+	{ echo -e "\\n$$output\\n\\n\033[0;31mSHACL validation failed for $@; see errors above\033[0m"; exit 1; }
+
+graph/site-types.ttl: data/site-types/site-types.csv
+
+graph/ceramic-types.ttl: data/ceramic-types/hayes-ars-types.csv
+
+graph/roman-provinces.ttl: \
+	data/roman-provinces/roman-provinces.csv \
+	data/roman-provinces/Spain-Late-Antique-Provinces.wkt.json
+
+graph/municipalities.ttl: \
+	data/municipalities/municipalities.csv \
+	data/municipalities/portugal-municipalities.wkt.json \
+	data/municipalities/spain-municipalities-simplified.wkt.json
+
+graph/analytic-regions.ttl: data/analytic-regions/analytic-regions.csv
+
+graph/located-sites.ttl: \
+	data/located-sites/input.csv \
+	graph/site-types.ttl \
+	graph/municipalities.ttl
 
 kos/%.html: graph/%.ttl | $(SP)
 	mkdir -p kos
