@@ -60,11 +60,13 @@ WHERE {
     ?siteType skos:prefLabel ?rawSiteType .
   }
 
-  SERVICE <x-sparql-anything:location=graph/municipalities.ttl> {
-    ?actualMuni rdf:type geo:Feature ;
-      geo:hasGeometry ?munigeo
-      .
-    ?munigeo geo:asWKT ?muniwkt .
+  OPTIONAL {
+    SERVICE <x-sparql-anything:location=graph/municipalities.ttl> {
+      ?actualMuni rdf:type geo:Feature ;
+        geo:hasGeometry ?munigeo
+        .
+      ?munigeo geo:asWKT ?muniwkt .
+    }
+    FILTER(geof:sfWithin(?wkt, ?muniwkt))
   }
-  FILTER(geof:sfWithin(?wkt, ?muniwkt))
 }
