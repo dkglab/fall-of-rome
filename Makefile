@@ -75,6 +75,10 @@ $(PYTHON):
 	@$(PIP) install -q --upgrade pip
 	@$(PIP) install -q -r scripts/requirements.txt
 
+%.wkt.json: %.geojson scripts/process-geojson.py | $(PYTHON)
+	$(call log,Converting $< geometries to WKT...)
+	cat $< | $(PYTHON) scripts/process-geojson.py > $@
+
 data/located-sites/input.csv: data/located-sites/located-sites.csv scripts/process-site-names.py | $(PYTHON)
 	cat $< | $(PYTHON) scripts/process-site-names.py > $@
 
