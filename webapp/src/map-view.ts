@@ -7,10 +7,10 @@ import type { Feature } from "geojson"
 
 function main() {
   ;(async function () {
-    await init("web_bg.wasm") // Required to compile the WebAssembly code.
+    await init("/web_bg.wasm") // Required to compile the WebAssembly code.
 
     const store = new GraphStore()
-    await store.load("data.ttl")
+    await store.load("/data.ttl")
 
     const features: Array<Feature> = []
     for (const binding of store.query(sitesQuery)) {
