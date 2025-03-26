@@ -76,11 +76,11 @@ $(PYTHON):
 	@$(PIP) install -q -r scripts/requirements.txt
 
 %.wkt.json: %.geojson scripts/process-geojson.py | $(PYTHON)
-	$(call log,Converting $< geometries to WKT...)
+	$(call log,Converting $< geometries to WKT)
 	cat $< | $(PYTHON) scripts/process-geojson.py > $@
 
 data/located-sites/input.csv: data/located-sites/located-sites.csv scripts/process-site-names.py | $(PYTHON)
-	$(call log,Cleaning up archaeological site names...)
+	$(call log,Cleaning up archaeological site names)
 	cat $< | $(PYTHON) scripts/process-site-names.py > $@
 
 vocab/geo.in.ttl:
@@ -98,7 +98,7 @@ vocab/geo.ttl: vocab/geo.in.ttl queries/filter-datatype-property-ranges.rq | $(A
 
 # Recipe to run RDFS inference on all graph files
 graph/inferred.ttl: vocab/geo.ttl $(GRAPH_FILES) | $(RIOT)
-	$(call log,Running RDFS inference on all graph files...)
+	$(call log,Running RDFS inference on all graph files)
 	$(RIOT) --rdfs $< -q --formatted ttl --set ttl:directiveStyle=rdf11 --set ttl:indentStyle=long \
 	$(GRAPH_FILES) \
 	> $@
@@ -106,9 +106,9 @@ graph/inferred.ttl: vocab/geo.ttl $(GRAPH_FILES) | $(RIOT)
 # Recipe to construct a graph TTL file from source data and validate it using SHACL
 graph/%.ttl: queries/%.rq shapes/%.ttl | $(SA) $(SHACL)
 	@mkdir -p graph
-	$(call log,Constructing $@ from source data...)
+	$(call log,Constructing $@ from source data)
 	SIS_DATA=tools/sis/data java -jar $(SA) -q $< > $@
-	$(call log,Validating $@ using shapes/$*.ttl...)
+	$(call log,Validating $@ using shapes/$*.ttl)
 	@echo $(SHACL) validate --shapes shapes/$*.ttl --data $@ --text
 	@output=$$(\
 	$(SHACL) validate \
@@ -141,7 +141,7 @@ graph/located-sites.ttl: \
 
 kos/%.html: graph/%.ttl | $(SP)
 	@mkdir -p kos
-	$(call log,Generating HTML view of $<...)
+	$(call log,Generating HTML view of $<)
 	java -jar $(SP) alphabetical --format html --input $< --output $@ --lang "" > /dev/null
 
 serve-kos: all | $(PYTHON)
@@ -157,9 +157,9 @@ snowman/static/data.ttl: graph/inferred.ttl
 
 build-snowman: all | $(SM)
 	@$(MAKE) -s -C tools/geosparql start
-	$(call log,Generating website...)
+	$(call log,Generating website)
 	@$(MAKE) -s -C snowman
 
 serve-site: build-snowman
-	$(call log,Serving website...)
+	$(call log,Serving website)
 	@$(MAKE) -s-C snowman serve
