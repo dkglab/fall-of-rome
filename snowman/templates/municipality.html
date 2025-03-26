@@ -4,9 +4,21 @@
 
 {{ define "content" -}}
 <header>
-  <h1>{{ .uri }}</h1>
+  <h1>{{ .municipality }}</h1>
   <div><a href="{{ .place_name }}">{{ .place_name }}</a></div>
 </header>
 <div>
+  <p><strong>Municipality Name:</strong> {{ .municipality }}</p>
+  <p><strong>DKG Gazetteer ID:</strong> {{ .id }}</p>
+  <p><strong>Permalink:</strong> {{ .permalink }}</p>
+  <p><strong>Category:</strong> {{ .definition }}</p>
+  <p><strong>Description:</strong> {{ .description }}</p>
+  <p><strong>Identifiers:</strong> {{ .identifiers }}</p><ul>
+    <li>Wikidata: {{ .wiki_id }}</li>
+    <li>VIAF: {{ .viaf_id }}</li>
+    <li>Geonames: {{ .geonames_id }}</li>
+  </ul>
+  <p><strong>Geometry:</strong> <div class="geometry">{{ .geometry }}</div></p>
+
 </div>
 {{- end }}

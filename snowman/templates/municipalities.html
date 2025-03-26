@@ -6,9 +6,36 @@
 <header>
   <h1>Municipalities</h1>
 </header>
+
 <div class="list">
   {{ range . }}
-  <div><a href="{{ .id }}.html">{{ .id }}</a></div>
+  <div class="municipality">
+    <a href="{{ .id }}.html">{{ .name }}</a>
+    <p>{{ .description }}</p>
+  </div>
   {{ end }}
 </div>
+
+<style>
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+  .municipality {
+    border: 1px solid #ccc;
+    padding: 1em;
+    border-radius: 5px;
+  }
+  .municipality a {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+  }
+  .municipality p {
+    margin: 0.5em 0 0;
+    color: #666;
+  }
+</style>
 {{- end }}
