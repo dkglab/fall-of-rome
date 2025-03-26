@@ -56,7 +56,7 @@ superclean: clean
 	@$(MAKE) -s -C tools/snowman clean
 	@$(MAKE) -s -C snowman superclean
 	@$(MAKE) -s -C webapp superclean
-	@rm -rf venv
+	@rm -rf venv vocab
 
 $(SA):
 	@$(MAKE) -s -C tools/sparql-anything
@@ -85,10 +85,10 @@ data/located-sites/input.csv: data/located-sites/located-sites.csv scripts/proce
 
 vocab/geo.in.ttl:
 	@mkdir -p vocab
-	curl -L https://opengeospatial.github.io/ogc-geosparql/geosparql11/geo.ttl > $@
+	@curl -s -L https://opengeospatial.github.io/ogc-geosparql/geosparql11/geo.ttl > $@
 
 vocab/geo.ttl: vocab/geo.in.ttl queries/filter-datatype-property-ranges.rq | $(ARQ)
-	$(ARQ) \
+	@$(ARQ) \
 	--data $< \
 	--query queries/filter-datatype-property-ranges.rq \
 	--results ttl \
