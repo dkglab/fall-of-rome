@@ -28,11 +28,11 @@ start: jena-fuseki-geosparql.jar
 
 stop:
 	if [ -e run/geosparql.pid ]; then \
-	kill $$(cat run/geosparql.pid) || true; \
+	kill $$(cat run/geosparql.pid) 2> /dev/null || true; \
 	rm -f run/geosparql.pid; \
 	fi
 
 restart: stop start
 
 jena-fuseki-geosparql.jar:
-	curl -L $(GS_HOST)/$(GS_VERSION)/jena-fuseki-geosparql-$(GS_VERSION).jar > $@
+	curl -s -L $(GS_HOST)/$(GS_VERSION)/jena-fuseki-geosparql-$(GS_VERSION).jar > $@

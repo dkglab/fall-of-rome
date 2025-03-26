@@ -11,4 +11,4 @@ clean:
 	rm -rf !(Makefile)
 
 skos-play-cli.jar:
-	curl -L $(SP_HOST)/$(SP_VERSION)/skos-play-cli-$(SP_VERSION)-onejar.jar > $@
+	curl -s -L $(SP_HOST)/$(SP_VERSION)/skos-play-cli-$(SP_VERSION)-onejar.jar > $@

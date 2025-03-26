@@ -19,7 +19,7 @@ CONSTRUCT {
     .
 
 } WHERE {
-  SERVICE <x-sparql-anything:> {
+  SERVICE <x-sparql-anything:location=data/analytic-regions/analytic-regions.csv> {
     fx:properties fx:csv.headers "true" .
 
     ?row 

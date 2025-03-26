@@ -25,7 +25,7 @@ CONSTRUCT {
 }
 
 WHERE {
-  SERVICE <x-sparql-anything:> {
+  SERVICE <x-sparql-anything:location=data/municipalities/municipalities.csv> {
     fx:properties fx:csv.headers "true" .
     ?row xyz:Municipality_wiki ?Municipality_wiki ;
             xyz:municipality_wiki_uri ?municipality_wiki_uri ;
@@ -45,7 +45,7 @@ WHERE {
   
   }
 
-  SERVICE <x-sparql-anything:location=data/municipalities/input.geojson> {
+  SERVICE <x-sparql-anything:location=data/municipalities/portugal-municipalities.wkt.json> {
     fx:properties
       fx:media-type "application/json" ;
       # fx:json.literalize "geometry" ;

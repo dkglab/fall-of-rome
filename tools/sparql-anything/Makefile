@@ -11,4 +11,4 @@ clean:
 	rm -rf !(Makefile)
 
 sparql-anything.jar:
-	curl -L $(SA_HOST)/v$(SA_VERSION)/sparql-anything-$(SA_VERSION)-geosparql.jar > $@
+	curl -s -L $(SA_HOST)/v$(SA_VERSION)/sparql-anything-$(SA_VERSION)-geosparql.jar > $@

@@ -17,7 +17,7 @@ superclean : clean
 $(ESB) \
 node_modules/maplibre-gl/dist/maplibre-gl.css \
 node_modules/oxigraph/web_bg.wasm &:
-	npm install
+	@npm install --silent --no-progress
 
 build/%.js : build.cjs tsconfig.json $(TS) | $(ESB)
 	mkdir -p build

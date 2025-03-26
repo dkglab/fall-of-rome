@@ -25,7 +25,7 @@ CONSTRUCT {
     .
 }
 WHERE {
-  SERVICE <x-sparql-anything:> {
+  SERVICE <x-sparql-anything:location=data/roman-provinces/roman-provinces.csv> {
     fx:properties fx:csv.headers "true" .
 
     ?row xyz:provincia_wiki_name ?provincia_wiki_name ;
@@ -40,7 +40,7 @@ WHERE {
     BIND(fx:entity(for:, "place-name/", ?id) AS ?provincia_place_name_for_uri)  
   }
 
-  SERVICE <x-sparql-anything:location=data/roman-provinces/input.geojson> {
+  SERVICE <x-sparql-anything:location=data/roman-provinces/Spain-Late-Antique-Provinces.wkt.json> {
     fx:properties fx:media-type "application/json" ;
       # fx:json.literalize "geometry" ;
       .

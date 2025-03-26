@@ -16,7 +16,7 @@
 .DS_Store
 /alignment-cache/
 /data/*/input.csv
-/data/*/input.geojson
+/data/*/*.wkt.json
 /graph/*.ttl
 /kos/
 /snowman/.built
@@ -29,3 +29,4 @@
 /webapp/node_modules/
 /webapp/build/
 /venv/
+/vocab/

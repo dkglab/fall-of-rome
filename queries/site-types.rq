@@ -27,7 +27,7 @@ CONSTRUCT {
 }
 
 WHERE {
-  SERVICE <x-sparql-anything:> {
+  SERVICE <x-sparql-anything:location=data/site-types/site-types.csv> {
     fx:properties
       fx:trim-strings true ;
       fx:csv.headers true ;
