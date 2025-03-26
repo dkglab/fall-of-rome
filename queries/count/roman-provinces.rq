@@ -1,0 +1,5 @@
+PREFIX for: <https://dkglab.github.io/ns/for/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT (COUNT(?place) AS ?count)
+WHERE { for:roman-provinces rdfs:member ?place }
