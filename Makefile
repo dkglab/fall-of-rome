@@ -162,4 +162,4 @@ build-snowman: all | $(SM)
 
 serve-site: build-snowman
 	$(call log,Serving website)
-	@$(MAKE) -s-C snowman serve
+	@$(MAKE) -s -C snowman serve
