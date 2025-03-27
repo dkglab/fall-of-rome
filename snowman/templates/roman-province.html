@@ -1,11 +1,19 @@
 {{ template "base" . }}
 
-{{ define "title" }}{{ .roman_province }}{{ end }}
+{{ define "title" }}{{ .province_name }}{{ end }}
 
 {{ define "content" -}}
 <header>
-  <h1>{{ .roman_province }}</h1>
+  <h1>{{ .province_name }}</h1>
 </header>
 <div>
+  <p><strong>DKG Province ID:</strong> {{ .id }}</p>
+  <p><strong>Place Name:</strong> <a href="{{ .place_name_uri }}">{{ .province_name }}</a></p>
+  <p><strong>Identifiers:</strong></p>
+  <ul>
+    <li>Wikidata: <a href="{{ .wikidata_iri }}">{{ .wikidata_iri }}</a></li>
+    <li>Pleiades: <a href="{{ .pleiades_iri }}">{{ .pleiades_iri }}</a></li>
+  </ul>
+  <p><strong>Geometry (WKT):</strong> {{ .geometry }}</p>
 </div>
 {{- end }}
