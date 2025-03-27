@@ -14,11 +14,11 @@ CONSTRUCT {
       dcterms:identifier ?provincia_for_uri ;
       dcterms:identifier ?provincia_wiki_uri ;
       dcterms:identifier ?provincia_pleiades_uri ;  
-      geo:hasGeometry [ geo:asWKT ?wktLiteral ] ;
+      geo:hasGeometry [ geo:asWKT ?wktLiteral ] .
+  ?provincia_place_name_for_uri a pno:PlaceName ;
+      rdfs:label ?provincia_place_name_for_label ;
       .
-  #     geo:hasGeometry ?geometry .
-  # ?geometry geo:asGeoJSON ?geoJSON .
-
+      
   for:roman-provinces a geo:FeatureCollection ;
     rdfs:member ?Provincia ;
     dcterms:title "Roman provinces" ;
@@ -37,8 +37,8 @@ WHERE {
     # Mint new Place URIs using the fx:entity function
     BIND(fx:entity(for:, "place/", ?id) AS ?Provincia)
     # Mint new Place name URIs using the fx:entity function 
-    BIND(fx:entity(for:, "place-name/", ?id) AS ?provincia_place_name_for_uri)  
-  }
+    BIND(fx:entity(for:, "place-name/", ?id) AS ?provincia_place_name_for_uri)
+    BIND(?provincia_wiki_name AS ?provincia_place_name_for_label)    }
 
   SERVICE <x-sparql-anything:location=data/roman-provinces/Spain-Late-Antique-Provinces.wkt.json> {
     fx:properties fx:media-type "application/json" ;
@@ -49,6 +49,6 @@ WHERE {
              xyz:geometry ?wktLiteralString .         
     
     BIND(STRDT(?wktLiteralString, geo:wktLiteral) AS ?wktLiteral)
-    BIND(?provinceName AS ?provincia_alter_name)     
+    # BIND(?provinceName AS ?provincia_alter_name)     
   }
 }
