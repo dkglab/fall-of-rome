@@ -31,7 +31,7 @@ WHERE {
     ?row xyz:provincia_wiki_name ?provincia_wiki_name ;
          xyz:provincia_wiki_uri ?provincia_wiki_uri_string ;
          xyz:provincia_pleiades_uri ?provincia_pleiades_uri_string ;
-        #  xyz:provincia_alter_name ?provincia_alter_name .
+         xyz:provincia_alter_name ?provincia_alter_name .
 
     BIND(REPLACE(?provincia_wiki_name, " ", "-") AS ?id)
     # Mint new Place URIs using the fx:entity function
@@ -53,6 +53,6 @@ WHERE {
              xyz:geometry ?wktLiteralString .         
     
     BIND(STRDT(?wktLiteralString, geo:wktLiteral) AS ?wktLiteral)
-    # BIND(?provinceName AS ?provincia_alter_name)     
+    BIND(?provinceName AS ?provincia_alter_name)     
   }
 }
