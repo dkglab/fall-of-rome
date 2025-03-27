@@ -31,14 +31,18 @@ WHERE {
     ?row xyz:provincia_wiki_name ?provincia_wiki_name ;
          xyz:provincia_wiki_uri ?provincia_wiki_uri ;
          xyz:provincia_pleiades_uri ?provincia_pleiades_uri ;
-         xyz:provincia_alter_name ?provincia_alter_name .
+        #  xyz:provincia_alter_name ?provincia_alter_name .
 
     BIND(REPLACE(?provincia_wiki_name, " ", "-") AS ?id)
     # Mint new Place URIs using the fx:entity function
     BIND(fx:entity(for:, "place/", ?id) AS ?Provincia)
     # Mint new Place name URIs using the fx:entity function 
     BIND(fx:entity(for:, "place-name/", ?id) AS ?provincia_place_name_for_uri)
-    BIND(?provincia_wiki_name AS ?provincia_place_name_for_label)    }
+    BIND(?provincia_wiki_name AS ?provincia_place_name_for_label)    
+    BIND(IRI(?provincia_wiki_uri) AS ?provincia_wiki_iri)
+    BIND(IRI(?provincia_pleiades_uri) AS ?provincia_pleiades_iri)
+    
+    }
 
   SERVICE <x-sparql-anything:location=data/roman-provinces/Spain-Late-Antique-Provinces.wkt.json> {
     fx:properties fx:media-type "application/json" ;
