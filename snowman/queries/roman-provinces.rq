@@ -4,5 +4,31 @@ PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX wiki: <https://www.wikidata.org/entity/>
-PREFIX ple: <https://pleiades.stoa.org/vocabularies/place-types/>
+PREFIX pno: <http://linked.data.gov.au/def/placenames/>
+
+SELECT ?Provincia ?province_place_name_for_label ?provincia_wiki_iri ?provincia_pleiades_iri ?wktLiteral
+WHERE {
+  ?Provincia
+    a pno:Place ;
+    pno:hasPlaceName ?province_place_name_for_uri ;
+    dcterms:identifier ?identifier ;
+    a geo:Feature ;
+    geo:hasGeometry [ geo:asWKT ?wktLiteral ] .
+
+  ?province_place_name_for_uri 
+    a pno:PlaceName ;
+    rdfs:label ?province_place_name_for_label .
+
+  # Separate identifiers into Wikidata and Pleiades URIs
+  OPTIONAL {
+    ?Provincia dcterms:identifier ?provincia_wiki_uri .
+    FILTER(STRSTARTS(STR(?provincia_wiki_iri), "https://www.wikidata.org/entity/"))
+  }
+  OPTIONAL {
+    ?Provincia dcterms:identifier ?provincia_pleiades_uri .
+    FILTER(STRSTARTS(STR(?provincia_pleiades_iri), "https://pleiades.stoa.org/places/"))
+  }
+}
+ORDER BY LCASE(?province_place_name_for_label)
