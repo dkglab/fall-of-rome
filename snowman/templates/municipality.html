@@ -4,19 +4,19 @@
 
 {{ define "content" -}}
 <header>
-  <h1>{{ .municipality }}</h1>
-  <div><a href="{{ .place_name }}">{{ .place_name }}</a></div>
+  <h1>{{ .municipality_label }}</h1>
+  <div><a href="{{ .municipality }}">{{ .muncipality_label }}</a></div>
 </header>
 <div>
-  <p><strong>Municipality Name:</strong> {{ .municipality }}</p>
+  <p><strong>Municipality Name:</strong> {{ .municipality_label }}</p>
   <p><strong>DKG Gazetteer ID:</strong> {{ .id }}</p>
   <p><strong>Category:</strong> {{ .definition }}</p>
   <p><strong>Description:</strong> {{ .description }}</p>
   <p><strong>Identifiers:</strong></p>
   <ul>
-    <li>Wikidata: <a href="https://www.wikidata.org/wiki/{{ .wiki_id }}">{{ .wiki_id }}</a></li>
-    <li>VIAF: <a href="https://viaf.org/viaf/{{ .viaf_id }}">{{ .viaf_id }}</a></li>
-    <li>Geonames: <a href="https://www.geonames.org/{{ .geonames_id }}">{{ .geonames_id }}</a></li>
+    <li>Wikidata: <a href="{{ .municipality_wiki_uri }}">{{ .municipality_wiki_uri }}</a></li>
+    <li>VIAF: <a href="{{ .municipality_viaf_uri }}">{{ .municipality_viaf_uri }}</a></li>
+    <li>Geonames: <a href="{{ .municipality_geonames_uri }}">{{ .municipality_geonames_uri }}</a></li>
   </ul>
   <p><strong>Geometry:</strong></p>
   <div class="geometry">{{ .geometry }}</div>
