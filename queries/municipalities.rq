@@ -13,6 +13,7 @@ CONSTRUCT {
         pno:hasPlaceName ?Municipality_place_name_for_uri;
         dcterms:identifier ?municipality_wiki_uri , ?municipality_viaf_uri , ?municipality_geonames_uri ; 
         dcterms:description ?description ;
+        rdfs:label ?Municipality_label ;
         a geo:Feature ; 
         geo:hasGeometry [ geo:asWKT ?wktLiteral ] ;
         .
@@ -36,7 +37,8 @@ WHERE {
           .
     BIND(REPLACE(STR(?Municipality_name), "[^a-zA-Z0-9]", "_") AS ?id)
     BIND(fx:entity(for:, "place/", ?id) AS ?Municipality)  
-    BIND(fx:entity(for:, "place-name/", ?id) AS ?Municipality_place_name_for_uri)   
+    BIND(fx:entity(for:, "place-name/", ?id) AS ?Municipality_place_name_for_uri)  
+    BIND(?Municipality_name AS ?Municipality_label) 
   }
 
   SERVICE <x-sparql-anything:location=data/municipalities/portugal-municipalities.wkt.json> {
