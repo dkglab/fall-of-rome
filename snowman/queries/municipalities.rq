@@ -1,22 +1,17 @@
-PREFIX for: <https://dkglab.github.io/ns/for/>
-PREFIX kos: <https://dkglab.github.io/ns/for/kos/>
-PREFIX geo: <http://www.opengis.net/ont/geosparql#>
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX wiki: <https://www.wikidata.org/entity/>
-PREFIX ple: <https://pleiades.stoa.org/vocabularies/place-types/>
-PREFIX xyz: <http://sparql.xyz/facade-x/data/>
-PREFIX fx: <http://sparql.xyz/facade-x/ns/>
-PREFIX pno: <http://linked.data.gov.au/def/placenames/>
-SELECT ?uri ?place_name ?id ?geometry  WHERE {
-  ?uri
-    rdf:type pno:Place ;
-    pno:hasPlaceName ?place_name ;
-    dcterms:identifier ?id ;
-    a geo:Feature ;   
-    geo:hasGeometry [ geo:asWKT ?geometry ] ; 
-    
-    .
+PREFIX for:     <https://dkglab.github.io/ns/for/>
+PREFIX geo:     <http://www.opengis.net/ont/geosparql#>
+PREFIX pno:     <http://linked.data.gov.au/def/placenames/>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?Municipality ?Municipality_label ?Municipality_place_name_for_uri 
+       ?municipality_wiki_uri ?municipality_viaf_uri ?municipality_geonames_uri ?wktLiteral ?description
+WHERE {
+  ?Municipality a pno:Place ;
+                rdfs:label ?Municipality_label ;
+                pno:hasPlaceName ?Municipality_place_name_for_uri ;
+                dcterms:identifier ?municipality_wiki_uri , ?municipality_viaf_uri , ?municipality_geonames_uri ;
+                dcterms:description ?description ;
+                geo:hasGeometry [ geo:asWKT ?wktLiteral ] .
 }
-ORDER BY LCASE(?id)
+ORDER BY ?Municipality_label
