@@ -8,7 +8,7 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX wiki: <https://www.wikidata.org/entity/>
 PREFIX pno: <http://linked.data.gov.au/def/placenames/>
 
-SELECT ?Provincia ?province_place_name_for_label ?provincia_wiki_iri ?provincia_pleiades_iri ?wktLiteral
+SELECT ?Provincia ?province_place_name_for_label ?provincia_wiki_uri ?provincia_pleiades_uri ?wktLiteral
 WHERE {
   ?Provincia
     a pno:Place ;
@@ -24,11 +24,11 @@ WHERE {
   # Separate identifiers into Wikidata and Pleiades URIs
   OPTIONAL {
     ?Provincia dcterms:identifier ?provincia_wiki_uri .
-    FILTER(STRSTARTS(STR(?provincia_wiki_iri), "https://www.wikidata.org/entity/"))
+    FILTER(STRSTARTS(STR(?provincia_wiki_uri), "https://www.wikidata.org/entity/"))
   }
   OPTIONAL {
     ?Provincia dcterms:identifier ?provincia_pleiades_uri .
-    FILTER(STRSTARTS(STR(?provincia_pleiades_iri), "https://pleiades.stoa.org/places/"))
+    FILTER(STRSTARTS(STR(?provincia_pleiades_uri), "https://pleiades.stoa.org/places/"))
   }
 }
 ORDER BY LCASE(?province_place_name_for_label)
