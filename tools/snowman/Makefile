@@ -2,7 +2,7 @@ SHELL := /usr/bin/env bash
 .SHELLFLAGS := -O extglob -c
 OS := $(shell uname -sm)
 SM_HOST := https://github.com/glaciers-in-archives/snowman/releases/download
-SM_VERSION := 0.6.1
+SM_VERSION := 0.7.1
 
 ifeq ($(OS),Darwin x86_64)
         SM_BIN := snowman-darwin-amd64
