@@ -4,14 +4,14 @@ PREFIX geo:     <http://www.opengis.net/ont/geosparql#>
 PREFIX pno:     <http://linked.data.gov.au/def/placenames/>
 PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
 
-SELECT ?Municipality ?Municipality_label ?Municipality_place_name_for_uri 
+SELECT ?municipality ?municipality_label ?municipality_place_name_for_uri 
        ?municipality_wiki_uri ?municipality_viaf_uri ?municipality_geonames_uri ?wktLiteral ?description
 WHERE {
-  ?Municipality a pno:Place ;
-                rdfs:label ?Municipality_label ;
-                pno:hasPlaceName ?Municipality_place_name_for_uri ;
+  ?municipality a pno:Place ;
+                rdfs:label ?municipality_label ;
+                pno:hasPlaceName ?municipality_place_name_for_uri ;
                 dcterms:identifier ?municipality_wiki_uri , ?municipality_viaf_uri , ?municipality_geonames_uri ;
                 dcterms:description ?description ;
                 geo:hasGeometry [ geo:asWKT ?wktLiteral ] .
 }
-ORDER BY ?Municipality_label
+ORDER BY ?municipality_label
