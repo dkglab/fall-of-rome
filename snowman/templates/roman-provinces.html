@@ -8,7 +8,7 @@
 </header>
 <div class="list">
   {{ range . }}
-  <div><a href="{{ .id }}.html">{{ .provincia_place_name_for_label }}</a></div>
+  <div><a href="{{ .provincia_for_uri }}.html">{{ .provincia_place_name_for_label }}</a></div>
   {{ end }}
 </div>
 {{- end }}
