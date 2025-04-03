@@ -8,7 +8,9 @@
 </header>
 <div class="list">
   {{ range . }}
-  <div><a href="{{ .id }}.html">{{ .ceramic_type }}</a></div>
+  <div><a href="{{ .id }}.html">{{ .ceramic_type }}</a>
+  </div>
+
   {{ end }}
 </div>
 {{- end }}

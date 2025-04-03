@@ -10,13 +10,16 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 
 # SELECT ?uri ?ceramic_type ?id WHERE {
-SELECT ?uri ?ceramic_type ?id ?wiki_entity ?form_type ?start_date ?end_date ?suggested_dating ?ARSGroup ?ARSGroup2 ?ARSImportHorizon ?ARSImportHorizon2 WHERE {
+SELECT ?uri ?ceramic_type ?id ?wiki_entity ?form_type ?start_date ?end_date ?suggested_dating ?ARSGroup ?ARSGroup2 ?ARSImportHorizon ?ARSImportHorizon2 ?numid WHERE {
   ?uri
     rdf:type skos:Concept ;
     skos:inScheme kos:ceramic-types ;
     dcterms:identifier ?id ;
     skos:prefLabel ?ceramic_type .
-    BIND(xsd:integer(REPLACE(?id, "[^0-9]", ""))AS ?numid)
+    BIND(xsd:integer(REPLACE(?id, "^[^0-9]*([0-9]+)[a-zA-Z]?.*$", "$1")) AS ?mainNum)
+    BIND(REPLACE(?id, "^.*?[0-9]+([a-zA-Z]?).*$", "$1") AS ?suffix)
+
+
     OPTIONAL { ?uri skos:exactMatch ?wiki_entity . }
     OPTIONAL { ?uri skos:definition ?form_type . }
     OPTIONAL { ?uri dcterms:temporal ?start_date . }
@@ -27,4 +30,4 @@ SELECT ?uri ?ceramic_type ?id ?wiki_entity ?form_type ?start_date ?end_date ?sug
     OPTIONAL { ?uri kos:ARSImportHorizon ?ARSImportHorizon . }
     OPTIONAL { ?uri kos:ARSImportHorizon2 ?ARSImportHorizon . }
 }
-ORDER BY (?numid)
+ORDER BY (?mainNum) (?suffix)
