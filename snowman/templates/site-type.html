@@ -24,7 +24,12 @@
       <li>Pleiades: </li>
     </ul></p>
     <p><strong>Broader Concept:</strong> {{ .broaderSiteType}}</p>
-<!--<p><strong>Narrower Concept:</strong> {{ .narrowerSiteType}}</p>-->
+    <p><strong>Narrower Concept:</strong> {{ .narrowerSiteType}}</p>
+    <ul>
+      {{ range $index, $narrower := split .narrowerSiteTypes "," }}
+      <li>{{ trim $narrower }}</li>
+      {{ end }}
+    </ul>
 </div>
 
 {{- end }}
