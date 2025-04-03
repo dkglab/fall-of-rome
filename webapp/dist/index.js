@@ -4,12 +4,6 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __knownSymbol = (name, symbol) => (symbol = Symbol[name]) ? symbol : Symbol.for("Symbol." + name);
-var __typeError = (msg) => {
-  throw TypeError(msg);
-};
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
@@ -29,45 +23,14 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
-var __decoratorStart = (base) => [, , , __create(base?.[__knownSymbol("metadata")] ?? null)];
-var __decoratorStrings = ["class", "method", "getter", "setter", "accessor", "field", "value", "get", "set"];
-var __expectFn = (fn) => fn !== void 0 && typeof fn !== "function" ? __typeError("Function expected") : fn;
-var __decoratorContext = (kind, name, done, metadata, fns) => ({ kind: __decoratorStrings[kind], name, metadata, addInitializer: (fn) => done._ ? __typeError("Already initialized") : fns.push(__expectFn(fn || null)) });
-var __decoratorMetadata = (array, target) => __defNormalProp(target, __knownSymbol("metadata"), array[3]);
-var __runInitializers = (array, flags, self2, value) => {
-  for (var i5 = 0, fns = array[flags >> 1], n5 = fns && fns.length; i5 < n5; i5++) flags & 1 ? fns[i5].call(self2) : value = fns[i5].call(self2, value);
-  return value;
+var __decorateClass = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc(target, key) : target;
+  for (var i5 = decorators.length - 1, decorator; i5 >= 0; i5--)
+    if (decorator = decorators[i5])
+      result = (kind ? decorator(target, key, result) : decorator(result)) || result;
+  if (kind && result) __defProp(target, key, result);
+  return result;
 };
-var __decorateElement = (array, flags, name, decorators, target, extra) => {
-  var fn, it, done, ctx, access, k3 = flags & 7, s3 = !!(flags & 8), p3 = !!(flags & 16);
-  var j3 = k3 > 3 ? array.length + 1 : k3 ? s3 ? 1 : 2 : 0, key = __decoratorStrings[k3 + 5];
-  var initializers = k3 > 3 && (array[j3 - 1] = []), extraInitializers = array[j3] || (array[j3] = []);
-  var desc = k3 && (!p3 && !s3 && (target = target.prototype), k3 < 5 && (k3 > 3 || !p3) && __getOwnPropDesc(k3 < 4 ? target : { get [name]() {
-    return __privateGet(this, extra);
-  }, set [name](x3) {
-    return __privateSet(this, extra, x3);
-  } }, name));
-  k3 ? p3 && k3 < 4 && __name(extra, (k3 > 2 ? "set " : k3 > 1 ? "get " : "") + name) : __name(target, name);
-  for (var i5 = decorators.length - 1; i5 >= 0; i5--) {
-    ctx = __decoratorContext(k3, name, done = {}, array[3], extraInitializers);
-    if (k3) {
-      ctx.static = s3, ctx.private = p3, access = ctx.access = { has: p3 ? (x3) => __privateIn(target, x3) : (x3) => name in x3 };
-      if (k3 ^ 3) access.get = p3 ? (x3) => (k3 ^ 1 ? __privateGet : __privateMethod)(x3, target, k3 ^ 4 ? extra : desc.get) : (x3) => x3[name];
-      if (k3 > 2) access.set = p3 ? (x3, y3) => __privateSet(x3, target, y3, k3 ^ 4 ? extra : desc.set) : (x3, y3) => x3[name] = y3;
-    }
-    it = (0, decorators[i5])(k3 ? k3 < 4 ? p3 ? extra : desc[key] : k3 > 4 ? void 0 : { get: desc.get, set: desc.set } : target, ctx), done._ = 1;
-    if (k3 ^ 4 || it === void 0) __expectFn(it) && (k3 > 4 ? initializers.unshift(it) : k3 ? p3 ? extra = it : desc[key] = it : target = it);
-    else if (typeof it !== "object" || it === null) __typeError("Object expected");
-    else __expectFn(fn = it.get) && (desc.get = fn), __expectFn(fn = it.set) && (desc.set = fn), __expectFn(fn = it.init) && initializers.unshift(fn);
-  }
-  return k3 || __decoratorMetadata(array, target), desc && __defProp(target, name, desc), p3 ? k3 ^ 4 ? extra : desc : target;
-};
-var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
-var __accessCheck = (obj, member, msg) => member.has(obj) || __typeError("Cannot " + msg);
-var __privateIn = (member, obj) => Object(obj) !== obj ? __typeError('Cannot use the "in" operator on this value') : member.has(obj);
-var __privateGet = (obj, member, getter) => (__accessCheck(obj, member, "read from private field"), getter ? getter.call(obj) : member.get(obj));
-var __privateSet = (obj, member, value, setter) => (__accessCheck(obj, member, "write to private field"), setter ? setter.call(obj, value) : member.set(obj, value), value);
-var __privateMethod = (obj, member, method) => (__accessCheck(obj, member, "access private method"), method);
 
 // node_modules/maplibre-gl/dist/maplibre-gl.js
 var require_maplibre_gl = __commonJS({
@@ -4410,7 +4373,7 @@ Use an identity property function instead: \`{ "type": "identity", "property": $
         }
         class wa extends Rs {
         }
-        class _a6 extends js {
+        class _a2 extends js {
         }
         class Sa extends Ns {
         }
@@ -4840,7 +4803,7 @@ Use an identity property function instead: \`{ "type": "identity", "property": $
         }
         function oo(t5, e6, r8) {
           const n6 = { color: { source: Rs, composite: na }, number: { source: Ws, composite: Rs } }, i6 = function(t6) {
-            return { "line-pattern": { source: _a6, composite: _a6 }, "fill-pattern": { source: _a6, composite: _a6 }, "fill-extrusion-pattern": { source: _a6, composite: _a6 } }[t6];
+            return { "line-pattern": { source: _a2, composite: _a2 }, "fill-pattern": { source: _a2, composite: _a2 }, "fill-extrusion-pattern": { source: _a2, composite: _a2 } }[t6];
           }(t5);
           return i6 && i6[r8] || n6[e6][r8];
         }
@@ -18065,7 +18028,7 @@ ${n6.shaderPreludeCode.vertexSource}`, define: n6.shaderDefine }, defaultProject
             return this._mousePan.isActive() || this._touchPan.isActive();
           }
         }
-        class _a6 {
+        class _a2 {
           constructor(e6, t5, i6, r8) {
             this._pitchWithRotate = e6.pitchWithRotate, this._rollEnabled = e6.rollEnabled, this._mouseRotate = t5, this._mousePitch = i6, this._mouseRoll = r8;
           }
@@ -18221,7 +18184,7 @@ ${n6.shaderPreludeCode.vertexSource}`, define: n6.shaderDefine }, defaultProject
                 return t6.y < o8.y && (a5 = -a5), { rollDelta: a5 };
               }, moveStateManager: o7, enable: e7, assignEvents: Ho });
             }(e6, u4);
-            i6.dragRotate = new _a6(e6, d4, _4, p4), this._add("mouseRotate", d4, ["mousePitch"]), this._add("mousePitch", _4, ["mouseRotate", "mouseRoll"]), this._add("mouseRoll", p4, ["mousePitch"]), e6.interactive && e6.dragRotate && i6.dragRotate.enable();
+            i6.dragRotate = new _a2(e6, d4, _4, p4), this._add("mouseRotate", d4, ["mousePitch"]), this._add("mousePitch", _4, ["mouseRotate", "mouseRoll"]), this._add("mouseRoll", p4, ["mousePitch"]), e6.interactive && e6.dragRotate && i6.dragRotate.enable();
             const m4 = function({ enable: e7, clickTolerance: t5 }) {
               const i7 = new qo({ checkCorrectEvent: (e8) => 0 === n5.mouseButton(e8) && !e8.ctrlKey });
               return new Uo({ clickTolerance: t5, move: (e8, t6) => ({ around: t6, panDelta: t6.sub(e8) }), activateOnStart: true, moveStateManager: i7, enable: e7, assignEvents: Ho });
@@ -19235,7 +19198,7 @@ ${n6.shaderPreludeCode.vertexSource}`, define: n6.shaderDefine }, defaultProject
           return Ka(new t4.P(0, 0));
         }
         const Xa = i5;
-        e5.AJAXError = t4.cm, e5.Event = t4.l, e5.Evented = t4.E, e5.LngLat = t4.Q, e5.MercatorCoordinate = t4.$, e5.Point = t4.P, e5.addProtocol = t4.cn, e5.config = t4.a, e5.removeProtocol = t4.co, e5.AttributionControl = wa, e5.BoxZoomHandler = Oo, e5.CanvasSource = Y2, e5.CooperativeGesturesHandler = ma, e5.DoubleClickZoomHandler = ca, e5.DragPanHandler = da, e5.DragRotateHandler = _a6, e5.EdgeInsets = Pt, e5.FullscreenControl = class extends t4.E {
+        e5.AJAXError = t4.cm, e5.Event = t4.l, e5.Evented = t4.E, e5.LngLat = t4.Q, e5.MercatorCoordinate = t4.$, e5.Point = t4.P, e5.addProtocol = t4.cn, e5.config = t4.a, e5.removeProtocol = t4.co, e5.AttributionControl = wa, e5.BoxZoomHandler = Oo, e5.CanvasSource = Y2, e5.CooperativeGesturesHandler = ma, e5.DoubleClickZoomHandler = ca, e5.DragPanHandler = da, e5.DragRotateHandler = _a2, e5.EdgeInsets = Pt, e5.FullscreenControl = class extends t4.E {
           constructor(e6 = {}) {
             super(), this._onFullscreenChange = () => {
               var e7;
@@ -20749,9 +20712,9 @@ var r4 = class extends b {
     super(...arguments), this.renderOptions = { host: this }, this._$Do = void 0;
   }
   createRenderRoot() {
-    var _a6;
+    var _a2;
     const t4 = super.createRenderRoot();
-    return (_a6 = this.renderOptions).renderBefore ?? (_a6.renderBefore = t4.firstChild), t4;
+    return (_a2 = this.renderOptions).renderBefore ?? (_a2.renderBefore = t4.firstChild), t4;
   }
   update(t4) {
     const s3 = this.render();
@@ -20816,7 +20779,7 @@ function r6(r7) {
 
 // src/data-loader.ts
 async function loadSiteData() {
-  const response = await fetch("locatedsitesTS_any.csv");
+  const response = await fetch("/data/located-sites/locatedsitesTS_any.csv");
   const text = await response.text();
   const lines = text.split("\n");
   const headers = lines[0].split(",");
@@ -20900,17 +20863,15 @@ function sitesToGeoJSON(sites, period) {
 
 // src/time-slider.ts
 var TIME_PERIODS = [
-  { id: "all", label: "\u6240\u6709\u65F6\u671F" },
-  { id: "early-roman", label: "\u65E9\u671F\u7F57\u9A6C (1-3\u4E16\u7EAA)" },
-  { id: "late-roman", label: "\u665A\u671F\u7F57\u9A6C (4-5\u4E16\u7EAA)" },
-  { id: "post-roman", label: "\u540E\u7F57\u9A6C (5-7\u4E16\u7EAA)" }
+  { id: "all", label: "All periods" },
+  { id: "early-roman", label: "Early Rome (1st - 3rd centuries)" },
+  { id: "late-roman", label: "Late Rome (4th - 5th centuries)" },
+  { id: "post-roman", label: "Post-roman (5th-7th centuries)" }
 ];
-var _selected_dec, _a, _TimeSlider_decorators, _init;
-_TimeSlider_decorators = [t3("time-slider")];
-var TimeSlider = class extends (_a = r4, _selected_dec = [n4({ type: String })], _a) {
+var TimeSlider = class extends r4 {
   constructor() {
     super(...arguments);
-    __publicField(this, "selected", __runInitializers(_init, 8, this, "all")), __runInitializers(_init, 11, this);
+    this.selected = "all";
   }
   render() {
     return x`
@@ -20937,10 +20898,7 @@ var TimeSlider = class extends (_a = r4, _selected_dec = [n4({ type: String })],
     }));
   }
 };
-_init = __decoratorStart(_a);
-__decorateElement(_init, 5, "selected", _selected_dec, TimeSlider);
-TimeSlider = __decorateElement(_init, 0, "TimeSlider", _TimeSlider_decorators, TimeSlider);
-__publicField(TimeSlider, "styles", i`
+TimeSlider.styles = i`
     :host {
       display: block;
       width: 100%;
@@ -20972,25 +20930,28 @@ __publicField(TimeSlider, "styles", i`
       background: #0078ff;
       color: white;
     }
-  `);
-__runInitializers(_init, 1, TimeSlider);
+  `;
+__decorateClass([
+  n4({ type: String })
+], TimeSlider.prototype, "selected", 2);
+TimeSlider = __decorateClass([
+  t3("time-slider")
+], TimeSlider);
 
 // src/ceramic-filter.ts
 var CERAMIC_TYPES = [
-  { id: "all", label: "\u6240\u6709\u7C7B\u578B" },
-  { id: "TSH", label: "\u897F\u73ED\u7259\u4EA7\u8D64\u9676 (TSH)" },
-  { id: "TSHT", label: "\u665A\u671F\u897F\u73ED\u7259\u8D64\u9676 (TSHT)" },
-  { id: "TSG", label: "\u9AD8\u5362\u4EA7\u8D64\u9676 (TSG)" },
-  { id: "ARS", label: "\u975E\u6D32\u4EA7\u8D64\u9676 (ARS)" },
-  { id: "LRC", label: "\u4E1C\u65B9\u4EA7\u8D64\u9676 (LRC/LRD)" },
-  { id: "PRCW", label: "\u665A\u671F\u5F69\u7ED8\u9676\u5668 (PRCW)" }
+  { id: "all", label: "ALL TYPES" },
+  { id: "TSH", label: "Spanish terracotta (TSH)" },
+  { id: "TSHT", label: "Late Spanish terracotta (TSHT)" },
+  { id: "TSG", label: "Terracotta from Gaul (TSG)" },
+  { id: "ARS", label: "Gallo-african terracotta (ARS)" },
+  { id: "LRC", label: "Oriental terracotta (LRC/LRD)" },
+  { id: "PRCW", label: "Late painted pottery (PRCW)" }
 ];
-var _selected_dec2, _a2, _CeramicFilter_decorators, _init2;
-_CeramicFilter_decorators = [t3("ceramic-filter")];
-var CeramicFilter = class extends (_a2 = r4, _selected_dec2 = [n4({ type: String })], _a2) {
+var CeramicFilter = class extends r4 {
   constructor() {
     super(...arguments);
-    __publicField(this, "selected", __runInitializers(_init2, 8, this, "all")), __runInitializers(_init2, 11, this);
+    this.selected = "all";
   }
   render() {
     return x`
@@ -21021,10 +20982,7 @@ var CeramicFilter = class extends (_a2 = r4, _selected_dec2 = [n4({ type: String
     }));
   }
 };
-_init2 = __decoratorStart(_a2);
-__decorateElement(_init2, 5, "selected", _selected_dec2, CeramicFilter);
-CeramicFilter = __decorateElement(_init2, 0, "CeramicFilter", _CeramicFilter_decorators, CeramicFilter);
-__publicField(CeramicFilter, "styles", i`
+CeramicFilter.styles = i`
     :host {
       display: block;
       padding: 1rem;
@@ -21048,29 +21006,32 @@ __publicField(CeramicFilter, "styles", i`
       align-items: center;
       gap: 0.5rem;
     }
-  `);
-__runInitializers(_init2, 1, CeramicFilter);
+  `;
+__decorateClass([
+  n4({ type: String })
+], CeramicFilter.prototype, "selected", 2);
+CeramicFilter = __decorateClass([
+  t3("ceramic-filter")
+], CeramicFilter);
 
 // src/site-type-filter.ts
 var SITE_TYPES = [
-  { id: "all", label: "\u6240\u6709\u9057\u5740\u7C7B\u578B" },
-  { id: "Villa", label: "\u522B\u5885 (Villa)" },
-  { id: "Urban", label: "\u57CE\u5E02 (Urban)" },
-  { id: "Rural", label: "\u4E61\u6751\u9057\u5740 (Rural)" },
-  { id: "Hillfort", label: "\u5C71\u4E18\u5821\u5792 (Hillfort)" },
-  { id: "Cemetery", label: "\u5893\u5730 (Cemetery)" }
+  { id: "all", label: "All site types" },
+  { id: "Villa", label: "Villa" },
+  { id: "Urban", label: "Urban" },
+  { id: "Rural", label: "Rural" },
+  { id: "Hillfort", label: "Hillfort" },
+  { id: "Cemetery", label: "Cemetery" }
 ];
-var _selected_dec3, _a3, _SiteTypeFilter_decorators, _init3;
-_SiteTypeFilter_decorators = [t3("site-type-filter")];
-var SiteTypeFilter = class extends (_a3 = r4, _selected_dec3 = [n4({ type: String })], _a3) {
+var SiteTypeFilter = class extends r4 {
   constructor() {
     super(...arguments);
-    __publicField(this, "selected", __runInitializers(_init3, 8, this, "all")), __runInitializers(_init3, 11, this);
+    this.selected = "all";
   }
   render() {
     return x`
       <div class="filter-container">
-        <div class="filter-title">遗址类型筛选</div>
+        <div class="filter-title">Site type screening</div>
         
         ${SITE_TYPES.map((type) => x`
           <label class="site-option">
@@ -21096,10 +21057,7 @@ var SiteTypeFilter = class extends (_a3 = r4, _selected_dec3 = [n4({ type: Strin
     }));
   }
 };
-_init3 = __decoratorStart(_a3);
-__decorateElement(_init3, 5, "selected", _selected_dec3, SiteTypeFilter);
-SiteTypeFilter = __decorateElement(_init3, 0, "SiteTypeFilter", _SiteTypeFilter_decorators, SiteTypeFilter);
-__publicField(SiteTypeFilter, "styles", i`
+SiteTypeFilter.styles = i`
     :host {
       display: block;
       padding: 1rem;
@@ -21123,8 +21081,13 @@ __publicField(SiteTypeFilter, "styles", i`
       align-items: center;
       gap: 0.5rem;
     }
-  `);
-__runInitializers(_init3, 1, SiteTypeFilter);
+  `;
+__decorateClass([
+  n4({ type: String })
+], SiteTypeFilter.prototype, "selected", 2);
+SiteTypeFilter = __decorateClass([
+  t3("site-type-filter")
+], SiteTypeFilter);
 
 // src/tile-map.ts
 var import_maplibre_gl = __toESM(require_maplibre_gl());
@@ -21340,9 +21303,9 @@ var freb = function(eb, start) {
   }
   return { b: b4, r: r7 };
 };
-var _a4 = freb(fleb, 2);
-var fl = _a4.b;
-var revfl = _a4.r;
+var _a = freb(fleb, 2);
+var fl = _a.b;
+var revfl = _a.r;
 fl[28] = 258, revfl[258] = 28;
 var _b = freb(fdeb, 0);
 var fd = _b.b;
@@ -22082,12 +22045,12 @@ var CERAMIC_COLORS = {
 var TileMap = class extends HTMLElement {
   constructor() {
     super();
-    __publicField(this, "placeTypeLayerNames", []);
-    __publicField(this, "map", null);
-    __publicField(this, "currentCeramicFilter", "all");
-    __publicField(this, "currentPeriodFilter", "all");
-    __publicField(this, "currentSiteTypeFilter", "all");
-    __publicField(this, "popup", null);
+    this.placeTypeLayerNames = [];
+    this.map = null;
+    this.currentCeramicFilter = "all";
+    this.currentPeriodFilter = "all";
+    this.currentSiteTypeFilter = "all";
+    this.popup = null;
     this.attachShadow({ mode: "open" });
   }
   async connectedCallback() {
@@ -22148,16 +22111,19 @@ var TileMap = class extends HTMLElement {
       if (this.map) this.map.getCanvas().style.cursor = "";
     });
     this.addEventListener("period-change", (e5) => {
-      this.currentPeriodFilter = e5.detail.period;
+      const customEvent = e5;
+      this.currentPeriodFilter = customEvent.detail.period;
       this.updateFilters();
     });
     this.addEventListener("ceramic-filter-change", (e5) => {
-      this.currentCeramicFilter = e5.detail.type;
+      const customEvent = e5;
+      this.currentCeramicFilter = customEvent.detail.type;
       this.updateFilters();
       this.updatePointColors();
     });
     this.addEventListener("site-filter-change", (e5) => {
-      this.currentSiteTypeFilter = e5.detail.type;
+      const customEvent = e5;
+      this.currentSiteTypeFilter = customEvent.detail.type;
       this.updateFilters();
     });
   }
@@ -22185,7 +22151,7 @@ var TileMap = class extends HTMLElement {
     const ceramicTypes = ["TSH", "TSHT", "TSG", "ARSA", "ARSC", "ARSD", "LRC", "LRD", "PRCW"];
     const presentCeramics = ceramicTypes.filter((type) => props[type] === 1).join(", ");
     let html = `
-      <h3>${props.name || "\u672A\u547D\u540D\u9057\u5740"}</h3>
+      <h3>${props.name || "Unnamed site"}</h3>
       <p>\u7C7B\u578B: ${props.siteType || "\u672A\u77E5"}</p>
       <p>\u5206\u6790\u7C7B\u578B: ${props.analysisType || "\u672A\u77E5"}</p>
       <p>\u9676\u74F7\u7C7B\u578B: ${presentCeramics || "\u65E0\u6570\u636E"}</p>
@@ -22195,14 +22161,15 @@ var TileMap = class extends HTMLElement {
   }
   updateFilters() {
     if (!this.map) return;
-    const filters = [];
+    const baseFilter = ["==", ["geometry-type"], "Point"];
+    let combinedFilters = [baseFilter];
     if (this.currentCeramicFilter !== "all") {
-      filters.push(["==", ["get", this.currentCeramicFilter], 1]);
+      combinedFilters.push(["==", ["get", this.currentCeramicFilter], 1]);
     }
     if (this.currentSiteTypeFilter !== "all") {
-      filters.push(["==", ["get", "siteType"], this.currentSiteTypeFilter]);
+      combinedFilters.push(["==", ["get", "siteType"], this.currentSiteTypeFilter]);
     }
-    let finalFilter = ["all", ...filters];
+    const finalFilter = combinedFilters.length > 1 ? ["all", ...combinedFilters] : combinedFilters[0];
     this.map.setFilter("points", finalFilter);
   }
   updatePointColors() {
@@ -22237,16 +22204,14 @@ var TileMap = class extends HTMLElement {
 customElements.define("tile-map", TileMap);
 
 // src/ceramic-explorer.ts
-var _currentSiteType_dec, _currentCeramicType_dec, _currentPeriod_dec, _loading_dec, _sites_dec, _a5, _CeramicExplorer_decorators, _init4;
-_CeramicExplorer_decorators = [t3("ceramic-explorer")];
-var CeramicExplorer = class extends (_a5 = r4, _sites_dec = [r6()], _loading_dec = [r6()], _currentPeriod_dec = [r6()], _currentCeramicType_dec = [r6()], _currentSiteType_dec = [r6()], _a5) {
+var CeramicExplorer = class extends r4 {
   constructor() {
     super(...arguments);
-    __publicField(this, "sites", __runInitializers(_init4, 8, this, [])), __runInitializers(_init4, 11, this);
-    __publicField(this, "loading", __runInitializers(_init4, 12, this, true)), __runInitializers(_init4, 15, this);
-    __publicField(this, "currentPeriod", __runInitializers(_init4, 16, this, "all")), __runInitializers(_init4, 19, this);
-    __publicField(this, "currentCeramicType", __runInitializers(_init4, 20, this, "all")), __runInitializers(_init4, 23, this);
-    __publicField(this, "currentSiteType", __runInitializers(_init4, 24, this, "all")), __runInitializers(_init4, 27, this);
+    this.sites = [];
+    this.loading = true;
+    this.currentPeriod = "all";
+    this.currentCeramicType = "all";
+    this.currentSiteType = "all";
   }
   async firstUpdated() {
     try {
@@ -22327,14 +22292,7 @@ var CeramicExplorer = class extends (_a5 = r4, _sites_dec = [r6()], _loading_dec
     `;
   }
 };
-_init4 = __decoratorStart(_a5);
-__decorateElement(_init4, 5, "sites", _sites_dec, CeramicExplorer);
-__decorateElement(_init4, 5, "loading", _loading_dec, CeramicExplorer);
-__decorateElement(_init4, 5, "currentPeriod", _currentPeriod_dec, CeramicExplorer);
-__decorateElement(_init4, 5, "currentCeramicType", _currentCeramicType_dec, CeramicExplorer);
-__decorateElement(_init4, 5, "currentSiteType", _currentSiteType_dec, CeramicExplorer);
-CeramicExplorer = __decorateElement(_init4, 0, "CeramicExplorer", _CeramicExplorer_decorators, CeramicExplorer);
-__publicField(CeramicExplorer, "styles", i`
+CeramicExplorer.styles = i`
     :host {
       display: block;
       height: 100vh;
@@ -22380,12 +22338,29 @@ __publicField(CeramicExplorer, "styles", i`
       height: 100%;
       font-size: 1.2rem;
     }
-  `);
-__runInitializers(_init4, 1, CeramicExplorer);
+  `;
+__decorateClass([
+  r6()
+], CeramicExplorer.prototype, "sites", 2);
+__decorateClass([
+  r6()
+], CeramicExplorer.prototype, "loading", 2);
+__decorateClass([
+  r6()
+], CeramicExplorer.prototype, "currentPeriod", 2);
+__decorateClass([
+  r6()
+], CeramicExplorer.prototype, "currentCeramicType", 2);
+__decorateClass([
+  r6()
+], CeramicExplorer.prototype, "currentSiteType", 2);
+CeramicExplorer = __decorateClass([
+  t3("ceramic-explorer")
+], CeramicExplorer);
 
 // src/index.ts
 function main() {
-  console.log("\u5E94\u7528\u5DF2\u52A0\u8F7D");
+  console.log("Application loaded");
 }
 main();
 /*! Bundled license information:

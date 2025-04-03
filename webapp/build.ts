@@ -1,7 +1,7 @@
-// Modify the webapp/build.ts file
-import * as esbuild from "esbuild"
+/// <reference types="node" />
+import * as esbuild from "esbuild";
 
-// Build the configuration
+// 构建选项
 const buildOptions: esbuild.BuildOptions = {
   entryPoints: ["src/index.ts"],
   bundle: true,
@@ -11,31 +11,31 @@ const buildOptions: esbuild.BuildOptions = {
   sourcemap: true,
   target: "es2020",
   loader: {
-    ".rq": "text", // Process SPARQL query files
+    ".rq": "text", // 处理 SPARQL 查询文件
   },
-}
+};
 
-// Process command line arguments
-const watch = process.argv.includes("--watch")
+// 处理命令行参数
+const watch = process.argv.includes("--watch");
 
-// Put await inside an asynchronous function rather than in the top-level scope
+// 由于顶层的 await 不被允许，将其放到一个异步函数里
 async function run() {
   try {
     if (watch) {
-      // Development watch mode
-      const ctx = await esbuild.context(buildOptions)
-      await ctx.watch()
-      console.log("Monitoring file changes...")
+      // 开发模式：watch
+      const ctx = await esbuild.context(buildOptions);
+      await ctx.watch();
+      console.log("Monitoring file changes...");
     } else {
-      // Production construction
-      await esbuild.build(buildOptions)
-      console.log("Construction completed！")
+      // 生产模式：一次性构建
+      await esbuild.build(buildOptions);
+      console.log("Construction completed!");
     }
   } catch (error) {
-    console.error("Build failure:", error)
-    process.exit(1)
+    console.error("Build failure:", error);
+    process.exit(1);
   }
 }
 
-// Executive function
-run()
+// 执行函数
+run();

@@ -1,6 +1,4 @@
-// Create the src/data-loader.ts file
-
-import { FeatureCollection } from "geojson"
+import type { FeatureCollection } from "geojson"
 
 export interface SiteData {
   id: string
@@ -9,14 +7,13 @@ export interface SiteData {
   analysisType: string
   location: [number, number] // [longitude, latitude]
   ceramics: {
-    [key: string]: number // Type and presence of ceramic(1/0)
+    [key: string]: number // 陶瓷类型和是否存在(1/0)
   }
-  periods: string[] // The period when the site was active
+  periods: string[] // 该遗址活跃的时期
 }
 
 export async function loadSiteData(): Promise<SiteData[]> {
- // Change the path to the correct one
-  const response = await fetch("../data/located-sites/locatedsitesTS_any.csv")
+  const response = await fetch("/data/located-sites/locatedsitesTS_any.csv")
   const text = await response.text()
   const lines = text.split("\n")
   const headers = lines[0].split(",")
@@ -45,7 +42,7 @@ export async function loadSiteData(): Promise<SiteData[]> {
     const ceramics: {[key: string]: number} = {}
     const periods: string[] = []
     
-    // Extract ceramic data
+    // 提取陶瓷数据
     for (const ceramic of ceramicColumns) {
       const index = headers.indexOf(ceramic)
       if (index !== -1) {
@@ -53,7 +50,7 @@ export async function loadSiteData(): Promise<SiteData[]> {
       }
     }
     
-    // Determine the period according to the type of ceramic
+    // 根据陶瓷类型确定时期
     if (ceramics["TS_early"] === 1) periods.push("early-roman")
     if (ceramics["TS_late"] === 1) periods.push("late-roman")
     if (ceramics["ARS_450"] === 1 || ceramics["ARS_525"] === 1 || ceramics["ARS_600"] === 1) 

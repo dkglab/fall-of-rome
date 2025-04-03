@@ -1,12 +1,12 @@
-// Create the src/ceramic-explorer.ts file
-
-import { LitElement, html, css } from "lit"
-import { customElement, state } from "lit/decorators.js"
-import { loadSiteData, sitesToGeoJSON, SiteData } from "./data-loader"
-import "./time-slider"
-import "./ceramic-filter"
-import "./site-type-filter"
-import "./tile-map"
+// 在ceramic-explorer.ts的开头添加导入
+import { LitElement, html, css } from "lit";
+import { customElement, state } from "lit/decorators.js";
+import { loadSiteData, sitesToGeoJSON } from "./data-loader";
+import type { SiteData } from "./data-loader";  // 修改为类型导入
+import "./time-slider";
+import "./ceramic-filter";
+import "./site-type-filter";
+import "./tile-map";
 
 @customElement("ceramic-explorer")
 export class CeramicExplorer extends LitElement {
@@ -56,101 +56,102 @@ export class CeramicExplorer extends LitElement {
       height: 100%;
       font-size: 1.2rem;
     }
-  `
+  `;
 
+  // 使用state装饰器而不是property
   @state()
-  private sites: SiteData[] = []
+  private sites: SiteData[] = [];
   
   @state()
-  private loading = true
+  private loading = true;
   
   @state()
-  private currentPeriod = "all"
-  
-  @state()
-  private currentCeramicType = "all"
+  private currentPeriod = "all";
   
   @state() 
-  private currentSiteType = "all"
+  private currentCeramicType = "all";
+  
+  @state() 
+  private currentSiteType = "all";
 
   async firstUpdated() {
     try {
-      // Loading site data
-      this.sites = await loadSiteData()
+      // 加载站点数据
+      this.sites = await loadSiteData();
       
-      // Get map element
-      const map = this.shadowRoot?.querySelector("tile-map")
+      // 获取地图元素
+      const map = this.shadowRoot?.querySelector("tile-map");
       
-      // Show all sites
+      // 显示所有站点
       if (map) {
-        const geoJSON = sitesToGeoJSON(this.sites)
-        await (map as any).showFeatures(geoJSON)
+        const geoJSON = sitesToGeoJSON(this.sites);
+        await (map as any).showFeatures(geoJSON);
       }
       
-      this.loading = false
+      this.loading = false;
     } catch (error) {
-      console.error("加载数据失败:", error)
-      this.loading = false
+      console.error("加载数据失败:", error);
+      this.loading = false;
     }
   }
   
   handlePeriodChange(e: CustomEvent) {
-    this.currentPeriod = e.detail.period
-    this.updateMap()
+    this.currentPeriod = e.detail.period;
+    this.updateMap();
   }
   
   handleCeramicFilterChange(e: CustomEvent) {
-    this.currentCeramicType = e.detail.type
-    this.updateMap()
+    this.currentCeramicType = e.detail.type;
+    this.updateMap();
   }
   
   handleSiteFilterChange(e: CustomEvent) {
-    this.currentSiteType = e.detail.type
-    this.updateMap()
+    this.currentSiteType = e.detail.type;
+    this.updateMap();
   }
   
   updateMap() {
-    const map = this.shadowRoot?.querySelector("tile-map")
-    if (!map) return
+    const map = this.shadowRoot?.querySelector("tile-map");
+    if (!map) return;
     
-    // filter the data
-    let filteredSites = this.sites
+    // 筛选数据
+    let filteredSites = this.sites;
     
-    // Application period screening
+    // 应用时期筛选
     if (this.currentPeriod !== "all") {
       filteredSites = filteredSites.filter(site => 
         site.periods.includes(this.currentPeriod)
-      )
+      );
     }
     
-    // Applied ceramic type screening
+    // 应用陶瓷类型筛选
     if (this.currentCeramicType !== "all") {
       filteredSites = filteredSites.filter(site => 
         site.ceramics[this.currentCeramicType] === 1
-      )
+      );
     }
     
-    // Application site type screening
+    // 应用遗址类型筛选
     if (this.currentSiteType !== "all") {
       filteredSites = filteredSites.filter(site => 
         site.siteType === this.currentSiteType || 
         site.analysisType === this.currentSiteType
-      )
+      );
     }
     
-    // Update map
-    const geoJSON = sitesToGeoJSON(filteredSites)
-    ;(map as any).showFeatures(geoJSON)
+    // 更新地图
+    const geoJSON = sitesToGeoJSON(filteredSites);
+    (map as any).showFeatures(geoJSON);
   }
 
   render() {
     if (this.loading) {
-      return html`<div class="loading">加载数据中...</div>`
+      return html`<div class="loading">加载数据中...</div>`;
     }
     
     return html`
       <div class="header">
-        <h1>Visualization of time series of ceramic distribution in the Iberian Peninsula</h1>
+        <h1>伊比利亚半岛陶瓷分布时间序列可视化</h1>
       </div>
       
       <div class="main-content">
@@ -172,6 +173,6 @@ export class CeramicExplorer extends LitElement {
           <tile-map id="main-map"></tile-map>
         </div>
       </div>
-    `
+    `;
   }
 }
