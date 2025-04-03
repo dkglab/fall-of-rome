@@ -10,7 +10,7 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
 
 # SELECT ?uri ?ceramic_type ?id WHERE {
-SELECT ?uri ?ceramic_type ?id ?wiki_entity ?form_type ?start_date ?end_date ?suggested_dating ?ARSGroup ?ARSGroup2 ?ARSImportHorizon ?ARSImportHorizon2 ?numid WHERE {
+SELECT ?uri ?ceramic_type ?id ?wiki_entity ?form_type ?start_date ?end_date ?suggested_dating ?ARSGroup ?ARSGroup2 ?ARSImportHorizon ?ARSImportHorizon2 ?numid ?broader_id WHERE {
   ?uri
     rdf:type skos:Concept ;
     skos:inScheme kos:ceramic-types ;
@@ -29,5 +29,9 @@ SELECT ?uri ?ceramic_type ?id ?wiki_entity ?form_type ?start_date ?end_date ?sug
     OPTIONAL { ?uri kos:ARSGroup2 ?ARSGroup2 . }
     OPTIONAL { ?uri kos:ARSImportHorizon ?ARSImportHorizon . }
     OPTIONAL { ?uri kos:ARSImportHorizon2 ?ARSImportHorizon . }
+    OPTIONAL { 
+      ?uri skos:broader ?broaderUri .
+      BIND(REPLACE(STR(?broaderUri), "^.*/([^/]+)$", "$1") AS ?broader_id)
+    }
 }
 ORDER BY (?mainNum) (?suffix)
