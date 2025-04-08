@@ -16,9 +16,10 @@ CONSTRUCT {
     skos:closeMatch ?wikiEntity ;
     skos:closeMatch ?pleiadesPlaceType ;
     skos:definition ?siteTypeDefinition ;
-    skos:inScheme <https://dkglab.github.io/ns/for/kos/site-types> .
-  #add pleiades close match definition 
-  #add wiki close match definition
+    skos:inScheme <https://dkglab.github.io/ns/for/kos/site-types> ;
+    #skos:definition ?wikiDefinition ; 
+    #skos:definition ?pleiadesDefinition ;
+    .
     
    <https://dkglab.github.io/ns/for/kos/site-types> a skos:ConceptScheme ;
     dcterms:title "Site Types Concept Scheme" ;
