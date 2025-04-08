@@ -4,16 +4,15 @@
 
 {{ define "content" -}}
 <header>
-  <h1>{{ .province_name }}</h1>
+  <h1>{{ .provincia_label }}</h1>
+  <div><a href="{{ .provincia }}">{{ .provincia_label }}</a></div>
 </header>
 <div>
-  <p><strong>DKG Province ID:</strong> {{ .provincia_for_uri }}</p>
-  <p><strong>Place Name:</strong> {{ .provincia_place_name_for_label }}</p>
-  <p><strong>Identifiers:</strong></p>
-  <ul>
-    <li>Wikidata: <a href="{{ .provincia_wiki_uri }}">{{ .provincia_wiki_uri }}</a></li>
-    <li>Pleiades: <a href="{{ .provincia_pleiades_uri }}">{{ .provincia_pleiades_uri }}</a></li>
-  </ul>
-  <p><strong>Geometry (WKT):</strong> {{ .geometry }}</p>
+  <p><strong>Provincia Name:</strong> {{ .provincia_label }}</p>
+  <p><strong>DKG Gazetteer ID:</strong> {{ .provincia }}</p>
+  <p><strong>Identifiers:</strong>{{ .provincia_other_uris}}</p>
+  <p><strong>Geometry:</strong></p>
+  <div class="geometry">{{ .geometry }}</div> 
 </div>
 {{- end }}
+

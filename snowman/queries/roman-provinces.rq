@@ -8,27 +8,23 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX wiki: <https://www.wikidata.org/entity/>
 PREFIX pno: <http://linked.data.gov.au/def/placenames/>
 
-SELECT ?Provincia ?province_place_name_for_label ?provincia_wiki_uri ?provincia_pleiades_uri ?wktLiteral
+SELECT 
+?id
+?provincia 
+?provincia_label 
+?provincia_place_name_for_uri  
+# ?wktLiteral
+
+(GROUP_CONCAT(?provincia_other_uri ; SEPARATOR=", ") AS ?provincia_other_uris)
 WHERE {
-  ?Provincia
-    a pno:Place ;
+  ?provincia a pno:Place ;
+    dcterms:identifier ?id ;
+    rdfs:label ?provincia_label ;
     pno:hasPlaceName ?province_place_name_for_uri ;
-    dcterms:identifier ?identifier ;
+    skos:closeMatch ?provincia_other_uri ;
     a geo:Feature ;
     geo:hasGeometry [ geo:asWKT ?wktLiteral ] .
-
-  ?province_place_name_for_uri 
-    a pno:PlaceName ;
-    rdfs:label ?province_place_name_for_label .
-
-  # Separate identifiers into Wikidata and Pleiades URIs
-  OPTIONAL {
-    ?Provincia dcterms:identifier ?provincia_wiki_uri .
-    FILTER(STRSTARTS(STR(?provincia_wiki_uri), "https://www.wikidata.org/entity/"))
-  }
-  OPTIONAL {
-    ?Provincia dcterms:identifier ?provincia_pleiades_uri .
-    FILTER(STRSTARTS(STR(?provincia_pleiades_uri), "https://pleiades.stoa.org/places/"))
-  }
 }
-ORDER BY LCASE(?province_place_name_for_label)
+
+GROUP BY ?provincia ?provincia_label ?provincia_place_name_for_uri ?wikiLiteral ?id
+ORDER BY ?provincia_label

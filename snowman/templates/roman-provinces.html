@@ -6,9 +6,12 @@
 <header>
   <h1>Roman Provinces</h1>
 </header>
+
 <div class="list">
   {{ range . }}
-  <div><a href="{{ .provincia_for_uri }}.html">{{ .provincia_place_name_for_label }}</a></div>
+  <div class="provincia">
+    <a href="{{ .id }}.html">{{ .provincia_label }}</a>
+  </div>
   {{ end }}
 </div>
 {{- end }}
