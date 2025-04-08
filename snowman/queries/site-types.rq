@@ -7,7 +7,14 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX wiki: <https://www.wikidata.org/entity/>
 PREFIX ple: <https://pleiades.stoa.org/vocabularies/place-types/>
 
-SELECT ?uri ?site_type ?id ?siteTypeDefinition (GROUP_CONCAT(?matchingURI; separator=", ") AS ?matchingURIs) ?broaderSiteType (GROUP_CONCAT(?narrowerSiteType; separator=", ") AS ?narrowerSiteTypes)
+SELECT
+  ?uri
+  ?site_type
+  ?id
+  ?siteTypeDefinition
+  ?broaderSiteType
+  (GROUP_CONCAT(?matchingURI; separator=", ") AS ?matchingURIs)
+  (GROUP_CONCAT(?narrowerSiteType; separator=", ") AS ?narrowerSiteTypes)
 WHERE {
   ?uri
     rdf:type skos:Concept ;
@@ -20,14 +27,6 @@ WHERE {
   OPTIONAL { ?uri skos:closeMatch ?matchingURI .}
   OPTIONAL { ?uri skos:broader ?broaderSiteType .}
   OPTIONAL { ?narrowerSiteType skos:broader ?uri . }
-  # OPTIONAL { ?uri skos:definition ?wikiDefinition .}
-  # OPTIONAL { ?uri skos:definition ?pleiadesDefinition .}
-
-
-  BIND(CONCAT("https://dkglab.github.io/ns/for/kos/site-types/", LCASE(REPLACE(?id, " ", "_"))) AS ?uri)
-
-
-} 
-GROUP BY ?uri ?site_type ?id ?siteTypeDefinition ?broaderSiteType 
+}
+GROUP BY ?uri ?site_type ?id ?siteTypeDefinition ?broaderSiteType
 ORDER BY LCASE(?site_type)
-
