@@ -20,8 +20,11 @@
       {{ end }}
     </ul>
     <p><strong>Additional Definitions:</strong><ul>
-      <li>Wikidata: </li>
-      <li>Pleiades: </li>
+      <ul>
+        {{ range $index, $def := split .additionalDef "," }}
+        <li>{{ trim $def }}</li>
+        {{ end }}
+      </ul>
     </ul></p>
     <p><strong>Broader Concept:</strong> {{ .broaderSiteType}}</p>
     <p><strong>Narrower Concept:</strong> {{ .narrowerSiteType}}</p>

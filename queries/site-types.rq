@@ -17,8 +17,8 @@ CONSTRUCT {
     skos:closeMatch ?pleiadesPlaceType ;
     skos:definition ?siteTypeDefinition ;
     skos:inScheme <https://dkglab.github.io/ns/for/kos/site-types> ;
-    #skos:definition ?wikiDefinition ; 
-    #skos:definition ?pleiadesDefinition ;
+    skos:note ?wikiDefinition ; 
+    skos:note ?pleiadesDefinition ;
     .
     
    <https://dkglab.github.io/ns/for/kos/site-types> a skos:ConceptScheme ;
@@ -59,6 +59,14 @@ WHERE {
 
     OPTIONAL {
       ?row xyz:definition ?siteTypeDefinition
+    }
+
+    OPTIONAL {
+      ?row xyz:wikiDef ?wikiDefinition
+    }
+
+    OPTIONAL {
+      ?row xyz:pleiadesDef ?pleiadesDefinition
     }
   }
 }
