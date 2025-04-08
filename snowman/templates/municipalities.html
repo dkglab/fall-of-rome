@@ -10,31 +10,8 @@
 <div class="list">
   {{ range . }}
   <div class="municipality">
-      <a href="{{ .municipality }}.html">{{ .municipality_label }}</a>
+      <a href="{{ .id }}.html">{{ .municipality_label }}</a>
   </div>
   {{ end }}
 </div>
-
-<style>
-  .list {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-  }
-  .municipality {
-    border: 1px solid #ccc;
-    padding: 1em;
-    border-radius: 5px;
-  }
-  .municipality a {
-    font-size: 1.2em;
-    font-weight: bold;
-    text-decoration: none;
-    color: #333;
-  }
-  .municipality p {
-    margin: 0.5em 0 0;
-    color: #666;
-  }
-</style>
 {{- end }}

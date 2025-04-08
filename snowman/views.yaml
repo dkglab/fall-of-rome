@@ -25,7 +25,7 @@ views:
   - output: "municipalities/index.html"
     query: "municipalities.rq"
     template: "municipalities.html"
-  - output: "municipalities/{{municipality}}.html"
+  - output: "municipalities/{{id}}.html"
     query: "municipalities.rq"
     template: "municipality.html"
   - output: "analytic-regions/index.html"

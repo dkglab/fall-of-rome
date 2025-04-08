@@ -11,12 +11,7 @@
   <p><strong>Municipality Name:</strong> {{ .municipality_label }}</p>
   <p><strong>DKG Gazetteer ID:</strong> {{ .municipality }}</p>
   <p><strong>Description:</strong> {{ .description }}</p>
-  <p><strong>Identifiers:</strong></p>
-  <ul>
-    <li>Wikidata: <a href="{{ .municipality_wiki_uri }}">{{ .municipality_wiki_uri }}</a></li>
-    <li>VIAF: <a href="{{ .municipality_viaf_uri }}">{{ .municipality_viaf_uri }}</a></li>
-    <li>Geonames: <a href="{{ .municipality_geonames_uri }}">{{ .municipality_geonames_uri }}</a></li>
-  </ul>
+  <p><strong>Identifiers:</strong>{{.municipality_other_uris}}</p>
   <p><strong>Geometry:</strong></p>
   <div class="geometry">{{ .geometry }}</div>
 </div>

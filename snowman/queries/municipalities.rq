@@ -3,15 +3,24 @@ PREFIX for:     <https://dkglab.github.io/ns/for/>
 PREFIX geo:     <http://www.opengis.net/ont/geosparql#>
 PREFIX pno:     <http://linked.data.gov.au/def/placenames/>
 PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
-SELECT ?municipality ?municipality_label ?municipality_place_name_for_uri 
-       ?municipality_wiki_uri ?municipality_viaf_uri ?municipality_geonames_uri ?wktLiteral ?description
+SELECT
+?id
+?municipality
+?municipality_label
+?municipality_place_name_for_uri
+?wktLiteral
+?description
+(GROUP_CONCAT(?municipality_other_uri ; SEPARATOR=", ") AS ?municipality_other_uris)
 WHERE {
   ?municipality a pno:Place ;
+                dcterms:identifier ?id ;
                 rdfs:label ?municipality_label ;
                 pno:hasPlaceName ?municipality_place_name_for_uri ;
-                dcterms:identifier ?municipality_wiki_uri , ?municipality_viaf_uri , ?municipality_geonames_uri ;
+                skos:closeMatch ?municipality_other_uri ;
                 dcterms:description ?description ;
                 geo:hasGeometry [ geo:asWKT ?wktLiteral ] .
 }
+GROUP BY ?municipality ?municipality_label ?municipality_place_name_for_uri ?wktLiteral ?description ?id
 ORDER BY ?municipality_label
