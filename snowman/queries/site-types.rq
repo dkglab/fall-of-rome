@@ -14,6 +14,7 @@ SELECT
   ?siteTypeDefinition
   ?broaderSiteType
   (GROUP_CONCAT(?matchingURI; separator=", ") AS ?matchingURIs)
+  (GROUP_CONCAT(?additionalDef; separator=", ") AS ?additionalDefs)
   (GROUP_CONCAT(?narrowerSiteType; separator=", ") AS ?narrowerSiteTypes)
 WHERE {
   ?uri
@@ -25,8 +26,9 @@ WHERE {
 
   OPTIONAL { ?uri skos:definition ?siteTypeDefinition .}
   OPTIONAL { ?uri skos:closeMatch ?matchingURI .}
+  OPTIONAL { ?uri skos:note ?additionalDef .}
   OPTIONAL { ?uri skos:broader ?broaderSiteType .}
   OPTIONAL { ?narrowerSiteType skos:broader ?uri . }
 }
-GROUP BY ?uri ?site_type ?id ?siteTypeDefinition ?broaderSiteType
+GROUP BY ?uri ?site_type ?id ?siteTypeDefinition ?broaderSiteType 
 ORDER BY LCASE(?site_type)
