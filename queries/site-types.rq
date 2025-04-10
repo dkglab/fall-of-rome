@@ -61,12 +61,14 @@ WHERE {
       ?row xyz:definition ?siteTypeDefinition
     }
 
-    OPTIONAL {
-      ?row xyz:wikiDef ?wikiDefinition
-    }
+OPTIONAL {
+  ?row xyz:wikiDef ?wikiDefinitionRaw
+  BIND(CONCAT("Wikidata: ", ?wikiDefinitionRaw) AS ?wikiDefinition)
+}
 
-    OPTIONAL {
-      ?row xyz:pleiadesDef ?pleiadesDefinition
-    }
+OPTIONAL {
+  ?row xyz:pleiadesDef ?pleiadesDefinitionRaw
+  BIND(CONCAT("Pleiades: ", ?pleiadesDefinitionRaw) AS ?pleiadesDefinition)
+}
   }
 }
