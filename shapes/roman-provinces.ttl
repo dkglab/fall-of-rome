@@ -10,25 +10,16 @@ PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 :RomanProvinceShape
   a sh:NodeShape ;
   sh:targetClass pno:Place ;
-  # sh:closed "true"^^xsd:boolean ;
-  # sh:ignoredProperties (rdf:type) ;
-  sh:property
-    :RomanProvinceHasPlaceNameShape ,
-   # :RomanProvinceHasGeometryShape ,
-    :RomanProvinceHasIdentifierShape
+  sh:property :RomanProvinceHasPlaceNameShape ;
+  sh:property :RomanProvinceHasGeometryShape ;
+  sh:property :RomanProvinceHasIdentifierShape ;
   .
 
-# :RomanPlaceNameShape
-#   a sh:NodeShape ;
-#   sh:targetClass pno:PlaceName ;
-#   sh:minCount 1;
-#   .
-
-:RomanPlaceNameShape
+:RomanProvincePlaceNameShape
   a sh:NodeShape ;
   sh:targetClass pno:PlaceName ;
   sh:property [
-    sh:path rdfs:label ;
+    sh:path pno:name ;
     sh:datatype xsd:string ;  # Ensures the label is a human-readable string
     sh:minCount 1 ;           # Requires at least one label per PlaceName
   ] ;
