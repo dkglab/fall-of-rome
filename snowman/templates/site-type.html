@@ -24,9 +24,9 @@
         {{ range $index, $def := split .additionalDefs "," }}
         <li>
           {{ if contains (trim $def) "Wikidata:" }}
-            <strong>Wikidata:</strong> {{ trim (replace $def "Wikidata: " "") }}
+            <strong>Wikidata:</strong> {{ trim (replace $def "Wikidata: " "" -1) }}
           {{ else if contains (trim $def) "Pleiades:" }}
-            <strong>Pleiades:</strong> {{ trim (replace $def "Pleiades: " "") }}
+            <strong>Pleiades:</strong> {{ trim (replace $def "Pleiades: " "" -1) }}
           {{ else }}
             {{ trim $def }}
           {{ end }}
