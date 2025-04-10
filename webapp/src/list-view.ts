@@ -27,6 +27,7 @@ function main() {
       const searchTerm = searchInput.value.toLowerCase()
       list.items = items.filter(item => item.name.toLowerCase().includes(searchTerm))
     })
+  })()
 }
 
 main()
