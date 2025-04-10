@@ -22,6 +22,7 @@ function main() {
         properties: {
           id: binding.get("id")!.value,
           name: binding.get("site_name")!.value,
+          type: "located-site"
         },
         geometry: geoJson
       }
@@ -30,9 +31,24 @@ function main() {
     }
 
     const map = document.getElementById("map") as TileMap
-    await map.showFeatures({
-      type: "FeatureCollection",
-      features: features,
+    await map.addSource("located-sites", {
+      type: "geojson",
+      data: {
+        type: "FeatureCollection",
+        features: features,
+      },
+    })
+    map.addLayer({
+      id: "located-sites",
+      source: "located-sites",
+      type: "circle",
+      filter: ["==", ["get", "type"], "located-site"],
+      paint: {
+        "circle-radius": 3,
+        "circle-color": "#333333",
+        "circle-stroke-width": 1,
+        "circle-stroke-color": "#ffaa00",
+      },
     })
   })()
 }
