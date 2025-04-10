@@ -26,5 +26,5 @@ for:roman-provinces rdfs:member ?provincia .
   
 }
 
-GROUP BY ?provincia ?provincia_label ?provincia_place_name_for_uri ?wikLiteral ?id
+GROUP BY ?provincia ?provincia_label ?provincia_place_name_for_uri ?wktLiteral ?id
 ORDER BY ?provincia_label
