@@ -13,11 +13,12 @@ CONSTRUCT {
       dcterms:identifier ?id ;
       pno:hasPlaceName ?provincia_place_name_for_uri ;
       skos:closeMatch ?provincia_wiki_uri , ?provincia_pleiades_uri ;
-      rdfs:label ?provincia_label ; 
       a geo:Feature ;
       geo:hasGeometry [ geo:asWKT ?wktLiteral ] ;
       .
-      
+  ?provincia_place_name_for_uri a pno:PlaceName ;
+      pno:name ?provincia_label .     
+
   for:roman-provinces a geo:FeatureCollection ;
     rdfs:member ?Provincia ;
     dcterms:title "Roman provinces" ;
@@ -27,17 +28,17 @@ WHERE {
   SERVICE <x-sparql-anything:location=data/roman-provinces/roman-provinces.csv> {
     fx:properties fx:csv.headers "true" .
 
-    ?row xyz:provincia_wiki_name ?Provincia_name ;
+    ?row xyz:provincia_wiki_name ?provincia_wiki_name ;
          xyz:provincia_wiki_uri ?provincia_wiki_uri_string ;
          xyz:provincia_pleiades_uri ?provincia_pleiades_uri_string ;
          xyz:provincia_alter_name ?provincia_alter_name .
 
-    BIND(REPLACE(?Provincia_name, " ", "-") AS ?id)
+    BIND(REPLACE(?provincia_wiki_name, " ", "-") AS ?id)
     # Mint new Place URIs using the fx:entity function
     BIND(fx:entity(for:, "place/", ?id) AS ?Provincia)
     # Mint new Place name URIs using the fx:entity function 
     BIND(fx:entity(for:, "place-name/", ?id) AS ?provincia_place_name_for_uri)
-    BIND(?Provincia_name AS ?Provincia_label)    
+    BIND(?provincia_wiki_name AS ?provincia_label)    
     BIND(URI(?provincia_wiki_uri_string) AS ?provincia_wiki_uri)
     BIND(URI(?provincia_pleiades_uri_string) AS ?provincia_pleiades_uri)
     
