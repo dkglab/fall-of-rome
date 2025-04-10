@@ -22,9 +22,11 @@ WHERE {
     skos:closeMatch ?provincia_other_uri ;
     a geo:Feature ;
     geo:hasGeometry [ geo:asWKT ?wktLiteral ] .
+?provincia_place_name_for_uri a pno:PlaceName ;
+  pno:name ?provincia_label . 
 for:roman-provinces rdfs:member ?provincia .
-  
+
 }
 
-GROUP BY ?provincia ?provincia_label ?provincia_place_name_for_uri ?wktLiteral ?id
+GROUP BY ?provincia ?provincia_place_name_for_uri?provincia_label ?wktLiteral ?id
 ORDER BY ?provincia_label
