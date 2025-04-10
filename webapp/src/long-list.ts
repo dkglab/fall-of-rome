@@ -2,7 +2,7 @@ import { html, css, LitElement } from "lit"
 import { customElement, property } from "lit/decorators.js"
 import { LitVirtualizer } from "@lit-labs/virtualizer" // registers <lit-virtualizer>
 
-type Item = {
+export type Item = {
   name: string
   id: string
 }
