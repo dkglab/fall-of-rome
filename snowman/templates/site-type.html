@@ -21,8 +21,16 @@
     </ul>
     <p><strong>Additional Definitions:</strong><ul>
       <ul>
-        {{ range $index, $def := split .additionalDef "," }}
-        <li>{{ trim $def }}</li>
+        {{ range $index, $def := split .additionalDefs "," }}
+        <li>
+          {{ if contains (trim $def) "Wikidata:" }}
+            <strong>Wikidata:</strong> {{ trim (replace $def "Wikidata: " "") }}
+          {{ else if contains (trim $def) "Pleiades:" }}
+            <strong>Pleiades:</strong> {{ trim (replace $def "Pleiades: " "") }}
+          {{ else }}
+            {{ trim $def }}
+          {{ end }}
+        </li>
         {{ end }}
       </ul>
     </ul></p>
@@ -33,6 +41,7 @@
       <li>{{ trim $narrower }}</li>
       {{ end }}
     </ul>
+    <p><a href="/map?site-type={{ .id }}">See all {{ .id }}s on the map</a></p>
 </div>
 
 {{- end }}

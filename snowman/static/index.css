@@ -58,6 +58,10 @@ header {
     height: 3.6rem;
 }
 
+#search {
+    max-width: 80em;
+}
+
 .grow {
     flex-grow: 1; /* Take remaining space */
 }
