@@ -13,9 +13,9 @@ SELECT
   ?id
   ?siteTypeDefinition
   ?broaderSiteType
-  (GROUP_CONCAT(?matchingURI; separator=", ") AS ?matchingURIs)
-  (GROUP_CONCAT(?additionalDef; separator=", ") AS ?additionalDefs)
-  (GROUP_CONCAT(?narrowerSiteType; separator=", ") AS ?narrowerSiteTypes)
+  (GROUP_CONCAT(DISTINCT ?matchingURI; separator=", ") AS ?matchingURIs)
+  (GROUP_CONCAT(CONCAT('"', ?additionalDef, '"'); separator=", ") AS ?additionalDefs)
+  (GROUP_CONCAT(DISTINCT ?narrowerSiteType; separator=", ") AS ?narrowerSiteTypes)
 WHERE {
   ?uri
     rdf:type skos:Concept ;
