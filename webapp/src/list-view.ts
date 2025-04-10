@@ -19,15 +19,14 @@ function main() {
       })
     }
 
+    const list = document.getElementById("sites-list") as LongList
+    list.items = items
+
     const searchInput = document.getElementById("search") as HTMLInputElement
     searchInput.addEventListener("input", () => {
       const searchTerm = searchInput.value.toLowerCase()
       list.items = items.filter(item => item.name.toLowerCase().includes(searchTerm))
     })
-
-    const list = document.getElementById("sites-list") as LongList
-    list.items = items
-  })()
 }
 
 main()
