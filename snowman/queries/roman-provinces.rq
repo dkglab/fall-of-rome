@@ -5,7 +5,6 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX wiki: <https://www.wikidata.org/entity/>
 PREFIX pno: <http://linked.data.gov.au/def/placenames/>
 
 SELECT 
@@ -13,18 +12,19 @@ SELECT
 ?provincia 
 ?provincia_label 
 ?provincia_place_name_for_uri  
-# ?wktLiteral
-
+?wktLiteral
 (GROUP_CONCAT(?provincia_other_uri ; SEPARATOR=", ") AS ?provincia_other_uris)
 WHERE {
   ?provincia a pno:Place ;
     dcterms:identifier ?id ;
     rdfs:label ?provincia_label ;
-    pno:hasPlaceName ?province_place_name_for_uri ;
+    pno:hasPlaceName ?provincia_place_name_for_uri ;
     skos:closeMatch ?provincia_other_uri ;
     a geo:Feature ;
     geo:hasGeometry [ geo:asWKT ?wktLiteral ] .
+for:roman-provinces rdfs:member ?provincia .
+  
 }
 
-GROUP BY ?provincia ?provincia_label ?provincia_place_name_for_uri ?wikiLiteral ?id
+GROUP BY ?provincia ?provincia_label ?provincia_place_name_for_uri ?wikLiteral ?id
 ORDER BY ?provincia_label
