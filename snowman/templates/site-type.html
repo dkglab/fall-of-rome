@@ -9,13 +9,14 @@
 <div>
     <p><strong>DKG Lab ID:</strong> {{ .id }}</p>
     <p><strong>DKG Lab Definition:</strong> {{ .siteTypeDefinition }}</p>
+  
     <p><strong>Close matches:</strong></p>
     <ul>
       {{ range $index, $uri := split .matchingURIs "," }}
       <li>
-        <a href="{{ trim $uri }}">
-          {{ if contains (trim $uri) "www.wikidata.org" }}Wikidata{{ else if contains (trim $uri) "pleiades.stoa.org" }}Pleiades{{ else }}{{ trim $uri }}{{ end }}
-        </a>
+      <a href="{{ trim $uri }}">
+        {{ if contains (trim $uri) "www.wikidata.org" }}Wikidata{{ else if contains (trim $uri) "pleiades.stoa.org" }}Pleiades{{ else }}{{ trim $uri }}{{ end }}
+      </a>
       </li></a>
       {{ end }}
     </ul>
@@ -24,9 +25,9 @@
         {{ range $index, $def := split .additionalDefs "," }}
         <li>
           {{ if contains (trim $def) "Wikidata:" }}
-            <strong>Wikidata:</strong> {{ trim (replace $def "Wikidata: " "" -1) }}
+            <strong>Wikidata:</strong> {{ trim (replace $def "Wikidata: " "") }}
           {{ else if contains (trim $def) "Pleiades:" }}
-            <strong>Pleiades:</strong> {{ trim (replace $def "Pleiades: " "" -1) }}
+            <strong>Pleiades:</strong> {{ trim (replace $def "Pleiades: " "") }}
           {{ else }}
             {{ trim $def }}
           {{ end }}
@@ -34,11 +35,16 @@
         {{ end }}
       </ul>
     </ul></p>
+
     <p><strong>Broader Concept:</strong> {{ .broaderSiteType}}</p>
     <p><strong>Narrower Concept:</strong> {{ .narrowerSiteType}}</p>
     <ul>
       {{ range $index, $narrower := split .narrowerSiteTypes "," }}
-      <li>{{ trim $narrower }}</li>
+      <li>
+      <a href="{{ trim $narrower }}">
+        {{ trim $narrower }}
+      </a>
+      </li>
       {{ end }}
     </ul>
     <p><a href="/map?site-type={{ .id }}">See all {{ .id }}s on the map</a></p>
