@@ -3,8 +3,12 @@ import GraphStore from "../graph-store"
 
 const loadOxigraph = async () => {
     await init("/web_bg.wasm") // Required to compile the WebAssembly code.
+}
+const loadGraphStore = async () => {
+    loadOxigraph()
 
     const store = new GraphStore()
     await store.load("/data.ttl")
+    return store
 }
-export default loadOxigraph
+export default loadGraphStore
