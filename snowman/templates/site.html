@@ -7,5 +7,7 @@
   <h1>{{ .site_name }}</h1>
 </header>
 <div>
-</div>
+  <p><strong>Site Name:</strong> {{ .site_name }}</p>
+  <p><strong>Alternative label:</strong>{{ .processed }}</p>
+  <p><strong>In town:</strong>{{ .towns }}</p>
 {{- end }}
