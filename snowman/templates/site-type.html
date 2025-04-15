@@ -35,12 +35,12 @@
       {{ end }}
     </ul>
 
-    <p><strong>Broader Concept:</strong> <a href="{{ trim (replace .broaderSiteType "https://dkglab.github.io/ns/for/site-type/" "" -1) }}">{{ trim (replace .broaderSiteType "https://dkglab.github.io/ns/for/site-type/" "" -1) }}</a></p>
+    <p><strong>Broader Concept:</strong> <a href="{{ trim .broaderSiteType }}">{{ trim (replace .broaderSiteType "https://dkglab.github.io/ns/for/site-type/" "" -1) }}</a></p>
     <p><strong>Narrower Concept:</strong></p>
     <ul>
       {{ range $index, $narrower := split .narrowerSiteTypes "," }}
       <li>
-      <a href="{{ trim (replace $narrower "https://dkglab.github.io/ns/for/site-type/" "" -1) }}">
+      <a href="{{ trim $narrower }}">
         {{ trim (replace $narrower "https://dkglab.github.io/ns/for/site-type/" "" -1) }}
       </a>
       </li>
