@@ -14,7 +14,7 @@ SELECT
   ?siteTypeDefinition
   ?broaderSiteType
   (GROUP_CONCAT(DISTINCT ?matchingURI; separator=", ") AS ?matchingURIs)
-  (GROUP_CONCAT(CONCAT('"', ?additionalDef, '"'); separator=", ") AS ?additionalDefs)
+  (GROUP_CONCAT(DISTINCT CONCAT('"', STR(?additionalDef), '"'); separator="| ") AS ?additionalDefs)
   (GROUP_CONCAT(DISTINCT ?narrowerSiteType; separator=", ") AS ?narrowerSiteTypes)
 WHERE {
   ?uri
