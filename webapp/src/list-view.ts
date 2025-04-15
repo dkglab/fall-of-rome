@@ -1,7 +1,6 @@
 import init from "oxigraph/web.js"
 import GraphStore from "./graph-store"
 import LongList from "./long-list"
-import type { Item } from "./long-list"
 import sitesQuery from "./queries/sites.rq"
 
 function main() {
@@ -11,7 +10,7 @@ function main() {
     const store = new GraphStore()
     await store.load("data.ttl")
 
-    const items: Item[] = []
+    const items = []
     for (const binding of store.query(sitesQuery)) {
       items.push({
         id: binding.get("id")!.value,
@@ -21,12 +20,6 @@ function main() {
 
     const list = document.getElementById("sites-list") as LongList
     list.items = items
-
-    const searchInput = document.getElementById("search") as HTMLInputElement
-    searchInput.addEventListener("input", () => {
-      const searchTerm = searchInput.value.toLowerCase()
-      list.items = items.filter(item => item.name.toLowerCase().includes(searchTerm))
-    })
   })()
 }
 

@@ -1,15 +1,19 @@
-// Create the src/site-type-filter.ts file
-
+// site-type-filter.ts
 import { LitElement, html, css } from "lit"
-import { customElement, property, state } from "lit/decorators.js"
+import { customElement, property } from "lit/decorators.js"
 
 export const SITE_TYPES = [
-  { id: "all", label: "All site types" },
+  { id: "all", label: "All Site Types" },
   { id: "Villa", label: "Villa" },
   { id: "Urban", label: "Urban" },
   { id: "Rural", label: "Rural" },
+  { id: "Settlement", label: "Settlement" },
+  { id: "Necropolis", label: "Necropolis" },
+  { id: "Fort", label: "Fort" },
   { id: "Hillfort", label: "Hillfort" },
-  { id: "Cemetery", label: "Cemetery" }
+  { id: "Industrial", label: "Industrial" },
+  { id: "Port", label: "Port" },
+  { id: "Religious", label: "Religious" }
 ]
 
 @customElement("site-type-filter")
@@ -20,6 +24,7 @@ export class SiteTypeFilter extends LitElement {
       padding: 1rem;
       background: white;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border-radius: 4px;
     }
     
     .filter-container {
@@ -31,12 +36,36 @@ export class SiteTypeFilter extends LitElement {
     .filter-title {
       font-weight: bold;
       margin-bottom: 0.5rem;
+      color: #4b6cb7;
     }
     
     .site-option {
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      padding: 3px 0;
+    }
+    
+    .site-option:hover {
+      background-color: #f5f5f5;
+    }
+    
+    input[type="radio"] {
+      cursor: pointer;
+    }
+    
+    label {
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    
+    select {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      background-color: white;
+      font-size: 0.9rem;
     }
   `
 
@@ -46,28 +75,23 @@ export class SiteTypeFilter extends LitElement {
   render() {
     return html`
       <div class="filter-container">
-        <div class="filter-title">Site type screening</div>
+        <div class="filter-title">Site Type Filter</div>
         
-        ${SITE_TYPES.map(type => html`
-          <label class="site-option">
-            <input 
-              type="radio" 
-              name="site-type" 
-              value=${type.id} 
-              ?checked=${this.selected === type.id}
-              @change=${() => this.handleTypeChange(type.id)}
-            />
-            ${type.label}
-          </label>
-        `)}
+        <select @change=${this.handleChange}>
+          ${SITE_TYPES.map(type => html`
+            <option value=${type.id} ?selected=${this.selected === type.id}>${type.label}</option>
+          `)}
+        </select>
       </div>
     `
   }
 
-  handleTypeChange(typeId: string) {
-    this.selected = typeId
+  handleChange(e: Event) {
+    const select = e.target as HTMLSelectElement
+    this.selected = select.value
+    
     this.dispatchEvent(new CustomEvent("site-filter-change", {
-      detail: { type: typeId },
+      detail: { type: this.selected },
       bubbles: true,
       composed: true
     }))

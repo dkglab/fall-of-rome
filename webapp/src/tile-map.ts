@@ -1,54 +1,63 @@
-import type { FeatureCollection } from "geojson"
-import type { GeoJSONSource, LngLatBoundsLike, LngLatLike, MapMouseEvent } from "maplibre-gl"
+// tile-map.ts
+import type { FeatureCollection } from "geojson";
+import type { GeoJSONSource, LngLatBoundsLike, LngLatLike, MapMouseEvent } from "maplibre-gl";
 
-import maplibregl from "maplibre-gl"
-import bbox from "@turf/bbox"
-import * as pmtiles from "pmtiles"
+import maplibregl from "maplibre-gl";
+import bbox from "@turf/bbox";
+import * as pmtiles from "pmtiles";
 
-const DEFAULT_ZOOM = 5.5
-const DEFAULT_CENTER = [-3.7, 40.4] as LngLatLike
-const PMTILES_URL = "https://fly.storage.tigris.dev/cawm-pmtiles/cawm.pmtiles"
+const DEFAULT_ZOOM = 5.5;
+const DEFAULT_CENTER = [-3.7, 40.4] as LngLatLike;
+const PMTILES_URL = "https://fly.storage.tigris.dev/cawm-pmtiles/cawm.pmtiles";
 
-// 确保索引签名是字符串类型
+// Ceramic type color mapping
 const CERAMIC_COLORS: { [key: string]: string } = {
-  "all": "#333333",
+  "all": "#4b6cb7",
   "TSH": "#e41a1c",
   "TSHT": "#377eb8",
-  "TSG": "#4daf4a",
-  "ARS": "#ff7f00",
-  "LRC": "#984ea3",
-  "PRCW": "#ffff33"
-}
+  "TSHTB": "#4daf4a",
+  "TSHTM": "#984ea3",
+  "TSG": "#ff7f00",
+  "DSP": "#ffff33",
+  "ARSA": "#a65628",
+  "ARSC": "#f781bf",
+  "ARSD": "#999999",
+  "LRC": "#66c2a5",
+  "LRD": "#fc8d62",
+  "PRCW": "#8da0cb"
+};
 
 class TileMap extends HTMLElement {
-  placeTypeLayerNames: string[] = []
-  map: maplibregl.Map | null = null
-  currentCeramicFilter: string = "all"
-  currentPeriodFilter: string = "all"
-  currentSiteTypeFilter: string = "all"
-  popup: maplibregl.Popup | null = null
+  placeTypeLayerNames: string[] = [];
+  map: maplibregl.Map | null = null;
+  currentCeramicFilter: string = "all";
+  currentPeriodFilter: string = "all";
+  currentSiteTypeFilter: string = "all";
+  currentRegionFilter: string = "all";
+  popup: maplibregl.Popup | null = null;
+  provincesVisible: boolean = false;
 
   constructor() {
-    super()
-    this.attachShadow({ mode: "open" })
+    super();
+    this.attachShadow({ mode: "open" });
   }
 
   async connectedCallback() {
-    this.render()
+    this.render();
 
-    const protocol = new pmtiles.Protocol()
-    maplibregl.addProtocol("pmtiles", protocol.tile)
+    const protocol = new pmtiles.Protocol();
+    maplibregl.addProtocol("pmtiles", protocol.tile);
 
-    const tileserver = new pmtiles.PMTiles(PMTILES_URL)
-    protocol.add(tileserver)
+    const tileserver = new pmtiles.PMTiles(PMTILES_URL);
+    protocol.add(tileserver);
 
-    const header = await tileserver.getHeader()
-    const container = this.shadowRoot!.getElementById(this.id)!
+    const header = await tileserver.getHeader();
+    const container = this.shadowRoot!.getElementById(this.id)!;
 
     this.map = new maplibregl.Map({
       container,
       minZoom: header.minZoom,
-      maxZoom: 9,
+      maxZoom: 10,
       zoom: DEFAULT_ZOOM,
       center: DEFAULT_CENTER,
       style: {
@@ -65,6 +74,13 @@ class TileMap extends HTMLElement {
               features: [],
             },
           },
+          provinces: {
+            type: "geojson",
+            data: {
+              type: "FeatureCollection",
+              features: [],
+            },
+          }
         },
         layers: [
           {
@@ -73,34 +89,91 @@ class TileMap extends HTMLElement {
             source: "cawm",
           },
           {
+            id: "province-boundaries",
+            type: "line",
+            source: "provinces",
+            layout: {
+              visibility: "none"
+            },
+            paint: {
+              "line-color": "#4b6cb7",
+              "line-width": 2,
+              "line-opacity": 0.7
+            }
+          },
+          {
+            id: "province-fill",
+            type: "fill",
+            source: "provinces",
+            layout: {
+              visibility: "none"
+            },
+            paint: {
+              "fill-color": "#4b6cb7",
+              "fill-opacity": 0.1
+            }
+          },
+          {
+            id: "province-labels",
+            type: "symbol",
+            source: "provinces",
+            layout: {
+              visibility: "none",
+              "text-field": ["get", "name"],
+              "text-font": ["Open Sans Regular"],
+              "text-size": 12,
+              "text-allow-overlap": false
+            },
+            paint: {
+              "text-color": "#4b6cb7",
+              "text-halo-color": "rgba(255,255,255,0.8)",
+              "text-halo-width": 2
+            }
+          },
+          {
             id: "points",
             type: "circle",
             source: "places",
             filter: ["==", ["geometry-type"], "Point"],
             paint: {
-              "circle-radius": 5,
-              "circle-color": "#333333",
+              "circle-radius": [
+                "interpolate", ["linear"], ["zoom"],
+                4, 3,
+                8, 6,
+                12, 12
+              ],
+              "circle-color": CERAMIC_COLORS.all,
               "circle-stroke-width": 1,
               "circle-stroke-color": "#ffffff",
-            },
-          },
+              "circle-opacity": 0.8
+            }
+          }
         ],
       },
-    })
+    });
 
-    // 添加点击事件
-    this.map.on('click', 'points', this.handleMapClick.bind(this))
+    // Add navigation control
+    this.map.addControl(new maplibregl.NavigationControl());
     
-    // 鼠标悬停效果
+    // Add scale control
+    this.map.addControl(new maplibregl.ScaleControl({
+      maxWidth: 100,
+      unit: 'metric'
+    }));
+
+    // Add click event
+    this.map.on('click', 'points', this.handleMapClick.bind(this));
+    
+    // Mouse hover effects
     this.map.on('mouseenter', 'points', () => {
-      if (this.map) this.map.getCanvas().style.cursor = 'pointer'
-    })
+      if (this.map) this.map.getCanvas().style.cursor = 'pointer';
+    });
     
     this.map.on('mouseleave', 'points', () => {
-      if (this.map) this.map.getCanvas().style.cursor = ''
-    })
+      if (this.map) this.map.getCanvas().style.cursor = '';
+    });
     
-    // 监听筛选事件
+    // Listen for filter events
     this.addEventListener('period-change', ((e: Event) => {
       const customEvent = e as CustomEvent;
       this.currentPeriodFilter = customEvent.detail.period;
@@ -119,11 +192,17 @@ class TileMap extends HTMLElement {
       this.currentSiteTypeFilter = customEvent.detail.type;
       this.updateFilters();
     }) as EventListener);
+    
+    this.addEventListener('region-filter-change', ((e: Event) => {
+      const customEvent = e as CustomEvent;
+      this.currentRegionFilter = customEvent.detail.region;
+      this.updateFilters();
+    }) as EventListener);
   }
 
   render() {
     this.shadowRoot!.innerHTML = `
-      <link rel="stylesheet" href="/maplibre-gl.css">
+      <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.2.0/dist/maplibre-gl.css">
       <style>
         #${this.id} { 
           height: 100%; 
@@ -132,107 +211,233 @@ class TileMap extends HTMLElement {
           max-width: 300px;
           font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
         }
+        .maplibregl-popup-content {
+          padding: 15px;
+        }
+        .popup-title {
+          font-weight: bold;
+          margin-bottom: 8px;
+          font-size: 14px;
+          color: #4b6cb7;
+        }
+        .popup-section {
+          margin-bottom: 8px;
+        }
+        .popup-label {
+          font-weight: bold;
+          color: #666;
+        }
+        .popup-value {
+          margin-left: 5px;
+        }
+        .popup-ceramic {
+          display: inline-block;
+          margin-right: 5px;
+          margin-bottom: 3px;
+          padding: 2px 5px;
+          border-radius: 3px;
+          background: #eee;
+          font-size: 11px;
+        }
       </style>
       <div id="${this.id}"></div>
-    `
+    `;
   }
 
   handleMapClick(e: MapMouseEvent) {
-    if (!this.map) return
+    if (!this.map) return;
     
-    // 显示点击的遗址信息
-    const features = this.map.queryRenderedFeatures(e.point, { layers: ['points'] })
+    // Display information for clicked site
+    const features = this.map.queryRenderedFeatures(e.point, { layers: ['points'] });
     
-    if (!features.length) return
+    if (!features.length) return;
     
-    const feature = features[0]
-    const props = feature.properties || {}
+    const feature = features[0];
+    const props = feature.properties || {};
     
-    // 创建弹出窗口内容
-    const ceramicTypes = ['TSH', 'TSHT', 'TSG', 'ARSA', 'ARSC', 'ARSD', 'LRC', 'LRD', 'PRCW']
+    // Create popup content
+    const ceramicTypes = ['TSH', 'TSHT', 'TSHTB', 'TSHTM', 'TSG', 'DSP', 'ARSA', 'ARSC', 'ARSD', 'LRC', 'LRD', 'PRCW'];
     const presentCeramics = ceramicTypes
       .filter(type => props[type] === 1)
-      .join(', ')
+      .map(type => `<span class="popup-ceramic">${type}</span>`)
+      .join(' ');
+    
+    // Period information
+    const periods = [];
+    if (props.periods?.includes('early-roman')) periods.push('Early Roman (1st-3rd century)');
+    if (props.periods?.includes('late-roman')) periods.push('Late Roman (4th-5th century)');
+    if (props.periods?.includes('post-roman')) periods.push('Post-Roman (5th-7th century)');
     
     let html = `
-      <h3>${props.name || 'Unnamed site'}</h3>
-      <p>类型: ${props.siteType || '未知'}</p>
-      <p>分析类型: ${props.analysisType || '未知'}</p>
-      <p>陶瓷类型: ${presentCeramics || '无数据'}</p>
-    `
+      <div class="popup-title">${props.name || 'Unnamed Site'}</div>
+      
+      <div class="popup-section">
+        <span class="popup-label">ID:</span>
+        <span class="popup-value">${props.id || 'No data'}</span>
+      </div>
+      
+      <div class="popup-section">
+        <span class="popup-label">Region:</span>
+        <span class="popup-value">${props.region || props.provincia || 'No data'}</span>
+      </div>
+      
+      <div class="popup-section">
+        <span class="popup-label">Site Type:</span>
+        <span class="popup-value">${props.siteType || 'No data'}</span>
+      </div>
+      
+      <div class="popup-section">
+        <span class="popup-label">Period:</span>
+        <span class="popup-value">${periods.length ? periods.join(', ') : 'No data'}</span>
+      </div>
+      
+      <div class="popup-section">
+        <span class="popup-label">Ceramic Types:</span><br>
+        <span class="popup-value">${presentCeramics || 'No data'}</span>
+      </div>
+    `;
     
-    // 如果已有弹窗，先移除
-    if (this.popup) this.popup.remove()
+    // Remove existing popup if present
+    if (this.popup) this.popup.remove();
     
-    // 创建新的弹窗 - 修复coordinates类型问题
+    // Create new popup
     this.popup = new maplibregl.Popup()
       .setLngLat((feature.geometry as any).coordinates as [number, number])
       .setHTML(html)
-      .addTo(this.map)
+      .addTo(this.map);
   }
 
   updateFilters() {
-    if (!this.map) return
+    if (!this.map) return;
     
-    // 创建正确类型的筛选器数组
-    const baseFilter = ["==", ["geometry-type"], "Point"];
-    let combinedFilters: any[] = [baseFilter];
+    // Create filter expression
+    const geometryFilter = ["==", ["geometry-type"], "Point"];
+    let combinedFilter: any = ["all", geometryFilter];
     
-    // 添加陶瓷类型筛选
+    // Add ceramic type filter
     if (this.currentCeramicFilter !== 'all') {
-      combinedFilters.push(['==', ['get', this.currentCeramicFilter], 1]);
+      combinedFilter.push(['==', ['get', this.currentCeramicFilter], 1]);
     }
     
-    // 添加遗址类型筛选
+    // Add site type filter
     if (this.currentSiteTypeFilter !== 'all') {
-      combinedFilters.push(['==', ['get', 'siteType'], this.currentSiteTypeFilter]);
+      combinedFilter.push([
+        "any",
+        ['==', ['get', 'siteType'], this.currentSiteTypeFilter],
+        ['==', ['get', 'analysisType'], this.currentSiteTypeFilter]
+      ]);
     }
     
-    // 使用all包装多个条件（如果有多个条件）
-    const finalFilter = combinedFilters.length > 1 ? 
-      ['all', ...combinedFilters] : combinedFilters[0];
+    // Add region filter
+    if (this.currentRegionFilter !== 'all') {
+      combinedFilter.push([
+        "any",
+        ['==', ['get', 'region'], this.currentRegionFilter],
+        ['==', ['get', 'provincia'], this.currentRegionFilter]
+      ]);
+    }
     
-    // 应用筛选，使用类型断言避免TypeScript错误
-    this.map.setFilter('points', finalFilter as any);
+    // Add period filter
+    if (this.currentPeriodFilter === 'early-roman') {
+      combinedFilter.push([
+        "any",
+        ['==', ['get', 'TS_early'], 1],
+        ['in', 'early-roman', ['get', 'periods']]
+      ]);
+    } else if (this.currentPeriodFilter === 'late-roman') {
+      combinedFilter.push([
+        "any",
+        ['==', ['get', 'TS_late'], 1],
+        ['in', 'late-roman', ['get', 'periods']]
+      ]);
+    } else if (this.currentPeriodFilter === 'post-roman') {
+      combinedFilter.push([
+        "any",
+        ['==', ['get', 'ARS_450'], 1],
+        ['==', ['get', 'ARS_525'], 1],
+        ['==', ['get', 'ARS_600'], 1],
+        ['in', 'post-roman', ['get', 'periods']]
+      ]);
+    }
+    
+    // Apply filters - using type assertion
+    this.map.setFilter('points', combinedFilter as maplibregl.FilterSpecification);
   }
 
   updatePointColors() {
-    if (!this.map) return
+    if (!this.map) return;
     
-    // 使用类型断言确保索引访问正确
-    const color = CERAMIC_COLORS[this.currentCeramicFilter] || CERAMIC_COLORS.all
+    // Use the color for the current ceramic type
+    const color = CERAMIC_COLORS[this.currentCeramicFilter] || CERAMIC_COLORS.all;
     
-    this.map.setPaintProperty('points', 'circle-color', color)
+    this.map.setPaintProperty('points', 'circle-color', color);
+  }
+
+  async addProvinces(geojsonData: any) {
+    if (!this.map) return;
+    
+    // Wait for the map to finish loading
+    await new Promise<void>((resolve) => {
+      if (this.map!.loaded()) {
+        resolve();
+      } else {
+        this.map!.on('load', () => resolve());
+      }
+    });
+    
+    // Add province data
+    const source = this.map.getSource('provinces') as GeoJSONSource;
+    if (source) {
+      source.setData(geojsonData);
+    }
+  }
+  
+  toggleProvinces(visible: boolean) {
+    if (!this.map) return;
+    
+    this.provincesVisible = visible;
+    
+    // Set layer visibility
+    const visibility = visible ? 'visible' : 'none';
+    this.map.setLayoutProperty('province-boundaries', 'visibility', visibility);
+    this.map.setLayoutProperty('province-fill', 'visibility', visibility);
+    this.map.setLayoutProperty('province-labels', 'visibility', visibility);
   }
 
   async getPlacesSource(): Promise<GeoJSONSource> {
     while (true) {
       if (this.map) {
-        const source = this.map.getSource("places")
+        const source = this.map.getSource("places");
         if (source !== undefined) {
-          return source as GeoJSONSource
+          return source as GeoJSONSource;
         }
       }
-      await new Promise((resolve) => setTimeout(resolve, 100))
+      await new Promise(resolve => setTimeout(resolve, 100));
     }
   }
 
   async showFeatures(collection: FeatureCollection) {
-    const source = await this.getPlacesSource()
-    source.setData(collection)
+    const source = await this.getPlacesSource();
+    source.setData(collection);
 
-    if (this.map) {
-      if (collection.features.length > 0) {
-        // 使用类型断言避免bbox类型问题
-        const extent = bbox(collection) as unknown as LngLatBoundsLike
-        this.map.fitBounds(extent, { padding: 150 })
-      } else {
-        this.map.flyTo({ center: DEFAULT_CENTER, zoom: DEFAULT_ZOOM })
+    if (this.map && collection.features.length > 0) {
+      // Using type assertion to ensure bbox type is correct
+      try {
+        const extent = bbox(collection) as unknown as LngLatBoundsLike;
+        this.map.fitBounds(extent, { padding: 50, maxZoom: 8 });
+      } catch (error) {
+        console.error("Error fitting bounds:", error);
+        this.map.flyTo({ center: DEFAULT_CENTER, zoom: DEFAULT_ZOOM });
       }
+    } else if (this.map) {
+      this.map.flyTo({ center: DEFAULT_CENTER, zoom: DEFAULT_ZOOM });
     }
+    
+    // Update point colors
+    this.updatePointColors();
   }
 }
 
-customElements.define("tile-map", TileMap)
+customElements.define("tile-map", TileMap);
 
-export default TileMap
+export default TileMap;

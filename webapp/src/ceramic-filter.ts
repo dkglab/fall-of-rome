@@ -1,16 +1,21 @@
-// Create the src/ceramic filter.ts file
-
+// ceramic-filter.ts
 import { LitElement, html, css } from "lit"
-import { customElement, property, state } from "lit/decorators.js"
+import { customElement, property } from "lit/decorators.js"
 
 export const CERAMIC_TYPES = [
-  { id: "all", label: "ALL TYPES" },
-  { id: "TSH", label: "Spanish terracotta (TSH)" },
-  { id: "TSHT", label: "Late Spanish terracotta (TSHT)" },
-  { id: "TSG", label: "Terracotta from Gaul (TSG)" },
-  { id: "ARS", label: "Gallo-african terracotta (ARS)" },
-  { id: "LRC", label: "Oriental terracotta (LRC/LRD)" },
-  { id: "PRCW", label: "Late painted pottery (PRCW)" }
+  { id: "all", label: "All Ceramic Types" },
+  { id: "TSH", label: "Terra Sigillata Hispanic (TSH)" },
+  { id: "TSHT", label: "Late Hispanic Terra Sigillata (TSHT)" },
+  { id: "TSHTB", label: "Betic Late Hispanic Terra Sigillata (TSHTB)" },
+  { id: "TSHTM", label: "Meseta Late Hispanic Terra Sigillata (TSHTM)" },
+  { id: "TSG", label: "Gallic Terra Sigillata (TSG)" },
+  { id: "DSP", label: "Paleochristian Grey Pottery (DSP)" },
+  { id: "ARSA", label: "African Red Slip A (ARSA)" },
+  { id: "ARSC", label: "African Red Slip C (ARSC)" },
+  { id: "ARSD", label: "African Red Slip D (ARSD)" },
+  { id: "LRC", label: "Late Roman C Ware (LRC)" },
+  { id: "LRD", label: "Late Roman D Ware (LRD)" },
+  { id: "PRCW", label: "Painted Red Coated Ware (PRCW)" }
 ]
 
 @customElement("ceramic-filter")
@@ -21,6 +26,7 @@ export class CeramicFilter extends LitElement {
       padding: 1rem;
       background: white;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border-radius: 4px;
     }
     
     .filter-container {
@@ -29,15 +35,48 @@ export class CeramicFilter extends LitElement {
       gap: 0.5rem;
     }
     
+    // ceramic-filter.ts 
     .filter-title {
       font-weight: bold;
       margin-bottom: 0.5rem;
+      color: #4b6cb7;
     }
     
     .ceramic-option {
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      padding: 3px 0;
+    }
+    
+    .ceramic-option:hover {
+      background-color: #f5f5f5;
+    }
+    
+    input[type="radio"] {
+      cursor: pointer;
+    }
+    
+    label {
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    
+    .group-title {
+      font-weight: bold;
+      margin-top: 0.5rem;
+      margin-bottom: 0.2rem;
+      font-size: 0.85rem;
+      color: #666;
+    }
+    
+    select {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      background-color: white;
+      font-size: 0.9rem;
     }
   `
 
@@ -49,26 +88,43 @@ export class CeramicFilter extends LitElement {
       <div class="filter-container">
         <div class="filter-title">陶瓷类型筛选</div>
         
-        ${CERAMIC_TYPES.map(type => html`
-          <label class="ceramic-option">
-            <input 
-              type="radio" 
-              name="ceramic-type" 
-              value=${type.id} 
-              ?checked=${this.selected === type.id}
-              @change=${() => this.handleTypeChange(type.id)}
-            />
-            ${type.label}
-          </label>
-        `)}
+        <select @change=${this.handleChange}>
+          <option value="all" ?selected=${this.selected === "all"}>所有陶瓷类型</option>
+          
+          <optgroup label="西班牙陶土">
+            ${CERAMIC_TYPES.filter(t => ["TSH", "TSHT", "TSHTB", "TSHTM"].includes(t.id)).map(type => html`
+              <option value=${type.id} ?selected=${this.selected === type.id}>${type.label}</option>
+            `)}
+          </optgroup>
+          
+          <optgroup label="高卢陶土">
+            ${CERAMIC_TYPES.filter(t => ["TSG", "DSP"].includes(t.id)).map(type => html`
+              <option value=${type.id} ?selected=${this.selected === type.id}>${type.label}</option>
+            `)}
+          </optgroup>
+          
+          <optgroup label="非洲陶土">
+            ${CERAMIC_TYPES.filter(t => ["ARSA", "ARSC", "ARSD"].includes(t.id)).map(type => html`
+              <option value=${type.id} ?selected=${this.selected === type.id}>${type.label}</option>
+            `)}
+          </optgroup>
+          
+          <optgroup label="东方陶土">
+            ${CERAMIC_TYPES.filter(t => ["LRC", "LRD", "PRCW"].includes(t.id)).map(type => html`
+              <option value=${type.id} ?selected=${this.selected === type.id}>${type.label}</option>
+            `)}
+          </optgroup>
+        </select>
       </div>
     `
   }
 
-  handleTypeChange(typeId: string) {
-    this.selected = typeId
+  handleChange(e: Event) {
+    const select = e.target as HTMLSelectElement
+    this.selected = select.value
+    
     this.dispatchEvent(new CustomEvent("ceramic-filter-change", {
-      detail: { type: typeId },
+      detail: { type: this.selected },
       bubbles: true,
       composed: true
     }))

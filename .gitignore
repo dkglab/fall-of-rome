@@ -28,5 +28,7 @@
 /snowman/static/maplibre-gl.css
 /webapp/node_modules/
 /webapp/build/
+/webapp/dist/
 /venv/
 /vocab/
+node_modules
