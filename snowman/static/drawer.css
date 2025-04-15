@@ -29,5 +29,6 @@
 }
 
 .drawer-active {
+    flex-shrink: 0;
     width: auto;
 }
