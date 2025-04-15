@@ -93,19 +93,17 @@ vocab/geo.in.ttl:
 	@mkdir -p vocab
 	@curl -s -L https://opengeospatial.github.io/ogc-geosparql/geosparql11/geo.ttl > $@
 
-vocab/geo.ttl: vocab/geo.in.ttl queries/filter-datatype-property-ranges.rq | $(ARQ)
-	@$(ARQ) \
-	--data $< \
-	--query queries/filter-datatype-property-ranges.rq \
-	--results ttl \
-	--set ttl:directiveStyle=rdf11 \
-	--set ttl:indentStyle=long \
-	> $@
+vocab/skos.in.ttl:
+	@mkdir -p vocab
+	@$(RIOT) -q --formatted=ttl https://www.w3.org/TR/skos-reference/skos.rdf > $@
+
+vocab/%.ttl: vocab/%.in.ttl queries/filter-datatype-property-ranges.rq | $(ARQ)
+	@$(ARQ) --data $< --query queries/filter-datatype-property-ranges.rq --results ttl --set ttl:directiveStyle=rdf11 --set ttl:indentStyle=long > $@
 
 # Recipe to run RDFS inference on all graph files
-graph/inferred.ttl: vocab/geo.ttl $(GRAPH_FILES) | $(RIOT)
+graph/inferred.ttl: vocab/geo.ttl vocab/skos.ttl $(GRAPH_FILES) | $(RIOT)
 	$(call log,Running RDFS inference on all graph files)
-	$(RIOT) --rdfs $< -q --formatted ttl --set ttl:directiveStyle=rdf11 --set ttl:indentStyle=long \
+	$(RIOT) --rdfs vocab/geo.ttl --rdfs vocab/skos.ttl -q --formatted ttl --set ttl:directiveStyle=rdf11 --set ttl:indentStyle=long \
 	$(GRAPH_FILES) \
 	> $@
 
