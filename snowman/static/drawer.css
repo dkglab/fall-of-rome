@@ -1,0 +1,31 @@
+.drawer-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.content-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.drawer-toggle {
+    position: fixed;
+    right: 0;
+    padding: 10px;
+}
+
+.drawer {
+    transform: translateX(100%);
+    overflow: hidden;
+    transition: width 0.2s ease-out;
+}
+
+.drawer-inactive {
+    width: 0%;
+}
+
+.drawer-active {
+    width: auto;
+}
