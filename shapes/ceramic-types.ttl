@@ -54,7 +54,6 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
 :CeramicNarrowerShape
   a sh:PropertyShape ;
   sh:path skos:narrower ;
-  sh:maxCount 1 ;
   .
 
 :CeramicTemporalShape
