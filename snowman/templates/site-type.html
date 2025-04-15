@@ -17,24 +17,23 @@
       <a href="{{ trim $uri }}">
         {{ if contains (trim $uri) "www.wikidata.org" }}Wikidata{{ else if contains (trim $uri) "pleiades.stoa.org" }}Pleiades{{ else }}{{ trim $uri }}{{ end }}
       </a>
-      </li></a>
+      </li>
       {{ end }}
     </ul>
-    <p><strong>Additional Definitions:</strong><ul>
-      <ul>
-        {{ range $index, $def := split .additionalDefs "," }}
-        <li>
-          {{ if contains (trim $def) "Wikidata:" }}
-            <strong>Wikidata:</strong> {{ trim (replace $def "Wikidata: " "" -1) }}
-          {{ else if contains (trim $def) "Pleiades:" }}
-            <strong>Pleiades:</strong> {{ trim (replace $def "Pleiades: " "" -1) }}
-          {{ else }}
-            {{ trim $def }}
-          {{ end }}
-        </li>
+    <p><strong>Additional Definitions:</strong></p>
+    <ul>
+      {{ range $index, $def := split .additionalDefs "," }}
+      <li>
+        {{ if contains (trim $def) "Wikidata:" }}
+          <strong>Wikidata:</strong> {{ trim (replace $def "Wikidata: " "" -1) }}
+        {{ else if contains (trim $def) "Pleiades:" }}
+          <strong>Pleiades:</strong> {{ trim (replace $def "Pleiades: " "" -1) }}
+        {{ else }}
+          {{ trim $def }}
         {{ end }}
-      </ul>
-    </ul></p>
+      </li>
+      {{ end }}
+    </ul>
 
     <p><strong>Broader Concept:</strong> {{ .broaderSiteType}}</p>
     <p><strong>Narrower Concept:</strong> {{ .narrowerSiteType}}</p>
