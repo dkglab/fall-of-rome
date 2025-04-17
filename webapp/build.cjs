@@ -7,6 +7,7 @@ const options = {
     "src/map-view.ts", 
     "src/drawer.ts", 
     "src/query/create-query.ts",
+    "src/query/handle-query.ts",
     "src/query/query.ts"
   ],
   loader: { ".rq": "text" },

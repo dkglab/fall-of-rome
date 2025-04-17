@@ -1,6 +1,7 @@
 import { css, html, LitElement } from "lit"
 import { customElement } from "lit/decorators.js"
 import { getPrefixesAsRDF } from "../prefixes/prefix"
+import type { QueryUpdatedEvent } from "./query-updated-event"
 
 @customElement("query-holder")
 export default class Query extends LitElement {
@@ -26,19 +27,28 @@ export default class Query extends LitElement {
         <div class="inner-container">
             <textarea id="text-${this._id}"></textarea>
             <div>
-                <button id="run-${this._id}" onclick="${this.runQuery}">Run</button>
+                <button id="run-${this._id}" @click="${this.runQuery}">Run</button>
                 <button id="remove-${this._id}">Remove</button>
             </div>
         </div>
         `;
     }
 
-    runQuery() {
-        console.log("clicked")
-        let textarea = document.getElementById(`text-${this._id}`)! as HTMLTextAreaElement
+    runQuery(e: Event) {
+        let textarea = this.renderRoot.querySelector(`#text-${this._id}`)! as HTMLTextAreaElement
         let userInput = textarea.value
-        console.log(userInput)
         let query = getPrefixesAsRDF() + userInput
-        alert(query)
+        let event: QueryUpdatedEvent = new CustomEvent(
+            "query-updated",
+            {
+                detail: {
+                    query: query,
+                    id: this._id
+                },
+                bubbles: true,
+                composed: true,
+            }
+        )
+        this.dispatchEvent(event)
     }
 }

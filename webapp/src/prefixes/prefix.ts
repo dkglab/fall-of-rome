@@ -35,9 +35,9 @@ class PrefixList extends LitElement {
 }
 
 const getPrefixesAsRDF = () => {
-    return Array.from(prefixes).map((prefix, uri) => {
-        `PREFIX ${prefix}: <${uri}>`
-    }).join("\n")
+    return Array.from(prefixes)
+                .map(([prefix, uri]) => `PREFIX ${prefix}: <${uri}>`)
+                .join("\n")
 }
 
 export {
