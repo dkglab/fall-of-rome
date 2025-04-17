@@ -22,13 +22,18 @@ export default class Query extends LitElement {
         this._id = Query.id++
     }
 
+    connectedCallback(): void {
+        super.connectedCallback()
+        this.id = `query-${this._id}`
+    }
+
     render() {
         return html`
         <div class="inner-container">
             <textarea id="text-${this._id}" rows="10"></textarea>
             <div>
                 <button id="run-${this._id}" @click="${this.runQuery}">Run</button>
-                <button id="remove-${this._id}">Remove</button>
+                <button id="remove-${this._id}" @click="${this.removeQuery}">Remove</button>
             </div>
         </div>
         `;
@@ -50,5 +55,9 @@ export default class Query extends LitElement {
             }
         )
         this.dispatchEvent(event)
+    }
+
+    removeQuery(e: Event) {
+        document.getElementById(this.id)!.remove()
     }
 }
