@@ -25,7 +25,7 @@ export default class Query extends LitElement {
     render() {
         return html`
         <div class="inner-container">
-            <textarea id="text-${this._id}"></textarea>
+            <textarea id="text-${this._id}" rows="10"></textarea>
             <div>
                 <button id="run-${this._id}" @click="${this.runQuery}">Run</button>
                 <button id="remove-${this._id}">Remove</button>
