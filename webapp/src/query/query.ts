@@ -30,7 +30,12 @@ export default class Query extends LitElement {
     render() {
         return html`
         <div class="inner-container">
-            <textarea id="text-${this._id}" rows="10"></textarea>
+            <textarea id="text-${this._id}" rows="10">
+SELECT ?s ?p ?o
+WHERE {
+    ?s ?p ?o
+}
+            </textarea>
             <div>
                 <button id="run-${this._id}" @click="${this.runQuery}">Run</button>
                 <button id="remove-${this._id}" @click="${this.removeQuery}">Remove</button>
