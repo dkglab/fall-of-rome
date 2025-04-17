@@ -33,7 +33,7 @@ export default class Query extends LitElement {
             <textarea id="text-${this._id}" rows="10">
 SELECT ?s ?p ?o
 WHERE {
-    ?s ?p ?o
+    ?s ?p ?o .
 }
             </textarea>
             <div>
@@ -47,7 +47,7 @@ WHERE {
     runQuery(e: Event) {
         let textarea = this.renderRoot.querySelector(`#text-${this._id}`)! as HTMLTextAreaElement
         let userInput = textarea.value
-        let query = getPrefixesAsRDF() + userInput
+        let query = getPrefixesAsRDF() + "\n" + userInput
         let event: QueryUpdatedEvent = new CustomEvent(
             "query-updated",
             {
