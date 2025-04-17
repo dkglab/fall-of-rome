@@ -133,6 +133,17 @@ class TileMap extends HTMLElement {
     return map.getLayer(layer.id) != undefined
   }
 
+  async removeSource(sourceId: string): Promise<boolean> {
+    const map = await this.mapPromise
+    map.removeSource(sourceId)
+    return map.getSource(sourceId) == undefined
+  }
+
+  async removeLayer(layerId: string): Promise<boolean> {
+    const map = await this.mapPromise
+    map.removeLayer(layerId)
+    return map.getLayer(layerId) == undefined
+  }
  }
 
 customElements.define("tile-map", TileMap)

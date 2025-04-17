@@ -6,7 +6,7 @@ import { parse } from "wellknown";
 import type TileMap from "../tile-map";
 import type { GeoJSONSource } from "maplibre-gl";
 
-namespace QueryHandler {
+export namespace QueryHandler {
     let _graphstore: Promise<GraphStore> | undefined = undefined
 
     export function handleQueryEvent(event: QueryUpdatedEvent) {
@@ -83,6 +83,12 @@ namespace QueryHandler {
             }
         }
         throw new Error("Somehow could not create source");
+    }
+
+    export async function removeMapDataForQuery(id: number) {
+        const map = document.getElementById("map") as TileMap
+        map.removeLayer(`query-${id}`)
+        map.removeSource(`query-${id}`)
     }
 }
 

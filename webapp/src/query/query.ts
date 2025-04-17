@@ -2,6 +2,7 @@ import { css, html, LitElement } from "lit"
 import { customElement } from "lit/decorators.js"
 import { getPrefixesAsRDF } from "../prefixes/prefix"
 import type { QueryUpdatedEvent } from "./query-updated-event"
+import { QueryHandler } from "./handle-query"
 
 @customElement("query-holder")
 export default class Query extends LitElement {
@@ -63,6 +64,7 @@ WHERE {
     }
 
     removeQuery(e: Event) {
+        QueryHandler.removeMapDataForQuery(this._id)
         document.getElementById(this.id)!.remove()
     }
 }
