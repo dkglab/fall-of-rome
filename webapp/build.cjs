@@ -2,7 +2,13 @@ const { build, context } = require("esbuild")
 
 const options = {
   bundle: true,
-  entryPoints: ["src/list-view.ts", "src/map-view.ts", "src/drawer.ts"],
+  entryPoints: [
+    "src/list-view.ts", 
+    "src/map-view.ts", 
+    "src/drawer.ts", 
+    "src/query/create-query.ts",
+    "src/query/query.ts"
+  ],
   loader: { ".rq": "text" },
   outdir: "build",
   platform: "browser",
