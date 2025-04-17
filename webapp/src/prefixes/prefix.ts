@@ -12,6 +12,7 @@ const prefixes: Map<string, string> = new Map(Object.entries({
     dct: "http://purl.org/dc/terms/",
     rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     geof: "http://www.opengis.net/def/function/geosparql/",
+    pno: "http://linked.data.gov.au/def/placenames/",
 }))
 
 @customElement("prefix-list")
