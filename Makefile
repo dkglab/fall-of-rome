@@ -85,6 +85,18 @@ $(PYTHON):
 	$(call log,Converting $< geometries to WKT)
 	cat $< | $(PYTHON) scripts/process-geojson.py > $@
 
+data/municipalities/combined.wkt.json: \
+	data/municipalities/portugal-municipalities.wkt.json \
+	data/municipalities/spain-municipalities-simplified.wkt.json
+	{ \
+		echo "["; \
+		cat data/municipalities/portugal-municipalities.wkt.json; \
+		echo ","; \
+		cat data/municipalities/spain-municipalities-simplified.wkt.json; \
+		echo "]"; \
+	} > $@
+	
+
 data/located-sites/input.csv: data/located-sites/located-sites.csv scripts/process-site-names.py | $(PYTHON)
 	$(call log,Cleaning up archaeological site names)
 	cat $< | $(PYTHON) scripts/process-site-names.py > $@
@@ -145,8 +157,7 @@ graph/roman-provinces.ttl: \
 
 graph/municipalities.ttl: \
 	data/municipalities/municipalities.csv \
-	data/municipalities/portugal-municipalities.wkt.json \
-	data/municipalities/spain-municipalities-simplified.wkt.json \
+	data/municipalities/combined.wkt.json \
 	queries/municipalities.rq \
 	queries/count/municipalities.rq
 

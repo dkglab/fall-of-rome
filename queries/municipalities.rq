@@ -42,7 +42,7 @@ WHERE {
     BIND(?Municipality_name AS ?Municipality_label) 
   }
 
-  SERVICE <x-sparql-anything:location=data/municipalities/portugal-municipalities.wkt.json> {
+  SERVICE <x-sparql-anything:location=data/municipalities/combined.wkt.json> {
     fx:properties
       fx:media-type "application/json" .
       
