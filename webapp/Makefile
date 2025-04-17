@@ -2,7 +2,7 @@ ESB := node_modules/.bin/esbuild
 
 .PHONY: all clean superclean
 
-MODS := list-view map-view
+MODS := list-view map-view ceramic-explorer
 TS := $(foreach m,$(MODS),src/$(m).ts)
 JS := $(foreach m,$(MODS),build/$(m).js)
 

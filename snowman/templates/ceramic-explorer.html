@@ -1,0 +1,13 @@
+{{ template "base" . }}
+
+{{ define "title" }}Ceramic explorer{{ end }}
+
+{{ define "css" -}}
+    <link rel="stylesheet" href="/ceramic-explorer.css" />
+{{- end }}
+
+
+{{ define "content" -}}
+      <ceramic-explorer id="explorer"></ceramic-explorer>
+      <script src="/ceramic-explorer.js"></script>
+{{- end }}

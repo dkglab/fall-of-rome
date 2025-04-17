@@ -36,3 +36,5 @@ views:
     template: "analytic-region.html"
   - output: "map/index.html"
     template: "map.html"
+  - output: "ceramic-explorer/index.html"
+    template: "ceramic-explorer.html"
