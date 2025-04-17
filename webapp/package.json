@@ -1,0 +1,25 @@
+{
+  "devDependencies": {
+    "@types/geojson": "^7946.0.16",
+    "@types/wellknown": "^0.5.8",
+    "@typescript-eslint/eslint-plugin": "^8.26.0",
+    "@typescript-eslint/parser": "^8.26.0",
+    "esbuild": "^0.25.0",
+    "eslint": "^9.21.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2",
+    "typescript-eslint-language-service": "^5.0.5"
+  },
+  "dependencies": {
+    "@lit-labs/virtualizer": "^2.1.0",
+    "@turf/bbox": "^7.2.0",
+    "lit": "^3.2.1",
+    "maplibre-gl": "^5.2.0",
+    "oxigraph": "^0.4.9",
+    "pmtiles": "^4.3.0",
+    "wellknown": "^0.5.0"
+  },
+  "prettier": {
+    "semi": false
+  }
+}

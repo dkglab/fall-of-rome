@@ -49,13 +49,11 @@ PREFIX dcterms: <http://purl.org/dc/terms/>
 :CeramicBroaderShape
   a sh:PropertyShape ;
   sh:path skos:broader ;
-  sh:maxCount 1 ;
   .
 
 :CeramicNarrowerShape
   a sh:PropertyShape ;
   sh:path skos:narrower ;
-  sh:maxCount 1 ;
   .
 
 :CeramicTemporalShape

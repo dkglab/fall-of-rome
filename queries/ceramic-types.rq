@@ -17,16 +17,28 @@ CONSTRUCT {
         dcterms:temporal ?startDate, ?endDate ;
         skos:broader ?broaderForm ;
         skos:definition ?type_ARS ;
-        skos:note ?suggestedDating;
-        kos:ARSGroup ?ARSGroup ;
-        kos:ARSGroup2 ?ARSGroup2 ;
-        kos:ARSImportHorizon ?ARSImportHorizon ;
-        kos:ARSImportHorizon2 ?ARSImportHorizon2 
+        skos:note ?suggestedDating ;
+        skos:broader ?ARSGroup ;
+        skos:broader ?ARSGroup2 ;
+        kos:ARSImportHorizon ?importHorizon ;
+        kos:ARSImportHorizon2 ?importHorizon2 
         .
 
   kos:ceramic-types
     a skos:ConceptScheme ;
     dcterms:title "Ceramic Types Concept Scheme" .
+
+  ?ARSGroup skos:narrower ?ceramicType .
+
+  # kos:import-horizons
+  #   a skos:ConceptScheme ;
+  #   dcterms:title "Ceramic Types Import Horizons Concept Scheme" .
+
+  # ?importHorizon a skos:Concept ;
+  #   skos:inScheme kos:import-horizons ;
+  #   skos:prefLabel ?importHorizonLabel ;
+  #   dcterms:identifier ?ARSImportHorizon .
+
 }
 WHERE {
   SERVICE <x-sparql-anything:location=data/ceramic-types/hayes-ars-types.csv> {
@@ -62,28 +74,35 @@ WHERE {
     }
     
     OPTIONAL {
-    ?row xyz:Start_Date ?startDateRaw
-    BIND(xsd:gYear(?startDateRaw) AS ?startDate)
+      ?row xyz:Start_Date ?startDateRaw
+      BIND(xsd:gYear(?startDateRaw) AS ?startDate)
     }
 
     OPTIONAL {
-    ?row xyz:End_Date ?endDateRaw
-    BIND(xsd:gYear(?endDateRaw) AS ?endDate)
+      ?row xyz:End_Date ?endDateRaw
+      BIND(xsd:gYear(?endDateRaw) AS ?endDate)
     }
 
     OPTIONAL { 
-    ?row xyz:ARS_Group_ID ?ARSGroup
+      ?row xyz:ARS_Group_ID ?ARSGroupId
+      BIND(fx:entity(for:, "ceramic-type/", ?ARSGroupId) AS ?ARSGroup)
     }
 
     OPTIONAL {
-    ?row xyz:ARS_Group_2_ID ?ARSGroup2 
+      ?row xyz:ARS_Group_2_ID ?ARSGroup2Id
+      BIND(fx:entity(for:, "ceramic-type/", ?ARSGroup2Id) AS ?ARSGroup2)
     }
 
     OPTIONAL {
-    ?row xyz:ARS_Import_Horizon_ID ?ARSImportHorizon 
+      ?row xyz:ARS_Import_Horizon_ID ?ARSImportHorizon
+      BIND(fx:entity(for:, "import-horizon/", ?ARSImportHorizon) AS ?importHorizon)
+      BIND(CONCAT("Import Horizon ", ?ARSImportHorizon) AS ?importHorizonLabel)
     }
+
     OPTIONAL {
-    ?row xyz:ARS_Import_Horizon_2_ID ?ARSImportHorizon2 
+      ?row xyz:ARS_Import_Horizon_2_ID ?ARSImportHorizon2
+      BIND(fx:entity(for:, "import-horizon/", ?ARSImportHorizon2) AS ?importHorizon)
+      BIND(CONCAT("Import Horizon ", ?ARSImportHorizon2) AS ?importHorizonLabel)
     }
   }
 }
