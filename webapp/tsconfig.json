@@ -1,17 +1,41 @@
 {
   "compilerOptions": {
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "module": "es2020",
-    "moduleResolution": "bundler",
-    "plugins": [{"name": "typescript-eslint-language-service"}],
-    "skipLibCheck": true,
+    "target": "ES2019",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "lib": ["ES2019", "DOM", "DOM.Iterable"],
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
     "strict": true,
-    "target": "esnext",
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "experimentalDecorators": true,
     "useDefineForClassFields": false,
-    "verbatimModuleSyntax": true
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@turf/turf": ["node_modules/@turf/turf/dist/es"],
+      "@turf/*": ["node_modules/@turf/*"],
+      "*": ["src/types/*"]
+    },
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ]
   },
-  "include": ["src/*.ts", "src/types/*.d.ts", "src/queries/*.rq"]
+  "include": [
+    "src/**/*.ts",
+    "src/types/**/*.d.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
 }

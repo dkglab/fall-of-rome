@@ -1,6 +1,6 @@
 // site-type-filter.ts
-import { LitElement, html, css } from "lit"
-import { customElement, property } from "lit/decorators.js"
+import { LitElement, html, css } from "lit";
+import { customElement, property } from "lit/decorators.js";
 
 export const SITE_TYPES = [
   { id: "all", label: "All Site Types" },
@@ -14,7 +14,7 @@ export const SITE_TYPES = [
   { id: "Industrial", label: "Industrial" },
   { id: "Port", label: "Port" },
   { id: "Religious", label: "Religious" }
-]
+];
 
 @customElement("site-type-filter")
 export class SiteTypeFilter extends LitElement {
@@ -67,10 +67,10 @@ export class SiteTypeFilter extends LitElement {
       background-color: white;
       font-size: 0.9rem;
     }
-  `
+  `;
 
   @property({ type: String })
-  selected = "all"
+  selected = "all";
 
   render() {
     return html`
@@ -83,17 +83,17 @@ export class SiteTypeFilter extends LitElement {
           `)}
         </select>
       </div>
-    `
+    `;
   }
 
   handleChange(e: Event) {
-    const select = e.target as HTMLSelectElement
-    this.selected = select.value
+    const select = e.target as HTMLSelectElement;
+    this.selected = select.value;
     
     this.dispatchEvent(new CustomEvent("site-filter-change", {
       detail: { type: this.selected },
       bubbles: true,
       composed: true
-    }))
+    }));
   }
 }

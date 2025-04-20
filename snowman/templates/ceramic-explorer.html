@@ -1,13 +1,16 @@
-{{ template "base" . }}
+<!-- ceramic-explorer.html -->
+{% extends "base.html" %}
 
-{{ define "title" }}Ceramic explorer{{ end }}
+{% block title %}Iberian Peninsula Ceramic Distribution Visualization{% endblock %}
 
-{{ define "css" -}}
-    <link rel="stylesheet" href="/ceramic-explorer.css" />
-{{- end }}
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='ceramic-explorer.css') }}">
+{% endblock %}
 
+{% block content %}
+<ceramic-explorer></ceramic-explorer>
+{% endblock %}
 
-{{ define "content" -}}
-      <ceramic-explorer id="explorer"></ceramic-explorer>
-      <script src="/ceramic-explorer.js"></script>
-{{- end }}
+{% block scripts %}
+<script type="module" src="{{ url_for('static', filename='ceramic-explorer.js') }}"></script>
+{% endblock %}

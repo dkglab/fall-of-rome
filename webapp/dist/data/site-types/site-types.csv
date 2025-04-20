@@ -1,0 +1,41 @@
+ID,Site_Type,prefLabel,broader,definition,wiki_id,pleiades_place,wikiDef,pleiadesDef
+urban-bath,Urban bath,Urban bath,other-urban,,Q105723968,bath,"building or room used for hygienic activities, especially bathing",Bath complexes as commonly found in Greek and Roman cities.
+military-camp,Military Camp,Military Camp,,A military camp is a location where soliders lived.,Q1198413,,semi-permanent facility for the lodging of an army,
+coin-hoard,Coin hoard ,Coin hoard,coin-find,,Q15484785,,deposited collection of coins,
+palace,Palace ,Palace ,,,Q16560,palace,"grand residence, especially a royal or episcopal residence","A palace as defined by the Getty Art and Architecture Thesaurus: Official residences, frequently large and impressively appointed, of sovereigns or other high dignitaries"
+mansio-villa,Mansio / Villa ,Mansio / Villa ,other-urban,"Mansiones are the stations along roads at which travelers on official business can find accomodations, including getting free horses and food for horses. These official government inns were often used by the imperial postal service and are difficult to distinguish from other settlement types like villas, other than their location right along the road. ",Q1891165,,official stop on a Roman road,
+roman-road ,Roman road ,Roman road ,,,Q194029,road,roads built in service of the Roman Republic and Empire,
+necropolis,Necropolis,Necropolis,,,Q200141,cemetery,large ancient cemetery with elaborate tomb monuments,"Catacomb, cemetery, necropolis"
+island,Island,Island,,,Q23442,island,piece of sub-continental land completely surrounded by water,
+sanctuary-shrine,Sanctuary / Shrine,Sanctuary / Shrine,,,Q29553,sanctuary,sacred place,"A sanctuary as defined by the Getty Art and Architecture Thesaurus term 300391482: ""Centers or sites having religious sanctuaries as a primary focus."""
+cave,Cave,Cave,,"Caves are caves where material has been reported, usually but not always burials.",Q35509,cave,natural void under the Earth's surface,
+monument,Monument,Monument,,,Q4989906,monument,"imposing structure created to commemorate a person or event, or used for that purpose","A monument as defined by the Getty Art and Architecture Thesaurus term 300006958: ""Structures or edifices of importance or historical interest, typically erected in memory of the dead or of an important event."""
+hillfort ,Hillfort ,Hillfort,,"A hillfort is a fortified hilltop settlement of multiple houses, usually pre-Roman, occasionally occupied in the late Roman period. One of the major transformations of the post-Roman world was the abandonment of unfortified, dispersed villas, in favor of the reoccupation of Iron Age hillforts.",Q744099,hillfort,type of earthworks used as a fortified refuge or defended settlement,A hillfort as defined by the Getty Art and Architecture Thesaurus: Defensive enclosures comprised of ramparts and ditches encircling a fortified structure on a central prominence; common in Bronze Age and Iron Age Europe.
+domus,Domus,Domus,other-urban,"A domus is a luxury house located in a city, and it is both singular and plural. It is the equivalent of a villa, but villas are located in rural areas. ",Q782970,,Roman urban house of upper classes,
+mine,Mine ,Mine,,,Q820477,mine,place for the extraction of minerals,"A mine as defined by the Getty Art and Architecture Thesaurus: Excavation or systems of excavations, including pits or tunnels, made underground for the extraction of metals, metallic ores, coal, salt, precious stones, building stone, clay, or another substance, or an open-air excavation for the extraction of such substances."
+villa,Villa,Villa,,"A villa is the most typical Roman rural settlement, with an elite residence as well as productive facilities. Dispersed through the countryside as opposed to ""nucleated"" settlement like a village. Identified in the archaeological record by some combination of columns, mosaics, processing facilities on a large scale, prestige goods like sigillata ceramics. A vague and disputed, though fundamental, category.",Q918230,villa,historical residential structure,"A villa as defined by the Getty Art and Architecture Thesaurus: Used since the Roman period to designate country houses, generally of some pretension, and often including their outbuildings and gardens."
+city,City,City,,"City represents an entire (usually ancient) city. This is used when no greater specificity is provided in publications, or for things that encompass a whole city (walls, bishoprics, etc).",,,,
+city-hillfort,City / Hillfort ,City / Hillfort,city,,,,,
+city-?,City? ,City?,city,,,,,
+small-city,Small City ,Small City,city,,,,,
+coin-find,Coin find ,Coin find,,"A coin find is the site of a coin or coin hoard find location, but no evidence for other archaeological material.",,,,
+hillfort-mansio ,Hillfort / Mansio ,Hillfort / Mansio,hillfort,,,,,
+hillfort-villa,Hillfort / Villa ,Hillfort / Villa,hillfort,,,,,
+hillfort-?,Hillfort?,Hillfort?,hillfort,,,,,
+military-installation,Military Installation,Military Installation,,"A military installation is similar to a military camp, but includes additional structures like towers.",,,,
+no-context,No context ,No context,,,,,,
+other-rural,Other rural,Other rural,,"""Other rural"" is a generic label for all the different types of small rural settlements that are not villas. These can be individual farmsteads, villages, or mere ceramic scatters whose nature is unknown. It basically means rural, not villa.",,,,
+ceramic-scatter,Ceramic scatter,Ceramic scatter,other-rural,This is a label for sites where people find ceramics on the surface of the ground but there is no identifiable structure. ,,,,
+rural-settlement,Rural settlement ,Rural settlement,other-rural,,,,,
+rural-settlement-?,Rural settlement? ,Rural settlement? ,other-rural,,,,,
+industrial,Industrial,Industrial,other-urban,,,production,,"Production center (manufacturing, fishing)"
+mansio-?,Mansio?,Mansio?,other-urban,"Mansiones are the stations along roads at which travelers on official business can find accomodations, including getting free horses and food for horses. These official government inns were often used by the imperial postal service and are difficult to distinguish from other settlement types like villas, other than their location right along the road. ",,,,
+olive-production-center ,Olive production center ,Olive production center ,other-urban,,,production,,"Production center (manufacturing, fishing)"
+salting-site ,Salting site ,Salting site ,other-urban,,,production,,"Production center (manufacturing, fishing)"
+urban-area-1 ,Urban area ,Urban area ,other-urban,,,,,
+urban-area-2 ,Urban Area ,Urban Area ,other-urban,,,,,
+urban-area-domus ,Urban Area / Domus ,Urban Area / Domus ,other-urban,,,,,
+urban-area-hillfort ,Urban area / Hillfort ,Urban area / Hillfort ,other-urban,,,,,
+other-urban,Other urban,Other Urban,,"""Other urban,"" like ""Other rural,"" is a catch-all for areas of Roman (and sometimes modern) cities. Usually used for areas excavated in rescue operations before construction, in which the area excavated is very small and the function of the excavated area unclear.",,,,
+underwater-site ,Underwater Site ,Underwater Site ,,"Underwater sites are underwater. Often but not always shipwrecks, or material found in dredging.",,,,
+villa-? ,Villa? ,Villa? ,villa,"A villa is the most typical Roman rural settlement, with an elite residence as well as productive facilities. Dispersed through the countryside as opposed to ""nucleated"" settlement like a village. Identified in the archaeological record by some combination of columns, mosaics, processing facilities on a large scale, prestige goods like sigillata ceramics. A vague and disputed, though fundamental, category.",Q918230,villa,historical residential structure,"A villa as defined by the Getty Art and Architecture Thesaurus: Used since the Roman period to designate country houses, generally of some pretension, and often including their outbuildings and gardens."

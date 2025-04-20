@@ -1,0 +1,43 @@
+{
+    "name": "fall-of-rome-ceramic-visualization",
+    "version": "1.0.0",
+    "description": "伊比利亚半岛陶瓷分布时间序列可视化",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "esbuild webapp/src/index.ts --bundle --outdir=webapp/dist && node build.js",
+        "dev": "concurrently \"esbuild webapp/src/index.ts --bundle --outdir=webapp/dist --watch\" \"node build.js\" \"http-server ./webapp/dist -o -c-1\"",
+        "start": "http-server ./webapp/dist",
+        "clean": "rimraf webapp/dist"
+    },
+    "dependencies": {
+        "@lit-labs/virtualizer": "^2.1.0",
+        "@turf/bbox": "^7.2.0",
+        "@turf/turf": "^7.2.0",
+        "@types/turf": "^3.5.32",
+        "lit": "^3.3.0",
+        "lit-element": "^4.2.0",
+        "lit-html": "^3.3.0",
+        "maplibre-gl": "^5.3.1",
+        "oxigraph": "^0.4.9",
+        "pmtiles": "^4.3.0",
+        "wellknown": "^0.5.0"
+    },
+    "devDependencies": {
+        "@types/geojson": "^7946.0.16",
+        "@types/maplibre-gl": "^1.14.0",
+        "@types/wellknown": "^0.5.8",
+        "@typescript-eslint/eslint-plugin": "^8.26.0",
+        "@typescript-eslint/parser": "^8.26.0",
+        "concurrently": "^8.2.2",
+        "esbuild": "^0.25.0",
+        "eslint": "^9.21.0",
+        "http-server": "^14.1.1",
+        "prettier": "^3.5.3",
+        "rimraf": "^5.0.5",
+        "typescript": "^5.8.2",
+        "typescript-eslint-language-service": "^5.0.5"
+    },
+    "prettier": {
+        "semi": false
+    }
+}

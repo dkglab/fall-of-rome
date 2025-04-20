@@ -1,6 +1,6 @@
 // ceramic-filter.ts
-import { LitElement, html, css } from "lit"
-import { customElement, property } from "lit/decorators.js"
+import { LitElement, html, css } from "lit";
+import { customElement, property } from "lit/decorators.js";
 
 export const CERAMIC_TYPES = [
   { id: "all", label: "All Ceramic Types" },
@@ -16,7 +16,7 @@ export const CERAMIC_TYPES = [
   { id: "LRC", label: "Late Roman C Ware (LRC)" },
   { id: "LRD", label: "Late Roman D Ware (LRD)" },
   { id: "PRCW", label: "Painted Red Coated Ware (PRCW)" }
-]
+];
 
 @customElement("ceramic-filter")
 export class CeramicFilter extends LitElement {
@@ -35,7 +35,6 @@ export class CeramicFilter extends LitElement {
       gap: 0.5rem;
     }
     
-    // ceramic-filter.ts 
     .filter-title {
       font-weight: bold;
       margin-bottom: 0.5rem;
@@ -78,55 +77,55 @@ export class CeramicFilter extends LitElement {
       background-color: white;
       font-size: 0.9rem;
     }
-  `
+  `;
 
   @property({ type: String })
-  selected = "all"
+  selected = "all";
 
   render() {
     return html`
       <div class="filter-container">
-        <div class="filter-title">陶瓷类型筛选</div>
+        <div class="filter-title">Ceramic Type Filter</div>
         
         <select @change=${this.handleChange}>
-          <option value="all" ?selected=${this.selected === "all"}>所有陶瓷类型</option>
+          <option value="all" ?selected=${this.selected === "all"}>All Ceramic Types</option>
           
-          <optgroup label="西班牙陶土">
+          <optgroup label="Hispanic Terra Sigillata">
             ${CERAMIC_TYPES.filter(t => ["TSH", "TSHT", "TSHTB", "TSHTM"].includes(t.id)).map(type => html`
               <option value=${type.id} ?selected=${this.selected === type.id}>${type.label}</option>
             `)}
           </optgroup>
           
-          <optgroup label="高卢陶土">
+          <optgroup label="Gallic Terra Sigillata">
             ${CERAMIC_TYPES.filter(t => ["TSG", "DSP"].includes(t.id)).map(type => html`
               <option value=${type.id} ?selected=${this.selected === type.id}>${type.label}</option>
             `)}
           </optgroup>
           
-          <optgroup label="非洲陶土">
+          <optgroup label="African Red Slip">
             ${CERAMIC_TYPES.filter(t => ["ARSA", "ARSC", "ARSD"].includes(t.id)).map(type => html`
               <option value=${type.id} ?selected=${this.selected === type.id}>${type.label}</option>
             `)}
           </optgroup>
           
-          <optgroup label="东方陶土">
+          <optgroup label="Eastern Pottery">
             ${CERAMIC_TYPES.filter(t => ["LRC", "LRD", "PRCW"].includes(t.id)).map(type => html`
               <option value=${type.id} ?selected=${this.selected === type.id}>${type.label}</option>
             `)}
           </optgroup>
         </select>
       </div>
-    `
+    `;
   }
 
   handleChange(e: Event) {
-    const select = e.target as HTMLSelectElement
-    this.selected = select.value
+    const select = e.target as HTMLSelectElement;
+    this.selected = select.value;
     
     this.dispatchEvent(new CustomEvent("ceramic-filter-change", {
       detail: { type: this.selected },
       bubbles: true,
       composed: true
-    }))
+    }));
   }
 }

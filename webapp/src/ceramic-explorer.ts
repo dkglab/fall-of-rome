@@ -136,31 +136,68 @@ export class CeramicExplorer extends LitElement {
   @state()
   private provincesData: any = null;
 
-  // 添加以下 @query 装饰器来解决 shadowRoot 问题
+  // Add @query decorator to solve shadowRoot issues
   @query("#main-map")
   private mapElement!: HTMLElement;
 
   async firstUpdated() {
     try {
-      // 并行加载数据
+      // Load data in parallel
       const [sites, provinces] = await Promise.all([
         loadSiteData(),
         loadProvinces()
       ]);
       
+      console.log("Data loaded in ceramic-explorer:");
+      console.log(`Total sites: ${sites.length}`);
+      
       this.sites = sites;
+      
+      // 确保sites数据中包含region和provincia属性
+      this.sites = this.sites.map(site => {
+        // 确保存在region
+        if (!site.region || site.region.trim() === "") {
+          site.region = "Unknown Region";
+        }
+        
+        // 确保存在provincia
+        if (!site.provincia || site.provincia.trim() === "") {
+          site.provincia = "Unknown Province";
+        }
+        
+        return site;
+      });
+      
+      // 检查加载的数据中region和provincia的分布情况
+      const regionSet = new Set<string>();
+      const provinciasSet = new Set<string>();
+      
+      this.sites.forEach(site => {
+        if (site.region && site.region.trim() !== "") {
+          regionSet.add(site.region);
+        }
+        if (site.provincia && site.provincia.trim() !== "") {
+          provinciasSet.add(site.provincia);
+        }
+      });
+      
+      console.log(`Found ${regionSet.size} unique regions: ${Array.from(regionSet).join(', ')}`);
+      console.log(`Found ${provinciasSet.size} unique provincias: ${Array.from(provinciasSet).join(', ')}`);
+      
+      console.log(`Loaded ${this.sites.length} sites with ${this.sites.filter(s => s.region && s.region.trim() !== "").length} regions and ${this.sites.filter(s => s.provincia && s.provincia.trim() !== "").length} provincias`);
+      
       this.provincesData = provinces;
       this.filteredSitesCount = sites.length;
       
-      // 获取地图元素 - 使用 @query 装饰器定义的属性
+      // Get map element - use @query decorator defined property
       const map = this.mapElement;
       
-      // 显示所有站点
+      // Show all sites
       if (map) {
         const geoJSON = sitesToGeoJSON(this.sites);
         await (map as any).showFeatures(geoJSON);
         
-        // 加载省份边界
+        // Load province boundaries
         if (this.provincesData) {
           await (map as any).addProvinces(this.provincesData);
         }
@@ -168,7 +205,7 @@ export class CeramicExplorer extends LitElement {
       
       this.loading = false;
     } catch (error) {
-      console.error("加载数据失败:", error);
+      console.error("Failed to load data:", error);
       this.loading = false;
     }
   }
@@ -196,34 +233,34 @@ export class CeramicExplorer extends LitElement {
   toggleProvinces() {
     this.showProvinces = !this.showProvinces;
     
-    // 使用 @query 装饰器定义的属性
+    // Use @query decorator defined property
     if (this.mapElement) {
       (this.mapElement as any).toggleProvinces(this.showProvinces);
     }
   }
   
   updateMap() {
-    // 使用 @query 装饰器定义的属性
+    // Use @query decorator defined property
     if (!this.mapElement) return;
     
-    // 筛选数据
+    // Filter data
     let filteredSites = this.sites;
     
-    // 应用时期筛选
+    // Apply period filter
     if (this.currentPeriod !== "all") {
       filteredSites = filteredSites.filter(site => 
         site.periods.includes(this.currentPeriod)
       );
     }
     
-    // 应用陶瓷类型筛选
+    // Apply ceramic type filter
     if (this.currentCeramicType !== "all") {
       filteredSites = filteredSites.filter(site => 
         site.ceramics[this.currentCeramicType] === 1
       );
     }
     
-    // 应用遗址类型筛选
+    // Apply site type filter
     if (this.currentSiteType !== "all") {
       filteredSites = filteredSites.filter(site => 
         site.siteType === this.currentSiteType || 
@@ -231,7 +268,7 @@ export class CeramicExplorer extends LitElement {
       );
     }
     
-    // 应用地区筛选
+    // Apply region filter
     if (this.currentRegion !== "all") {
       filteredSites = filteredSites.filter(site => 
         site.region === this.currentRegion || 
@@ -241,7 +278,7 @@ export class CeramicExplorer extends LitElement {
     
     this.filteredSitesCount = filteredSites.length;
     
-    // 更新地图
+    // Update map
     const geoJSON = sitesToGeoJSON(filteredSites);
     (this.mapElement as any).showFeatures(geoJSON);
   }
@@ -251,12 +288,12 @@ export class CeramicExplorer extends LitElement {
       return html`
         <div class="loading">
           <div class="loading-spinner"></div>
-          <span>加载数据中...</span>
+          <span>Loading data...</span>
         </div>
       `;
     }
     
-    // 筛选当前显示的站点
+    // Filter current displayed sites
     let filteredSites = this.sites;
     
     if (this.currentPeriod !== "all") {
@@ -287,7 +324,7 @@ export class CeramicExplorer extends LitElement {
     
     return html`
       <div class="header">
-        <h1>伊比利亚半岛陶瓷分布时间序列可视化</h1>
+        <h1>Iberian Peninsula Ceramic Distribution Time Series Visualization</h1>
       </div>
       
       <div class="main-content">
@@ -322,8 +359,8 @@ export class CeramicExplorer extends LitElement {
           </div>
           
           <div class="stats-card">
-            <div class="stats-title">当前筛选结果</div>
-            <div>显示 ${this.filteredSitesCount} 个遗址（共 ${this.sites.length} 个）</div>
+            <div class="stats-title">Current Filter Results</div>
+            <div>Showing ${this.filteredSitesCount} sites (out of ${this.sites.length})</div>
             
             <label style="display: block; margin-top: 10px;">
               <input 
@@ -331,7 +368,7 @@ export class CeramicExplorer extends LitElement {
                 ?checked=${this.showProvinces} 
                 @change=${this.toggleProvinces}
               /> 
-              显示罗马省份边界
+              Show Roman province boundaries
             </label>
           </div>
           
