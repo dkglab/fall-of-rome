@@ -51,4 +51,18 @@ export namespace QueryBuilder {
             ?geo geo:asWKT ?wkt .
             `)
     }
+
+    export function buildQueryFor(type: string, value: string) {
+        switch (type) {
+            case "site-type":
+                return buildSiteType(value)
+            case "roman-province":
+                return buildRomanProvinces(value)
+            case "municipality":
+                return buildMunicipality(value)
+            default:
+                throw new Error("Not implemented");
+                
+        }
+    }
 }
