@@ -20,22 +20,13 @@ CONSTRUCT {
         skos:note ?suggestedDating ;
         skos:broader ?ARSGroup ;
         skos:broader ?ARSGroup2 ;
-        kos:ARSImportHorizon ?importHorizon ;
-        kos:ARSImportHorizon2 ?importHorizon2 
+        skos:broader ?importHorizon ;
+        skos:broader ?importHorizon2 
         .
 
   kos:ceramic-types
     a skos:ConceptScheme ;
     dcterms:title "Ceramic Types Concept Scheme" .
-
-  # kos:import-horizons
-  #   a skos:ConceptScheme ;
-  #   dcterms:title "Ceramic Types Import Horizons Concept Scheme" .
-
-  # ?importHorizon a skos:Concept ;
-  #   skos:inScheme kos:import-horizons ;
-  #   skos:prefLabel ?importHorizonLabel ;
-  #   dcterms:identifier ?ARSImportHorizon .
 
 }
 WHERE {
