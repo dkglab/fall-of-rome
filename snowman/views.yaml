@@ -16,6 +16,12 @@ views:
   - output: "ceramic-types/{{id}}.html"
     query: "ceramic-types.rq"
     template: "ceramic-type.html"
+  - output: "import-horizons/index.html"
+    query: "import-horizons.rq"
+    template: "import-horizons.html"
+  - output: "import-horizons/{{id}}.html"
+    query: "import-horizons.rq"
+    template: "import-horizon.html"
   - output: "roman-provinces/index.html"
     query: "roman-provinces.rq"
     template: "roman-provinces.html"
@@ -36,3 +42,4 @@ views:
     template: "analytic-region.html"
   - output: "map/index.html"
     template: "map.html"
+  
