@@ -1,0 +1,16 @@
+{{ template "base" . }}
+
+{{ define "title" }}Import horizons{{ end }}
+
+{{ define "content" -}}
+<header>
+  <h1>Import horizons</h1>
+</header>
+<div class="list">
+  {{ range . }}
+  <div><a href="{{ .id }}.html">{{ .import_horizon }}</a>
+  </div>
+
+  {{ end }}
+</div>
+{{- end }}
