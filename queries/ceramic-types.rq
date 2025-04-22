@@ -17,11 +17,11 @@ CONSTRUCT {
         dcterms:temporal ?startDate, ?endDate ;
         skos:broader ?broaderForm ;
         skos:definition ?type_ARS ;
-        skos:note ?suggestedDating ;
+        kos:suggestedDating ?suggestedDating ;
         skos:broader ?ARSGroup ;
         skos:broader ?ARSGroup2 ;
-        kos:ARSImportHorizon ?importHorizon ;
-        kos:ARSImportHorizon2 ?importHorizon2 
+        skos:broader ?importHorizon ;
+        skos:broader ?importHorizon2 ;
         .
 
   kos:ceramic-types

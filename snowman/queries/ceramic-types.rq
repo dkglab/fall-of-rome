@@ -14,8 +14,8 @@ SELECT
   ?id
   ?wiki_entity
   ?form_type
-  ?start_date
-  ?end_date
+  # ?start_date
+  # ?end_date
   ?suggested_dating
   (GROUP_CONCAT(DISTINCT STR(?broaderURI); separator=" | ") AS ?broader_URIs)
   (GROUP_CONCAT(DISTINCT STR(?broaderIdentifier); separator=" | ") AS ?broaderIdentifiers)
@@ -34,20 +34,23 @@ WHERE {
 
   OPTIONAL { ?uri skos:exactMatch ?wiki_entity . }
   OPTIONAL { ?uri skos:definition ?form_type . }
-  OPTIONAL { ?uri dcterms:temporal ?start_date . }
-  OPTIONAL { ?uri dcterms:temporal ?end_date . }
-  OPTIONAL { ?uri skos:note ?suggested_dating . }
-  OPTIONAL { 
-    ?uri skos:broader ?broaderURI .
-    ?broaderURI dcterms:identifier ?broaderIdentifier . 
-    ?broaderURI skos:prefLabel ?broaderLabel . 
+  OPTIONAL { ?uri kos:suggestedDating ?suggested_dating . }
+  # OPTIONAL { ?uri dcterms:temporal ?start_date . }
+  # OPTIONAL { ?uri dcterms:temporal ?end_date . }
+  OPTIONAL {
+    ?broaderURI
+      skos:narrower ?uri ;
+      dcterms:identifier ?broaderIdentifier ;
+      skos:prefLabel ?broaderLabel .
   }
-  OPTIONAL { 
-    ?uri skos:narrower ?narrowerURI . 
-    ?narrowerURI dcterms:identifier ?narrowerIdentifier .
-    ?narrowerURI skos:prefLabel ?narrowerLabel .
+  OPTIONAL {
+    ?narrowerURI
+      skos:broader ?uri ;
+      dcterms:identifier ?narrowerIdentifier ;
+      skos:prefLabel ?narrowerLabel .
   }
-
 }
-GROUP BY ?uri ?ceramic_type ?id ?wiki_entity ?form_type ?start_date ?end_date ?suggested_dating ?mainNum ?suffix
+#GROUP BY ?uri ?ceramic_type ?id ?wiki_entity ?form_type ?start_date ?end_date ?suggested_dating ?mainNum ?suffix
+GROUP BY ?uri ?ceramic_type ?id ?wiki_entity ?form_type ?suggested_dating ?mainNum ?suffix
+
 ORDER BY ?mainNum ?suffix

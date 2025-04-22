@@ -34,8 +34,8 @@
   {{ end }}
   <p><strong>Form type:</strong> {{ if .form_type }}{{ .form_type }}{{ else }}Undefined{{ end }}</p>
   <p><strong>Wikidata:</strong> {{ if .wiki_entity }}<a href="{{ .wiki_entity }}">{{ .wiki_entity }}</a>{{ else }}Undefined{{ end }}</p>
-  <p><strong>Start date:</strong> {{ if .start_date }}{{ .start_date }}{{ else }}Undefined{{ end }}</p>
-  <p><strong>End date:</strong> {{ if .end_date }}{{ .end_date }}{{ else }}Undefined{{ end }}</p>
+  <!-- <p><strong>Start date:</strong> {{ if .start_date }}{{ .start_date }}{{ else }}Undefined{{ end }}</p>
+  <p><strong>End date:</strong> {{ if .end_date }}{{ .end_date }}{{ else }}Undefined{{ end }}</p> -->
   <p><strong>Suggested dating:</strong> {{ if .suggested_dating }}{{ .suggested_dating }}{{ else }}Undefined{{ end }}</p>
 </div>
 {{- end }}
