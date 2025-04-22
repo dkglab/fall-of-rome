@@ -36,14 +36,15 @@
     <p><strong>Broader Concept:</strong> <a href="{{ trim .broaderSiteType }}">{{ trim (replace .broaderSiteType "https://dkglab.github.io/ns/for/site-type/" "" -1) }}</a></p>
     <p><strong>Narrower Concept:</strong></p>
     <ul>
+      {{ $labels := split .narrowerSiteTypeLabels "," }}
       {{ range $index, $narrower := split .narrowerSiteTypes "," }}
       <li>
       <a href="{{ trim $narrower }}">
-        {{ trim (replace $narrower "https://dkglab.github.io/ns/for/site-type/" "" -1) }}
+        {{ index $labels $index }}
       </a>
       </li>
       {{ end }}
-    </ul></a>
+    </ul>
     <p><a href="/map?site-type={{ .id }}">See all {{ .id }}s on the map</a></p>
 </div>
 
