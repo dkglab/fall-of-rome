@@ -38,6 +38,15 @@ function main() {
         )
         currQueryCount--
       }
+      if (query.has("municipality")) {
+        const romanProvince = query.get("municipality")!
+        // Hijack query event to display a custom query
+        QueryHandler.handleQueryEvent(
+          QueryBuilder.buildMunicipality(romanProvince),
+          currQueryCount
+        )
+        currQueryCount--
+      }
     }
     
   })()

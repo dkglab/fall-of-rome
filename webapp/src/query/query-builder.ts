@@ -38,4 +38,17 @@ export namespace QueryBuilder {
             ?geo geo:asWKT ?wkt .
             `)
     }
+
+    export function buildMunicipality(municipality: string) {
+        return buildBase(`
+            for:municipalities rdfs:member ?muni .
+
+            ?muni a geo:Feature ;
+                geo:hasGeometry ?geo ;
+                dct:identifier "${municipality}" ;
+                .
+
+            ?geo geo:asWKT ?wkt .
+            `)
+    }
 }
