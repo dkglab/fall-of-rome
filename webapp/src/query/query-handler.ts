@@ -65,27 +65,42 @@ export namespace QueryHandler {
                   features: [],
                 },
             })) {
-                map.addLayer({
-                    id: `query-${id}`,
-                    source: `query-${id}`,
-                    type: "circle",
-                    filter: ["==", ["get", "queryId"], id],
-                    paint: {
-                      "circle-radius": 3,
-                      "circle-color": "#FFFFFF",
-                      "circle-stroke-width": 1,
-                      "circle-stroke-color": "#ffaa00",
-                    },
-                })
+                await setupLayerForQuery(id)
                 return await map.getSource(`query-${id}`) as GeoJSONSource
             }
         }
         throw new Error("Somehow could not create source");
     }
 
+    async function setupLayerForQuery(id: number) {
+        const map = document.getElementById("map") as TileMap
+        await map.addLayer({
+            id: `query-${id}-point`,
+            source: `query-${id}`,
+            type: "circle",
+            filter: ["==", ["geometry-type"], "Point"],
+            paint: {
+              "circle-radius": 3,
+              "circle-color": "#FFFFFF",
+              "circle-stroke-width": 1,
+              "circle-stroke-color": "#ffaa00",
+            },
+        })
+        await map.addLayer({
+            id: `query-${id}-fill`,
+            source: `query-${id}`,
+            type: "fill",
+            filter: ["==", ["geometry-type"], "Polygon"],
+            paint: {
+                "fill-color": "#aaaa00"
+            }
+        })
+    }
+
     export async function removeMapDataForQuery(id: number) {
         const map = document.getElementById("map") as TileMap
-        map.removeLayer(`query-${id}`)
+        map.removeLayer(`query-${id}-point`)
+        map.removeLayer(`query-${id}-fill`)
         map.removeSource(`query-${id}`)
     }
 }
