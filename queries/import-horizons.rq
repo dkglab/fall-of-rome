@@ -31,7 +31,7 @@ WHERE {
       xyz:prefLabel ?prefLabel ;
       .
 
-    BIND(fx:entity(for:, "ceramic-type/", ?id) as ?importHorizon)
+    BIND(fx:entity(for:, "import-horizon/", ?id) as ?importHorizon)
 
     OPTIONAL {
       ?row xyz:Type ?type
