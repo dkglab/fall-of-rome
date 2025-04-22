@@ -1,6 +1,6 @@
 import { css, html, LitElement } from "lit"
 import { customElement } from "lit/decorators.js"
-import { getPrefixesAsRDF } from "../prefixes/prefix"
+import { getPrefixesAsRDF } from "../prefix/prefix"
 import type { QueryUpdatedEvent } from "./query-updated-event"
 import { QueryHandler } from "./query-handler"
 
