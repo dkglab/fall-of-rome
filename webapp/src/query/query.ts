@@ -48,12 +48,11 @@ WHERE {
     runQuery(e: Event) {
         let textarea = this.renderRoot.querySelector(`#text-${this._id}`)! as HTMLTextAreaElement
         let userInput = textarea.value
-        let query = getPrefixesAsRDF() + "\n" + userInput
         let event: QueryUpdatedEvent = new CustomEvent(
             "query-updated",
             {
                 detail: {
-                    query: query,
+                    query: userInput,
                     id: this._id
                 },
                 bubbles: true,

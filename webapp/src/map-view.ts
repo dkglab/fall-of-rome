@@ -4,6 +4,8 @@ import TileMap from "./tile-map"
 import sitesQuery from "./queries/sites.rq"
 import { parse } from "wellknown"
 import type { Feature } from "geojson"
+import { QueryHandler } from "./query/query-handler"
+import { QueryBuilder } from "./query/query-builder"
 
 function main() {
   ;(async function () {
@@ -12,7 +14,28 @@ function main() {
     const store = new GraphStore()
     await store.load("/data.ttl")
 
-    const features: Array<Feature> = []
+    const url = new URL(window.location.href)
+    const query = url.searchParams
+    let currQueryCount = -1
+    if (query.size == 0) {
+      await loadLocatedSites(store)
+    } else {
+      if (query.has("site-type")) {
+        const siteType = query.get("site-type")!
+        // Hijack query event to display a custom query
+        QueryHandler.handleQueryEvent(
+          QueryBuilder.buildSiteType(siteType),
+          currQueryCount
+        )
+        currQueryCount--
+      }
+    }
+    
+  })()
+}
+
+async function loadLocatedSites(store: GraphStore) {
+  const features: Array<Feature> = []
     for (const binding of store.query(sitesQuery)) {
       let wkt = binding.get("wkt")?.value ?? ""
       let geoJson = parse(wkt)
@@ -50,7 +73,6 @@ function main() {
         "circle-stroke-color": "#ffaa00",
       },
     })
-  })()
 }
 
 main()

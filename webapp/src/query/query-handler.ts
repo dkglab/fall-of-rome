@@ -4,6 +4,7 @@ import type { Feature } from "geojson";
 import { parse } from "wellknown";
 import type TileMap from "../tile-map";
 import type { GeoJSONSource } from "maplibre-gl";
+import { getPrefixesAsRDF } from "../prefixes/prefix";
 
 export namespace QueryHandler {
     let _graphstore: Promise<GraphStore> | undefined = undefined
@@ -11,7 +12,7 @@ export namespace QueryHandler {
     export function handleQueryEvent(query: string, id: number) {
         console.log(`running query:\n${query}`)
         ;(async function() {
-            let result = await handleQuery(query)
+            let result = await handleQuery(getPrefixesAsRDF() + query)
             let features: Feature[] = []
             for (const binding of result) {
                 let wkt = binding.get("wkt")?.value ?? ""
