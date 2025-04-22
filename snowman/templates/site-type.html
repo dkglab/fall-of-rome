@@ -23,13 +23,15 @@
     <p><strong>Additional Definitions:</strong></p>
     <ul>
       {{ range $index, $def := split .additionalDefs "|" }}
-      <li>
       {{ if or (contains $def "Wikidata:") (contains $def "Pleiades:") }}
-      {{ trim $def }}
-      {{ else }}
-      {{ trim $def }}
+        <li>
+          {{ if contains $def "Wikidata:" }}
+            <strong>Wikidata:</strong> {{ trim (replace $def "Wikidata: " "" -1) }}
+          {{ else if contains $def "Pleiades:" }}
+            <strong>Pleiades:</strong> {{ trim (replace $def "Pleiades: " "" -1) }}
+          {{ end }}
+        </li>
       {{ end }}
-      </li>
       {{ end }}
     </ul>
 
