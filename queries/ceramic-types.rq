@@ -28,6 +28,8 @@ CONSTRUCT {
     a skos:ConceptScheme ;
     dcterms:title "Ceramic Types Concept Scheme" .
 
+  ?importHorizon skos:narrower ?ceramicType .
+  ?importHorizon2 skos:narrower ?ceramicType .
 }
 WHERE {
   SERVICE <x-sparql-anything:location=data/ceramic-types/hayes-ars-types.csv> {
