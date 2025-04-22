@@ -186,7 +186,7 @@ serve-kos: kos/site-types.html kos/ceramic-types.html | $(PYTHON)
 $(STATIC_FILES) &:
 	@$(MAKE) -s -C webapp all
 	@mkdir -p snowman/static
-	@cp webapp/build/* snowman/static/
+	@cp -r webapp/build/* snowman/static/
 
 snowman/static/data.ttl: graph/inferred.ttl
 	@cp $< $@
