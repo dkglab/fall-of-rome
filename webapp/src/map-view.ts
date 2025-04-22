@@ -29,6 +29,15 @@ function main() {
         )
         currQueryCount--
       }
+      if (query.has("roman-province")) {
+        const romanProvince = query.get("roman-province")!
+        // Hijack query event to display a custom query
+        QueryHandler.handleQueryEvent(
+          QueryBuilder.buildRomanProvinces(romanProvince),
+          currQueryCount
+        )
+        currQueryCount--
+      }
     }
     
   })()

@@ -25,4 +25,17 @@ export namespace QueryBuilder {
             ?geo geo:asWKT ?wkt .
             `)
     }
+
+    export function buildRomanProvinces(province: string) {
+        return buildBase(`
+            for:roman-provinces rdfs:member ?province .
+
+            ?province a geo:Feature ;
+                geo:hasGeometry ?geo ;
+                dct:identifier "${province}" ;
+                .
+
+            ?geo geo:asWKT ?wkt .
+            `)
+    }
 }
