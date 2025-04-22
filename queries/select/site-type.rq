@@ -18,7 +18,7 @@ WHERE {
 
     ?site a geo:Feature ;
         geo:hasGeometry ?geo ;
-        for:siteType <https://dkglab.github.io/ns/for/site-type/cave> ;
+        for:siteType ?site_type ;
         .
 
     ?geo geo:asWKT ?wkt .
