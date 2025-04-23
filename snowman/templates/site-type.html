@@ -36,10 +36,20 @@
     </ul>
 
     <p><strong>Broader Concept:</strong></p>
-    <a href="/site-types/{{ urlquery (trim (replace .broaderSiteType "https://dkglab.github.io/ns/for/site-type/" "" -1)) }}.html">
+    <ul>
+      {{ $labels := split .broaderSiteTypeLabel "," }}
+      {{ range $index, $broader := split .broaderSiteType "," }}
+      <li>
+        <a href="/site-types/{{ urlquery (trim (replace $broader "https://dkglab.github.io/ns/for/site-type/" "" -1)) }}.html">
+          {{ index $labels $index }}
+        </a>
+      </li>
+      {{ end }}
+    </ul>
+    <!--<a href="/site-types/{{ urlquery (trim (replace .broaderSiteType "https://dkglab.github.io/ns/for/site-type/" "" -1)) }}.html">
       {{ trim (replace .broaderSiteType "https://dkglab.github.io/ns/for/site-type/" "" -1) }}
-    </a>
-      <!--add variable for broader site type labels to query + template -->
+    </a> -->
+      
     <p><strong>Narrower Concept:</strong></p>
     <ul>
       {{ $labels := split .narrowerSiteTypeLabels "," }}

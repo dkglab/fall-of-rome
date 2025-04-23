@@ -13,6 +13,7 @@ SELECT
   ?id
   ?siteTypeDefinition
   ?broaderSiteType
+  ?broaderSiteTypeLabel
   (GROUP_CONCAT(DISTINCT ?matchingURI; separator=", ") AS ?matchingURIs)
   (GROUP_CONCAT(DISTINCT CONCAT('"', STR(?additionalDef), '"'); separator="| ") AS ?additionalDefs)
   (GROUP_CONCAT(DISTINCT ?narrowerSiteType; separator=", ") AS ?narrowerSiteTypes)
@@ -29,7 +30,10 @@ WHERE {
   OPTIONAL { ?uri skos:definition ?siteTypeDefinition .}
   OPTIONAL { ?uri skos:closeMatch ?matchingURI .}
   OPTIONAL { ?uri skos:note ?additionalDef .}
-  OPTIONAL { ?uri skos:broader ?broaderSiteType .}
+  OPTIONAL { 
+    ?uri skos:broader ?broaderSiteType .
+    OPTIONAL { ?broaderSiteType skos:prefLabel ?broaderSiteTypeLabel . }
+  }
   OPTIONAL {
     ?narrowerSiteType
       skos:broader ?uri ;
@@ -37,5 +41,5 @@ WHERE {
       .
   }
 }
-GROUP BY ?uri ?site_type ?id ?siteTypeDefinition ?broaderSiteType 
+GROUP BY ?uri ?site_type ?id ?siteTypeDefinition ?broaderSiteType ?broaderSiteTypeLabel
 ORDER BY LCASE(?site_type)
