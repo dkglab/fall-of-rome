@@ -1,5 +1,5 @@
 import type { FeatureCollection } from "geojson"
-import type { GeoJSONSource, LngLatBoundsLike, LngLatLike } from "maplibre-gl"
+import type { GeoJSONSource, LayerSpecification, LngLatBoundsLike, LngLatLike, SourceSpecification } from "maplibre-gl"
 
 import maplibregl from "maplibre-gl"
 import bbox from "@turf/bbox"
@@ -12,7 +12,9 @@ const black = "#333333"
 
 class TileMap extends HTMLElement {
   placeTypeLayerNames: string[] = []
-  map: maplibregl.Map | null = null
+  mapPromiseWithResolvers: PromiseWithResolvers<maplibregl.Map> = Promise.withResolvers()
+  mapPromise: Promise<maplibregl.Map> = this.mapPromiseWithResolvers.promise
+  mapResolve: (value: maplibregl.Map | PromiseLike<maplibregl.Map>) => void = this.mapPromiseWithResolvers.resolve
 
   constructor() {
     super()
@@ -31,7 +33,7 @@ class TileMap extends HTMLElement {
     const header = await tileserver.getHeader()
     const container = this.shadowRoot!.getElementById(this.id)!
 
-    this.map = new maplibregl.Map({
+    let map = new maplibregl.Map({
       container,
       minZoom: header.minZoom,
       maxZoom: 9,
@@ -73,6 +75,10 @@ class TileMap extends HTMLElement {
         ],
       },
     })
+
+    map.on("load", () => {
+      this.mapResolve(map)
+    })
   }
 
   render() {
@@ -84,32 +90,61 @@ class TileMap extends HTMLElement {
   }
 
   async getPlacesSource(): Promise<GeoJSONSource> {
-    while (true) {
-      if (this.map) {
-        const source = this.map.getSource("places")
-        if (source !== undefined) {
-          return source as GeoJSONSource
-        }
-      }
-      await new Promise((resolve) => setTimeout(resolve, 100))
-    }
+    const source = (await this.mapPromise).getSource("places")
+    return source as GeoJSONSource
   }
 
-  async showFeatures(collection: FeatureCollection) {
-    const source = await this.getPlacesSource()
+  async showFeatures(collection: FeatureCollection, sourceId?: string) {
+    let source = await this.getPlacesSource()
+    if (sourceId) {
+      source = await this.getSource(sourceId) ?? source
+    }
     source.setData(collection)
 
-    if (this.map) {
+    let map = await this.mapPromise
+    if (map) {
       if (collection.features.length > 0) {
         const extent = bbox(collection) as LngLatBoundsLike
         console.log(extent)
-        this.map.fitBounds(extent, { padding: 150 })
+        map.fitBounds(extent, { padding: 150 })
       } else {
-        this.map.flyTo({ center: DEFAULT_CENTER, zoom: DEFAULT_ZOOM })
+        map.flyTo({ center: DEFAULT_CENTER, zoom: DEFAULT_ZOOM })
       }
     }
   }
-}
+
+  async getSource(sourceId: string): Promise<GeoJSONSource | null> {
+    const source = (await this.mapPromise).getSource(sourceId)
+      if (source !== undefined) {
+        return source as GeoJSONSource
+      }
+    return null
+  }
+
+  async addSource(sourceId: string, source: SourceSpecification): Promise<boolean> {
+    const map = await this.mapPromise
+    map.addSource(sourceId, source)
+    return map.getSource(sourceId) !== undefined
+  }
+
+  async addLayer(layer: LayerSpecification): Promise<boolean> {
+    const map = await this.mapPromise
+    map.addLayer(layer)
+    return map.getLayer(layer.id) != undefined
+  }
+
+  async removeSource(sourceId: string): Promise<boolean> {
+    const map = await this.mapPromise
+    map.removeSource(sourceId)
+    return map.getSource(sourceId) == undefined
+  }
+
+  async removeLayer(layerId: string): Promise<boolean> {
+    const map = await this.mapPromise
+    map.removeLayer(layerId)
+    return map.getLayer(layerId) == undefined
+  }
+ }
 
 customElements.define("tile-map", TileMap)
 

@@ -1,0 +1,26 @@
+PREFIX for: <https://dkglab.github.io/ns/for/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX apf: <http://jena.apache.org/ARQ/property#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+PREFIX pno: <http://linked.data.gov.au/def/placenames/>
+
+SELECT ?site
+WHERE {
+    ?site_type rdf:type skos:Concept ;
+        dct:identifier "cave"
+        .
+    
+    for:located-sites rdfs:member ?site .
+
+    ?site a geo:Feature ;
+        geo:hasGeometry ?geo ;
+        for:siteType ?site_type ;
+        .
+
+    ?geo geo:asWKT ?wkt .
+
+}

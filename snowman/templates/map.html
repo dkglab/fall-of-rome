@@ -3,11 +3,39 @@
 {{ define "title" }}Map{{ end }}
 
 {{ define "css" -}}
+    <link rel="stylesheet" href="/drawer.css" />
     <link rel="stylesheet" href="/map.css" />
 {{- end }}
 
 
 {{ define "content" -}}
-      <tile-map id="map" class="grow"></tile-map>
-      <script src="/map-view.js"></script>
+    <script src="/drawer.js"></script>
+    <script src="/query/create-query.js"></script>
+    <div class="drawer-container">
+        <div class="content-container">
+            <tile-map id="map" class="grow"></tile-map>
+            <button drawer="sidebar" onclick="toggleDrawer(event)" class="drawer-toggle">
+                Open Queries
+            </button>
+        </div>
+        <script src="/map-view.js"></script>
+        <div class="drawer drawer-inactive" id="sidebar">
+            <h1>Queries</h1>
+            <p>
+                Provides prefixes for the following
+            </p>
+            <prefix-list></prefix-list>
+            <p>
+                Geometries must be bound to "?wkt"
+            </p>
+            <div id="query-container">
+                <query-holder></query-holder>
+            </div>
+            <button onclick="createQuery()">
+                Create Query
+            </button>
+        </div>
+    </div>
+    <script src="/query/handle-query.js"></script>
+    <script src="/query/query.js"></script>
 {{- end }}

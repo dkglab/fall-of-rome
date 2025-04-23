@@ -5,7 +5,7 @@ const loadOxigraph = async () => {
     await init("/web_bg.wasm") // Required to compile the WebAssembly code.
 }
 const loadGraphStore = async () => {
-    loadOxigraph()
+    await loadOxigraph()
 
     const store = new GraphStore()
     await store.load("/data.ttl")
