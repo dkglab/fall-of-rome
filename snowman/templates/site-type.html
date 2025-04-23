@@ -35,13 +35,18 @@
       {{ end }}
     </ul>
 
-    <p><strong>Broader Concept:</strong> <a href="{{ trim .broaderSiteType }}">{{ trim (replace .broaderSiteType "https://dkglab.github.io/ns/for/site-type/" "" -1) }}</a></p>
+    <p><strong>Broader Concept:</strong></p>
+    <a href="/site-types/{{ trim (replace .broaderSiteType "https://dkglab.github.io/ns/for/site-type/" "" -1) }}.html">
+      {{ trim (replace .broaderSiteType "https://dkglab.github.io/ns/for/site-type/" "" -1) }}
+      <!--add variable for broader site type labels to query + template -->
+    </a>
     <p><strong>Narrower Concept:</strong></p>
     <ul>
       {{ $labels := split .narrowerSiteTypeLabels "," }}
       {{ range $index, $narrower := split .narrowerSiteTypes "," }}
       <li>
-      <a href="{{ trim $narrower }}">
+      <a href="/site-types/{{ trim (replace $narrower "https://dkglab.github.io/ns/for/site-type/" "" -1) }}.html">
+
         {{ index $labels $index }}
       </a>
       </li>
@@ -51,5 +56,3 @@
 </div>
 
 {{- end }}
-
-<!--adding pleiades and wiki close match definitions to csv + updating queries -->
