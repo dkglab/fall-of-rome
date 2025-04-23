@@ -8,7 +8,7 @@
 </header>
 <div class="list">
   {{ range . }}
-  <div><a href="{{ .id }}.html">{{ .site_type }}</a></div>
+  <div><a href="{{ urlquery .id }}.html">{{ .site_type }}</a></div>
   {{ end }}
 </div>
 {{- end }}
