@@ -20,7 +20,7 @@ WHERE {
   ?site a geo:Feature ;
     skos:prefLabel ?site_name ;
     skos:altLabel ?processed ;
-    for:hasArtifactType ?artifactType ;
+    for:rawArtifactType ?artifactType ;
     for:siteType ?siteType ;
     .
 

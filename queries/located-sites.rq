@@ -14,7 +14,7 @@ CONSTRUCT {
     skos:prefLabel ?site_name ;
     skos:altLabel ?processed ;
     geo:hasGeometry ?geo ;
-    for:hasArtifactType ?mct ;
+    for:rawArtifactType ?mct ;
     for:towns ?towns ;
     for:siteType ?siteType ;
     for:municipality ?actualMuni ;
