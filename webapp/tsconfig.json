@@ -25,8 +25,8 @@
     "baseUrl": ".",
     "paths": {
       "@turf/turf": ["node_modules/@turf/turf/dist/es"],
-      "@turf/*": ["node_modules/@turf/*"],
-      "*": ["src/types/*"]
+      "@turf/": ["node_modules/@turf/"],
+      "": ["src/types/"]
     },
     "typeRoots": [
       "./node_modules/@types",
@@ -34,8 +34,8 @@
     ]
   },
   "include": [
-    "src/**/*.ts",
-    "src/types/**/*.d.ts"
+    "src//*.ts",
+    "src/types//*.d.ts"
   ],
   "exclude": ["node_modules", "dist"]
 }

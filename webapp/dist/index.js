@@ -6,8 +6,15 @@
   var __getOwnPropNames = Object.getOwnPropertyNames;
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __esm = (fn, res) => function __init() {
+    return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
+  };
   var __commonJS = (cb, mod) => function __require() {
     return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  };
+  var __export = (target, all) => {
+    for (var name in all)
+      __defProp(target, name, { get: all[name], enumerable: true });
   };
   var __copyProps = (to, from, except, desc) => {
     if (from && typeof from === "object" || typeof from === "function") {
@@ -34,11 +41,1194 @@
     return result;
   };
 
+  // node_modules/oxigraph/web.js
+  var web_exports = {};
+  __export(web_exports, {
+    BlankNode: () => BlankNode,
+    DefaultGraph: () => DefaultGraph,
+    Literal: () => Literal,
+    NamedNode: () => NamedNode,
+    Quad: () => Quad,
+    Store: () => Store,
+    Variable: () => Variable,
+    blankNode: () => blankNode,
+    default: () => web_default,
+    defaultGraph: () => defaultGraph,
+    fromQuad: () => fromQuad,
+    fromTerm: () => fromTerm,
+    initSync: () => initSync,
+    literal: () => literal,
+    main: () => main,
+    namedNode: () => namedNode,
+    quad: () => quad,
+    triple: () => triple,
+    variable: () => variable
+  });
+  function addToExternrefTable0(obj) {
+    const idx = wasm.__externref_table_alloc();
+    wasm.__wbindgen_export_2.set(idx, obj);
+    return idx;
+  }
+  function handleError(f3, args) {
+    try {
+      return f3.apply(this, args);
+    } catch (e6) {
+      const idx = addToExternrefTable0(e6);
+      wasm.__wbindgen_exn_store(idx);
+    }
+  }
+  function getUint8ArrayMemory0() {
+    if (cachedUint8ArrayMemory0 === null || cachedUint8ArrayMemory0.byteLength === 0) {
+      cachedUint8ArrayMemory0 = new Uint8Array(wasm.memory.buffer);
+    }
+    return cachedUint8ArrayMemory0;
+  }
+  function getStringFromWasm0(ptr, len) {
+    ptr = ptr >>> 0;
+    return cachedTextDecoder.decode(getUint8ArrayMemory0().subarray(ptr, ptr + len));
+  }
+  function passStringToWasm0(arg, malloc, realloc) {
+    if (realloc === void 0) {
+      const buf = cachedTextEncoder.encode(arg);
+      const ptr2 = malloc(buf.length, 1) >>> 0;
+      getUint8ArrayMemory0().subarray(ptr2, ptr2 + buf.length).set(buf);
+      WASM_VECTOR_LEN = buf.length;
+      return ptr2;
+    }
+    let len = arg.length;
+    let ptr = malloc(len, 1) >>> 0;
+    const mem = getUint8ArrayMemory0();
+    let offset = 0;
+    for (; offset < len; offset++) {
+      const code = arg.charCodeAt(offset);
+      if (code > 127) break;
+      mem[ptr + offset] = code;
+    }
+    if (offset !== len) {
+      if (offset !== 0) {
+        arg = arg.slice(offset);
+      }
+      ptr = realloc(ptr, len, len = offset + arg.length * 3, 1) >>> 0;
+      const view = getUint8ArrayMemory0().subarray(ptr + offset, ptr + len);
+      const ret = encodeString(arg, view);
+      offset += ret.written;
+      ptr = realloc(ptr, len, offset, 1) >>> 0;
+    }
+    WASM_VECTOR_LEN = offset;
+    return ptr;
+  }
+  function getDataViewMemory0() {
+    if (cachedDataViewMemory0 === null || cachedDataViewMemory0.buffer.detached === true || cachedDataViewMemory0.buffer.detached === void 0 && cachedDataViewMemory0.buffer !== wasm.memory.buffer) {
+      cachedDataViewMemory0 = new DataView(wasm.memory.buffer);
+    }
+    return cachedDataViewMemory0;
+  }
+  function isLikeNone(x3) {
+    return x3 === void 0 || x3 === null;
+  }
+  function takeFromExternrefTable0(idx) {
+    const value = wasm.__wbindgen_export_2.get(idx);
+    wasm.__externref_table_dealloc(idx);
+    return value;
+  }
+  function namedNode(value) {
+    const ptr0 = passStringToWasm0(value, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.namedNode(ptr0, len0);
+    if (ret[2]) {
+      throw takeFromExternrefTable0(ret[1]);
+    }
+    return NamedNode.__wrap(ret[0]);
+  }
+  function blankNode(value) {
+    var ptr0 = isLikeNone(value) ? 0 : passStringToWasm0(value, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    var len0 = WASM_VECTOR_LEN;
+    const ret = wasm.blankNode(ptr0, len0);
+    if (ret[2]) {
+      throw takeFromExternrefTable0(ret[1]);
+    }
+    return BlankNode.__wrap(ret[0]);
+  }
+  function literal(value, language_or_datatype) {
+    var ptr0 = isLikeNone(value) ? 0 : passStringToWasm0(value, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    var len0 = WASM_VECTOR_LEN;
+    const ret = wasm.literal(ptr0, len0, language_or_datatype);
+    if (ret[2]) {
+      throw takeFromExternrefTable0(ret[1]);
+    }
+    return Literal.__wrap(ret[0]);
+  }
+  function defaultGraph() {
+    const ret = wasm.defaultGraph();
+    return DefaultGraph.__wrap(ret);
+  }
+  function variable(value) {
+    const ptr0 = passStringToWasm0(value, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.variable(ptr0, len0);
+    if (ret[2]) {
+      throw takeFromExternrefTable0(ret[1]);
+    }
+    return Variable.__wrap(ret[0]);
+  }
+  function triple(subject, predicate, object) {
+    const ret = wasm.triple(subject, predicate, object);
+    if (ret[2]) {
+      throw takeFromExternrefTable0(ret[1]);
+    }
+    return Quad.__wrap(ret[0]);
+  }
+  function quad(subject, predicate, object, graph) {
+    const ret = wasm.quad(subject, predicate, object, graph);
+    if (ret[2]) {
+      throw takeFromExternrefTable0(ret[1]);
+    }
+    return Quad.__wrap(ret[0]);
+  }
+  function fromTerm(original) {
+    const ret = wasm.fromTerm(original);
+    if (ret[2]) {
+      throw takeFromExternrefTable0(ret[1]);
+    }
+    return takeFromExternrefTable0(ret[0]);
+  }
+  function fromQuad(original) {
+    const ret = wasm.fromQuad(original);
+    if (ret[2]) {
+      throw takeFromExternrefTable0(ret[1]);
+    }
+    return takeFromExternrefTable0(ret[0]);
+  }
+  function getArrayJsValueFromWasm0(ptr, len) {
+    ptr = ptr >>> 0;
+    const mem = getDataViewMemory0();
+    const result = [];
+    for (let i5 = ptr; i5 < ptr + 4 * len; i5 += 4) {
+      result.push(wasm.__wbindgen_export_2.get(mem.getUint32(i5, true)));
+    }
+    wasm.__externref_drop_slice(ptr, len);
+    return result;
+  }
+  function main() {
+    wasm.main();
+  }
+  async function __wbg_load(module2, imports) {
+    if (typeof Response === "function" && module2 instanceof Response) {
+      if (typeof WebAssembly.instantiateStreaming === "function") {
+        try {
+          return await WebAssembly.instantiateStreaming(module2, imports);
+        } catch (e6) {
+          if (module2.headers.get("Content-Type") != "application/wasm") {
+            console.warn("`WebAssembly.instantiateStreaming` failed because your server does not serve Wasm with `application/wasm` MIME type. Falling back to `WebAssembly.instantiate` which is slower. Original error:\n", e6);
+          } else {
+            throw e6;
+          }
+        }
+      }
+      const bytes = await module2.arrayBuffer();
+      return await WebAssembly.instantiate(bytes, imports);
+    } else {
+      const instance = await WebAssembly.instantiate(module2, imports);
+      if (instance instanceof WebAssembly.Instance) {
+        return { instance, module: module2 };
+      } else {
+        return instance;
+      }
+    }
+  }
+  function __wbg_get_imports() {
+    const imports = {};
+    imports.wbg = {};
+    imports.wbg.__wbg_blanknode_new = function(arg0) {
+      const ret = BlankNode.__wrap(arg0);
+      return ret;
+    };
+    imports.wbg.__wbg_buffer_609cc3eee51ed158 = function(arg0) {
+      const ret = arg0.buffer;
+      return ret;
+    };
+    imports.wbg.__wbg_call_672a4d21634d4a24 = function() {
+      return handleError(function(arg0, arg1) {
+        const ret = arg0.call(arg1);
+        return ret;
+      }, arguments);
+    };
+    imports.wbg.__wbg_call_7cccdd69e0791ae2 = function() {
+      return handleError(function(arg0, arg1, arg2) {
+        const ret = arg0.call(arg1, arg2);
+        return ret;
+      }, arguments);
+    };
+    imports.wbg.__wbg_crypto_ed58b8e10a292839 = function(arg0) {
+      const ret = arg0.crypto;
+      return ret;
+    };
+    imports.wbg.__wbg_defaultgraph_new = function(arg0) {
+      const ret = DefaultGraph.__wrap(arg0);
+      return ret;
+    };
+    imports.wbg.__wbg_done_769e5ede4b31c67b = function(arg0) {
+      const ret = arg0.done;
+      return ret;
+    };
+    imports.wbg.__wbg_error_7534b8e9a36f1ab4 = function(arg0, arg1) {
+      let deferred0_0;
+      let deferred0_1;
+      try {
+        deferred0_0 = arg0;
+        deferred0_1 = arg1;
+        console.error(getStringFromWasm0(arg0, arg1));
+      } finally {
+        wasm.__wbindgen_free(deferred0_0, deferred0_1, 1);
+      }
+    };
+    imports.wbg.__wbg_getRandomValues_bcb4912f16000dc4 = function() {
+      return handleError(function(arg0, arg1) {
+        arg0.getRandomValues(arg1);
+      }, arguments);
+    };
+    imports.wbg.__wbg_get_67b2ba62fc30de12 = function() {
+      return handleError(function(arg0, arg1) {
+        const ret = Reflect.get(arg0, arg1);
+        return ret;
+      }, arguments);
+    };
+    imports.wbg.__wbg_has_a5ea9117f258a0ec = function() {
+      return handleError(function(arg0, arg1) {
+        const ret = Reflect.has(arg0, arg1);
+        return ret;
+      }, arguments);
+    };
+    imports.wbg.__wbg_iterator_9a24c88df860dc65 = function() {
+      const ret = Symbol.iterator;
+      return ret;
+    };
+    imports.wbg.__wbg_literal_new = function(arg0) {
+      const ret = Literal.__wrap(arg0);
+      return ret;
+    };
+    imports.wbg.__wbg_msCrypto_0a36e2ec3a343d26 = function(arg0) {
+      const ret = arg0.msCrypto;
+      return ret;
+    };
+    imports.wbg.__wbg_namednode_new = function(arg0) {
+      const ret = NamedNode.__wrap(arg0);
+      return ret;
+    };
+    imports.wbg.__wbg_new_232bf76aa774bea9 = function(arg0, arg1) {
+      const ret = new URIError(getStringFromWasm0(arg0, arg1));
+      return ret;
+    };
+    imports.wbg.__wbg_new_5e0be73521bc8c17 = function() {
+      const ret = /* @__PURE__ */ new Map();
+      return ret;
+    };
+    imports.wbg.__wbg_new_78feb108b6472713 = function() {
+      const ret = new Array();
+      return ret;
+    };
+    imports.wbg.__wbg_new_8a6f238a6ece86ea = function() {
+      const ret = new Error();
+      return ret;
+    };
+    imports.wbg.__wbg_new_a12002a7f91c75be = function(arg0) {
+      const ret = new Uint8Array(arg0);
+      return ret;
+    };
+    imports.wbg.__wbg_new_c68d7209be747379 = function(arg0, arg1) {
+      const ret = new Error(getStringFromWasm0(arg0, arg1));
+      return ret;
+    };
+    imports.wbg.__wbg_newnoargs_105ed471475aaf50 = function(arg0, arg1) {
+      const ret = new Function(getStringFromWasm0(arg0, arg1));
+      return ret;
+    };
+    imports.wbg.__wbg_newwithbyteoffsetandlength_d97e637ebe145a9a = function(arg0, arg1, arg2) {
+      const ret = new Uint8Array(arg0, arg1 >>> 0, arg2 >>> 0);
+      return ret;
+    };
+    imports.wbg.__wbg_newwithlength_a381634e90c276d4 = function(arg0) {
+      const ret = new Uint8Array(arg0 >>> 0);
+      return ret;
+    };
+    imports.wbg.__wbg_next_25feadfc0913fea9 = function(arg0) {
+      const ret = arg0.next;
+      return ret;
+    };
+    imports.wbg.__wbg_next_6574e1a8a62d1055 = function() {
+      return handleError(function(arg0) {
+        const ret = arg0.next();
+        return ret;
+      }, arguments);
+    };
+    imports.wbg.__wbg_node_02999533c4ea02e3 = function(arg0) {
+      const ret = arg0.node;
+      return ret;
+    };
+    imports.wbg.__wbg_now_807e54c39636c349 = function() {
+      const ret = Date.now();
+      return ret;
+    };
+    imports.wbg.__wbg_process_5c1d670bc53614b8 = function(arg0) {
+      const ret = arg0.process;
+      return ret;
+    };
+    imports.wbg.__wbg_push_737cfc8c1432c2c6 = function(arg0, arg1) {
+      const ret = arg0.push(arg1);
+      return ret;
+    };
+    imports.wbg.__wbg_quad_new = function(arg0) {
+      const ret = Quad.__wrap(arg0);
+      return ret;
+    };
+    imports.wbg.__wbg_randomFillSync_ab2cfe79ebbf2740 = function() {
+      return handleError(function(arg0, arg1) {
+        arg0.randomFillSync(arg1);
+      }, arguments);
+    };
+    imports.wbg.__wbg_require_79b1e9274cde3c87 = function() {
+      return handleError(function() {
+        const ret = module.require;
+        return ret;
+      }, arguments);
+    };
+    imports.wbg.__wbg_set_65595bdd868b3009 = function(arg0, arg1, arg2) {
+      arg0.set(arg1, arg2 >>> 0);
+    };
+    imports.wbg.__wbg_set_8fc6bf8a5b1071d1 = function(arg0, arg1, arg2) {
+      const ret = arg0.set(arg1, arg2);
+      return ret;
+    };
+    imports.wbg.__wbg_stack_0ed75d68575b0f3c = function(arg0, arg1) {
+      const ret = arg1.stack;
+      const ptr1 = passStringToWasm0(ret, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+      const len1 = WASM_VECTOR_LEN;
+      getDataViewMemory0().setInt32(arg0 + 4 * 1, len1, true);
+      getDataViewMemory0().setInt32(arg0 + 4 * 0, ptr1, true);
+    };
+    imports.wbg.__wbg_static_accessor_GLOBAL_88a902d13a557d07 = function() {
+      const ret = typeof global === "undefined" ? null : global;
+      return isLikeNone(ret) ? 0 : addToExternrefTable0(ret);
+    };
+    imports.wbg.__wbg_static_accessor_GLOBAL_THIS_56578be7e9f832b0 = function() {
+      const ret = typeof globalThis === "undefined" ? null : globalThis;
+      return isLikeNone(ret) ? 0 : addToExternrefTable0(ret);
+    };
+    imports.wbg.__wbg_static_accessor_SELF_37c5d418e4bf5819 = function() {
+      const ret = typeof self === "undefined" ? null : self;
+      return isLikeNone(ret) ? 0 : addToExternrefTable0(ret);
+    };
+    imports.wbg.__wbg_static_accessor_WINDOW_5de37043a91a9c40 = function() {
+      const ret = typeof window === "undefined" ? null : window;
+      return isLikeNone(ret) ? 0 : addToExternrefTable0(ret);
+    };
+    imports.wbg.__wbg_subarray_aa9065fa9dc5df96 = function(arg0, arg1, arg2) {
+      const ret = arg0.subarray(arg1 >>> 0, arg2 >>> 0);
+      return ret;
+    };
+    imports.wbg.__wbg_value_cd1ffa7b1ab794f1 = function(arg0) {
+      const ret = arg0.value;
+      return ret;
+    };
+    imports.wbg.__wbg_variable_new = function(arg0) {
+      const ret = Variable.__wrap(arg0);
+      return ret;
+    };
+    imports.wbg.__wbg_versions_c71aa1626a93e0a1 = function(arg0) {
+      const ret = arg0.versions;
+      return ret;
+    };
+    imports.wbg.__wbg_warn_eb0bc5894227877a = function(arg0, arg1) {
+      console.warn(getStringFromWasm0(arg0, arg1));
+    };
+    imports.wbg.__wbindgen_error_new = function(arg0, arg1) {
+      const ret = new Error(getStringFromWasm0(arg0, arg1));
+      return ret;
+    };
+    imports.wbg.__wbindgen_init_externref_table = function() {
+      const table = wasm.__wbindgen_export_2;
+      const offset = table.grow(4);
+      table.set(0, void 0);
+      table.set(offset + 0, void 0);
+      table.set(offset + 1, null);
+      table.set(offset + 2, true);
+      table.set(offset + 3, false);
+      ;
+    };
+    imports.wbg.__wbindgen_is_falsy = function(arg0) {
+      const ret = !arg0;
+      return ret;
+    };
+    imports.wbg.__wbindgen_is_function = function(arg0) {
+      const ret = typeof arg0 === "function";
+      return ret;
+    };
+    imports.wbg.__wbindgen_is_null = function(arg0) {
+      const ret = arg0 === null;
+      return ret;
+    };
+    imports.wbg.__wbindgen_is_object = function(arg0) {
+      const val = arg0;
+      const ret = typeof val === "object" && val !== null;
+      return ret;
+    };
+    imports.wbg.__wbindgen_is_string = function(arg0) {
+      const ret = typeof arg0 === "string";
+      return ret;
+    };
+    imports.wbg.__wbindgen_is_undefined = function(arg0) {
+      const ret = arg0 === void 0;
+      return ret;
+    };
+    imports.wbg.__wbindgen_memory = function() {
+      const ret = wasm.memory;
+      return ret;
+    };
+    imports.wbg.__wbindgen_string_get = function(arg0, arg1) {
+      const obj = arg1;
+      const ret = typeof obj === "string" ? obj : void 0;
+      var ptr1 = isLikeNone(ret) ? 0 : passStringToWasm0(ret, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+      var len1 = WASM_VECTOR_LEN;
+      getDataViewMemory0().setInt32(arg0 + 4 * 1, len1, true);
+      getDataViewMemory0().setInt32(arg0 + 4 * 0, ptr1, true);
+    };
+    imports.wbg.__wbindgen_string_new = function(arg0, arg1) {
+      const ret = getStringFromWasm0(arg0, arg1);
+      return ret;
+    };
+    imports.wbg.__wbindgen_throw = function(arg0, arg1) {
+      throw new Error(getStringFromWasm0(arg0, arg1));
+    };
+    return imports;
+  }
+  function __wbg_init_memory(imports, memory) {
+  }
+  function __wbg_finalize_init(instance, module2) {
+    wasm = instance.exports;
+    __wbg_init.__wbindgen_wasm_module = module2;
+    cachedDataViewMemory0 = null;
+    cachedUint8ArrayMemory0 = null;
+    wasm.__wbindgen_start();
+    return wasm;
+  }
+  function initSync(module2) {
+    if (wasm !== void 0) return wasm;
+    if (typeof module2 !== "undefined") {
+      if (Object.getPrototypeOf(module2) === Object.prototype) {
+        ({ module: module2 } = module2);
+      } else {
+        console.warn("using deprecated parameters for `initSync()`; pass a single object instead");
+      }
+    }
+    const imports = __wbg_get_imports();
+    __wbg_init_memory(imports);
+    if (!(module2 instanceof WebAssembly.Module)) {
+      module2 = new WebAssembly.Module(module2);
+    }
+    const instance = new WebAssembly.Instance(module2, imports);
+    return __wbg_finalize_init(instance, module2);
+  }
+  async function __wbg_init(module_or_path) {
+    if (wasm !== void 0) return wasm;
+    if (typeof module_or_path !== "undefined") {
+      if (Object.getPrototypeOf(module_or_path) === Object.prototype) {
+        ({ module_or_path } = module_or_path);
+      } else {
+        console.warn("using deprecated parameters for the initialization function; pass a single object instead");
+      }
+    }
+    if (typeof module_or_path === "undefined") {
+      module_or_path = new URL("web_bg.wasm", import_meta.url);
+    }
+    const imports = __wbg_get_imports();
+    if (typeof module_or_path === "string" || typeof Request === "function" && module_or_path instanceof Request || typeof URL === "function" && module_or_path instanceof URL) {
+      module_or_path = fetch(module_or_path);
+    }
+    __wbg_init_memory(imports);
+    const { instance, module: module2 } = await __wbg_load(await module_or_path, imports);
+    return __wbg_finalize_init(instance, module2);
+  }
+  var import_meta, wasm, cachedTextDecoder, cachedUint8ArrayMemory0, WASM_VECTOR_LEN, cachedTextEncoder, encodeString, cachedDataViewMemory0, BlankNodeFinalization, BlankNode, DefaultGraphFinalization, DefaultGraph, LiteralFinalization, Literal, NamedNodeFinalization, NamedNode, QuadFinalization, Quad, StoreFinalization, Store, VariableFinalization, Variable, web_default;
+  var init_web = __esm({
+    "node_modules/oxigraph/web.js"() {
+      import_meta = {};
+      cachedTextDecoder = typeof TextDecoder !== "undefined" ? new TextDecoder("utf-8", { ignoreBOM: true, fatal: true }) : { decode: () => {
+        throw Error("TextDecoder not available");
+      } };
+      if (typeof TextDecoder !== "undefined") {
+        cachedTextDecoder.decode();
+      }
+      cachedUint8ArrayMemory0 = null;
+      WASM_VECTOR_LEN = 0;
+      cachedTextEncoder = typeof TextEncoder !== "undefined" ? new TextEncoder("utf-8") : { encode: () => {
+        throw Error("TextEncoder not available");
+      } };
+      encodeString = typeof cachedTextEncoder.encodeInto === "function" ? function(arg, view) {
+        return cachedTextEncoder.encodeInto(arg, view);
+      } : function(arg, view) {
+        const buf = cachedTextEncoder.encode(arg);
+        view.set(buf);
+        return {
+          read: arg.length,
+          written: buf.length
+        };
+      };
+      cachedDataViewMemory0 = null;
+      BlankNodeFinalization = typeof FinalizationRegistry === "undefined" ? { register: () => {
+      }, unregister: () => {
+      } } : new FinalizationRegistry((ptr) => wasm.__wbg_blanknode_free(ptr >>> 0, 1));
+      BlankNode = class _BlankNode {
+        static __wrap(ptr) {
+          ptr = ptr >>> 0;
+          const obj = Object.create(_BlankNode.prototype);
+          obj.__wbg_ptr = ptr;
+          BlankNodeFinalization.register(obj, obj.__wbg_ptr, obj);
+          return obj;
+        }
+        __destroy_into_raw() {
+          const ptr = this.__wbg_ptr;
+          this.__wbg_ptr = 0;
+          BlankNodeFinalization.unregister(this);
+          return ptr;
+        }
+        free() {
+          const ptr = this.__destroy_into_raw();
+          wasm.__wbg_blanknode_free(ptr, 0);
+        }
+        /**
+         * @returns {string}
+         */
+        get termType() {
+          let deferred1_0;
+          let deferred1_1;
+          try {
+            const ret = wasm.blanknode_term_type(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+          } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+          }
+        }
+        /**
+         * @returns {string}
+         */
+        get value() {
+          let deferred1_0;
+          let deferred1_1;
+          try {
+            const ret = wasm.blanknode_value(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+          } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+          }
+        }
+        /**
+         * @returns {string}
+         */
+        toString() {
+          let deferred1_0;
+          let deferred1_1;
+          try {
+            const ret = wasm.blanknode_toString(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+          } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+          }
+        }
+        /**
+         * @param {any} other
+         * @returns {boolean}
+         */
+        equals(other) {
+          const ret = wasm.blanknode_equals(this.__wbg_ptr, other);
+          return ret !== 0;
+        }
+      };
+      DefaultGraphFinalization = typeof FinalizationRegistry === "undefined" ? { register: () => {
+      }, unregister: () => {
+      } } : new FinalizationRegistry((ptr) => wasm.__wbg_defaultgraph_free(ptr >>> 0, 1));
+      DefaultGraph = class _DefaultGraph {
+        static __wrap(ptr) {
+          ptr = ptr >>> 0;
+          const obj = Object.create(_DefaultGraph.prototype);
+          obj.__wbg_ptr = ptr;
+          DefaultGraphFinalization.register(obj, obj.__wbg_ptr, obj);
+          return obj;
+        }
+        __destroy_into_raw() {
+          const ptr = this.__wbg_ptr;
+          this.__wbg_ptr = 0;
+          DefaultGraphFinalization.unregister(this);
+          return ptr;
+        }
+        free() {
+          const ptr = this.__destroy_into_raw();
+          wasm.__wbg_defaultgraph_free(ptr, 0);
+        }
+        /**
+         * @returns {string}
+         */
+        get termType() {
+          let deferred1_0;
+          let deferred1_1;
+          try {
+            const ret = wasm.defaultgraph_term_type(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+          } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+          }
+        }
+        /**
+         * @returns {string}
+         */
+        get value() {
+          let deferred1_0;
+          let deferred1_1;
+          try {
+            const ret = wasm.defaultgraph_value(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+          } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+          }
+        }
+        /**
+         * @returns {string}
+         */
+        toString() {
+          let deferred1_0;
+          let deferred1_1;
+          try {
+            const ret = wasm.defaultgraph_toString(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+          } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+          }
+        }
+        /**
+         * @param {any} other
+         * @returns {boolean}
+         */
+        equals(other) {
+          const ret = wasm.defaultgraph_equals(this.__wbg_ptr, other);
+          return ret !== 0;
+        }
+      };
+      LiteralFinalization = typeof FinalizationRegistry === "undefined" ? { register: () => {
+      }, unregister: () => {
+      } } : new FinalizationRegistry((ptr) => wasm.__wbg_literal_free(ptr >>> 0, 1));
+      Literal = class _Literal {
+        static __wrap(ptr) {
+          ptr = ptr >>> 0;
+          const obj = Object.create(_Literal.prototype);
+          obj.__wbg_ptr = ptr;
+          LiteralFinalization.register(obj, obj.__wbg_ptr, obj);
+          return obj;
+        }
+        __destroy_into_raw() {
+          const ptr = this.__wbg_ptr;
+          this.__wbg_ptr = 0;
+          LiteralFinalization.unregister(this);
+          return ptr;
+        }
+        free() {
+          const ptr = this.__destroy_into_raw();
+          wasm.__wbg_literal_free(ptr, 0);
+        }
+        /**
+         * @returns {string}
+         */
+        get termType() {
+          let deferred1_0;
+          let deferred1_1;
+          try {
+            const ret = wasm.literal_term_type(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+          } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+          }
+        }
+        /**
+         * @returns {string}
+         */
+        get value() {
+          let deferred1_0;
+          let deferred1_1;
+          try {
+            const ret = wasm.literal_value(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+          } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+          }
+        }
+        /**
+         * @returns {string}
+         */
+        get language() {
+          let deferred1_0;
+          let deferred1_1;
+          try {
+            const ret = wasm.literal_language(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+          } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+          }
+        }
+        /**
+         * @returns {NamedNode}
+         */
+        get datatype() {
+          const ret = wasm.literal_datatype(this.__wbg_ptr);
+          return NamedNode.__wrap(ret);
+        }
+        /**
+         * @returns {string}
+         */
+        toString() {
+          let deferred1_0;
+          let deferred1_1;
+          try {
+            const ret = wasm.literal_toString(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+          } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+          }
+        }
+        /**
+         * @param {any} other
+         * @returns {boolean}
+         */
+        equals(other) {
+          const ret = wasm.literal_equals(this.__wbg_ptr, other);
+          return ret !== 0;
+        }
+      };
+      NamedNodeFinalization = typeof FinalizationRegistry === "undefined" ? { register: () => {
+      }, unregister: () => {
+      } } : new FinalizationRegistry((ptr) => wasm.__wbg_namednode_free(ptr >>> 0, 1));
+      NamedNode = class _NamedNode {
+        static __wrap(ptr) {
+          ptr = ptr >>> 0;
+          const obj = Object.create(_NamedNode.prototype);
+          obj.__wbg_ptr = ptr;
+          NamedNodeFinalization.register(obj, obj.__wbg_ptr, obj);
+          return obj;
+        }
+        __destroy_into_raw() {
+          const ptr = this.__wbg_ptr;
+          this.__wbg_ptr = 0;
+          NamedNodeFinalization.unregister(this);
+          return ptr;
+        }
+        free() {
+          const ptr = this.__destroy_into_raw();
+          wasm.__wbg_namednode_free(ptr, 0);
+        }
+        /**
+         * @returns {string}
+         */
+        get termType() {
+          let deferred1_0;
+          let deferred1_1;
+          try {
+            const ret = wasm.namednode_term_type(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+          } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+          }
+        }
+        /**
+         * @returns {string}
+         */
+        get value() {
+          let deferred1_0;
+          let deferred1_1;
+          try {
+            const ret = wasm.namednode_value(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+          } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+          }
+        }
+        /**
+         * @returns {string}
+         */
+        toString() {
+          let deferred1_0;
+          let deferred1_1;
+          try {
+            const ret = wasm.namednode_toString(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+          } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+          }
+        }
+        /**
+         * @param {any} other
+         * @returns {boolean}
+         */
+        equals(other) {
+          const ret = wasm.namednode_equals(this.__wbg_ptr, other);
+          return ret !== 0;
+        }
+      };
+      QuadFinalization = typeof FinalizationRegistry === "undefined" ? { register: () => {
+      }, unregister: () => {
+      } } : new FinalizationRegistry((ptr) => wasm.__wbg_quad_free(ptr >>> 0, 1));
+      Quad = class _Quad {
+        static __wrap(ptr) {
+          ptr = ptr >>> 0;
+          const obj = Object.create(_Quad.prototype);
+          obj.__wbg_ptr = ptr;
+          QuadFinalization.register(obj, obj.__wbg_ptr, obj);
+          return obj;
+        }
+        __destroy_into_raw() {
+          const ptr = this.__wbg_ptr;
+          this.__wbg_ptr = 0;
+          QuadFinalization.unregister(this);
+          return ptr;
+        }
+        free() {
+          const ptr = this.__destroy_into_raw();
+          wasm.__wbg_quad_free(ptr, 0);
+        }
+        /**
+         * @returns {string}
+         */
+        get termType() {
+          let deferred1_0;
+          let deferred1_1;
+          try {
+            const ret = wasm.quad_term_type(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+          } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+          }
+        }
+        /**
+         * @returns {string}
+         */
+        get value() {
+          let deferred1_0;
+          let deferred1_1;
+          try {
+            const ret = wasm.quad_value(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+          } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+          }
+        }
+        /**
+         * @returns {any}
+         */
+        get subject() {
+          const ret = wasm.quad_subject(this.__wbg_ptr);
+          return ret;
+        }
+        /**
+         * @returns {any}
+         */
+        get predicate() {
+          const ret = wasm.quad_predicate(this.__wbg_ptr);
+          return ret;
+        }
+        /**
+         * @returns {any}
+         */
+        get object() {
+          const ret = wasm.quad_object(this.__wbg_ptr);
+          return ret;
+        }
+        /**
+         * @returns {any}
+         */
+        get graph() {
+          const ret = wasm.quad_graph(this.__wbg_ptr);
+          return ret;
+        }
+        /**
+         * @returns {string}
+         */
+        toString() {
+          let deferred1_0;
+          let deferred1_1;
+          try {
+            const ret = wasm.quad_toString(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+          } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+          }
+        }
+        /**
+         * @param {any} other
+         * @returns {boolean}
+         */
+        equals(other) {
+          const ret = wasm.quad_equals(this.__wbg_ptr, other);
+          return ret !== 0;
+        }
+      };
+      StoreFinalization = typeof FinalizationRegistry === "undefined" ? { register: () => {
+      }, unregister: () => {
+      } } : new FinalizationRegistry((ptr) => wasm.__wbg_store_free(ptr >>> 0, 1));
+      Store = class {
+        __destroy_into_raw() {
+          const ptr = this.__wbg_ptr;
+          this.__wbg_ptr = 0;
+          StoreFinalization.unregister(this);
+          return ptr;
+        }
+        free() {
+          const ptr = this.__destroy_into_raw();
+          wasm.__wbg_store_free(ptr, 0);
+        }
+        /**
+         * @param {any} quads
+         */
+        constructor(quads) {
+          const ret = wasm.store_new(quads);
+          if (ret[2]) {
+            throw takeFromExternrefTable0(ret[1]);
+          }
+          this.__wbg_ptr = ret[0] >>> 0;
+          StoreFinalization.register(this, this.__wbg_ptr, this);
+          return this;
+        }
+        /**
+         * @param {any} quad
+         */
+        add(quad2) {
+          const ret = wasm.store_add(this.__wbg_ptr, quad2);
+          if (ret[1]) {
+            throw takeFromExternrefTable0(ret[0]);
+          }
+        }
+        /**
+         * @param {any} quad
+         */
+        delete(quad2) {
+          const ret = wasm.store_delete(this.__wbg_ptr, quad2);
+          if (ret[1]) {
+            throw takeFromExternrefTable0(ret[0]);
+          }
+        }
+        /**
+         * @param {any} quad
+         * @returns {boolean}
+         */
+        has(quad2) {
+          const ret = wasm.store_has(this.__wbg_ptr, quad2);
+          if (ret[2]) {
+            throw takeFromExternrefTable0(ret[1]);
+          }
+          return ret[0] !== 0;
+        }
+        /**
+         * @returns {number}
+         */
+        get size() {
+          const ret = wasm.store_size(this.__wbg_ptr);
+          if (ret[2]) {
+            throw takeFromExternrefTable0(ret[1]);
+          }
+          return ret[0] >>> 0;
+        }
+        /**
+         * @param {any} subject
+         * @param {any} predicate
+         * @param {any} object
+         * @param {any} graph_name
+         * @returns {any[]}
+         */
+        match(subject, predicate, object, graph_name) {
+          const ret = wasm.store_match(this.__wbg_ptr, subject, predicate, object, graph_name);
+          if (ret[3]) {
+            throw takeFromExternrefTable0(ret[2]);
+          }
+          var v1 = getArrayJsValueFromWasm0(ret[0], ret[1]).slice();
+          wasm.__wbindgen_free(ret[0], ret[1] * 4, 4);
+          return v1;
+        }
+        /**
+         * @param {string} query
+         * @param {any} options
+         * @returns {any}
+         */
+        query(query, options) {
+          const ptr0 = passStringToWasm0(query, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+          const len0 = WASM_VECTOR_LEN;
+          const ret = wasm.store_query(this.__wbg_ptr, ptr0, len0, options);
+          if (ret[2]) {
+            throw takeFromExternrefTable0(ret[1]);
+          }
+          return takeFromExternrefTable0(ret[0]);
+        }
+        /**
+         * @param {string} update
+         * @param {any} options
+         */
+        update(update, options) {
+          const ptr0 = passStringToWasm0(update, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+          const len0 = WASM_VECTOR_LEN;
+          const ret = wasm.store_update(this.__wbg_ptr, ptr0, len0, options);
+          if (ret[1]) {
+            throw takeFromExternrefTable0(ret[0]);
+          }
+        }
+        /**
+         * @param {string} data
+         * @param {any} options
+         * @param {any} base_iri
+         * @param {any} to_graph_name
+         */
+        load(data, options, base_iri, to_graph_name) {
+          const ptr0 = passStringToWasm0(data, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+          const len0 = WASM_VECTOR_LEN;
+          const ret = wasm.store_load(this.__wbg_ptr, ptr0, len0, options, base_iri, to_graph_name);
+          if (ret[1]) {
+            throw takeFromExternrefTable0(ret[0]);
+          }
+        }
+        /**
+         * @param {any} options
+         * @param {any} from_graph_name
+         * @returns {string}
+         */
+        dump(options, from_graph_name) {
+          let deferred2_0;
+          let deferred2_1;
+          try {
+            const ret = wasm.store_dump(this.__wbg_ptr, options, from_graph_name);
+            var ptr1 = ret[0];
+            var len1 = ret[1];
+            if (ret[3]) {
+              ptr1 = 0;
+              len1 = 0;
+              throw takeFromExternrefTable0(ret[2]);
+            }
+            deferred2_0 = ptr1;
+            deferred2_1 = len1;
+            return getStringFromWasm0(ptr1, len1);
+          } finally {
+            wasm.__wbindgen_free(deferred2_0, deferred2_1, 1);
+          }
+        }
+      };
+      VariableFinalization = typeof FinalizationRegistry === "undefined" ? { register: () => {
+      }, unregister: () => {
+      } } : new FinalizationRegistry((ptr) => wasm.__wbg_variable_free(ptr >>> 0, 1));
+      Variable = class _Variable {
+        static __wrap(ptr) {
+          ptr = ptr >>> 0;
+          const obj = Object.create(_Variable.prototype);
+          obj.__wbg_ptr = ptr;
+          VariableFinalization.register(obj, obj.__wbg_ptr, obj);
+          return obj;
+        }
+        __destroy_into_raw() {
+          const ptr = this.__wbg_ptr;
+          this.__wbg_ptr = 0;
+          VariableFinalization.unregister(this);
+          return ptr;
+        }
+        free() {
+          const ptr = this.__destroy_into_raw();
+          wasm.__wbg_variable_free(ptr, 0);
+        }
+        /**
+         * @returns {string}
+         */
+        get termType() {
+          let deferred1_0;
+          let deferred1_1;
+          try {
+            const ret = wasm.variable_term_type(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+          } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+          }
+        }
+        /**
+         * @returns {string}
+         */
+        get value() {
+          let deferred1_0;
+          let deferred1_1;
+          try {
+            const ret = wasm.variable_value(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+          } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+          }
+        }
+        /**
+         * @returns {string}
+         */
+        toString() {
+          let deferred1_0;
+          let deferred1_1;
+          try {
+            const ret = wasm.variable_toString(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+          } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+          }
+        }
+        /**
+         * @param {any} other
+         * @returns {boolean}
+         */
+        equals(other) {
+          const ret = wasm.variable_equals(this.__wbg_ptr, other);
+          return ret !== 0;
+        }
+      };
+      web_default = __wbg_init;
+    }
+  });
+
   // node_modules/maplibre-gl/dist/maplibre-gl.js
   var require_maplibre_gl = __commonJS({
-    "node_modules/maplibre-gl/dist/maplibre-gl.js"(exports, module) {
-      (function(global, factory) {
-        typeof exports === "object" && typeof module !== "undefined" ? module.exports = factory() : typeof define === "function" && define.amd ? define(factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, global.maplibregl = factory());
+    "node_modules/maplibre-gl/dist/maplibre-gl.js"(exports, module2) {
+      (function(global2, factory) {
+        typeof exports === "object" && typeof module2 !== "undefined" ? module2.exports = factory() : typeof define === "function" && define.amd ? define(factory) : (global2 = typeof globalThis !== "undefined" ? globalThis : global2 || self, global2.maplibregl = factory());
       })(exports, function() {
         "use strict";
         var maplibregl2 = {};
@@ -20808,181 +21998,449 @@ ${n6.shaderPreludeCode.vertexSource}`, define: n6.shaderDefine }, defaultProject
     };
   }
 
+  // webapp/src/mock-triplestore.ts
+  var oxigraph;
+  try {
+    Promise.resolve().then(() => (init_web(), web_exports)).then((module2) => {
+      oxigraph = module2;
+      console.log("Oxigraph module loaded successfully");
+    }).catch((error) => {
+      console.error("Failed to load oxigraph module:", error);
+    });
+  } catch (error) {
+    console.error("Error importing oxigraph:", error);
+  }
+  var MockTriplestore = class {
+    constructor() {
+      this.store = null;
+      this.initialized = false;
+      this.fallbackMode = false;
+      console.log("Mock triplestore created");
+    }
+    /**
+     * Initialize the store with data from TTL file
+     */
+    async initialize(ttlUrl) {
+      if (this.initialized) return;
+      try {
+        if (!oxigraph) {
+          console.log("Waiting for oxigraph to load...");
+          await new Promise((resolve) => {
+            const checkInterval = setInterval(() => {
+              if (oxigraph) {
+                clearInterval(checkInterval);
+                resolve();
+              }
+            }, 100);
+            setTimeout(() => {
+              clearInterval(checkInterval);
+              this.fallbackMode = true;
+              console.warn("Oxigraph failed to load in time, using fallback mode");
+              resolve();
+            }, 5e3);
+          });
+        }
+        if (oxigraph && !this.fallbackMode) {
+          try {
+            console.log("Creating oxigraph store...");
+            this.store = new oxigraph.Store();
+            console.log("Oxigraph store created successfully");
+            try {
+              const response = await fetch(ttlUrl);
+              if (response.ok) {
+                const ttlData = await response.text();
+                const loadOptions = {
+                  format: "text/turtle",
+                  baseIRI: "http://example.org/"
+                };
+                this.store.load(ttlData, loadOptions);
+                console.log("Data loaded into oxigraph store");
+              } else {
+                console.warn(`Failed to fetch TTL data: ${response.status} ${response.statusText}`);
+              }
+            } catch (loadError) {
+              console.error("Error loading TTL data:", loadError);
+            }
+          } catch (storeError) {
+            console.error("Failed to create oxigraph store:", storeError);
+            this.fallbackMode = true;
+          }
+        } else {
+          this.fallbackMode = true;
+        }
+        this.initialized = true;
+        console.log(`Mock triplestore initialized (fallback mode: ${this.fallbackMode})`);
+      } catch (error) {
+        console.error("Failed to initialize mock triplestore:", error);
+        this.fallbackMode = true;
+        this.initialized = true;
+      }
+    }
+    /**
+     * Execute a SPARQL query against the in-memory store or return mock data
+     */
+    executeQuery(query) {
+      if (!this.initialized) {
+        console.warn("Mock triplestore not initialized, using fallback data");
+        return this.getFallbackResults(query);
+      }
+      if (this.fallbackMode || !this.store) {
+        console.log("Using fallback data for query");
+        return this.getFallbackResults(query);
+      }
+      try {
+        console.log("Executing query against oxigraph store");
+        const results = this.store.query(query);
+        const bindings = [];
+        if (typeof results === "boolean") {
+          return {
+            head: { vars: [] },
+            boolean: results
+          };
+        } else if (results && typeof results[Symbol.iterator] === "function") {
+          for (const binding of results) {
+            const resultBinding = {};
+            if (binding instanceof Map) {
+              for (const [key, value] of binding) {
+                resultBinding[key] = this.termToObject(value);
+              }
+            } else if (oxigraph && binding instanceof oxigraph.Quad) {
+              resultBinding.subject = this.termToObject(binding.subject);
+              resultBinding.predicate = this.termToObject(binding.predicate);
+              resultBinding.object = this.termToObject(binding.object);
+              resultBinding.graph = this.termToObject(binding.graph);
+            }
+            bindings.push(resultBinding);
+          }
+        }
+        const vars = bindings.length > 0 ? Object.keys(bindings[0]) : [];
+        return {
+          head: { vars },
+          results: { bindings }
+        };
+      } catch (error) {
+        console.error("Error executing SPARQL query:", error);
+        return this.getFallbackResults(query);
+      }
+    }
+    /**
+     * Generate fallback results based on the query content
+     */
+    getFallbackResults(query) {
+      const response = {
+        head: { vars: ["id", "name"] },
+        results: { bindings: [] }
+      };
+      if (query.includes("located-sites") || query.toLowerCase().includes("site_name")) {
+        this.addSiteData(response);
+      } else if (query.includes("site-types")) {
+        this.addSiteTypes(response);
+      } else if (query.includes("roman-provinces")) {
+        this.addProvinces(response);
+      } else if (query.includes("municipalities")) {
+        this.addMunicipalities(response);
+      } else if (query.includes("ceramic-types")) {
+        this.addCeramicTypes(response);
+      } else if (query.includes("analytic-regions")) {
+        this.addAnalyticRegions(response);
+      }
+      return response;
+    }
+    // Helper methods to add mock data to response
+    addSiteData(response) {
+      response.head.vars = ["id", "site_name", "latitude", "longitude", "municipality", "siteType", "analysisType", "region", "provincia", "TSH", "TSHT", "TSHTB", "TSHTM", "TSG", "DSP", "ARSA", "ARSC", "ARSD", "LRC", "LRD", "PRCW", "TS_any", "TS_early", "TS_late", "ARS_325", "ARS_400", "ARS_450", "ARS_525", "ARS_600", "Coin_pre234", "Coin_C3crisis", "Coins_tetrarchy", "Coin_C4_E", "Coin_C4_L", "Coin_C5", "Coin_Just"];
+      response.results.bindings = [
+        {
+          id: { type: "literal", value: "site1" },
+          site_name: { type: "literal", value: "Lucentum" },
+          latitude: { type: "literal", value: "38.3572" },
+          longitude: { type: "literal", value: "-0.4519" },
+          municipality: { type: "literal", value: "Alicante" },
+          siteType: { type: "literal", value: "urban" },
+          analysisType: { type: "literal", value: "excavation" },
+          region: { type: "literal", value: "Tarraconensis" },
+          provincia: { type: "literal", value: "Hispania Citerior" },
+          TSH: { type: "literal", value: "1" },
+          TSHT: { type: "literal", value: "0" },
+          TSHTB: { type: "literal", value: "0" },
+          TSHTM: { type: "literal", value: "0" },
+          TSG: { type: "literal", value: "1" },
+          DSP: { type: "literal", value: "0" },
+          ARSA: { type: "literal", value: "1" },
+          ARSC: { type: "literal", value: "1" },
+          ARSD: { type: "literal", value: "1" },
+          LRC: { type: "literal", value: "0" },
+          LRD: { type: "literal", value: "0" },
+          PRCW: { type: "literal", value: "0" },
+          TS_any: { type: "literal", value: "1" },
+          TS_early: { type: "literal", value: "1" },
+          TS_late: { type: "literal", value: "0" },
+          ARS_325: { type: "literal", value: "1" },
+          ARS_400: { type: "literal", value: "1" },
+          ARS_450: { type: "literal", value: "0" },
+          ARS_525: { type: "literal", value: "0" },
+          ARS_600: { type: "literal", value: "0" },
+          Coin_pre234: { type: "literal", value: "1" },
+          Coin_C3crisis: { type: "literal", value: "1" },
+          Coins_tetrarchy: { type: "literal", value: "0" },
+          Coin_C4_E: { type: "literal", value: "0" },
+          Coin_C4_L: { type: "literal", value: "0" },
+          Coin_C5: { type: "literal", value: "0" },
+          Coin_Just: { type: "literal", value: "0" }
+        },
+        {
+          id: { type: "literal", value: "site2" },
+          site_name: { type: "literal", value: "Tarraco" },
+          latitude: { type: "literal", value: "41.1188" },
+          longitude: { type: "literal", value: "1.2542" },
+          municipality: { type: "literal", value: "Tarragona" },
+          siteType: { type: "literal", value: "urban" },
+          analysisType: { type: "literal", value: "excavation" },
+          region: { type: "literal", value: "Tarraconensis" },
+          provincia: { type: "literal", value: "Hispania Citerior" },
+          TSH: { type: "literal", value: "1" },
+          TSHT: { type: "literal", value: "1" },
+          TSHTB: { type: "literal", value: "0" },
+          TSHTM: { type: "literal", value: "0" },
+          TSG: { type: "literal", value: "1" },
+          DSP: { type: "literal", value: "1" },
+          ARSA: { type: "literal", value: "1" },
+          ARSC: { type: "literal", value: "1" },
+          ARSD: { type: "literal", value: "1" },
+          LRC: { type: "literal", value: "1" },
+          LRD: { type: "literal", value: "0" },
+          PRCW: { type: "literal", value: "0" },
+          TS_any: { type: "literal", value: "1" },
+          TS_early: { type: "literal", value: "1" },
+          TS_late: { type: "literal", value: "1" },
+          ARS_325: { type: "literal", value: "1" },
+          ARS_400: { type: "literal", value: "1" },
+          ARS_450: { type: "literal", value: "1" },
+          ARS_525: { type: "literal", value: "1" },
+          ARS_600: { type: "literal", value: "0" },
+          Coin_pre234: { type: "literal", value: "1" },
+          Coin_C3crisis: { type: "literal", value: "1" },
+          Coins_tetrarchy: { type: "literal", value: "1" },
+          Coin_C4_E: { type: "literal", value: "1" },
+          Coin_C4_L: { type: "literal", value: "1" },
+          Coin_C5: { type: "literal", value: "1" },
+          Coin_Just: { type: "literal", value: "0" }
+        }
+      ];
+    }
+    addSiteTypes(response) {
+      response.head.vars = ["id", "name", "label"];
+      response.results.bindings = [
+        {
+          id: { type: "literal", value: "urban" },
+          name: { type: "literal", value: "Urban" },
+          label: { type: "literal", value: "Urban Settlement" }
+        },
+        {
+          id: { type: "literal", value: "rural" },
+          name: { type: "literal", value: "Rural" },
+          label: { type: "literal", value: "Rural Settlement" }
+        }
+      ];
+    }
+    addProvinces(response) {
+      response.head.vars = ["id", "name", "geojson"];
+      response.results.bindings = [
+        {
+          id: { type: "literal", value: "province1" },
+          name: { type: "literal", value: "Hispania Citerior" },
+          geojson: { type: "literal", value: '{"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[0,40],[2,40],[2,42],[0,42],[0,40]]]}}' }
+        }
+      ];
+    }
+    addMunicipalities(response) {
+      response.head.vars = ["id", "name", "region"];
+      response.results.bindings = [
+        {
+          id: { type: "literal", value: "mun1" },
+          name: { type: "literal", value: "Alicante" },
+          region: { type: "literal", value: "Tarraconensis" }
+        },
+        {
+          id: { type: "literal", value: "mun2" },
+          name: { type: "literal", value: "Tarragona" },
+          region: { type: "literal", value: "Tarraconensis" }
+        }
+      ];
+    }
+    addCeramicTypes(response) {
+      response.head.vars = ["id", "name", "description", "period"];
+      response.results.bindings = [
+        {
+          id: { type: "literal", value: "TSH" },
+          name: { type: "literal", value: "Terra Sigillata Hispanic" },
+          description: { type: "literal", value: "Roman ceramic produced in Hispanic workshops" },
+          period: { type: "literal", value: "early-roman" }
+        },
+        {
+          id: { type: "literal", value: "TSHT" },
+          name: { type: "literal", value: "Late Hispanic Terra Sigillata" },
+          description: { type: "literal", value: "Late Roman ceramic produced in Hispanic workshops" },
+          period: { type: "literal", value: "late-roman" }
+        }
+      ];
+    }
+    addAnalyticRegions(response) {
+      response.head.vars = ["id", "name", "description", "geojson"];
+      response.results.bindings = [
+        {
+          id: { type: "literal", value: "region1" },
+          name: { type: "literal", value: "Tarraconensis" },
+          description: { type: "literal", value: "Northern region of Roman Hispania" },
+          geojson: { type: "literal", value: '{"type":"Feature","properties":{},"geometry":{"type":"Polygon","coordinates":[[[0,40],[3,40],[3,43],[0,43],[0,40]]]}}' }
+        }
+      ];
+    }
+    /**
+     * Helper method to convert an Oxigraph term to a SPARQL JSON result object
+     */
+    termToObject(term) {
+      const obj = {
+        type: "literal",
+        value: ""
+      };
+      if (!term) {
+        return obj;
+      }
+      try {
+        if (oxigraph && term instanceof oxigraph.NamedNode) {
+          obj.type = "uri";
+          obj.value = term.value;
+        } else if (oxigraph && term instanceof oxigraph.BlankNode) {
+          obj.type = "bnode";
+          obj.value = term.value;
+        } else if (oxigraph && term instanceof oxigraph.Literal) {
+          obj.type = "literal";
+          obj.value = term.value;
+          if (term.datatype && typeof term.datatype === "object" && "value" in term.datatype) {
+            obj.datatype = term.datatype.value;
+          }
+          if (term.language) {
+            obj["xml:lang"] = term.language;
+          }
+        } else if (oxigraph && term instanceof oxigraph.DefaultGraph) {
+          obj.type = "uri";
+          obj.value = "default";
+        } else if (typeof term === "string") {
+          obj.type = "literal";
+          obj.value = term;
+        } else {
+          obj.value = String(term);
+        }
+      } catch (error) {
+        console.error("Error processing term:", error);
+        obj.type = "literal";
+        obj.value = term ? String(term) : "";
+      }
+      return obj;
+    }
+  };
+  var mockTriplestore = new MockTriplestore();
+
+  // webapp/src/graph-store.ts
+  var oxigraph2;
+  try {
+    Promise.resolve().then(() => (init_web(), web_exports)).then((module2) => {
+      oxigraph2 = module2;
+      console.log("Oxigraph module loaded successfully in graph-store");
+    }).catch((error) => {
+      console.error("Failed to load oxigraph module in graph-store:", error);
+    });
+  } catch (error) {
+    console.error("Error importing oxigraph in graph-store:", error);
+  }
+  var GraphStore = class {
+    constructor(endpoint = "http://localhost:3030/sites/query", useMock = true) {
+      this.store = null;
+      this.endpoint = endpoint;
+      this.useMock = useMock;
+      setTimeout(() => {
+        try {
+          if (oxigraph2) {
+            console.log("Creating oxigraph store in GraphStore");
+            this.store = new oxigraph2.Store();
+            console.log("Successfully created oxigraph store in GraphStore");
+          }
+        } catch (error) {
+          console.error("Failed to create oxigraph store in GraphStore:", error);
+        }
+      }, 500);
+      if (this.useMock) {
+        console.log("Initializing mock triplestore in GraphStore");
+        mockTriplestore.initialize("/data.ttl").catch((error) => {
+          console.error("Failed to initialize mock triplestore:", error);
+        });
+      }
+    }
+    async query(sparqlQuery, params = {}) {
+      try {
+        let processedQuery = sparqlQuery;
+        for (const [key, value] of Object.entries(params)) {
+          const paramPlaceholder = `?${key}Param`;
+          processedQuery = processedQuery.replace(new RegExp(paramPlaceholder, "g"), `"${value}"`);
+        }
+        let results;
+        if (this.useMock) {
+          console.log("Using mock triplestore for query");
+          results = mockTriplestore.executeQuery(processedQuery);
+        } else {
+          try {
+            console.log("Using real SPARQL endpoint");
+            const response = await fetch(this.endpoint, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/sparql-query",
+                "Accept": "application/sparql-results+json"
+              },
+              body: processedQuery
+            });
+            if (!response.ok) {
+              throw new Error(`SPARQL query failed: ${response.status} ${response.statusText}`);
+            }
+            results = await response.json();
+          } catch (endpointError) {
+            console.error("Error with SPARQL endpoint, falling back to mock:", endpointError);
+            results = mockTriplestore.executeQuery(processedQuery);
+          }
+        }
+        const bindings = [];
+        if (results.results && results.results.bindings) {
+          for (const binding of results.results.bindings) {
+            const bindingMap = /* @__PURE__ */ new Map();
+            for (const [key, value] of Object.entries(binding)) {
+              bindingMap.set(key, value);
+            }
+            bindings.push(bindingMap);
+          }
+        }
+        return bindings;
+      } catch (error) {
+        console.error("Error executing SPARQL query:", error);
+        return [];
+      }
+    }
+  };
+
   // webapp/src/data-loader.ts
-  var SPARQL_ENDPOINT = "/api/sparql";
+  var SPARQL_ENDPOINT = "http://localhost:3030/sites/query";
+  var store = new GraphStore(SPARQL_ENDPOINT, true);
   async function loadSiteData() {
     try {
-      const query = `
-      PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-      PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-      PREFIX geo: <http://www.opengis.net/ont/geosparql#>
-      PREFIX maps: <http://maps.webapp/ontology/>
-      
-      SELECT ?id ?name ?municipality ?siteType ?analysisType ?provincia ?region ?longitude ?latitude
-             ?TS_any ?TS_early ?TS_late ?TSH ?TSHT ?TSHTB ?TSHTM 
-             ?TSG ?DSP ?ARSA ?ARSC ?ARSD ?ARS_325 ?ARS_400 
-             ?ARS_450 ?ARS_525 ?ARS_600 ?LRC ?LRD ?PRCW
-             ?Coin_pre234 ?Coin_C3crisis ?Coins_tetrarchy 
-             ?Coin_C4_E ?Coin_C4_L ?Coin_C5 ?Coin_Just
-      WHERE {
-        ?site rdf:type maps:ArchaeologicalSite ;
-              maps:id ?id ;
-              maps:name ?name ;
-              geo:hasGeometry/geo:asWKT ?wkt .
-              
-        # Extract coordinates from WKT
-        BIND(REPLACE(STR(?wkt), "^POINT\\\\(([0-9.-]+) ([0-9.-]+)\\\\)$", "$1") AS ?longitude)
-        BIND(REPLACE(STR(?wkt), "^POINT\\\\(([0-9.-]+) ([0-9.-]+)\\\\)$", "$2") AS ?latitude)
-        
-        OPTIONAL { ?site maps:municipality ?municipality }
-        OPTIONAL { ?site maps:siteType ?siteType }
-        OPTIONAL { ?site maps:analysisType ?analysisType }
-        OPTIONAL { ?site maps:provincia ?provincia }
-        OPTIONAL { ?site maps:region ?region }
-        
-        # Ceramic data
-        OPTIONAL { ?site maps:TS_any ?TS_any }
-        OPTIONAL { ?site maps:TS_early ?TS_early }
-        OPTIONAL { ?site maps:TS_late ?TS_late }
-        OPTIONAL { ?site maps:TSH ?TSH }
-        OPTIONAL { ?site maps:TSHT ?TSHT }
-        OPTIONAL { ?site maps:TSHTB ?TSHTB }
-        OPTIONAL { ?site maps:TSHTM ?TSHTM }
-        OPTIONAL { ?site maps:TSG ?TSG }
-        OPTIONAL { ?site maps:DSP ?DSP }
-        OPTIONAL { ?site maps:ARSA ?ARSA }
-        OPTIONAL { ?site maps:ARSC ?ARSC }
-        OPTIONAL { ?site maps:ARSD ?ARSD }
-        OPTIONAL { ?site maps:ARS_325 ?ARS_325 }
-        OPTIONAL { ?site maps:ARS_400 ?ARS_400 }
-        OPTIONAL { ?site maps:ARS_450 ?ARS_450 }
-        OPTIONAL { ?site maps:ARS_525 ?ARS_525 }
-        OPTIONAL { ?site maps:ARS_600 ?ARS_600 }
-        OPTIONAL { ?site maps:LRC ?LRC }
-        OPTIONAL { ?site maps:LRD ?LRD }
-        OPTIONAL { ?site maps:PRCW ?PRCW }
-        
-        # Coin data
-        OPTIONAL { ?site maps:Coin_pre234 ?Coin_pre234 }
-        OPTIONAL { ?site maps:Coin_C3crisis ?Coin_C3crisis }
-        OPTIONAL { ?site maps:Coins_tetrarchy ?Coins_tetrarchy }
-        OPTIONAL { ?site maps:Coin_C4_E ?Coin_C4_E }
-        OPTIONAL { ?site maps:Coin_C4_L ?Coin_C4_L }
-        OPTIONAL { ?site maps:Coin_C5 ?Coin_C5 }
-        OPTIONAL { ?site maps:Coin_Just ?Coin_Just }
+      console.log("Loading site data from SPARQL endpoint...");
+      const response = await fetch("/queries/select/located-sites.rq");
+      if (!response.ok) {
+        throw new Error(`Failed to load located-sites.rq query: ${response.status} ${response.statusText}`);
       }
-    `;
-      try {
-        console.log("Attempting to fetch data from SPARQL endpoint...");
-        const response = await fetch(SPARQL_ENDPOINT, {
-          method: "GET",
-          // Try GET instead of POST since 405 indicates method not allowed
-          headers: {
-            "Accept": "application/json"
-          }
-        });
-        console.log("SPARQL response status:", response.status);
-        if (response.status === 404 || response.status === 405 || !response.ok) {
-          console.log(`SPARQL endpoint returned ${response.status}, using mock data...`);
-          return generateMockData();
-        }
-        const data = await response.json();
-        const bindings = data.results.bindings;
-        const sites = bindings.map((binding) => {
-          const ceramicColumns = [
-            "TS_any",
-            "TS_early",
-            "TS_late",
-            "TSH",
-            "TSHT",
-            "TSHTB",
-            "TSHTM",
-            "TSG",
-            "DSP",
-            "ARSA",
-            "ARSC",
-            "ARSD",
-            "ARS_325",
-            "ARS_400",
-            "ARS_450",
-            "ARS_525",
-            "ARS_600",
-            "LRC",
-            "LRD",
-            "PRCW"
-          ];
-          const coinColumns = [
-            "Coin_pre234",
-            "Coin_C3crisis",
-            "Coins_tetrarchy",
-            "Coin_C4_E",
-            "Coin_C4_L",
-            "Coin_C5",
-            "Coin_Just"
-          ];
-          const ceramics = {};
-          for (const ceramic of ceramicColumns) {
-            ceramics[ceramic] = binding[ceramic] ? parseInt(binding[ceramic].value) || 0 : 0;
-          }
-          const coins = {};
-          for (const coin of coinColumns) {
-            coins[coin] = binding[coin] ? parseInt(binding[coin].value) || 0 : 0;
-          }
-          const periods = [];
-          if (ceramics["TS_early"] === 1) periods.push("early-roman");
-          if (ceramics["TS_late"] === 1) periods.push("late-roman");
-          if (ceramics["ARS_450"] === 1 || ceramics["ARS_525"] === 1 || ceramics["ARS_600"] === 1)
-            periods.push("post-roman");
-          if (periods.length === 0 && ceramics["TS_any"] === 1) {
-            periods.push("early-roman");
-          }
-          let region = binding.region ? binding.region.value : "";
-          let provincia = binding.provincia ? binding.provincia.value : "";
-          if (!region || region.trim() === "") {
-            region = "Unknown Region";
-          }
-          if (!provincia || provincia.trim() === "") {
-            provincia = "Unknown Province";
-          }
-          return {
-            id: binding.id.value,
-            name: binding.name.value,
-            municipality: binding.municipality ? binding.municipality.value : "",
-            siteType: binding.siteType ? binding.siteType.value : "",
-            analysisType: binding.analysisType ? binding.analysisType.value : "",
-            provincia,
-            region,
-            location: [
-              parseFloat(binding.longitude.value),
-              parseFloat(binding.latitude.value)
-            ],
-            ceramics,
-            coins,
-            periods
-          };
-        });
-        return sites;
-      } catch (error) {
-        console.error("SPARQL query failed:", error);
-        console.log("Using mock data due to SPARQL failure");
-        return generateMockData();
-      }
-    } catch (error) {
-      console.error("Error loading site data:", error);
-      console.log("Using mock data due to error");
-      return generateMockData();
-    }
-  }
-  function generateMockData() {
-    console.log("Generating mock data...");
-    const mockSites = [];
-    const regions = ["Lusitania", "Baetica", "Tarraconensis"];
-    const siteTypes = ["Villa", "Urban", "Rural", "Settlement", "Necropolis", "Fort", "Hillfort", "Industrial", "Port", "Religious"];
-    const provincias = ["Gallecia", "Carthaginensis", "Baleares", "Hispania Ulterior", "Hispania Citerior"];
-    const municipalities = ["Emerita Augusta", "Hispalis", "Tarraco", "Bracara Augusta", "Corduba", "Caesaraugusta", "Olissipo", "Gades", "Valentia", "Conimbriga"];
-    for (let i5 = 0; i5 < 50; i5++) {
-      const ceramics = {};
-      [
+      const sitesQuery = await response.text();
+      console.log("Executing SPARQL query for site data...");
+      const bindings = await store.query(sitesQuery);
+      console.log(`Received ${bindings.length} results from SPARQL query`);
+      const ceramicColumns = [
         "TSH",
         "TSHT",
         "TSHTB",
@@ -21003,15 +22461,8 @@ ${n6.shaderPreludeCode.vertexSource}`, define: n6.shaderDefine }, defaultProject
         "ARS_450",
         "ARS_525",
         "ARS_600"
-      ].forEach((type) => {
-        ceramics[type] = Math.random() > 0.7 ? 1 : 0;
-      });
-      if (Object.values(ceramics).every((v3) => v3 === 0)) {
-        ceramics["TS_any"] = 1;
-        ceramics["TSH"] = 1;
-      }
-      const coins = {};
-      [
+      ];
+      const coinColumns = [
         "Coin_pre234",
         "Coin_C3crisis",
         "Coins_tetrarchy",
@@ -21019,146 +22470,162 @@ ${n6.shaderPreludeCode.vertexSource}`, define: n6.shaderDefine }, defaultProject
         "Coin_C4_L",
         "Coin_C5",
         "Coin_Just"
-      ].forEach((type) => {
-        coins[type] = Math.random() > 0.8 ? 1 : 0;
+      ];
+      const sites = bindings.map((binding) => {
+        const ceramics = {};
+        for (const ceramic of ceramicColumns) {
+          ceramics[ceramic] = binding.get(ceramic) ? parseInt(binding.get(ceramic).value) || 0 : 0;
+        }
+        const coins = {};
+        for (const coin of coinColumns) {
+          coins[coin] = binding.get(coin) ? parseInt(binding.get(coin).value) || 0 : 0;
+        }
+        const periods = [];
+        if (ceramics["TS_early"] === 1) periods.push("early-roman");
+        if (ceramics["TS_late"] === 1) periods.push("late-roman");
+        if (ceramics["ARS_450"] === 1 || ceramics["ARS_525"] === 1 || ceramics["ARS_600"] === 1)
+          periods.push("post-roman");
+        if (periods.length === 0 && ceramics["TS_any"] === 1) {
+          periods.push("early-roman");
+        }
+        let region = binding.get("region") ? binding.get("region").value : "";
+        let provincia = binding.get("provincia") ? binding.get("provincia").value : "";
+        if (!region || region.trim() === "") {
+          region = "Unknown Region";
+        }
+        if (!provincia || provincia.trim() === "") {
+          provincia = "Unknown Province";
+        }
+        return {
+          id: binding.get("id").value,
+          name: binding.get("site_name").value,
+          municipality: binding.get("municipality") ? binding.get("municipality").value : "",
+          siteType: binding.get("siteType") ? binding.get("siteType").value : "",
+          analysisType: binding.get("analysisType") ? binding.get("analysisType").value : "",
+          provincia,
+          region,
+          location: [
+            parseFloat(binding.get("longitude").value),
+            parseFloat(binding.get("latitude").value)
+          ],
+          ceramics,
+          coins,
+          periods
+        };
       });
-      const periods = [];
-      if (ceramics["TS_early"] === 1) periods.push("early-roman");
-      if (ceramics["TS_late"] === 1) periods.push("late-roman");
-      if (ceramics["ARS_450"] === 1 || ceramics["ARS_525"] === 1 || ceramics["ARS_600"] === 1)
-        periods.push("post-roman");
-      if (periods.length === 0) periods.push("early-roman");
-      const longitude = -9 + Math.random() * 10;
-      const latitude = 36 + Math.random() * 8;
-      const region = regions[Math.floor(Math.random() * regions.length)];
-      const provincia = provincias[Math.floor(Math.random() * provincias.length)];
-      mockSites.push({
-        id: `MOCK-${i5 + 1}`,
-        name: `Archaeological Site ${i5 + 1}`,
-        municipality: municipalities[Math.floor(Math.random() * municipalities.length)],
-        siteType: siteTypes[Math.floor(Math.random() * siteTypes.length)],
-        analysisType: siteTypes[Math.floor(Math.random() * siteTypes.length)],
-        provincia,
-        // 确保provincia值非空
-        region,
-        // 确保region值非空
-        location: [longitude, latitude],
-        ceramics,
-        coins,
-        periods
-      });
+      console.log(`Successfully loaded ${sites.length} sites from SPARQL query`);
+      return sites;
+    } catch (error) {
+      console.error("Error loading site data from SPARQL:", error);
+      return [];
     }
-    console.log(`Generated ${mockSites.length} mock sites, all with region and provincia data`);
-    return mockSites;
   }
   async function loadProvinces() {
     try {
-      const query = `
-      PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-      PREFIX geo: <http://www.opengis.net/ont/geosparql#>
-      PREFIX maps: <http://maps.webapp/ontology/>
-      
-      SELECT ?id ?name ?geojson
-      WHERE {
-        ?province rdf:type maps:Province ;
-                 maps:id ?id ;
-                 maps:name ?name ;
-                 maps:geoJSON ?geojson .
+      console.log("Loading province boundaries from SPARQL endpoint...");
+      const response = await fetch("/queries/select/roman-provinces.rq");
+      if (!response.ok) {
+        throw new Error(`Failed to load roman-provinces.rq query: ${response.status} ${response.statusText}`);
       }
-    `;
-      try {
-        const response = await fetch(SPARQL_ENDPOINT, {
-          method: "GET",
-          headers: {
-            "Accept": "application/json"
-          }
-        });
-        if (response.status === 404 || response.status === 405 || !response.ok) {
-          console.log(`SPARQL endpoint for provinces returned ${response.status}, using mock data`);
-          return generateMockProvinces();
-        }
-        const data = await response.json();
-        const bindings = data.results.bindings;
-        const features = bindings.map((binding) => {
-          const featureJson = JSON.parse(binding.geojson.value);
+      const provincesQuery = await response.text();
+      console.log("Executing SPARQL query for province boundaries...");
+      const bindings = await store.query(provincesQuery);
+      console.log(`Received ${bindings.length} province boundaries from SPARQL query`);
+      const features = bindings.map((binding) => {
+        try {
+          const featureJson = JSON.parse(binding.get("geojson").value);
           featureJson.properties = featureJson.properties || {};
-          featureJson.properties.id = binding.id.value;
-          featureJson.properties.name = binding.name.value;
+          featureJson.properties.id = binding.get("id").value;
+          featureJson.properties.name = binding.get("name").value;
           return featureJson;
-        });
-        return {
-          type: "FeatureCollection",
-          features
-        };
-      } catch (error) {
-        console.error("SPARQL query for provinces failed:", error);
-        return generateMockProvinces();
-      }
+        } catch (parseError) {
+          console.error("Error parsing GeoJSON for province:", parseError);
+          return null;
+        }
+      }).filter((feature) => feature !== null);
+      console.log(`Successfully processed ${features.length} province features`);
+      return {
+        type: "FeatureCollection",
+        features
+      };
     } catch (error) {
-      console.error("Error loading province data:", error);
-      return generateMockProvinces();
+      console.error("Error loading province data from SPARQL:", error);
+      return { type: "FeatureCollection", features: [] };
     }
   }
-  function generateMockProvinces() {
-    console.log("Generating mock province data...");
-    return {
-      type: "FeatureCollection",
-      features: [
-        {
-          type: "Feature",
-          properties: {
-            id: "lusitania",
-            name: "Lusitania"
-          },
-          geometry: {
-            type: "Polygon",
-            coordinates: [[
-              [-9, 37],
-              [-7, 37],
-              [-7, 41],
-              [-9, 41],
-              [-9, 37]
-            ]]
-          }
-        },
-        {
-          type: "Feature",
-          properties: {
-            id: "baetica",
-            name: "Baetica"
-          },
-          geometry: {
-            type: "Polygon",
-            coordinates: [[
-              [-7, 36],
-              [-3, 36],
-              [-3, 39],
-              [-7, 39],
-              [-7, 36]
-            ]]
-          }
-        },
-        {
-          type: "Feature",
-          properties: {
-            id: "tarraconensis",
-            name: "Tarraconensis"
-          },
-          geometry: {
-            type: "Polygon",
-            coordinates: [[
-              [-3, 36],
-              [1, 36],
-              [1, 44],
-              [-7, 44],
-              [-7, 39],
-              [-3, 39],
-              [-3, 36]
-            ]]
-          }
-        }
-      ]
-    };
+  async function loadMunicipalities() {
+    try {
+      console.log("Loading municipalities from SPARQL endpoint...");
+      const response = await fetch("/queries/select/municipalities.rq");
+      if (!response.ok) {
+        throw new Error(`Failed to load municipalities.rq query: ${response.status} ${response.statusText}`);
+      }
+      const municipalitiesQuery = await response.text();
+      console.log("Executing SPARQL query for municipalities...");
+      const bindings = await store.query(municipalitiesQuery);
+      console.log(`Received ${bindings.length} municipalities from SPARQL query`);
+      const municipalities = /* @__PURE__ */ new Map();
+      bindings.forEach((binding) => {
+        const id = binding.get("id").value;
+        const name = binding.get("name").value;
+        const region = binding.get("region") ? binding.get("region").value : "Unknown";
+        municipalities.set(name, { id, name, region });
+      });
+      return municipalities;
+    } catch (error) {
+      console.error("Error loading municipalities from SPARQL:", error);
+      return /* @__PURE__ */ new Map();
+    }
+  }
+  async function loadCeramicTypes() {
+    try {
+      console.log("Loading ceramic types from SPARQL endpoint...");
+      const response = await fetch("/queries/select/ceramic-types.rq");
+      if (!response.ok) {
+        throw new Error(`Failed to load ceramic-types.rq query: ${response.status} ${response.statusText}`);
+      }
+      const ceramicTypesQuery = await response.text();
+      console.log("Executing SPARQL query for ceramic types...");
+      const bindings = await store.query(ceramicTypesQuery);
+      console.log(`Received ${bindings.length} ceramic types from SPARQL query`);
+      const ceramicTypes = bindings.map((binding) => {
+        return {
+          id: binding.get("id").value,
+          name: binding.get("name").value,
+          description: binding.get("description") ? binding.get("description").value : "",
+          period: binding.get("period") ? binding.get("period").value : ""
+        };
+      });
+      return ceramicTypes;
+    } catch (error) {
+      console.error("Error loading ceramic types from SPARQL:", error);
+      return [];
+    }
+  }
+  async function loadAnalyticRegions() {
+    try {
+      console.log("Loading analytic regions from SPARQL endpoint...");
+      const response = await fetch("/queries/select/analytic-regions.rq");
+      if (!response.ok) {
+        throw new Error(`Failed to load analytic-regions.rq query: ${response.status} ${response.statusText}`);
+      }
+      const regionsQuery = await response.text();
+      console.log("Executing SPARQL query for analytic regions...");
+      const bindings = await store.query(regionsQuery);
+      console.log(`Received ${bindings.length} analytic regions from SPARQL query`);
+      const regions = bindings.map((binding) => {
+        return {
+          id: binding.get("id").value,
+          name: binding.get("name").value,
+          description: binding.get("description") ? binding.get("description").value : "",
+          geojson: binding.get("geojson") ? JSON.parse(binding.get("geojson").value) : null
+        };
+      });
+      return regions;
+    } catch (error) {
+      console.error("Error loading analytic regions from SPARQL:", error);
+      return [];
+    }
   }
   function sitesToGeoJSON(sites, period) {
     const features = sites.filter((site) => !period || site.periods.includes(period)).map((site) => ({
@@ -23294,10 +24761,12 @@ ${n6.shaderPreludeCode.vertexSource}`, define: n6.shaderDefine }, defaultProject
         ]);
       }
       if (this.currentRegionFilter !== "all") {
+        const lowerRegion = this.currentRegionFilter.toLowerCase();
+        console.log(`Applying region filter: ${this.currentRegionFilter} (${lowerRegion})`);
         filters.push([
           "any",
-          ["==", ["get", "region"], this.currentRegionFilter],
-          ["==", ["get", "provincia"], this.currentRegionFilter]
+          ["==", ["downcase", ["get", "region"]], lowerRegion],
+          ["==", ["downcase", ["get", "provincia"]], lowerRegion]
         ]);
       }
       if (this.currentPeriodFilter === "early-roman") {
@@ -23322,6 +24791,8 @@ ${n6.shaderPreludeCode.vertexSource}`, define: n6.shaderDefine }, defaultProject
         ]);
       }
       this.map.setFilter("points", filters);
+      const visibleFeatures = this.map.queryRenderedFeatures({ layers: ["points"] });
+      console.log(`Number of visible points after filtering: ${visibleFeatures.length}`);
     }
     updatePointColors() {
       if (!this.map) return;
@@ -23362,20 +24833,35 @@ ${n6.shaderPreludeCode.vertexSource}`, define: n6.shaderDefine }, defaultProject
       }
     }
     async showFeatures(collection) {
-      const source = await this.getPlacesSource();
-      source.setData(collection);
-      if (this.map && collection.features.length > 0) {
-        try {
-          const extent = bbox(collection);
-          this.map.fitBounds(extent, { padding: 50, maxZoom: 8 });
-        } catch (error) {
-          console.error("Error fitting bounds:", error);
+      try {
+        console.log(`Showing ${collection.features.length} features on the map`);
+        const source = await this.getPlacesSource();
+        source.setData({
+          type: "FeatureCollection",
+          features: []
+        });
+        source.setData(collection);
+        if (this.map && collection.features.length > 0) {
+          try {
+            console.log("Fitting map to feature bounds");
+            const extent = bbox(collection);
+            this.map.fitBounds(extent, { padding: 50, maxZoom: 8 });
+          } catch (error) {
+            console.error("Error fitting bounds:", error);
+            this.map.flyTo({ center: DEFAULT_CENTER, zoom: DEFAULT_ZOOM });
+          }
+        } else if (this.map) {
+          console.log("No features to show, resetting map view");
           this.map.flyTo({ center: DEFAULT_CENTER, zoom: DEFAULT_ZOOM });
         }
-      } else if (this.map) {
-        this.map.flyTo({ center: DEFAULT_CENTER, zoom: DEFAULT_ZOOM });
+        this.updatePointColors();
+        if (this.map) {
+          const visibleFeatures = this.map.queryRenderedFeatures({ layers: ["points"] });
+          console.log(`Number of visible points on the map: ${visibleFeatures.length}`);
+        }
+      } catch (error) {
+        console.error("Error in showFeatures:", error);
       }
-      this.updatePointColors();
     }
   };
   customElements.define("tile-map", TileMap);
@@ -23386,6 +24872,7 @@ ${n6.shaderPreludeCode.vertexSource}`, define: n6.shaderDefine }, defaultProject
       super(...arguments);
       this.sites = [];
       this.loading = true;
+      this.loadError = null;
       this.currentPeriod = "all";
       this.currentCeramicType = "all";
       this.currentSiteType = "all";
@@ -23393,15 +24880,25 @@ ${n6.shaderPreludeCode.vertexSource}`, define: n6.shaderDefine }, defaultProject
       this.filteredSitesCount = 0;
       this.showProvinces = false;
       this.provincesData = null;
+      this.municipalitiesData = null;
+      this.ceramicTypesData = [];
+      this.analyticRegionsData = [];
     }
     async firstUpdated() {
       try {
-        const [sites, provinces] = await Promise.all([
+        console.log("Ceramic Explorer: Loading data from SPARQL endpoint...");
+        this.loading = true;
+        this.loadError = null;
+        const [sites, provinces, municipalities, ceramicTypes, analyticRegions] = await Promise.all([
           loadSiteData(),
-          loadProvinces()
+          loadProvinces(),
+          loadMunicipalities(),
+          loadCeramicTypes(),
+          loadAnalyticRegions()
         ]);
         console.log("Data loaded in ceramic-explorer:");
         console.log(`Total sites: ${sites.length}`);
+        console.log(`Ceramic types: ${ceramicTypes.length}`);
         this.sites = sites;
         this.sites = this.sites.map((site) => {
           if (!site.region || site.region.trim() === "") {
@@ -23426,18 +24923,35 @@ ${n6.shaderPreludeCode.vertexSource}`, define: n6.shaderDefine }, defaultProject
         console.log(`Found ${provinciasSet.size} unique provincias: ${Array.from(provinciasSet).join(", ")}`);
         console.log(`Loaded ${this.sites.length} sites with ${this.sites.filter((s4) => s4.region && s4.region.trim() !== "").length} regions and ${this.sites.filter((s4) => s4.provincia && s4.provincia.trim() !== "").length} provincias`);
         this.provincesData = provinces;
+        this.municipalitiesData = municipalities;
+        this.ceramicTypesData = ceramicTypes;
+        this.analyticRegionsData = analyticRegions;
         this.filteredSitesCount = sites.length;
+        if (this.sites.length === 0) {
+          this.loadError = "No site data was returned from the SPARQL endpoint. Please check your query and endpoint configuration.";
+          this.loading = false;
+          return;
+        }
         const map = this.mapElement;
         if (map) {
-          const geoJSON = sitesToGeoJSON(this.sites);
-          await map.showFeatures(geoJSON);
-          if (this.provincesData) {
-            await map.addProvinces(this.provincesData);
+          try {
+            const geoJSON = sitesToGeoJSON(this.sites);
+            await map.showFeatures(geoJSON);
+            if (this.provincesData && this.provincesData.features && this.provincesData.features.length > 0) {
+              await map.addProvinces(this.provincesData);
+            }
+          } catch (mapError) {
+            console.error("Error initializing map:", mapError);
+            this.loadError = "Error initializing map. Please check console for details.";
           }
+        } else {
+          console.error("Map element not found");
+          this.loadError = "Map element not found. Please check your HTML template.";
         }
         this.loading = false;
       } catch (error) {
         console.error("Failed to load data:", error);
+        this.loadError = `Failed to load data from SPARQL endpoint: ${error instanceof Error ? error.message : "Unknown error"}`;
         this.loading = false;
       }
     }
@@ -23455,6 +24969,7 @@ ${n6.shaderPreludeCode.vertexSource}`, define: n6.shaderDefine }, defaultProject
     }
     handleRegionFilterChange(e6) {
       this.currentRegion = e6.detail.region;
+      console.log(`Region filter changed to: ${this.currentRegion}`);
       this.updateMap();
     }
     toggleProvinces() {
@@ -23465,26 +24980,47 @@ ${n6.shaderPreludeCode.vertexSource}`, define: n6.shaderDefine }, defaultProject
     }
     updateMap() {
       if (!this.mapElement) return;
-      let filteredSites = this.sites;
+      let filteredSites = [...this.sites];
       if (this.currentPeriod !== "all") {
         filteredSites = filteredSites.filter(
           (site) => site.periods.includes(this.currentPeriod)
         );
+        console.log(`After period filter (${this.currentPeriod}): ${filteredSites.length} sites`);
       }
       if (this.currentCeramicType !== "all") {
         filteredSites = filteredSites.filter(
           (site) => site.ceramics[this.currentCeramicType] === 1
         );
+        console.log(`After ceramic filter (${this.currentCeramicType}): ${filteredSites.length} sites`);
       }
       if (this.currentSiteType !== "all") {
         filteredSites = filteredSites.filter(
           (site) => site.siteType === this.currentSiteType || site.analysisType === this.currentSiteType
         );
+        console.log(`After site type filter (${this.currentSiteType}): ${filteredSites.length} sites`);
       }
       if (this.currentRegion !== "all") {
+        const regionValues = /* @__PURE__ */ new Set();
+        const provinciaValues = /* @__PURE__ */ new Set();
+        this.sites.slice(0, 20).forEach((site) => {
+          if (site.region) regionValues.add(site.region);
+          if (site.provincia) provinciaValues.add(site.provincia);
+        });
+        console.log(`Sample region values: ${Array.from(regionValues).join(", ")}`);
+        console.log(`Sample provincia values: ${Array.from(provinciaValues).join(", ")}`);
+        const lowerRegion = this.currentRegion.toLowerCase();
         filteredSites = filteredSites.filter(
-          (site) => site.region === this.currentRegion || site.provincia === this.currentRegion
+          (site) => site.region && site.region.toLowerCase() === lowerRegion || site.provincia && site.provincia.toLowerCase() === lowerRegion
         );
+        console.log(`After region filter (${this.currentRegion}): ${filteredSites.length} sites`);
+        if (filteredSites.length > 0) {
+          console.log("Sample filtered sites:");
+          filteredSites.slice(0, 3).forEach((site) => {
+            console.log(`- Site ${site.id}: region=${site.region}, provincia=${site.provincia}`);
+          });
+        } else {
+          console.warn(`No sites match the region filter "${this.currentRegion}"`);
+        }
       }
       this.filteredSitesCount = filteredSites.length;
       const geoJSON = sitesToGeoJSON(filteredSites);
@@ -23495,7 +25031,19 @@ ${n6.shaderPreludeCode.vertexSource}`, define: n6.shaderDefine }, defaultProject
         return x`
         <div class="loading">
           <div class="loading-spinner"></div>
-          <span>Loading data...</span>
+          <span>Loading data from SPARQL endpoint...</span>
+        </div>
+      `;
+      }
+      if (this.loadError) {
+        return x`
+        <div class="header">
+          <h1>Iberian Peninsula Ceramic Distribution Time Series Visualization</h1>
+        </div>
+        <div class="error-message">
+          <h2>Error Loading Data</h2>
+          <p>${this.loadError}</p>
+          <button @click=${this.retryLoading}>Retry</button>
         </div>
       `;
       }
@@ -23516,8 +25064,9 @@ ${n6.shaderPreludeCode.vertexSource}`, define: n6.shaderDefine }, defaultProject
         );
       }
       if (this.currentRegion !== "all") {
+        const lowerRegion = this.currentRegion.toLowerCase();
         filteredSites = filteredSites.filter(
-          (site) => site.region === this.currentRegion || site.provincia === this.currentRegion
+          (site) => site.region && site.region.toLowerCase() === lowerRegion || site.provincia && site.provincia.toLowerCase() === lowerRegion
         );
       }
       return x`
@@ -23584,6 +25133,9 @@ ${n6.shaderPreludeCode.vertexSource}`, define: n6.shaderDefine }, defaultProject
         </div>
       </div>
     `;
+    }
+    retryLoading() {
+      this.firstUpdated();
     }
   };
   CeramicExplorer.styles = i`
@@ -23681,6 +25233,15 @@ ${n6.shaderPreludeCode.vertexSource}`, define: n6.shaderDefine }, defaultProject
     .filter-section:last-child {
       border-bottom: none;
     }
+    
+    .error-message {
+      color: #e74c3c;
+      padding: 1rem;
+      background-color: #fadbd8;
+      border-radius: 4px;
+      margin: 1rem;
+      text-align: center;
+    }
   `;
   __decorateClass([
     r5()
@@ -23688,6 +25249,9 @@ ${n6.shaderPreludeCode.vertexSource}`, define: n6.shaderDefine }, defaultProject
   __decorateClass([
     r5()
   ], CeramicExplorer.prototype, "loading", 2);
+  __decorateClass([
+    r5()
+  ], CeramicExplorer.prototype, "loadError", 2);
   __decorateClass([
     r5()
   ], CeramicExplorer.prototype, "currentPeriod", 2);
@@ -23710,478 +25274,31 @@ ${n6.shaderPreludeCode.vertexSource}`, define: n6.shaderDefine }, defaultProject
     r5()
   ], CeramicExplorer.prototype, "provincesData", 2);
   __decorateClass([
+    r5()
+  ], CeramicExplorer.prototype, "municipalitiesData", 2);
+  __decorateClass([
+    r5()
+  ], CeramicExplorer.prototype, "ceramicTypesData", 2);
+  __decorateClass([
+    r5()
+  ], CeramicExplorer.prototype, "analyticRegionsData", 2);
+  __decorateClass([
     e5("#main-map")
   ], CeramicExplorer.prototype, "mapElement", 2);
   CeramicExplorer = __decorateClass([
     t3("ceramic-explorer")
   ], CeramicExplorer);
 
-  // webapp/src/mock-sparql.ts
-  console.log("Mock SPARQL module loading...");
-  var originalFetch = window.fetch;
-  window.fetch = async function(input, init) {
-    if (typeof input === "string" && input.includes("/api/sparql")) {
-      console.log("Intercepting SPARQL request:", input);
-      try {
-        const body = init?.body?.toString() || "";
-        console.log("Request body:", body);
-        if (body.includes("ArchaeologicalSite") || body.includes("site") || !body) {
-          console.log("Request for site data detected");
-          return handleSiteDataRequest();
-        } else if (body.includes("Province") || body.includes("province")) {
-          console.log("Request for province data detected");
-          return handleProvinceDataRequest();
-        } else if (body.includes("SiteType") || body.includes("siteType")) {
-          console.log("Request for site type data detected");
-          return handleSiteTypeDataRequest();
-        } else {
-          console.log("Unknown request type, defaulting to site data");
-          return handleSiteDataRequest();
-        }
-      } catch (error) {
-        console.error("Error processing SPARQL request:", error);
-        return new Response(JSON.stringify({
-          results: { bindings: [] }
-        }), {
-          status: 200,
-          headers: { "Content-Type": "application/json" }
-        });
-      }
-    }
-    return originalFetch(input, init);
-  };
-  async function handleSiteDataRequest() {
-    console.log("Loading site data from CSV...");
-    try {
-      const response = await originalFetch("/data/located-sites/located-sites.csv");
-      if (!response.ok) {
-        console.error("Failed to load site CSV:", response.status, response.statusText);
-        console.log("Trying alternative CSV path...");
-        const altResponse = await originalFetch("/data/located-sites/located-sites-TS_any.csv");
-        if (!altResponse.ok) {
-          console.error("Failed to load alternative site CSV:", altResponse.status, altResponse.statusText);
-          throw new Error("Could not load site data from any source");
-        }
-        return processSiteCSV(await altResponse.text());
-      }
-      const csvText = await response.text();
-      console.log("Site CSV loaded, length:", csvText.length, "bytes");
-      return processSiteCSV(csvText);
-    } catch (error) {
-      console.error("Error loading site data:", error);
-      return new Response(JSON.stringify({
-        results: { bindings: generateMockSiteData() }
-      }), {
-        status: 200,
-        headers: { "Content-Type": "application/json" }
-      });
-    }
-  }
-  function processSiteCSV(csvText) {
-    console.log("Processing site CSV data...");
-    const lines = csvText.split("\n");
-    if (lines.length <= 1) {
-      console.error("CSV data has too few lines:", lines.length);
-      return new Response(JSON.stringify({
-        results: { bindings: generateMockSiteData() }
-      }), {
-        status: 200,
-        headers: { "Content-Type": "application/json" }
-      });
-    }
-    const headers = lines[0].split(",").map((h3) => h3.trim());
-    console.log("CSV headers:", headers);
-    const idIndex = headers.indexOf("HLLG #") >= 0 ? headers.indexOf("HLLG #") : headers.indexOf("id");
-    const nameIndex = headers.indexOf("Site Name") >= 0 ? headers.indexOf("Site Name") : headers.indexOf("name");
-    const latIndex = headers.indexOf("Latitude") >= 0 ? headers.indexOf("Latitude") : headers.indexOf("lat");
-    const longIndex = headers.indexOf("Longitude") >= 0 ? headers.indexOf("Longitude") : headers.indexOf("long");
-    const siteTypeIndex = headers.indexOf("Site type") >= 0 ? headers.indexOf("Site type") : headers.indexOf("siteType");
-    const regionIndex = headers.indexOf("Region") >= 0 ? headers.indexOf("Region") : headers.indexOf("region");
-    const provinciaIndex = headers.indexOf("Provincia") >= 0 ? headers.indexOf("Provincia") : headers.indexOf("provincia");
-    console.log("Column indices:", { idIndex, nameIndex, latIndex, longIndex, siteTypeIndex, regionIndex, provinciaIndex });
-    if (idIndex === -1 || nameIndex === -1 || latIndex === -1 || longIndex === -1) {
-      console.error("Missing required columns in CSV");
-      return new Response(JSON.stringify({
-        results: { bindings: generateMockSiteData() }
-      }), {
-        status: 200,
-        headers: { "Content-Type": "application/json" }
-      });
-    }
-    const bindings = [];
-    for (let i5 = 1; i5 < lines.length; i5++) {
-      const line = lines[i5].trim();
-      if (!line) continue;
-      const values = line.split(",").map((v3) => v3.trim());
-      if (values.length < Math.max(idIndex, nameIndex, latIndex, longIndex) + 1) {
-        console.warn(`Line ${i5} has too few columns:`, values.length);
-        continue;
-      }
-      const id = values[idIndex];
-      const name = values[nameIndex];
-      const latitude = values[latIndex];
-      const longitude = values[longIndex];
-      if (!id || !name || !latitude || !longitude) {
-        console.warn(`Line ${i5} has missing required data`);
-        continue;
-      }
-      const lat = parseFloat(latitude);
-      const long = parseFloat(longitude);
-      const validLongRange = [-10, 5];
-      const validLatRange = [36, 44];
-      if (isNaN(lat) || isNaN(long) || lat < validLatRange[0] || lat > validLatRange[1] || long < validLongRange[0] || long > validLongRange[1]) {
-        console.warn(`Line ${i5} has coordinates outside of Iberia: [${long}, ${lat}]`);
-        continue;
-      }
-      const binding = {
-        id: { type: "literal", value: id },
-        name: { type: "literal", value: name },
-        latitude: { type: "literal", value: latitude },
-        longitude: { type: "literal", value: longitude }
-      };
-      let siteType = "Unknown";
-      if (siteTypeIndex !== -1 && siteTypeIndex < values.length) {
-        siteType = values[siteTypeIndex].trim();
-        if (siteType.toLowerCase().includes("villa")) siteType = "Villa";
-        else if (siteType.toLowerCase().includes("urban")) siteType = "Urban";
-        else if (siteType.toLowerCase().includes("rural")) siteType = "Rural";
-        else if (siteType.toLowerCase().includes("settlement")) siteType = "Settlement";
-        else if (siteType.toLowerCase().includes("necropolis")) siteType = "Necropolis";
-        else if (siteType.toLowerCase().includes("fort") && !siteType.toLowerCase().includes("hill")) siteType = "Fort";
-        else if (siteType.toLowerCase().includes("hillfort")) siteType = "Hillfort";
-        else if (siteType.toLowerCase().includes("industr")) siteType = "Industrial";
-        else if (siteType.toLowerCase().includes("port")) siteType = "Port";
-        else if (siteType.toLowerCase().includes("relig")) siteType = "Religious";
-      }
-      binding.siteType = { type: "literal", value: siteType };
-      if (regionIndex !== -1 && regionIndex < values.length) {
-        binding.region = { type: "literal", value: values[regionIndex].trim() || "Unknown Region" };
-      } else {
-        const regions = ["Lusitania", "Baetica", "Tarraconensis"];
-        binding.region = { type: "literal", value: regions[Math.floor(Math.random() * regions.length)] };
-      }
-      if (provinciaIndex !== -1 && provinciaIndex < values.length) {
-        binding.provincia = { type: "literal", value: values[provinciaIndex].trim() || "Unknown Provincia" };
-      } else {
-        const provincias = ["Gallecia", "Carthaginensis", "Baleares", "Hispania Ulterior", "Hispania Citerior"];
-        binding.provincia = { type: "literal", value: provincias[Math.floor(Math.random() * provincias.length)] };
-      }
-      headers.forEach((header, index) => {
-        if (index !== idIndex && index !== nameIndex && index !== latIndex && index !== longIndex && index !== siteTypeIndex && index !== regionIndex && index !== provinciaIndex && index < values.length && values[index]) {
-          if ([
-            "TSH",
-            "TSHT",
-            "TSHTB",
-            "TSHTM",
-            "TSG",
-            "DSP",
-            "ARSA",
-            "ARSC",
-            "ARSD",
-            "LRC",
-            "LRD",
-            "PRCW",
-            "TS_any",
-            "TS_early",
-            "TS_late",
-            "ARS_325",
-            "ARS_400",
-            "ARS_450",
-            "ARS_525",
-            "ARS_600"
-          ].includes(header)) {
-            binding[header] = { type: "literal", value: values[index] };
-          } else {
-            binding[header.replace(/\s+/g, "_")] = { type: "literal", value: values[index] };
-          }
-        }
-      });
-      const periods = [];
-      if (binding["TS_early"] && binding["TS_early"].value === "1") periods.push("early-roman");
-      if (binding["TS_late"] && binding["TS_late"].value === "1") periods.push("late-roman");
-      if (binding["ARS_450"] && binding["ARS_450"].value === "1" || binding["ARS_525"] && binding["ARS_525"].value === "1" || binding["ARS_600"] && binding["ARS_600"].value === "1") {
-        periods.push("post-roman");
-      }
-      if (periods.length === 0 && binding["TS_any"] && binding["TS_any"].value === "1") {
-        periods.push("early-roman");
-      }
-      if (periods.length === 0) {
-        periods.push("early-roman");
-      }
-      binding.periods = { type: "literal", value: JSON.stringify(periods) };
-      bindings.push(binding);
-    }
-    console.log(`Processed ${bindings.length} valid sites from CSV`);
-    if (bindings.length === 0) {
-      console.warn("No valid sites found in CSV, using mock data");
-      return new Response(JSON.stringify({
-        results: { bindings: generateMockSiteData() }
-      }), {
-        status: 200,
-        headers: { "Content-Type": "application/json" }
-      });
-    }
-    return new Response(JSON.stringify({
-      results: { bindings }
-    }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" }
-    });
-  }
-  async function handleProvinceDataRequest() {
-    console.log("Loading province data from GeoJSON...");
-    try {
-      const response = await originalFetch("/data/roman-provinces/Spain-Late-Antique-Provinces.geojson");
-      if (!response.ok) {
-        console.error("Failed to load province GeoJSON:", response.status, response.statusText);
-        throw new Error("Could not load province data");
-      }
-      const geojson = await response.json();
-      console.log("Province GeoJSON loaded, features:", geojson.features?.length);
-      if (!geojson.features || !Array.isArray(geojson.features) || geojson.features.length === 0) {
-        throw new Error("Invalid GeoJSON format or no features found");
-      }
-      const bindings = geojson.features.map((feature, index) => ({
-        id: { type: "literal", value: feature.properties?.id || `province-${index}` },
-        name: { type: "literal", value: feature.properties?.name || `Province ${index + 1}` },
-        geojson: { type: "literal", value: JSON.stringify(feature) }
-      }));
-      console.log(`Processed ${bindings.length} provinces from GeoJSON`);
-      return new Response(JSON.stringify({
-        results: { bindings }
-      }), {
-        status: 200,
-        headers: { "Content-Type": "application/json" }
-      });
-    } catch (error) {
-      console.error("Error loading province data:", error);
-      return new Response(JSON.stringify({
-        results: { bindings: generateMockProvinceData() }
-      }), {
-        status: 200,
-        headers: { "Content-Type": "application/json" }
-      });
-    }
-  }
-  async function handleSiteTypeDataRequest() {
-    console.log("Loading site type data from CSV...");
-    try {
-      const response = await originalFetch("/data/site-types/site-types.csv");
-      if (!response.ok) {
-        console.error("Failed to load site types CSV:", response.status, response.statusText);
-        throw new Error("Could not load site type data");
-      }
-      const csvText = await response.text();
-      console.log("Site types CSV loaded, length:", csvText.length, "bytes");
-      const lines = csvText.split("\n");
-      const headers = lines[0].split(",").map((h3) => h3.trim());
-      const idIndex = headers.indexOf("ID");
-      const nameIndex = headers.indexOf("Site_Type");
-      const labelIndex = headers.indexOf("prefLabel");
-      if (idIndex === -1 || nameIndex === -1) {
-        throw new Error("Missing required columns in site types CSV");
-      }
-      const bindings = [];
-      for (let i5 = 1; i5 < lines.length; i5++) {
-        const line = lines[i5].trim();
-        if (!line) continue;
-        const values = line.split(",").map((v3) => v3.trim());
-        if (values.length < Math.max(idIndex, nameIndex) + 1) continue;
-        const id = values[idIndex];
-        const name = values[nameIndex];
-        const label = labelIndex >= 0 && labelIndex < values.length ? values[labelIndex] : name;
-        bindings.push({
-          id: { type: "literal", value: id },
-          name: { type: "literal", value: name },
-          label: { type: "literal", value: label }
-        });
-      }
-      console.log(`Processed ${bindings.length} site types from CSV`);
-      if (bindings.length === 0) {
-        throw new Error("No valid site types found in CSV");
-      }
-      return new Response(JSON.stringify({
-        results: { bindings }
-      }), {
-        status: 200,
-        headers: { "Content-Type": "application/json" }
-      });
-    } catch (error) {
-      console.error("Error loading site type data:", error);
-      return new Response(JSON.stringify({
-        results: { bindings: generateMockSiteTypeData() }
-      }), {
-        status: 200,
-        headers: { "Content-Type": "application/json" }
-      });
-    }
-  }
-  function generateMockSiteData() {
-    console.log("Generating mock site data...");
-    const regions = ["Lusitania", "Baetica", "Tarraconensis"];
-    const provincias = ["Gallecia", "Carthaginensis", "Baleares", "Hispania Ulterior", "Hispania Citerior"];
-    const siteTypes = ["Villa", "Urban", "Rural", "Settlement", "Necropolis", "Fort", "Hillfort", "Industrial", "Port", "Religious"];
-    const bindings = [];
-    for (let i5 = 0; i5 < 50; i5++) {
-      const longitude = -9 + Math.random() * 10;
-      const latitude = 36 + Math.random() * 8;
-      const siteType = siteTypes[Math.floor(Math.random() * siteTypes.length)];
-      const region = regions[Math.floor(Math.random() * regions.length)];
-      const provincia = provincias[Math.floor(Math.random() * provincias.length)];
-      const binding = {
-        id: { type: "literal", value: `MOCK-${i5 + 1}` },
-        name: { type: "literal", value: `Archaeological Site ${i5 + 1}` },
-        latitude: { type: "literal", value: latitude.toString() },
-        longitude: { type: "literal", value: longitude.toString() },
-        region: { type: "literal", value: region },
-        provincia: { type: "literal", value: provincia },
-        siteType: { type: "literal", value: siteType },
-        // Also add analysisType to ensure filters work properly
-        analysisType: { type: "literal", value: siteType }
-      };
-      [
-        "TSH",
-        "TSHT",
-        "TSHTB",
-        "TSHTM",
-        "TSG",
-        "DSP",
-        "ARSA",
-        "ARSC",
-        "ARSD",
-        "LRC",
-        "LRD",
-        "PRCW",
-        "TS_any",
-        "TS_early",
-        "TS_late"
-      ].forEach((type) => {
-        binding[type] = { type: "literal", value: Math.random() > 0.7 ? "1" : "0" };
-      });
-      if (Object.keys(binding).every((key) => ![
-        "TSH",
-        "TSHT",
-        "TSHTB",
-        "TSHTM",
-        "TSG",
-        "DSP",
-        "ARSA",
-        "ARSC",
-        "ARSD",
-        "LRC",
-        "LRD",
-        "PRCW"
-      ].includes(key) || binding[key].value === "0")) {
-        binding["TSH"] = { type: "literal", value: "1" };
-        binding["TS_any"] = { type: "literal", value: "1" };
-      }
-      const periods = [];
-      if (binding["TS_early"] && binding["TS_early"].value === "1") periods.push("early-roman");
-      if (binding["TS_late"] && binding["TS_late"].value === "1") periods.push("late-roman");
-      if (Math.random() > 0.7) periods.push("post-roman");
-      if (periods.length === 0) periods.push("early-roman");
-      binding.periods = { type: "literal", value: JSON.stringify(periods) };
-      bindings.push(binding);
-    }
-    console.log(`Generated ${bindings.length} mock sites with regions and provincias`);
-    return bindings;
-  }
-  function generateMockProvinceData() {
-    console.log("Generating mock province data...");
-    return [
-      {
-        id: { type: "literal", value: "lusitania" },
-        name: { type: "literal", value: "Lusitania" },
-        geojson: { type: "literal", value: JSON.stringify({
-          type: "Feature",
-          properties: { id: "lusitania", name: "Lusitania" },
-          geometry: {
-            type: "Polygon",
-            coordinates: [[
-              [-9, 37],
-              [-7, 37],
-              [-7, 41],
-              [-9, 41],
-              [-9, 37]
-            ]]
-          }
-        }) }
-      },
-      {
-        id: { type: "literal", value: "baetica" },
-        name: { type: "literal", value: "Baetica" },
-        geojson: { type: "literal", value: JSON.stringify({
-          type: "Feature",
-          properties: { id: "baetica", name: "Baetica" },
-          geometry: {
-            type: "Polygon",
-            coordinates: [[
-              [-7, 36],
-              [-3, 36],
-              [-3, 39],
-              [-7, 39],
-              [-7, 36]
-            ]]
-          }
-        }) }
-      },
-      {
-        id: { type: "literal", value: "tarraconensis" },
-        name: { type: "literal", value: "Tarraconensis" },
-        geojson: { type: "literal", value: JSON.stringify({
-          type: "Feature",
-          properties: { id: "tarraconensis", name: "Tarraconensis" },
-          geometry: {
-            type: "Polygon",
-            coordinates: [[
-              [-3, 36],
-              [1, 36],
-              [1, 44],
-              [-7, 44],
-              [-7, 39],
-              [-3, 39],
-              [-3, 36]
-            ]]
-          }
-        }) }
-      }
-    ];
-  }
-  function generateMockSiteTypeData() {
-    console.log("Generating mock site type data...");
-    return [
-      { id: { type: "literal", value: "Villa" }, name: { type: "literal", value: "Villa" }, label: { type: "literal", value: "Villa" } },
-      { id: { type: "literal", value: "Urban" }, name: { type: "literal", value: "Urban" }, label: { type: "literal", value: "Urban" } },
-      { id: { type: "literal", value: "Rural" }, name: { type: "literal", value: "Rural" }, label: { type: "literal", value: "Rural" } },
-      { id: { type: "literal", value: "Settlement" }, name: { type: "literal", value: "Settlement" }, label: { type: "literal", value: "Settlement" } },
-      { id: { type: "literal", value: "Necropolis" }, name: { type: "literal", value: "Necropolis" }, label: { type: "literal", value: "Necropolis" } },
-      { id: { type: "literal", value: "Fort" }, name: { type: "literal", value: "Fort" }, label: { type: "literal", value: "Fort" } },
-      { id: { type: "literal", value: "Hillfort" }, name: { type: "literal", value: "Hillfort" }, label: { type: "literal", value: "Hillfort" } },
-      { id: { type: "literal", value: "Industrial" }, name: { type: "literal", value: "Industrial" }, label: { type: "literal", value: "Industrial" } },
-      { id: { type: "literal", value: "Port" }, name: { type: "literal", value: "Port" }, label: { type: "literal", value: "Port" } },
-      { id: { type: "literal", value: "Religious" }, name: { type: "literal", value: "Religious" }, label: { type: "literal", value: "Religious" } }
-    ];
-  }
-  function initMockSparql() {
-    console.log("Mock SPARQL processor initialized");
-    setTimeout(() => {
-      console.log("Pre-loading CSV data...");
-      originalFetch("/data/located-sites/located-sites.csv").then((r6) => r6.text()).then((text) => console.log("Pre-loaded site data, length:", text.length)).catch((e6) => console.warn("Failed to pre-load site data:", e6));
-    }, 1e3);
-  }
-
   // webapp/src/index.ts
-  initMockSparql();
   document.addEventListener("DOMContentLoaded", () => {
     console.log("Iberian Peninsula Ceramic Distribution Time Series Visualization App Loaded");
-    console.log("\u786E\u4FDDregion-filter\u7EC4\u4EF6\u6B63\u5E38\u5DE5\u4F5C...");
     const existingExplorer = document.querySelector("ceramic-explorer");
     if (!existingExplorer) {
       const explorer = document.createElement("ceramic-explorer");
       document.body.appendChild(explorer);
-      console.log("\u521B\u5EFA\u4E86ceramic-explorer\u7EC4\u4EF6");
+      console.log("Created ceramic-explorer component");
     } else {
-      console.log("\u5DF2\u5B58\u5728ceramic-explorer\u7EC4\u4EF6");
+      console.log("Ceramic-explorer component already exists");
     }
   });
 })();

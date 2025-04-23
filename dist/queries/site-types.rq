@@ -1,0 +1,74 @@
+PREFIX xyz: <http://sparql.xyz/facade-x/data/>
+PREFIX fx: <http://sparql.xyz/facade-x/ns/>
+PREFIX for: <https://dkglab.github.io/ns/for/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX wiki: <https://www.wikidata.org/entity/>
+PREFIX ple: <https://pleiades.stoa.org/vocabularies/place-types/>
+
+CONSTRUCT {
+  ?siteType a skos:Concept ;
+    skos:prefLabel ?prefLabel ;
+    dcterms:identifier ?id ;
+    skos:broader ?broaderSiteType ;
+    skos:closeMatch ?wikiEntity ;
+    skos:closeMatch ?pleiadesPlaceType ;
+    skos:definition ?siteTypeDefinition ;
+    skos:inScheme <https://dkglab.github.io/ns/for/kos/site-types> ;
+    skos:note ?wikiDefinition ; 
+    skos:note ?pleiadesDefinition ;
+    .
+    
+   <https://dkglab.github.io/ns/for/kos/site-types> a skos:ConceptScheme ;
+    dcterms:title "Site Types Concept Scheme" ;
+    dcterms:description "A SKOS-based concept scheme for linking and managing site types within a structured knowledge graph." ;
+    dcterms:creator "Dr. Henry Gruber, PhD" .
+}
+
+WHERE {
+  SERVICE <x-sparql-anything:location=data/site-types/site-types.csv> {
+    fx:properties
+      fx:trim-strings true ;
+      fx:csv.headers true ;
+      fx:csv.null-string  "" ;
+      .
+
+    ?row
+      xyz:ID ?id ;
+      xyz:prefLabel ?prefLabel ;
+      .
+
+    BIND(fx:entity(for:, "site-type/", ?id) as ?siteType)
+
+    OPTIONAL {
+      ?row xyz:broader ?broaderId
+      BIND(fx:entity(for:, "site-type/", ?broaderId) AS ?broaderSiteType)
+    }
+
+    OPTIONAL {
+      ?row xyz:wiki_id ?wikiId
+      BIND(fx:entity(wiki:, ?wikiId) AS ?wikiEntity)
+    }
+
+    OPTIONAL {
+      ?row xyz:pleiades_place ?pleiadesPlaceTypeId
+      BIND(fx:entity(ple:, ?pleiadesPlaceTypeId) AS ?pleiadesPlaceType)
+    }
+
+    OPTIONAL {
+      ?row xyz:definition ?siteTypeDefinition
+    }
+
+OPTIONAL {
+  ?row xyz:wikiDef ?wikiDefinitionRaw
+  BIND(CONCAT("Wikidata: ", ?wikiDefinitionRaw) AS ?wikiDefinition)
+}
+
+OPTIONAL {
+  ?row xyz:pleiadesDef ?pleiadesDefinitionRaw
+  BIND(CONCAT("Pleiades: ", ?pleiadesDefinitionRaw) AS ?pleiadesDefinition)
+}
+  }
+}

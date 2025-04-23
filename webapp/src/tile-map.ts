@@ -329,12 +329,18 @@ class TileMap extends HTMLElement {
       ]);
     }
     
-    // Add region filter
+    // Add region filter with improved case-insensitive comparison
     if (this.currentRegionFilter !== 'all') {
+      // Create case-insensitive comparison for region filter
+      const lowerRegion = this.currentRegionFilter.toLowerCase();
+      
+      // Log for debugging
+      console.log(`Applying region filter: ${this.currentRegionFilter} (${lowerRegion})`);
+      
       filters.push([
         "any",
-        ['==', ['get', 'region'], this.currentRegionFilter],
-        ['==', ['get', 'provincia'], this.currentRegionFilter]
+        ['==', ['downcase', ['get', 'region']], lowerRegion],
+        ['==', ['downcase', ['get', 'provincia']], lowerRegion]
       ]);
     }
     
@@ -363,6 +369,10 @@ class TileMap extends HTMLElement {
     
     // Apply filters with type assertion to fix the type error
     this.map.setFilter('points', filters as FilterSpecification);
+    
+    // Log how many points are visible after filtering
+    const visibleFeatures = this.map.queryRenderedFeatures({ layers: ['points'] });
+    console.log(`Number of visible points after filtering: ${visibleFeatures.length}`);
   }
 
   updatePointColors() {
@@ -418,24 +428,48 @@ class TileMap extends HTMLElement {
   }
 
   async showFeatures(collection: FeatureCollection) {
-    const source = await this.getPlacesSource();
-    source.setData(collection);
+    try {
+      console.log(`Showing ${collection.features.length} features on the map`);
+      
+      // Get the source
+      const source = await this.getPlacesSource();
+      
+      // Clear existing data by setting an empty collection first
+      source.setData({
+        type: "FeatureCollection",
+        features: []
+      });
+      
+      // Now set the new data
+      source.setData(collection);
 
-    if (this.map && collection.features.length > 0) {
-      // Use type assertion to ensure correct bbox type
-      try {
-        const extent = turf.bbox(collection) as unknown as LngLatBoundsLike;
-        this.map.fitBounds(extent, { padding: 50, maxZoom: 8 });
-      } catch (error) {
-        console.error("Error fitting bounds:", error);
+      // Only fit to bounds if there are features
+      if (this.map && collection.features.length > 0) {
+        // Use type assertion to ensure correct bbox type
+        try {
+          console.log("Fitting map to feature bounds");
+          const extent = turf.bbox(collection) as unknown as LngLatBoundsLike;
+          this.map.fitBounds(extent, { padding: 50, maxZoom: 8 });
+        } catch (error) {
+          console.error("Error fitting bounds:", error);
+          this.map.flyTo({ center: DEFAULT_CENTER, zoom: DEFAULT_ZOOM });
+        }
+      } else if (this.map) {
+        console.log("No features to show, resetting map view");
         this.map.flyTo({ center: DEFAULT_CENTER, zoom: DEFAULT_ZOOM });
       }
-    } else if (this.map) {
-      this.map.flyTo({ center: DEFAULT_CENTER, zoom: DEFAULT_ZOOM });
+      
+      // Update point colors
+      this.updatePointColors();
+      
+      // Log the number of visible points on the map
+      if (this.map) {
+        const visibleFeatures = this.map.queryRenderedFeatures({ layers: ['points'] });
+        console.log(`Number of visible points on the map: ${visibleFeatures.length}`);
+      }
+    } catch (error) {
+      console.error("Error in showFeatures:", error);
     }
-    
-    // Update point colors
-    this.updatePointColors();
   }
 }
 

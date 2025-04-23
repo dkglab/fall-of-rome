@@ -1,0 +1,58 @@
+PREFIX xyz: <http://sparql.xyz/facade-x/data/>
+PREFIX fx: <http://sparql.xyz/facade-x/ns/>
+PREFIX for: <https://dkglab.github.io/ns/for/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX pno: <http://linked.data.gov.au/def/placenames/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT {
+  ?Provincia a pno:Place ;
+      dcterms:identifier ?id ;
+      pno:hasPlaceName ?provincia_place_name_for_uri ;
+      skos:closeMatch ?provincia_wiki_uri , ?provincia_pleiades_uri ;
+      a geo:Feature ;
+      geo:hasGeometry [ geo:asWKT ?wktLiteral ] ;
+      .
+  ?provincia_place_name_for_uri a pno:PlaceName ;
+      pno:name ?provincia_label .     
+
+  for:roman-provinces a geo:FeatureCollection ;
+    rdfs:member ?Provincia ;
+    dcterms:title "Roman provinces" ;
+    .
+}
+WHERE {
+  SERVICE <x-sparql-anything:location=data/roman-provinces/roman-provinces.csv> {
+    fx:properties fx:csv.headers "true" .
+
+    ?row xyz:provincia_wiki_name ?provincia_wiki_name ;
+         xyz:provincia_wiki_uri ?provincia_wiki_uri_string ;
+         xyz:provincia_pleiades_uri ?provincia_pleiades_uri_string ;
+         xyz:provincia_alter_name ?provincia_alter_name .
+
+    BIND(REPLACE(?provincia_wiki_name, " ", "-") AS ?id)
+    # Mint new Place URIs using the fx:entity function
+    BIND(fx:entity(for:, "place/", ?id) AS ?Provincia)
+    # Mint new Place name URIs using the fx:entity function 
+    BIND(fx:entity(for:, "place-name/", ?id) AS ?provincia_place_name_for_uri)
+    BIND(?provincia_wiki_name AS ?provincia_label)    
+    BIND(URI(?provincia_wiki_uri_string) AS ?provincia_wiki_uri)
+    BIND(URI(?provincia_pleiades_uri_string) AS ?provincia_pleiades_uri)
+    
+    }
+
+  SERVICE <x-sparql-anything:location=data/roman-provinces/Spain-Late-Antique-Provinces.wkt.json> {
+    fx:properties fx:media-type "application/json" ;
+      # fx:json.literalize "geometry" ;
+      .
+    # Access geometry and coordinates.  
+    ?feature xyz:properties/xyz:Name ?provinceName ;
+             xyz:geometry ?wktLiteralString .         
+    
+    BIND(STRDT(?wktLiteralString, geo:wktLiteral) AS ?wktLiteral)
+    BIND(?provinceName AS ?provincia_alter_name)     
+  }
+}

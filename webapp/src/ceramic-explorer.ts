@@ -1,7 +1,11 @@
 // ceramic-explorer.ts
 import { LitElement, html, css } from "lit";
 import { customElement, state, query } from "lit/decorators.js";
-import { loadSiteData, sitesToGeoJSON, loadProvinces, getCeramicCounts, getRegionCounts, getPeriodCounts } from "./data-loader";
+import { 
+  loadSiteData, sitesToGeoJSON, loadProvinces, 
+  loadMunicipalities, loadCeramicTypes, loadAnalyticRegions,
+  getCeramicCounts, getRegionCounts, getPeriodCounts 
+} from "./data-loader";
 import type { SiteData } from "./data-loader";
 import "./time-slider";
 import "./ceramic-filter";
@@ -107,6 +111,15 @@ export class CeramicExplorer extends LitElement {
     .filter-section:last-child {
       border-bottom: none;
     }
+    
+    .error-message {
+      color: #e74c3c;
+      padding: 1rem;
+      background-color: #fadbd8;
+      border-radius: 4px;
+      margin: 1rem;
+      text-align: center;
+    }
   `;
 
   @state()
@@ -114,6 +127,9 @@ export class CeramicExplorer extends LitElement {
   
   @state()
   private loading = true;
+  
+  @state()
+  private loadError: string | null = null;
   
   @state()
   private currentPeriod = "all";
@@ -135,6 +151,15 @@ export class CeramicExplorer extends LitElement {
   
   @state()
   private provincesData: any = null;
+  
+  @state()
+  private municipalitiesData: any = null;
+  
+  @state()
+  private ceramicTypesData: any[] = [];
+  
+  @state()
+  private analyticRegionsData: any[] = [];
 
   // Add @query decorator to solve shadowRoot issues
   @query("#main-map")
@@ -142,25 +167,33 @@ export class CeramicExplorer extends LitElement {
 
   async firstUpdated() {
     try {
-      // Load data in parallel
-      const [sites, provinces] = await Promise.all([
+      console.log("Ceramic Explorer: Loading data from SPARQL endpoint...");
+      this.loading = true;
+      this.loadError = null;
+      
+      // Load data in parallel using Promise.all
+      const [sites, provinces, municipalities, ceramicTypes, analyticRegions] = await Promise.all([
         loadSiteData(),
-        loadProvinces()
+        loadProvinces(),
+        loadMunicipalities(),
+        loadCeramicTypes(),
+        loadAnalyticRegions()
       ]);
       
       console.log("Data loaded in ceramic-explorer:");
       console.log(`Total sites: ${sites.length}`);
+      console.log(`Ceramic types: ${ceramicTypes.length}`);
       
       this.sites = sites;
       
-      // 确保sites数据中包含region和provincia属性
+      // Ensure sites data includes region and provincia properties
       this.sites = this.sites.map(site => {
-        // 确保存在region
+        // Ensure region exists
         if (!site.region || site.region.trim() === "") {
           site.region = "Unknown Region";
         }
         
-        // 确保存在provincia
+        // Ensure provincia exists
         if (!site.provincia || site.provincia.trim() === "") {
           site.provincia = "Unknown Province";
         }
@@ -168,7 +201,7 @@ export class CeramicExplorer extends LitElement {
         return site;
       });
       
-      // 检查加载的数据中region和provincia的分布情况
+      // Check the distribution of region and provincia in the loaded data
       const regionSet = new Set<string>();
       const provinciasSet = new Set<string>();
       
@@ -187,25 +220,44 @@ export class CeramicExplorer extends LitElement {
       console.log(`Loaded ${this.sites.length} sites with ${this.sites.filter(s => s.region && s.region.trim() !== "").length} regions and ${this.sites.filter(s => s.provincia && s.provincia.trim() !== "").length} provincias`);
       
       this.provincesData = provinces;
+      this.municipalitiesData = municipalities;
+      this.ceramicTypesData = ceramicTypes;
+      this.analyticRegionsData = analyticRegions;
       this.filteredSitesCount = sites.length;
+      
+      // Check if we have data
+      if (this.sites.length === 0) {
+        this.loadError = "No site data was returned from the SPARQL endpoint. Please check your query and endpoint configuration.";
+        this.loading = false;
+        return;
+      }
       
       // Get map element - use @query decorator defined property
       const map = this.mapElement;
       
       // Show all sites
       if (map) {
-        const geoJSON = sitesToGeoJSON(this.sites);
-        await (map as any).showFeatures(geoJSON);
-        
-        // Load province boundaries
-        if (this.provincesData) {
-          await (map as any).addProvinces(this.provincesData);
+        try {
+          const geoJSON = sitesToGeoJSON(this.sites);
+          await (map as any).showFeatures(geoJSON);
+          
+          // Load province boundaries
+          if (this.provincesData && this.provincesData.features && this.provincesData.features.length > 0) {
+            await (map as any).addProvinces(this.provincesData);
+          }
+        } catch (mapError) {
+          console.error("Error initializing map:", mapError);
+          this.loadError = "Error initializing map. Please check console for details.";
         }
+      } else {
+        console.error("Map element not found");
+        this.loadError = "Map element not found. Please check your HTML template.";
       }
       
       this.loading = false;
     } catch (error) {
       console.error("Failed to load data:", error);
+      this.loadError = `Failed to load data from SPARQL endpoint: ${error instanceof Error ? error.message : 'Unknown error'}`;
       this.loading = false;
     }
   }
@@ -227,6 +279,7 @@ export class CeramicExplorer extends LitElement {
   
   handleRegionFilterChange(e: CustomEvent) {
     this.currentRegion = e.detail.region;
+    console.log(`Region filter changed to: ${this.currentRegion}`);
     this.updateMap();
   }
   
@@ -244,13 +297,14 @@ export class CeramicExplorer extends LitElement {
     if (!this.mapElement) return;
     
     // Filter data
-    let filteredSites = this.sites;
+    let filteredSites = [...this.sites]; // Create a copy to avoid modifying the original
     
     // Apply period filter
     if (this.currentPeriod !== "all") {
       filteredSites = filteredSites.filter(site => 
         site.periods.includes(this.currentPeriod)
       );
+      console.log(`After period filter (${this.currentPeriod}): ${filteredSites.length} sites`);
     }
     
     // Apply ceramic type filter
@@ -258,6 +312,7 @@ export class CeramicExplorer extends LitElement {
       filteredSites = filteredSites.filter(site => 
         site.ceramics[this.currentCeramicType] === 1
       );
+      console.log(`After ceramic filter (${this.currentCeramicType}): ${filteredSites.length} sites`);
     }
     
     // Apply site type filter
@@ -266,14 +321,39 @@ export class CeramicExplorer extends LitElement {
         site.siteType === this.currentSiteType || 
         site.analysisType === this.currentSiteType
       );
+      console.log(`After site type filter (${this.currentSiteType}): ${filteredSites.length} sites`);
     }
     
-    // Apply region filter
+    // Apply region filter - improved with case-insensitive comparison and debug logging
     if (this.currentRegion !== "all") {
+      // Log region values for debugging
+      const regionValues = new Set<string>();
+      const provinciaValues = new Set<string>();
+      this.sites.slice(0, 20).forEach(site => {
+        if (site.region) regionValues.add(site.region);
+        if (site.provincia) provinciaValues.add(site.provincia);
+      });
+      console.log(`Sample region values: ${Array.from(regionValues).join(', ')}`);
+      console.log(`Sample provincia values: ${Array.from(provinciaValues).join(', ')}`);
+      
+      // Use case-insensitive comparison for more robust filtering
+      const lowerRegion = this.currentRegion.toLowerCase();
       filteredSites = filteredSites.filter(site => 
-        site.region === this.currentRegion || 
-        site.provincia === this.currentRegion
+        (site.region && site.region.toLowerCase() === lowerRegion) || 
+        (site.provincia && site.provincia.toLowerCase() === lowerRegion)
       );
+      
+      console.log(`After region filter (${this.currentRegion}): ${filteredSites.length} sites`);
+      
+      // Debug the first few filtered sites
+      if (filteredSites.length > 0) {
+        console.log("Sample filtered sites:");
+        filteredSites.slice(0, 3).forEach(site => {
+          console.log(`- Site ${site.id}: region=${site.region}, provincia=${site.provincia}`);
+        });
+      } else {
+        console.warn(`No sites match the region filter "${this.currentRegion}"`);
+      }
     }
     
     this.filteredSitesCount = filteredSites.length;
@@ -288,7 +368,20 @@ export class CeramicExplorer extends LitElement {
       return html`
         <div class="loading">
           <div class="loading-spinner"></div>
-          <span>Loading data...</span>
+          <span>Loading data from SPARQL endpoint...</span>
+        </div>
+      `;
+    }
+    
+    if (this.loadError) {
+      return html`
+        <div class="header">
+          <h1>Iberian Peninsula Ceramic Distribution Time Series Visualization</h1>
+        </div>
+        <div class="error-message">
+          <h2>Error Loading Data</h2>
+          <p>${this.loadError}</p>
+          <button @click=${this.retryLoading}>Retry</button>
         </div>
       `;
     }
@@ -316,9 +409,10 @@ export class CeramicExplorer extends LitElement {
     }
     
     if (this.currentRegion !== "all") {
+      const lowerRegion = this.currentRegion.toLowerCase();
       filteredSites = filteredSites.filter(site => 
-        site.region === this.currentRegion || 
-        site.provincia === this.currentRegion
+        (site.region && site.region.toLowerCase() === lowerRegion) || 
+        (site.provincia && site.provincia.toLowerCase() === lowerRegion)
       );
     }
     
@@ -386,5 +480,9 @@ export class CeramicExplorer extends LitElement {
         </div>
       </div>
     `;
+  }
+  
+  retryLoading() {
+    this.firstUpdated();
   }
 }

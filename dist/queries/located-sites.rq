@@ -1,0 +1,72 @@
+PREFIX xyz: <http://sparql.xyz/facade-x/data/>
+PREFIX fx: <http://sparql.xyz/facade-x/ns/>
+PREFIX for: <https://dkglab.github.io/ns/for/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX apf: <http://jena.apache.org/ARQ/property#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+
+CONSTRUCT {
+  ?site a geo:Feature ;
+    skos:prefLabel ?site_name ;
+    skos:altLabel ?processed ;
+    geo:hasGeometry ?geo ;
+    for:hasArtifactType ?mct ;
+    for:towns ?towns ;
+    for:siteType ?siteType ;
+    for:municipality ?actualMuni ;
+    .
+
+  ?geo geo:asWKT ?wkt .
+
+  for:located-sites a geo:FeatureCollection ;
+    rdfs:member ?site ;
+    dct:title "Located sites" ;
+    .
+}
+WHERE {
+  SERVICE <x-sparql-anything:data/located-sites/input.csv> {
+    fx:properties
+      fx:trim-strings true ;
+      fx:csv.headers true ;
+      .
+
+    ?row xyz:HLLG%20%23 ?hllg_number .
+    ?row xyz:Site%20Name ?site_name .
+    ?row xyz:processed ?processed .
+    ?row xyz:towns ?joined_towns.
+    ?row xyz:Longitude ?longitude .
+    ?row xyz:Latitude ?latitude .
+    ?row ?mct "1" .
+    ?row xyz:Site%20type ?rawSiteType .
+
+    OPTIONAL {
+      ?towns apf:strSplit (?joined_towns ',')
+      FILTER(STR(?towns) != '')
+    }
+
+    BIND(fx:entity(for:, "site/", ?hllg_number) as ?site)
+    BIND(fx:entity(for:, "site/", ?hllg_number, "/geo") as ?geo)
+    BIND(STRDT(
+      CONCAT("POINT(", ?longitude, " ", ?latitude, ")"),
+      geo:wktLiteral) as ?wkt)
+  }
+
+  # TODO: Replace with simply querying dataset when rdf is deployed to github pages
+  SERVICE <x-sparql-anything:location=graph/site-types.ttl> {
+    ?siteType skos:prefLabel ?rawSiteType .
+  }
+
+  OPTIONAL {
+    SERVICE <x-sparql-anything:location=graph/municipalities.ttl> {
+      ?actualMuni rdf:type geo:Feature ;
+        geo:hasGeometry ?munigeo
+        .
+      ?munigeo geo:asWKT ?muniwkt .
+    }
+    FILTER(geof:sfWithin(?wkt, ?muniwkt))
+  }
+}

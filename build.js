@@ -1,36 +1,76 @@
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
-// Create directory if it doesn't exist
-function ensureDirectoryExists(dirPath) {
-  if (!fs.existsSync(dirPath)) {
-    fs.mkdirSync(dirPath, { recursive: true });
-  }
+// Ensure dist directory exists
+const distDir = path.join(__dirname, "dist");
+if (!fs.existsSync(distDir)) {
+  fs.mkdirSync(distDir, { recursive: true });
 }
 
-// Copy file from source to destination
-function copyFile(source, destination) {
-  try {
-    ensureDirectoryExists(path.dirname(destination));
-    if (fs.existsSync(source)) {
-      fs.copyFileSync(source, destination);
-      console.log(`Copied ${source} to ${destination}`);
-    } else {
-      console.warn(`Warning: ${source} does not exist`);
+// Copy SPARQL query files to dist directory
+const queriesDir = path.join(__dirname, "queries");
+const distQueriesDir = path.join(distDir, "queries");
+
+if (!fs.existsSync(distQueriesDir)) {
+  fs.mkdirSync(distQueriesDir, { recursive: true });
+}
+
+// Copy query files
+if (fs.existsSync(queriesDir)) {
+  fs.readdirSync(queriesDir).forEach(file => {
+    if (file.endsWith('.rq')) {
+      fs.copyFileSync(
+        path.join(queriesDir, file),
+        path.join(distQueriesDir, file)
+      );
     }
-  } catch (err) {
-    console.error(`Error copying ${source} to ${destination}:`, err);
-  }
+  });
 }
 
-// Create index.html
-function createIndexHtml() {
-  const html = `<!DOCTYPE html>
+// Copy TTL data file
+const dataSource = path.join(__dirname, "graph", "inferred.ttl");
+const dataTarget = path.join(distDir, "data.ttl");
+if (fs.existsSync(dataSource)) {
+  fs.copyFileSync(dataSource, dataTarget);
+  console.log(`Copied ${dataSource} to ${dataTarget}`);
+} else {
+  console.warn(`Warning: ${dataSource} does not exist`);
+}
+
+// Build webapp
+try {
+  console.log("Building web application...");
+  execSync('cd webapp && npm run build', { stdio: 'inherit' });
+  
+  // Copy webapp build files to dist
+  const webappBuildDir = path.join(__dirname, "webapp", "build");
+  if (fs.existsSync(webappBuildDir)) {
+    fs.readdirSync(webappBuildDir).forEach(file => {
+      fs.copyFileSync(
+        path.join(webappBuildDir, file),
+        path.join(distDir, file)
+      );
+    });
+    console.log("Copied webapp build files to dist");
+  } else {
+    console.warn("Warning: webapp build directory does not exist");
+  }
+} catch (error) {
+  console.error("Error building webapp:", error);
+}
+
+// Create index.html if it doesn't exist
+const indexFile = path.join(distDir, "index.html");
+if (!fs.existsSync(indexFile)) {
+  const indexContent = `
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iberian Peninsula Ceramic Distribution Time Series Visualization</title>
+  <title>Iberian Peninsula Ceramic Distribution</title>
+  <link rel="stylesheet" href="maplibre-gl.css">
   <style>
     body, html {
       margin: 0;
@@ -41,46 +81,13 @@ function createIndexHtml() {
   </style>
 </head>
 <body>
-  <script src="index.js"></script>
+  <ceramic-explorer></ceramic-explorer>
+  <script src="ceramic-explorer.js"></script>
 </body>
-</html>`;
-
-  fs.writeFileSync('webapp/dist/index.html', html);
-  console.log('Created index.html');
+</html>
+  `;
+  fs.writeFileSync(indexFile, indexContent);
+  console.log("Created index.html");
 }
 
-// Main build process
-function build() {
-  // Ensure dist directory exists
-  ensureDirectoryExists('webapp/dist');
-  
-  // Ensure data directories exist
-  ensureDirectoryExists('webapp/dist/data/located-sites');
-  ensureDirectoryExists('webapp/dist/data/roman-provinces');
-  ensureDirectoryExists('webapp/dist/data/site-types');
-  ensureDirectoryExists('webapp/dist/data/ceramic-types');
-  
-  // Copy data files
-  // Located sites
-  copyFile('data/located-sites/located-sites.csv', 'webapp/dist/data/located-sites/located-sites.csv');
-  copyFile('data/located-sites/located-sites-TS_any.csv', 'webapp/dist/data/located-sites/located-sites-TS_any.csv');
-  
-  // Roman provinces
-  copyFile('data/roman-provinces/Spain-Late-Antique-Provinces.geojson', 'webapp/dist/data/roman-provinces/Spain-Late-Antique-Provinces.geojson');
-  copyFile('data/roman-provinces/roman-provinces.csv', 'webapp/dist/data/roman-provinces/roman-provinces.csv');
-  
-  // Site types
-  copyFile('data/site-types/site-types.csv', 'webapp/dist/data/site-types/site-types.csv');
-  
-  // Ceramic types
-  copyFile('data/ceramic-types/Datable.Ceramics.database.2025.xlsx', 'webapp/dist/data/ceramic-types/Datable.Ceramics.database.2025.xlsx');
-  copyFile('data/ceramic-types/Specific.ceramics.all.sites.2025.xlsx', 'webapp/dist/data/ceramic-types/Specific.ceramics.all.sites.2025.xlsx');
-  
-  // Create index.html
-  createIndexHtml();
-  
-  console.log('Build completed successfully');
-}
-
-// Execute build
-build();
+console.log("Build completed successfully!");

@@ -1,0 +1,42 @@
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX for: <https://dkglab.github.io/ns/for/>
+PREFIX fx: <http://sparql.xyz/facade-x/ns/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX xyz: <http://sparql.xyz/facade-x/data/>
+
+CONSTRUCT {
+  ?region a geo:Feature ;
+    skos:prefLabel ?region_name ;
+    #geo:hasGeometry [ geo:asWKT ?wktLiteral ] ;
+    .
+  #We can just model each region as a geo:Feature with skos:prefLabel and geo:hasGeometry properties.
+  
+  for:analytic-regions a geo:FeatureCollection ;
+    rdfs:member ?region ;
+    dcterms:title "Analytic regions" ;
+    .
+} 
+WHERE {
+  SERVICE <x-sparql-anything:location=data/analytic-regions/analytic-regions.csv> {
+    fx:properties fx:csv.headers "true" .
+
+    ?row 
+      xyz:value ?region_name ;
+      . 
+
+    BIND(REPLACE(LCASE(?region_name), "[^a-z0-9]", "-") AS ?id)
+    BIND(fx:entity(for:, "analytic-region/", ?id) AS ?region)
+  }
+  # SERVICE <x-sparql-anything:location=data/analytic-regions/analytic-regions-mygeodata.wkt.json> {
+  #   fx:properties
+  #     fx:media-type "application/json" .
+      
+  #   ?feature xyz:properties/xyz:region_name ?region_name ;
+  #            xyz:geometry ?wktLiteralString .
+
+  #   BIND(STRDT(?wktLiteralString, geo:wktLiteral) AS ?wktLiteral)
+  #}
+}

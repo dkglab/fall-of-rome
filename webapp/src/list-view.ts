@@ -1,26 +1,35 @@
-import init from "oxigraph/web.js"
-import GraphStore from "./graph-store"
-import LongList from "./long-list"
-import sitesQuery from "./queries/sites.rq"
+// list-view.ts
+import init from "oxigraph/web.js";
+import GraphStore from "./graph-store";
+import LongList from "./long-list";
 
 function main() {
-  ;(async function () {
-    await init("web_bg.wasm") // Required to compile the WebAssembly code.
+  (async function () {
+    await init("web_bg.wasm"); // Required to compile the WebAssembly code.
 
-    const store = new GraphStore()
-    await store.load("data.ttl")
+    // Connect to the SPARQL endpoint
+    const store = new GraphStore("http://localhost:3030/sites/query");
 
-    const items = []
-    for (const binding of store.query(sitesQuery)) {
-      items.push({
-        id: binding.get("id")!.value,
-        name: binding.get("site_name")!.value,
-      })
+    const items = [];
+    try {
+      // Load and execute the sites.rq query
+      const response = await fetch('/queries/sites.rq');
+      const sitesQuery = await response.text();
+
+      // Execute SPARQL query
+      for (const binding of await store.query(sitesQuery)) {
+        items.push({
+          id: binding.get("id")!.value,
+          name: binding.get("site_name")!.value,
+        });
+      }
+
+      const list = document.getElementById("sites-list") as LongList;
+      list.items = items;
+    } catch (error) {
+      console.error("Error fetching sites:", error);
     }
-
-    const list = document.getElementById("sites-list") as LongList
-    list.items = items
-  })()
+  })();
 }
 
-main()
+main();
