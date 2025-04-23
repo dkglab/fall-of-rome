@@ -1,5 +1,3 @@
-PREFIX xyz: <http://sparql.xyz/facade-x/data/>
-PREFIX fx: <http://sparql.xyz/facade-x/ns/>
 PREFIX for: <https://dkglab.github.io/ns/for/>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
@@ -13,20 +11,32 @@ SELECT
 (GROUP_CONCAT(DISTINCT ?town; separator=", ") AS ?towns)
 (GROUP_CONCAT(DISTINCT ?actualMuni; separator=", ") AS ?actualMunicipalities)
 (GROUP_CONCAT(DISTINCT ?siteType; separator=", ") AS ?siteTypes)
+(GROUP_CONCAT(DISTINCT ?rawCeramic; SEPARATOR=", ") AS ?rawCeramics)
+(GROUP_CONCAT(DISTINCT ?rawCeramicID; SEPARATOR=", ") AS ?rawCeramicIDs)
 (GROUP_CONCAT(DISTINCT ?artifactType; separator=", ") AS ?artifactTypes)
+(GROUP_CONCAT(DISTINCT ?artiname; separator=", ") AS ?artifactNames)
+(GROUP_CONCAT(DISTINCT ?artiID; separator=", ") AS ?artifactIDs)
+(GROUP_CONCAT(DISTINCT ?muniname; separator=", ") AS ?municipalityNames)
+(GROUP_CONCAT(DISTINCT ?muniID; separator=", ") AS ?municipalityIDs)
 WHERE {
   for:located-sites rdfs:member ?site .
 
   ?site a geo:Feature ;
     skos:prefLabel ?site_name ;
     skos:altLabel ?processed ;
-    for:rawArtifactType ?artifactType ;
     for:siteType ?siteType ;
     .
 
   BIND(STRAFTER(STR(?site), CONCAT(STR(for:site), "/")) AS ?id)
   OPTIONAL { ?site for:towns ?town .}
   OPTIONAL { ?site for:municipality ?actualMuni .}
+  OPTIONAL { ?site for:municipalityName ?muniname .}
+  OPTIONAL { ?site for:municipalityID ?muniID .}
+  OPTIONAL { ?site for:hasArtifactType ?artifactType .}
+  OPTIONAL { ?site for:hasArtifactLabel ?artiname .}
+  OPTIONAL { ?site for:hasArtifactID ?artiID .}
+  OPTIONAL { ?site for:rawArtifactType ?rawCeramic .}
+  OPTIONAL { ?site for:rawArtifactID ?rawCeramicID .}
 }
 GROUP BY ?site ?id ?site_name ?processed
 #ORDER BY LCASE(?site_name)

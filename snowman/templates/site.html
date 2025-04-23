@@ -9,8 +9,8 @@
 <div>
   <p><strong>Site Name:</strong> {{ .site_name }}</p>
   <p><strong>Alternative label: </strong>{{ .processed }}</p>
-  <p><strong>Found artifact type(s): </strong>{{ if .artifactTypes }}{{ .artifactTypes }}{{ else }}Undefined{{ end }}</p>
+  <p><strong>Found artifact type(s): </strong>{{ if .rawCeramics }}{{ .rawCeramics }}{{ else }}Undefined{{ end }}</p>
   <p><strong>Site type(s): </strong>{{ if .siteTypes }}{{ .siteTypes }}{{ else }}Undefined{{ end }}</p>
-  <p><strong>In administrative region(s): </strong>{{ if .actualMunicipalities }}{{ .actualMunicipalities }}{{ else }}Undefined{{ end }}</p>
+  <p><strong>In administrative region(s): </strong>{{ if .municipalityNames }}<a href="{{ (index (split .URL '/') 0) }}/municipalities/{{ .municipalityIDs}}.html">{{ .municipalityNames }}</a>{{ else }}Undefined{{ end }}</p>
   <p><strong>In town(s): </strong>{{ if .towns }}{{ .towns }}{{ else }}Undefined{{ end }}</p>
 {{- end }}

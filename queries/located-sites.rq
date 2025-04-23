@@ -16,10 +16,15 @@ CONSTRUCT {
     skos:altLabel ?processed ;
     geo:hasGeometry ?geo ;
     for:rawArtifactType ?mct ;
+    for:rawArtifactID ?artitype ;
     for:towns ?towns ;
     for:siteType ?siteType ;
     for:municipality ?actualMuni ;
+    for:municipalityName ?muniname ;
+    for:municipalityID ?muniID ;
     for:hasArtifactType ?ceramic ;
+    for:hasArtifactLabel ?artiname ;
+    for:hasArtifactID ?artiID ;
     .
 
   ?geo geo:asWKT ?wkt .
@@ -66,7 +71,9 @@ WHERE {
   OPTIONAL {
     SERVICE <x-sparql-anything:location=graph/municipalities.ttl> {
       ?actualMuni rdf:type geo:Feature ;
-        geo:hasGeometry ?munigeo
+        geo:hasGeometry ?munigeo;
+        rdfs:label ?muniname ;
+        dcterms:identifier ?muniID ;
         .
       ?munigeo geo:asWKT ?muniwkt .
     }
@@ -77,6 +84,8 @@ WHERE {
     SERVICE <x-sparql-anything:location=graph/ceramic-types.ttl> {
       ?ceramic a skos:Concept ;
         dcterms:identifier ?artitype ;
+        skos:prefLabel ?artiname ;
+        dcterms:identifier ?artiID ;
         .
     }
   }
