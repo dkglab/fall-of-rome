@@ -20,47 +20,23 @@ CONSTRUCT {
     rdfs:member ?region ;
     dcterms:title "Analytic regions" ;
     .
-} 
-
-WHERE {
-  # Load data from GeoJSON
-  SERVICE <x-sparql-anything:location=data/analytic-regions/analytic-regions-mygeodata.geojson> {
-    fx:properties
-      fx:media-type "application/json" .
-
-    ?feature xyz:properties/xyz:RegionName ?region_name ;
-             xyz:geometry/xyz:coordinates ?coordinates .
-
-    # OPTIONAL clause for geometry
-    OPTIONAL {
-      # Split the coordinates array into individual coordinate pairs
-      ?coordinates fx:split ?coordinatePair .
-
-      # Construct GeoJSON Polygon directly from coordinate pairs
-      {
-        SELECT ?region_name (STRDT(
-          CONCAT(
-            '{"type": "Polygon", "coordinates": [[', 
-            GROUP_CONCAT(STR(?coordinatePair); SEPARATOR=", "), 
-            ']]}'
-          ),
-          fx:geojson
-        ) AS ?geoJSONPolygon)
-        WHERE {
-          ?coordinates fx:split ?coordinatePair .
-        }
-        GROUP BY ?region_name
-      }
-      
-      # Convert GeoJSON to WKT
-      BIND(fx:geojson-to-wkt(?geoJSONPolygon) AS ?wktLiteral)
-    }
-  }
-
-  # Generate URIs for regions and their geometries
-  BIND(REPLACE(LCASE(?region_name), "[^a-z0-9]", "-") AS ?id)
-  BIND(fx:entity(for:, "analytic-region/", ?id) AS ?region)
-  BIND(fx:entity(for:, "analytic-region/", ?id, "/geometry") AS ?geometry)
 }
 
-  
+WHERE {
+  SERVICE <x-sparql-anything:location=data/analytic-regions/analytic-regions.wkt.json> {
+    fx:properties fx:media-type "application/json" .
+
+    ?feature xyz:properties/xyz:RegionName ?region_name .
+
+    # Generate URIs for regions and their geometries
+    BIND(REPLACE(LCASE(?region_name), "[^a-z0-9]", "-") AS ?id)
+    BIND(fx:entity(for:, "analytic-region/", ?id) AS ?region)
+    BIND(fx:entity(for:, "analytic-region/", ?id, "/geometry") AS ?geometry)
+
+    OPTIONAL {
+      ?feature xyz:geometry ?wktLiteralString .
+      # Set the correct datatype on our WKT string
+      BIND(STRDT(?wktLiteralString, geo:wktLiteral) AS ?wktLiteral)
+    }
+  }
+}

@@ -88,14 +88,13 @@ $(PYTHON):
 data/municipalities/combined.wkt.json: \
 	data/municipalities/portugal-municipalities.wkt.json \
 	data/municipalities/spain-municipalities-simplified.wkt.json
-	{ \
+	@{ \
 		echo "["; \
 		cat data/municipalities/portugal-municipalities.wkt.json; \
 		echo ","; \
 		cat data/municipalities/spain-municipalities-simplified.wkt.json; \
 		echo "]"; \
 	} > $@
-	
 
 data/located-sites/input.csv: data/located-sites/located-sites.csv scripts/process-site-names.py | $(PYTHON)
 	$(call log,Cleaning up archaeological site names)
@@ -167,7 +166,7 @@ graph/municipalities.ttl: \
 	queries/count/municipalities.rq
 
 graph/analytic-regions.ttl: \
-	data/analytic-regions/analytic-regions.csv \
+	data/analytic-regions/analytic-regions.wkt.json \
 	queries/analytic-regions.rq \
 	queries/count/analytic-regions.rq
 
