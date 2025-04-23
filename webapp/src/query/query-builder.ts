@@ -25,4 +25,44 @@ export namespace QueryBuilder {
             ?geo geo:asWKT ?wkt .
             `)
     }
+
+    export function buildRomanProvinces(province: string) {
+        return buildBase(`
+            for:roman-provinces rdfs:member ?province .
+
+            ?province a geo:Feature ;
+                geo:hasGeometry ?geo ;
+                dct:identifier "${province}" ;
+                .
+
+            ?geo geo:asWKT ?wkt .
+            `)
+    }
+
+    export function buildMunicipality(municipality: string) {
+        return buildBase(`
+            for:municipalities rdfs:member ?muni .
+
+            ?muni a geo:Feature ;
+                geo:hasGeometry ?geo ;
+                dct:identifier "${municipality}" ;
+                .
+
+            ?geo geo:asWKT ?wkt .
+            `)
+    }
+
+    export function buildQueryFor(type: string, value: string) {
+        switch (type) {
+            case "site-type":
+                return buildSiteType(value)
+            case "roman-province":
+                return buildRomanProvinces(value)
+            case "municipality":
+                return buildMunicipality(value)
+            default:
+                throw new Error("Not implemented");
+                
+        }
+    }
 }

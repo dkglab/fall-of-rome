@@ -8,7 +8,8 @@ const options = {
     "src/drawer.ts", 
     "src/query/create-query.ts",
     "src/query/handle-query.ts",
-    "src/query/query.ts"
+    "src/query/query.ts",
+    "src/prefix/prefix-list.ts"
   ],
   loader: { ".rq": "text" },
   outdir: "build",

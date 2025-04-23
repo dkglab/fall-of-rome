@@ -4,7 +4,7 @@ import type { Feature } from "geojson";
 import { parse } from "wellknown";
 import type TileMap from "../tile-map";
 import type { GeoJSONSource } from "maplibre-gl";
-import { getPrefixesAsRDF } from "../prefixes/prefix";
+import { getPrefixesAsRDF } from "../prefix/prefix";
 
 export namespace QueryHandler {
     let _graphstore: Promise<GraphStore> | undefined = undefined

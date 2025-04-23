@@ -15,16 +15,15 @@ function main() {
     await store.load("/data.ttl")
 
     const url = new URL(window.location.href)
-    const query = url.searchParams
+    const params = url.searchParams
     let currQueryCount = -1
-    if (query.size == 0) {
+    if (params.size == 0) {
       await loadLocatedSites(store)
     } else {
-      if (query.has("site-type")) {
-        const siteType = query.get("site-type")!
+      for (const [type, value] of params) {
         // Hijack query event to display a custom query
         QueryHandler.handleQueryEvent(
-          QueryBuilder.buildSiteType(siteType),
+          QueryBuilder.buildQueryFor(type, value),
           currQueryCount
         )
         currQueryCount--
