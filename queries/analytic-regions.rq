@@ -5,39 +5,62 @@ PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX xyz: <http://sparql.xyz/facade-x/data/>
 
 CONSTRUCT {
   ?region a geo:Feature ;
     skos:prefLabel ?region_name ;
-      geo:hasGeometry ?geometry ;
+    geo:hasGeometry ?geometry ;
     .
 
   ?geometry geo:asWKT ?wktLiteral .
-  #We can just model each region as a geo:Feature with skos:prefLabel and geo:hasGeometry properties.
-  
+
   for:analytic-regions a geo:FeatureCollection ;
     rdfs:member ?region ;
     dcterms:title "Analytic regions" ;
     .
 } 
+
 WHERE {
   # Load data from GeoJSON
   SERVICE <x-sparql-anything:location=data/analytic-regions/analytic-regions-mygeodata.geojson> {
     fx:properties
       fx:media-type "application/json" .
 
-    ?feature xyz:properties/xyz:RegionName ?region_name .
-
-    # Generate URIs for regions and their geometries
-    BIND(REPLACE(LCASE(?region_name), "[^a-z0-9]", "-") AS ?id)
-    BIND(fx:entity(for:, "analytic-region/", ?id) AS ?region)
-    BIND(fx:entity(for:, "analytic-region/", ?id, "/geometry") AS ?geometry)
+    ?feature xyz:properties/xyz:RegionName ?region_name ;
+             xyz:geometry/xyz:coordinates ?coordinates .
 
     # OPTIONAL clause for geometry
     OPTIONAL {
-      ?feature xyz:geometry ?wktLiteralString .
-      BIND(STRDT(?wktLiteralString, geo:wktLiteral) AS ?wktLiteral)
+      # Split the coordinates array into individual coordinate pairs
+      ?coordinates fx:split ?coordinatePair .
+
+      # Construct GeoJSON Polygon directly from coordinate pairs
+      {
+        SELECT ?region_name (STRDT(
+          CONCAT(
+            '{"type": "Polygon", "coordinates": [[', 
+            GROUP_CONCAT(STR(?coordinatePair); SEPARATOR=", "), 
+            ']]}'
+          ),
+          fx:geojson
+        ) AS ?geoJSONPolygon)
+        WHERE {
+          ?coordinates fx:split ?coordinatePair .
+        }
+        GROUP BY ?region_name
+      }
+      
+      # Convert GeoJSON to WKT
+      BIND(fx:geojson-to-wkt(?geoJSONPolygon) AS ?wktLiteral)
     }
   }
+
+  # Generate URIs for regions and their geometries
+  BIND(REPLACE(LCASE(?region_name), "[^a-z0-9]", "-") AS ?id)
+  BIND(fx:entity(for:, "analytic-region/", ?id) AS ?region)
+  BIND(fx:entity(for:, "analytic-region/", ?id, "/geometry") AS ?geometry)
 }
+
+  
