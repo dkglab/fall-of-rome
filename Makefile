@@ -170,6 +170,7 @@ graph/located-sites.ttl: \
 	data/located-sites/input.csv \
 	graph/site-types.ttl \
 	graph/municipalities.ttl \
+	graph/ceramic-types.ttl \
 	queries/located-sites.rq \
 	queries/count/located-sites.rq
 
