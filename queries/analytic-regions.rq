@@ -10,8 +10,10 @@ PREFIX xyz: <http://sparql.xyz/facade-x/data/>
 CONSTRUCT {
   ?region a geo:Feature ;
     skos:prefLabel ?region_name ;
-    #geo:hasGeometry [ geo:asWKT ?wktLiteral ] ;
+      geo:hasGeometry ?geometry ;
     .
+
+  ?geometry geo:asWKT ?wktLiteral .
   #We can just model each region as a geo:Feature with skos:prefLabel and geo:hasGeometry properties.
   
   for:analytic-regions a geo:FeatureCollection ;
@@ -20,23 +22,22 @@ CONSTRUCT {
     .
 } 
 WHERE {
-  SERVICE <x-sparql-anything:location=data/analytic-regions/analytic-regions.csv> {
-    fx:properties fx:csv.headers "true" .
+  # Load data from GeoJSON
+  SERVICE <x-sparql-anything:location=data/analytic-regions/analytic-regions-mygeodata.geojson> {
+    fx:properties
+      fx:media-type "application/json" .
 
-    ?row 
-      xyz:value ?region_name ;
-      . 
+    ?feature xyz:properties/xyz:RegionName ?region_name .
 
+    # Generate URIs for regions and their geometries
     BIND(REPLACE(LCASE(?region_name), "[^a-z0-9]", "-") AS ?id)
     BIND(fx:entity(for:, "analytic-region/", ?id) AS ?region)
-  }
-  # SERVICE <x-sparql-anything:location=data/analytic-regions/analytic-regions-mygeodata.wkt.json> {
-  #   fx:properties
-  #     fx:media-type "application/json" .
-      
-  #   ?feature xyz:properties/xyz:region_name ?region_name ;
-  #            xyz:geometry ?wktLiteralString .
+    BIND(fx:entity(for:, "analytic-region/", ?id, "/geometry") AS ?geometry)
 
-  #   BIND(STRDT(?wktLiteralString, geo:wktLiteral) AS ?wktLiteral)
-  #}
+    # OPTIONAL clause for geometry
+    OPTIONAL {
+      ?feature xyz:geometry ?wktLiteralString .
+      BIND(STRDT(?wktLiteralString, geo:wktLiteral) AS ?wktLiteral)
+    }
+  }
 }

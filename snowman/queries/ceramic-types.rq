@@ -8,30 +8,49 @@ PREFIX wiki: <https://www.wikidata.org/entity/>
 PREFIX ple: <https://pleiades.stoa.org/vocabularies/place-types/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-
-# SELECT ?uri ?ceramic_type ?id WHERE {
-SELECT ?uri ?ceramic_type ?id ?wiki_entity ?form_type ?start_date ?end_date ?suggested_dating ?ARSGroup ?ARSGroup2 ?ARSImportHorizon ?ARSImportHorizon2 ?numid ?broader_id WHERE {
+SELECT
   ?uri
-    rdf:type skos:Concept ;
-    skos:inScheme kos:ceramic-types ;
-    dcterms:identifier ?id ;
-    skos:prefLabel ?ceramic_type .
-    BIND(xsd:integer(REPLACE(?id, "^[^0-9]*([0-9]+)[a-zA-Z]?.*$", "$1")) AS ?mainNum)
-    BIND(REPLACE(?id, "^.*?[0-9]+([a-zA-Z]?).*$", "$1") AS ?suffix)
+  ?ceramic_type
+  ?id
+  ?wiki_entity
+  ?form_type
+  # ?start_date
+  # ?end_date
+  ?suggested_dating
+  (GROUP_CONCAT(DISTINCT STR(?broaderURI); separator=" | ") AS ?broader_URIs)
+  (GROUP_CONCAT(DISTINCT STR(?broaderIdentifier); separator=" | ") AS ?broaderIdentifiers)
+  (GROUP_CONCAT(DISTINCT STR(?broaderLabel); separator=" | ") AS ?broaderLabels)
+  (GROUP_CONCAT(DISTINCT STR(?narrowerURI); separator=" | ") AS ?narrower_URIs)
+  (GROUP_CONCAT(DISTINCT STR(?narrowerIdentifier); separator=" | ") AS ?narrowerIdentifiers)
+  (GROUP_CONCAT(DISTINCT STR(?narrowerLabel); separator=" | ") AS ?narrowerLabels)
+WHERE {
+  ?uri rdf:type skos:Concept ;
+       skos:inScheme kos:ceramic-types ;
+       dcterms:identifier ?id ;
+       skos:prefLabel ?ceramic_type .
 
+  BIND(xsd:integer(REPLACE(?id, "^[^0-9]*([0-9]+)[a-zA-Z]?.*$", "$1")) AS ?mainNum) #used for correct ordering
+  BIND(REPLACE(?id, "^.*?[0-9]+([a-zA-Z]?).*$", "$1") AS ?suffix) #used for correct ordering
 
-    OPTIONAL { ?uri skos:exactMatch ?wiki_entity . }
-    OPTIONAL { ?uri skos:definition ?form_type . }
-    OPTIONAL { ?uri dcterms:temporal ?start_date . }
-    OPTIONAL { ?uri dcterms:temporal ?end_date . }
-    OPTIONAL { ?uri skos:note ?suggested_dating . }
-    OPTIONAL { ?uri kos:ARSGroup ?ARSGroup . }
-    OPTIONAL { ?uri kos:ARSGroup2 ?ARSGroup2 . }
-    OPTIONAL { ?uri kos:ARSImportHorizon ?ARSImportHorizon . }
-    OPTIONAL { ?uri kos:ARSImportHorizon2 ?ARSImportHorizon . }
-    OPTIONAL { 
-      ?uri skos:broader ?broaderUri .
-      BIND(REPLACE(STR(?broaderUri), "^.*/([^/]+)$", "$1") AS ?broader_id)
-    }
+  OPTIONAL { ?uri skos:exactMatch ?wiki_entity . }
+  OPTIONAL { ?uri skos:definition ?form_type . }
+  OPTIONAL { ?uri kos:suggestedDating ?suggested_dating . }
+  # OPTIONAL { ?uri dcterms:temporal ?start_date . }
+  # OPTIONAL { ?uri dcterms:temporal ?end_date . }
+  OPTIONAL {
+    ?broaderURI
+      skos:narrower ?uri ;
+      dcterms:identifier ?broaderIdentifier ;
+      skos:prefLabel ?broaderLabel .
+  }
+  OPTIONAL {
+    ?narrowerURI
+      skos:broader ?uri ;
+      dcterms:identifier ?narrowerIdentifier ;
+      skos:prefLabel ?narrowerLabel .
+  }
 }
-ORDER BY (?mainNum) (?suffix)
+#GROUP BY ?uri ?ceramic_type ?id ?wiki_entity ?form_type ?start_date ?end_date ?suggested_dating ?mainNum ?suffix
+GROUP BY ?uri ?ceramic_type ?id ?wiki_entity ?form_type ?suggested_dating ?mainNum ?suffix
+
+ORDER BY ?mainNum ?suffix

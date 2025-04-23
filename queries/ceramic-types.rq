@@ -17,7 +17,7 @@ CONSTRUCT {
         dcterms:temporal ?startDate, ?endDate ;
         skos:broader ?broaderForm ;
         skos:definition ?type_ARS ;
-        skos:note ?suggestedDating ;
+        kos:suggestedDating ?suggestedDating ;
         skos:broader ?ARSGroup ;
         skos:broader ?ARSGroup2 ;
         skos:broader ?importHorizon ;
@@ -28,8 +28,12 @@ CONSTRUCT {
     a skos:ConceptScheme ;
     dcterms:title "Ceramic Types Concept Scheme" .
 
+
   ?importHorizon skos:narrower ?ceramicType .
   ?importHorizon2 skos:narrower ?ceramicType .
+
+  ?ARSGroup skos:narrower ?ceramicType .
+  ?ARSGroup2 skos:narrower ?ceramicType .
 }
 WHERE {
   SERVICE <x-sparql-anything:location=data/ceramic-types/hayes-ars-types.csv> {
