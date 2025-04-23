@@ -1,0 +1,41 @@
+PREFIX xyz: <http://sparql.xyz/facade-x/data/>
+PREFIX fx: <http://sparql.xyz/facade-x/ns/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX for: <https://dkglab.github.io/ns/for/>
+PREFIX kos: <https://dkglab.github.io/ns/for/kos/>
+
+CONSTRUCT {
+  ?importHorizon a skos:Concept ;
+        skos:inScheme kos:import-horizons ;
+        skos:prefLabel ?prefLabel ;
+        dcterms:identifier ?id ;
+        skos:definition ?type ;
+        .
+
+  kos:import-horizons
+    a skos:ConceptScheme ;
+    dcterms:title "Import Horizons Concept Scheme" .
+}
+WHERE {
+  SERVICE <x-sparql-anything:location=data/import-horizons/import-horizons.csv> {
+    fx:properties
+      fx:trim-strings true ;
+      fx:csv.headers true ;
+      fx:csv.null-string  "" ;
+      .
+
+    ?row 
+      xyz:ID ?id ;
+      xyz:prefLabel ?prefLabel ;
+      .
+
+    BIND(fx:entity(for:, "import-horizon/", ?id) as ?importHorizon)
+
+    OPTIONAL {
+      ?row xyz:Type ?type
+    }
+  }
+}
+

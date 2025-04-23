@@ -11,7 +11,7 @@ PIP := ./venv/bin/python -m pip
 
 QUERY ?= queries/select/features-within-bbox.rq
 
-GRAPHS := site-types ceramic-types roman-provinces municipalities analytic-regions located-sites
+GRAPHS := site-types ceramic-types import-horizons roman-provinces municipalities analytic-regions located-sites
 GRAPH_FILES := $(foreach g,$(GRAPHS),graph/$(g).ttl)
 
 STATIC := list-view.js map-view.js maplibre-gl.css web_bg.wasm
@@ -148,6 +148,11 @@ graph/ceramic-types.ttl: \
 	data/ceramic-types/hayes-ars-types.csv \
 	queries/ceramic-types.rq \
 	queries/count/ceramic-types.rq
+
+graph/import-horizons.ttl: \
+	data/import-horizons/import-horizons.csv \
+	queries/import-horizons.rq \
+	queries/count/import-horizons.rq
 
 graph/roman-provinces.ttl: \
 	data/roman-provinces/roman-provinces.csv \

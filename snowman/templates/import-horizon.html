@@ -1,0 +1,12 @@
+{{ template "base" . }}
+
+{{ define "title" }}{{ .ceramic_type }}{{ end }}
+
+{{ define "content" -}}
+<header>
+  <h1>{{ .import_horizon }}</h1>
+</header>
+<div>
+#to-do: add all forms that belong to this horizon once graph has been updated
+</div>
+{{- end }}
