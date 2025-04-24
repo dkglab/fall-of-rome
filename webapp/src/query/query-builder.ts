@@ -45,7 +45,7 @@ export namespace QueryBuilder {
 
             ?muni a geo:Feature ;
                 geo:hasGeometry ?geo ;
-                dct:identifier "${municipality}" ;
+                rdfs:label "${municipality}" ;
                 .
 
             ?geo geo:asWKT ?wkt .
