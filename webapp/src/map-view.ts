@@ -20,6 +20,16 @@ function main() {
     if (params.size == 0) {
       await loadLocatedSites(store)
     } else {
+      if (params.get("intersect") == "true") {
+        let filters = Array.from(params.entries()).filter(([key, _]) => key != "intersect")
+          .map(([filter_type, filter_value]) => ({type: filter_type, value: filter_value} as QueryBuilder.IFilter))
+        let query = QueryBuilder.buildFilteredQuery(filters)
+        QueryHandler.handleQueryEvent(
+          query,
+          -1
+        )
+        return
+      }
       for (const [type, value] of params) {
         // Hijack query event to display a custom query
         QueryHandler.handleQueryEvent(
