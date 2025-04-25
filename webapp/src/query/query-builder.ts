@@ -62,6 +62,20 @@ export namespace QueryBuilder {
             `)
     }
 
+    function buildAnalyticRegion(region: string) {
+        return buildBase(`
+            for:analytic-regions a geo:FeatureCollection ;
+                rdfs:member ?reg ;
+                .
+
+            ?reg a geo:Feature ;
+                skos:prefLabel "${region}" ;
+                geo:hasGeometry ?reggeo ;
+                .
+            ?reggeo geo:asWKT ?wkt .
+            `)
+    }
+
     export function buildQueryFor(type: string, value: string) {
         switch (type) {
             case "site-type":
@@ -70,6 +84,8 @@ export namespace QueryBuilder {
                 return buildRomanProvinces(value)
             case "municipality":
                 return buildMunicipality(value)
+            case "analytic-region":
+                return buildAnalyticRegion(value)
             default:
                 throw new Error("Not implemented");
                 
