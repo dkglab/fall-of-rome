@@ -101,7 +101,7 @@ export namespace QueryBuilder {
     }
 
     export interface IFilter {
-        type: "site-type" | "roman-province" | "municipality",
+        type: "site-type" | "roman-province" | "municipality" | "analytic-region",
         value: string
     }
 
@@ -112,8 +112,6 @@ export namespace QueryBuilder {
                 ?site_type rdf:type skos:Concept ;
                     dct:identifier "${filter.value}"
                     .
-                
-                for:located-sites rdfs:member ?site .
 
                 ?site for:siteType ?site_type .
                 `
@@ -141,6 +139,19 @@ export namespace QueryBuilder {
                 ?muni_geo geo:asWKT ?muni_wkt .
 
                 FILTER(geof:sfWithin(?wkt, ?muni_wkt))
+                `
+            case "analytic-region":
+                return `
+                for:analytic-regions rdfs:member ?reg .
+
+                ?reg a geo:Feature ;
+                    geo:hasGeometry ?reg_geo ;
+                    skos:prefLabel "${filter.value}" ;
+                    .
+
+                ?reg_geo geo:asWKT ?reg_wkt .
+
+                FILTER(geof:sfWithin(?wkt, ?reg_wkt))
                 `
             default:
                 throw new Error("No type specified");
