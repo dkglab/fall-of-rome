@@ -17,7 +17,7 @@ GRAPH_FILES := $(foreach g,$(GRAPHS),graph/$(g).ttl)
 STATIC := list-view.js map-view.js maplibre-gl.css web_bg.wasm
 STATIC_FILES := $(foreach s,$(STATIC),snowman/static/$(s))
 
-.PHONY: all graph setup run-query build-snowman serve-site serve-kos restart-geosparql-server clean superclean
+.PHONY: all graph setup run-query build-snowman serve-site serve-kos restart-geosparql-server clean superclean $(STATIC_FILES)
 
 define green
 \033[0;32m$(1)\033[0m
@@ -204,3 +204,8 @@ build-snowman: all | $(SM)
 serve-site: build-snowman
 	$(call log,Serving website)
 	@$(MAKE) -s -C snowman serve
+
+dev-webapp:
+	@$(MAKE) -s -C webapp clean
+	$(call log,Cleaned website)
+	@$(MAKE) serve-site
