@@ -19,7 +19,7 @@ export namespace QueryBuilder {
         return BASE_START + innards + BASE_END
     }
 
-    export function buildSiteType(type: string) {
+    function buildSiteType(type: string) {
         return buildBase(`
             ?site_type rdf:type skos:Concept ;
                 dct:identifier "${type}"
@@ -36,7 +36,7 @@ export namespace QueryBuilder {
             `)
     }
 
-    export function buildRomanProvinces(province: string) {
+    function buildRomanProvinces(province: string) {
         return buildBase(`
             for:roman-provinces rdfs:member ?province .
 
@@ -49,7 +49,7 @@ export namespace QueryBuilder {
             `)
     }
 
-    export function buildMunicipality(municipality: string) {
+    function buildMunicipality(municipality: string) {
         return buildBase(`
             for:municipalities rdfs:member ?muni .
 
