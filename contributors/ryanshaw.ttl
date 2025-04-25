@@ -1,0 +1,11 @@
+PREFIX orcid: <http://orcid.org/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+orcid:0000-0002-5486-159X
+    foaf:givenName "Ryan" ;
+    foaf:familyName "Shaw" ;
+    foaf:mbox <mailto:ryanshaw@unc.edu> ;
+    foaf:homepage <https://aeshin.org> ;
+    foaf:workplaceHomepage <https://sils.unc.edu> ;
+    foaf:workInfoHomepage <https://sils.unc.edu/people/ryan-shaw> ;
+    .
