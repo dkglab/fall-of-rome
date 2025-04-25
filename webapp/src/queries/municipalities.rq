@@ -1,4 +1,4 @@
-PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX for:     <https://dkglab.github.io/ns/for/>
 PREFIX geo:     <http://www.opengis.net/ont/geosparql#>
 PREFIX pno:     <http://linked.data.gov.au/def/placenames/>
@@ -8,11 +8,11 @@ PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 SELECT
 ?id
 ?municipality_label
-?wktLiteral
+?wkt
 WHERE {
   ?municipality a pno:Place ;
-                dcterms:identifier ?id ;
+                dct:identifier ?id ;
                 rdfs:label ?municipality_label ;
-                geo:hasGeometry [ geo:asWKT ?wktLiteral ] .
+                geo:hasGeometry [ geo:asWKT ?wkt ] .
 }
 ORDER BY ?municipality_label

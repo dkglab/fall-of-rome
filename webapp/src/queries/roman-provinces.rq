@@ -2,22 +2,18 @@ PREFIX for: <https://dkglab.github.io/ns/for/>
 PREFIX kos: <https://dkglab.github.io/ns/for/kos/>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX pno: <http://linked.data.gov.au/def/placenames/>
 
 SELECT 
 ?id 
-?provincia_label 
-?wktLiteral
+?wkt
 WHERE {
   ?provincia a pno:Place ;
-    dcterms:identifier ?id ;
-    rdfs:label ?provincia_label ;
-    a geo:Feature ;
-    geo:hasGeometry [ geo:asWKT ?wktLiteral ] .
+    dct:identifier ?id ;
+    geo:hasGeometry [ geo:asWKT ?wkt ] .
 for:roman-provinces rdfs:member ?provincia .
   
 }
-ORDER BY ?provincia_label
