@@ -8,6 +8,7 @@ const prefixes: Map<string, string> = new Map(Object.entries({
     rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     geof: "http://www.opengis.net/def/function/geosparql/",
     pno: "http://linked.data.gov.au/def/placenames/",
+    uom: "http://www.opengis.net/def/uom/OGC/1.0/",
 }))
 
 const getPrefixesAsRDF = () => {
