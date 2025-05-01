@@ -1,7 +1,7 @@
 PREFIX orcid: <http://orcid.org/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 
-orcid:0000-0002-5486-159X
+orcid:0009-0004-8348-7746
     foaf:givenName "Xuehan" ;
     foaf:familyName "Wang" ;
     foaf:mbox <mailto:wangxuehan116@gmail.com> ;
