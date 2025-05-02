@@ -1,0 +1,10 @@
+PREFIX orcid: <http://orcid.org/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+orcid:https://carolinepate.com/#me
+    foaf:givenName "Caroline" ;
+    foaf:familyName "Pate" ;
+    foaf:mbox <mailto:cmpate13@gmail.com> ;
+    foaf:homepage <https://carolinepate.com/> ;
+    foaf:workplaceHomepage <https://sils.unc.edu> ;
+    .
