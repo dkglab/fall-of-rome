@@ -6,5 +6,5 @@ orcid:0009-0004-8348-7746
     foaf:familyName "Wang" ;
     foaf:mbox <mailto:wangxuehan116@gmail.com> ;
     foaf:homepage <https://orcid.org/0009-0004-8348-7746> ;
-    foaf:workplaceHomepage <https://sils.unc.edu> ;
+    foaf:schoolHomepage <https://sils.unc.edu> ;
     .
