@@ -1,12 +1,23 @@
 {{ template "base" . }}
 
-{{ define "title" }}{{ .ceramic_type }}{{ end }}
+{{ define "title" }}{{ .import_horizon }}{{ end }}
 
 {{ define "content" -}}
 <header>
   <h1>{{ .import_horizon }}</h1>
 </header>
 <div>
-#to-do: add all forms that belong to this horizon once graph has been updated
+  {{ if .narrower_URIs }}
+  <p><strong>Contains:</strong></p>
+  <ul>
+    {{ range $index, $narrower := split .narrower_URIs "|" }}
+      {{ $narrower_id := (index (split $.narrowerIdentifiers "|") $index) }}
+      {{ $narrower_label := (index (split $.narrowerLabels "|") $index) }}
+      <li>
+        <a href="../ceramic-types/{{ trim $narrower_id }}.html">{{ trim $narrower_label }}</a>
+      </li>
+    {{ end }}
+  </ul>
+{{ end }}
 </div>
 {{- end }}

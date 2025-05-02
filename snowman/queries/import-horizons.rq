@@ -8,13 +8,27 @@ PREFIX wiki: <https://www.wikidata.org/entity/>
 PREFIX ple: <https://pleiades.stoa.org/vocabularies/place-types/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT ?uri ?import_horizon ?id 
+SELECT 
+?uri 
+?import_horizon 
+?id
+(GROUP_CONCAT(DISTINCT STR(?narrowerURI); separator=" | ") AS ?narrower_URIs)
+(GROUP_CONCAT(DISTINCT STR(?narrowerIdentifier); separator=" | ") AS ?narrowerIdentifiers)
+(GROUP_CONCAT(DISTINCT STR(?narrowerLabel); separator=" | ") AS ?narrowerLabels)
+(GROUP_CONCAT(DISTINCT STR(?id); separator=" | ") AS ?import_horizon_ids)
 WHERE {
   ?uri
     rdf:type skos:Concept ;
     skos:inScheme kos:import-horizons ;
     dcterms:identifier ?id ;
     skos:prefLabel ?import_horizon .
+    
+    OPTIONAL {
+      ?narrowerURI
+        skos:broader ?uri ;
+        dcterms:identifier ?narrowerIdentifier ;
+        skos:prefLabel ?narrowerLabel .
+      }
     }
-
+GROUP BY ?uri ?import_horizon ?id
 ORDER BY (?id)
