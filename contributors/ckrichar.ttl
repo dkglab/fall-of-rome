@@ -1,0 +1,9 @@
+PREFIX orcid: <http://orcid.org/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+orcid:0009-0004-7056-6891
+    foaf:givenName "Cole" ;
+    foaf:familyName "Richard" ;
+    foaf:mbox <mailto:ckrichar@unc.edu> ;
+    foaf:workplaceHomepage <https://sils.unc.edu> ;
+    .
